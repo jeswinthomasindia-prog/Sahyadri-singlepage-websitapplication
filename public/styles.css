@@ -34,9 +34,9 @@ section { padding: 70px 0; }
 .card-content p { margin:0; color:var(--muted); font-size:0.95rem; }
 .card-link { display:block; text-decoration:none; color:inherit; }
 .card-link:hover .card { transform: translateY(-4px); box-shadow:0 16px 32px rgba(0,0,0,.18); transition:all .25s ease; }
-.carousel-wrap{position:relative; overflow:hidden;}
+.carousel-wrap{position:relative; overflow:hidden !important; }
 .carousel-track{display:flex; transition:transform .5s ease; gap:16px; padding-bottom:8px;}
-.carousel-item{min-width:calc(100%/1.03); flex:0 0 auto;}
+.carousel-item{min-width:calc(100%/1.03); flex:0 0 auto;width: 90vw;}
 .carousel-item-inner{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:0 10px 20px rgba(0,0,0,.13);}
 .carousel-item-inner p{color:#444;line-height:1.5;margin:0 0 10px;font-size:0.96rem;}
 .carousel-item-inner .person{font-weight:700;color:var(--primary);}
