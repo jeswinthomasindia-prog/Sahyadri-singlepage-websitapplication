@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahyadri Consultants | Kannur</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="#" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="logo.svg" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Hero with image background">
+    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1950&q=80" alt="Stunning modern building architecture" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="box">
+        <h2>30 Years of Excellence in Civil & Construction Consultancy</h2>
+        <p>Based in Kannur, Kerala. 100+ successful projects delivering quality, innovation, and timely completion.</p>
+        <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'});">See Our Work</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="container">
+    <div class="section-title"><h3>Our Projects</h3></div>
+    <div class="carousel-wrap" id="projectCarousel">
+      <div class="carousel-track" id="projectTrack">
+        <div class="carousel-item">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Facade of modern commercial complex" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Commercial+Project'" />
+            <div class="card-content"><h4>Green Valley Apartments, Thiruvananthapuram</h4><p>Modern residential complex featuring 120 units with sustainable design, rainwater harvesting, and community spaces for families in the capital city.</p></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Facade of modern commercial complex" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Commercial+Project'" />
+            <div class="card-content"><h4>St Johns HSS, Mavellikara</h4><p>Comprehensive high school expansion with modern classrooms, science laboratories, sports facilities, and digital learning infrastructure for 800+ students.</p></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="card">
+           <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Facade of modern commercial complex" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Commercial+Project'" />
+            <div class="card-content"><h4>Bharath Matha Nursing College, Ernakulam</h4><p>State-of-the-art nursing education facility with advanced simulation labs, clinical training wards, hostel accommodations, and modern infrastructure for 300 nursing students.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="control-btn" data-target="projects" data-direction="prev" aria-label="Previous project">◀</button>
+        <button class="control-btn" data-target="projects" data-direction="next" aria-label="Next project">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="container">
+    <div class="section-title"><h3>About Us</h3></div>
+    <div class="stats">
+      <div class="stat"><h4>30+</h4><span>Years Experience</span></div>
+      <div class="stat"><h4>100+</h4><span>Projects Completed</span></div>
+      <div class="stat"><h4>200+</h4><span>Happy Clients</span></div>
+    </div>
+    <div style="margin-top:22px; display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:18px; align-items:center; background:#fff; border-radius:var(--radius); padding:20px; box-shadow:0 10px 20px rgba(0,0,0,.08);">
+      <div>
+        <p>Sahyadri Consultants is a Kannur-based civil engineering and interior designing consultancy delivering high quality projects across residential, commercial, industrial and institutional categories. With 30 years of experience, we combine technical expertise with local knowledge to provide complete design, project management and execution support. Our team is committed to safety, sustainability and on-time delivery.</p>
+        <p>Our team follows the latest industry practices in engineering design, quality assurance and project monitoring. We put our clients first with open communication, transparent estimates, and an on-site team that ensures project milestones are met. Our expertise has helped construct landmark buildings in Kerala with precision and environmental responsibility.</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Facade of modern commercial complex" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Commercial+Project'" />
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="container">
+    <div class="section-title"><h3>Testimonials</h3></div>
+    <div class="carousel-wrap" id="testiCarousel">
+      <div class="carousel-track" id="testiTrack">
+        <div class="carousel-item">
+          <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Ramesh profile" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--accent);" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.png?text=User'" />
+            <p class="quote">"Sahyadri Consultants transformed our campus with excellent planning and timely execution. We are thrilled with the end result."</p>
+            <div class="person">Ramesh<br><small>Kannur, Kannur District</small></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" alt="Anoop profile" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--accent);" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.png?text=User'" />
+            <p class="quote">"Professional team, strong attention to detail and clear communication at each stage. Highly recommended."</p>
+            <div class="person">Rekha<br><small>Thalassery, Kannur District</small></div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80" alt="Anoop profile" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--accent);" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.png?text=User'" />
+            <p class="quote">"30 years of trust — 100+ projects. They delivered exactly what they promised."</p>
+            <div class="person">Anoop<br><small>Kozhikode, Kozhikode District</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-controls">
+        <button class="control-btn" data-target="testimonials" data-direction="prev" aria-label="Previous testimonial">◀</button>
+        <button class="control-btn" data-target="testimonials" data-direction="next" aria-label="Next testimonial">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: info@sahyadriconsultants.in</p><p>Phone: +91 99999 99999</p></div>
+      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span>© 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span>Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
