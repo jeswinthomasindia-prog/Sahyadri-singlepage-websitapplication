@@ -27,7 +27,7 @@ section { padding: 70px 0; }
 .section-title { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
 .section-title h3 { margin:0; font-size: clamp(1.32rem, 2.1vw, 2rem); color: var(--primary);}    
 .card-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
-.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14);}
+.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14);width: 90vw;}
 .card img { width:100%; height:180px; object-fit:cover; }
 .card-content { padding:16px; }
 .card-content h4 { margin:0 0 8px; }
@@ -83,6 +83,8 @@ footer a:hover{color:#fff;}
   .hero-content h2 { font-size: 2rem; }
   .hero-content p { font-size: 1rem; }
   .hero-content .btn { width: 100%; }
+  #projectCarousel { overflow: visible; }
+  #projectCarousel .carousel-item { min-width: 70%; }
   .about-content-grid { grid-template-columns: 1fr; padding:16px; }
   .project-detail { padding:18px; }
   .project-detail img { max-height:260px; }
