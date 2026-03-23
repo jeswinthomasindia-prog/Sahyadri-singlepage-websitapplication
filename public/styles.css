@@ -15,6 +15,17 @@ header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9
 .brand img { width: 42px; height: 42px; object-fit: cover; border-radius: 8px; }
 .brand h1 { margin: 0; font-size: 1.25rem; color: var(--primary); }
 .nav a { color: var(--text); text-decoration: none; margin-left: 20px; font-weight: 600; }
+.nav .assistant-nav-link {
+  background: linear-gradient(135deg, #2f6df6 0%, #6a5df6 30%, #00a7ff 58%, #14c7b7 80%, #58d26f 100%);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(48, 88, 200, 0.28);
+}
+.nav .assistant-nav-link:hover {
+  color: #fff;
+  filter: saturate(1.08);
+}
 .hero { position: relative; height: clamp(420px, 60vh, 720px); overflow: hidden; background:#000; }
 .hero video, .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.72)); }
@@ -23,6 +34,34 @@ header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9
 .hero-content h2 { font-size: clamp(1.8rem, 5vw, 3.3rem); margin:0; letter-spacing:0.03em; }
 .hero-content p { margin: 16px 0 24px; font-size:clamp(1rem, 2.1vw, 1.25rem); color:#eee; }
 .hero-content .btn { background: var(--accent); color:#fff; border:none; border-radius:8px; padding:14px 24px; font-weight:700; cursor:pointer; box-shadow: 0 8px 18px rgba(0,0,0,.22); }
+.hero-content .mobile-assistant-btn {
+  display: none;
+  text-decoration: none;
+  background: linear-gradient(135deg, #2f6df6 0%, #6a5df6 28%, #00a7ff 56%, #14c7b7 78%, #58d26f 100%);
+  margin-top: 12px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 24px rgba(48, 88, 200, 0.34);
+}
+
+.mobile-assistant-btn .ai-btn-icon {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-assistant-btn .cute-robot-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.14));
+}
 section { padding: 70px 0; }
 .section-title { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
 .section-title h3 { margin:0; font-size: clamp(1.32rem, 2.1vw, 2rem); color: var(--primary);}    
@@ -76,6 +115,14 @@ footer a:hover{color:#fff;}
   .card img { height: 160px; }
   .topbar { height: auto; padding: 8px 0; }
   .nav { display: none; }
+  .hero-content .box .btn {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+  }
+  .hero-content .mobile-assistant-btn { display: inline-flex; }
 }
 @media (max-width: 560px) {
   .section-title { flex-direction: column; align-items:flex-start; }
