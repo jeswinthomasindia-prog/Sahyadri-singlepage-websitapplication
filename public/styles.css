@@ -91,3 +91,95 @@ footer a:hover{color:#fff;}
   .leadership-grid { display:flex; overflow-x:auto; gap:14px; padding-bottom:6px; scroll-snap-type:x mandatory; }
   .leader-card { min-width:220px; flex-shrink:0; scroll-snap-align:start; }
 }
+
+/* For WhatsApp Floating Button to show only on Phones and Tablets */
+/* Hide by default (Desktop) */
+.whatsapp-float {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+    z-index: 1000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-icon {
+    width: 35px; /* Adjust size */
+    margin-top: 12px;
+  cursor: pointer;
+}
+
+  .whatsapp-float::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid rgba(37, 211, 102, 0.45);
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% {
+      opacity: 0.55;
+      transform: scale(0.98);
+    }
+    70% {
+      opacity: 0;
+      transform: scale(1.18);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.18);
+    }
+  }
+
+/* Show only on Phones and Tablets (Screens < 1024px) */
+@media screen and (max-width: 1024px) {
+    .whatsapp-float {
+        display: block;
+      animation: whatsapp-bob 2.8s ease-in-out infinite;
+    }
+
+    .whatsapp-float::before {
+      opacity: 1;
+      animation: whatsapp-pulse 2.4s ease-out infinite;
+    }
+    
+    .whatsapp-float:active {
+      transform: scale(1.08);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+    }
+
+    .whatsapp-float:focus-visible {
+      outline: 3px solid rgba(255, 255, 255, 0.9);
+      outline-offset: 3px;
+    }
+}
+
+  @keyframes whatsapp-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-float,
+    .whatsapp-float::before {
+      animation: none !important;
+    }
+  }
