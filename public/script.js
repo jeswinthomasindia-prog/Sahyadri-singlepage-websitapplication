@@ -23,3 +23,4 @@ window.addEventListener('DOMContentLoaded', () => {
   setupCarousel('projects','projectTrack');
   setupCarousel('testimonials','testiTrack');
 });
+

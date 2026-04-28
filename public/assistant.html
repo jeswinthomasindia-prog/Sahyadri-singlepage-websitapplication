@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Talk to our Sahyadri Assistant</title>
+  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root {
@@ -199,14 +200,16 @@
     .chat-composer {
       border-top: 1px solid var(--chat-border);
       padding: 12px;
-      display: grid;
-      grid-template-columns: 1fr auto;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-end;
       gap: 10px;
       background: #ffffff;
     }
 
     .chat-composer textarea {
-      width: 100%;
+      flex: 1 1 auto;
+      min-width: 0;
       resize: none;
       border: 1px solid #c9d7e8;
       border-radius: 10px;
@@ -216,6 +219,7 @@
       outline: none;
       min-height: 46px;
       max-height: 120px;
+      color: #000;
     }
 
     .chat-composer textarea:focus {
@@ -295,28 +299,47 @@
 
     @media (max-width: 760px) {
       .assistant-page {
-        padding: 10px 0 22px;
+        padding: 10px 10px 20px;
       }
 
       .assistant-shell {
-        min-height: calc(100vh - 88px);
-        max-height: calc(100vh - 88px);
+        min-height: calc(100vh - 100px);
+        max-height: none;
         border-radius: 0;
         border-left: 0;
         border-right: 0;
       }
 
       .msg {
-        max-width: 90%;
+        max-width: 94%;
       }
 
       .assistant-head {
-        padding: 12px;
+        padding: 14px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .assistant-head h2 {
+        font-size: 1.05rem;
       }
 
       .head-actions {
         width: 100%;
-        justify-content: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .head-actions label {
+        flex: 0 0 auto;
+        margin-bottom: 0;
+      }
+
+      #modelSelect {
+        flex: 1 1 100%;
+        width: 100%;
+        min-width: 0;
       }
 
       .chat-log {
@@ -324,12 +347,20 @@
       }
 
       .chat-composer {
-        grid-template-columns: 1fr;
+        flex-wrap: nowrap;
+        align-items: flex-end;
+        padding: 10px;
+      }
+
+      .chat-composer textarea {
+        min-height: 52px;
       }
 
       .send-btn {
-        width: 52px;
-        justify-self: end;
+        width: 46px;
+        height: 46px;
+        min-height: 46px;
+        justify-self: auto;
       }
 
       .quick-replies {
@@ -342,7 +373,7 @@
   <header class="container">
     <div class="topbar">
       <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
-        <img src="logo.svg" alt="Sahyadri logo" />
+        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
         <h1>Sahyadri Consultants</h1>
       </a>
       <nav class="nav">
@@ -359,6 +390,12 @@
           <p>Ask about projects, services, timelines, and consultation details.</p>
         </div>
         <div class="head-actions">
+          <label for="modelSelect" style="font-size: 0.9rem; color: #4f6378; margin-right: 8px;">Model:</label>
+          <select id="modelSelect" style="border: 1px solid #c9d7e8; border-radius: 6px; padding: 4px 8px; font-size: 0.9rem;">
+            <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant - Fast responses, good for quick chats</option>
+            <option value="qwen/qwen3-32b">Qwen 3 32B - Advanced multilingual model</option>
+            <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile - High-performance versatile model</option>
+          </select>
           <button class="small-btn" id="clearChatBtn" type="button">Clear Chat</button>
         </div>
       </div>
@@ -368,6 +405,8 @@
       <div class="quick-replies" aria-label="Quick replies">
         <button class="chip-btn" type="button" data-quick-reply="What services do you provide at Sahyadri Consultants?">Services</button>
         <button class="chip-btn" type="button" data-quick-reply="What is the typical project timeline for residential and commercial works?">Timeline</button>
+        <button class="chip-btn" type="button" data-quick-reply="Tell me about Sahyadri Consultants,its leadership team and your history.">About Us</button>
+        <button class="chip-btn" type="button" id="letsConnectBtn">Let's Connect</button>
       </div>
 
       <form id="chatForm" class="chat-composer" autocomplete="off">
@@ -382,11 +421,77 @@
     </section>
   </main>
 
+  
   <script>
-    const GEMINI_API_KEY = "AIzaSyBW_JyFwDYDnxtmwQutDyu9LiqsV-BTFUs";
-    const DEFAULT_MODEL_NAME = "gemini-2.5-flash-lite";
-    const FALLBACK_MODELS = ["gemini-2.0-flash-001", "gemini-1.5-flash-latest", "gemini-1.5-flash"];
-    const API_VERSION_CANDIDATES = ["v1", "v1beta"];
+    // Load API keys from cred.env file
+    async function loadApiKeys() {
+      try {
+        console.log('🔍 Loading API keys from cred.env file...');
+        
+        const response = await fetch('./cred.env');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const envText = await response.text();
+        console.log('📄 Successfully loaded cred.env content');
+        
+        // Parse the environment file
+        const env = {};
+        const lines = envText.split('\n');
+        
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+          if (trimmedLine && !trimmedLine.startsWith('#')) {
+            const [key, ...valueParts] = trimmedLine.split('=');
+            if (key && valueParts.length > 0) {
+              env[key.trim()] = valueParts.join('=').trim();
+            }
+          }
+        }
+        
+        console.log('📝 Parsed environment variables:', Object.keys(env));
+        
+        if (!env.GROQ_API_KEY || env.GROQ_API_KEY === "YOUR_GROQ_API_KEY_HERE") {
+          throw new Error("GROQ_API_KEY not found or not configured in cred.env file");
+        }
+        
+        console.log('✅ Found API key:', env.GROQ_API_KEY.substring(0, 10) + '...');
+        return env.GROQ_API_KEY;
+        
+      } catch (error) {
+        console.error('❌ Error loading API keys:', error);
+        
+        if (error.message.includes('CORS') || error.message.includes('NetworkError')) {
+          throw new Error("Cannot load cred.env file. Please ensure you're accessing this page from Firebase Hosting (https://your-app.firebaseapp.com) and not opening it directly as a file.");
+        }
+        
+        throw new Error("Failed to load API keys from cred.env: " + error.message);
+      }
+    }
+
+    let GROQ_API_KEY;
+    let DEFAULT_MODEL_NAME = "llama-3.1-8b-instant";
+    const FALLBACK_MODELS = ["qwen/qwen3-32b", "llama-3.3-70b-versatile"];
+    const API_VERSION_CANDIDATES = ["v1"];
+
+    // Initialize API keys
+    let apiKeysLoaded = (async () => {
+      try {
+        console.log('🚀 Starting API key initialization...');
+        GROQ_API_KEY = await loadApiKeys();
+        console.log('✅ API key loaded successfully, length:', GROQ_API_KEY.length);
+        console.log('🔑 Final API key value:', GROQ_API_KEY.substring(0, 10) + '...');
+      } catch (error) {
+        console.error('❌ Failed to initialize API keys:', error);
+        // Fallback to a placeholder or show error message
+        GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE";
+        console.log('🔄 Using fallback placeholder');
+      }
+    })();
+
+    let currentModel = DEFAULT_MODEL_NAME;
 
     const chatLog = document.getElementById("chatLog");
     const chatForm = document.getElementById("chatForm");
@@ -396,6 +501,50 @@
     const quickReplyButtons = document.querySelectorAll("[data-quick-reply]");
 
     const history = [];
+
+    // Social media links for Sahyadri Consultants
+    const SOCIAL_MEDIA = {
+      youtube: {
+        url: "https://www.youtube.com/@sahyadriconsultants",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/YouTube.svg",
+        alt: "YouTube"
+      },
+      instagram: {
+        url: "https://www.instagram.com/sahyadriconsultants/",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Instagram_logo.svg",
+        alt: "Instagram"
+      },
+      threads: {
+        url: "https://www.threads.com/@sahyadriconsultants",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/threads_logo.svg",
+        alt: "Threads"
+      },
+      facebook: {
+        url: "https://www.facebook.com/SahyadriConsultants/",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/facebook_logo.svg",
+        alt: "Facebook"
+      },
+      whatsapp: {
+        no: "919074497780",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+        alt: "WhatsApp"
+      }
+    };
+
+    function showContactInfo() {
+      const contactMessage = `📞 **Phone**: ${SOCIAL_MEDIA.whatsapp.no}
+
+🌐 **Connect with us on social media**:
+• **YouTube**: ${SOCIAL_MEDIA.youtube.url}
+• **Instagram**: ${SOCIAL_MEDIA.instagram.url}
+• **Threads**: ${SOCIAL_MEDIA.threads.url}
+• **Facebook**: ${SOCIAL_MEDIA.facebook.url}
+• **WhatsApp**: https://wa.me/${SOCIAL_MEDIA.whatsapp.no}
+
+Feel free to reach out to us through any of these channels. We're here to help with your construction and design needs!`;
+      
+      addMessage("bot", contactMessage);
+    }
 
     function addMessage(role, text) {
       const msg = document.createElement("div");
@@ -443,6 +592,7 @@
     }
 
     async function sendUserMessage(userText) {
+      console.log("Sending user message:", userText);
       addMessage("user", userText);
       history.push({ role: "user", text: userText });
       chatInput.value = "";
@@ -452,24 +602,34 @@
       const typingBubble = addTypingIndicator();
 
       try {
-        const aiText = await askGemini(userText);
+        const aiText = await askGroq(userText);
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
         history.push({ role: "assistant", text: aiText });
       } catch (error) {
         typingBubble.className = "msg system";
-        typingBubble.textContent = error.message || "Something went wrong while contacting Gemini.";
+        typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
       } finally {
         setLoading(false);
         chatInput.focus();
       }
     }
 
-    async function askGemini(userText) {
-      const apiKey = GEMINI_API_KEY.trim();
-      if (!apiKey || apiKey === "PASTE_YOUR_GEMINI_API_KEY_HERE") {
-        throw new Error("Assistant is not configured yet. Please add a valid Gemini API key in assistant.html.");
+    async function askGroq(userText) {
+      // Wait for API key to be loaded
+      await apiKeysLoaded;
+      
+      console.log('🔍 askGroq called, checking API key...');
+      console.log('🔑 GROQ_API_KEY value:', GROQ_API_KEY ? GROQ_API_KEY.substring(0, 10) + '...' : 'undefined/null');
+      console.log('🔑 GROQ_API_KEY type:', typeof GROQ_API_KEY);
+      
+      const apiKey = GROQ_API_KEY.trim();
+      if (!apiKey || apiKey === "YOUR_GROQ_API_KEY_HERE") {
+        console.log('❌ API key validation failed');
+        throw new Error("Assistant is not configured yet. Please ensure cred.env file is accessible and contains a valid GROQ_API_KEY.");
       }
+      
+      console.log('✅ API key validation passed');
 
       function extractRetryDelaySeconds(errorData, retryAfterHeader) {
         if (retryAfterHeader) {
@@ -511,95 +671,94 @@
       function buildApiError(statusCode, errorData, fallbackText) {
         const apiMessage = errorData?.error?.message;
         if (typeof apiMessage === "string" && apiMessage.trim()) {
-          return `Gemini API error (${statusCode}): ${apiMessage.trim()}`;
+          return `Groq API error (${statusCode}): ${apiMessage.trim()}`;
         }
         if (fallbackText && fallbackText.trim()) {
-          return `Gemini API error (${statusCode}): ${fallbackText.trim()}`;
+          return `Groq API error (${statusCode}): ${fallbackText.trim()}`;
         }
-        return `Gemini API error (${statusCode}).`;
+        return `Groq API error (${statusCode}).`;
       }
 
-      const requestBody = {
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: `You are the Sahyadri Assistant for a civil and construction consultancy in Kerala. Keep replies concise, clear, and client-friendly.
-                About Sahaydri:Sahyadri Consultants is a trusted consultancy firm in Kannur, Kerala, specializing in engineering 🏗️, architecture 📐, and a dedicated interior design division ✨. Established in 1986, we have over 38 years of experience and more than 1,000 completed residential projects. We also offer our services online and blend traditional wisdom with modern innovation, specializing in Vastu-compliant and eco-friendly design solutions. As a proud sister firm of Sahyadri Properties, a premier real estate developer, we provide our expertise for exceptional residential villas and commercial projects.
-                Leadership Team: Thomas PJ (MD and Lead Partner, 40+ years of experience, BTech, MBA, Diploma in Vasthushatra), Rose Thomas (Partner and Head of Dwell and Well, The Interior Design Wing of Sahyadri, 4+ years of experience, BTech, Interior Design Certified), Asha Thomas (Manager Human Resources).
-                If asked about project timelines, mention that typical timelines are 6-12 months for residential projects and 12-24 months for commercial projects, but can vary based on project scope and client requirements.
-                Always maintain a helpful and professional tone, and provide clear next steps or contact information when relevant 
-                Also when asked more tech  question please continue by reaching out by clicking whatapp button or reach us by mail.
-                When asked about best builders in kerala,list the top builders and say Sahyadri is upcoming leader in kera.tell stats of sahyadri.never talk negative about sahyadri.if customer rude,politely thank them and escuse youef out.
-                \n\nConversation so far:\n${history.map(item => `${item.role}: ${item.text}`).join("\n")}\n\nUser: ${userText}` }]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.6,
-          maxOutputTokens: 450
-        }
-      };
+      const messages = [
+        {
+          role: "system",
+          content: `You are the Sahyadri Assistant for a civil and construction consultancy in Kerala.
+          You must decline any requests for adult, violent, or illegal content or any content that may violate our policies firmly but politely.
+          Keep replies concise, clear, and client-friendly.
+About Sahyadri:Sahyadri Consultants is a trusted consultancy firm in Kannur, Kerala, specializing in engineering 🏗️, architecture 📐, and a dedicated interior design division ✨. Established in 1986, we have over 38 years of experience and more than 1,000 completed residential projects. We also offer our services online and blend traditional wisdom with modern innovation, specializing in Vastu-compliant and eco-friendly design solutions. As a proud sister firm of Sahyadri Properties, a premier real estate developer, we provide our expertise for exceptional residential villas and commercial projects.
+Leadership Team: Thomas PJ (MD and Lead Partner, 40+ years of experience, BTech, MBA, Diploma in Vasthushatra), Rose Thomas (Partner and Head of Dwell and Well, The Interior Design Wing of Sahyadri, 4+ years of experience, BTech, Interior Design Certified), Asha Thomas (Manager Human Resources).
+If asked about project timelines, mention that typical timelines are 6-12 months for residential projects and 12-24 months for commercial projects, but can vary based on project scope and client requirements.
+Always maintain a helpful and professional tone, and provide clear next steps or contact information when relevant 
+Also when asked more tech  question please continue by reaching out by clicking whatapp button or reach us by mail.
+When asked about best builders in kerala,list of top builders and say Sahyadri is upcoming leader in kera.tell stats of sahyadri.never talk negative about sahyadri.if customer rude,politely thank them and excuse yourself out.
+
+For our social media handles and phone number:
+• YouTube: ${SOCIAL_MEDIA.youtube.url}
+• Instagram: ${SOCIAL_MEDIA.instagram.url}
+• Threads: ${SOCIAL_MEDIA.threads.url}
+• Facebook: ${SOCIAL_MEDIA.facebook.url}
+• WhatsApp: ${SOCIAL_MEDIA.whatsapp.no}`},
+        ...history.map(item => ({ role: item.role === "assistant" ? "assistant" : "user", content: item.text }))
+      ];
 
       let lastNon404Error = "";
       let sawQuotaError = false;
       let maxRetrySeconds = null;
 
-      const modelCandidates = [DEFAULT_MODEL_NAME, ...FALLBACK_MODELS];
+      const modelCandidates = [currentModel, ...FALLBACK_MODELS];
 
-      for (const apiVersion of API_VERSION_CANDIDATES) {
-        let shouldStopFallback = false;
+      for (const modelName of modelCandidates) {
+        const requestBody = {
+          model: modelName,
+          messages: messages,
+          temperature: 0.6,
+          max_tokens: 450
+        };
 
-        for (const modelName of modelCandidates) {
-          const endpoint = `https://generativelanguage.googleapis.com/${apiVersion}/models/${modelName}:generateContent?key=${apiKey}`;
+        const endpoint = `https://api.groq.com/openai/v1/chat/completions`;
 
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(requestBody)
-          });
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody)
+        });
 
-          if (response.ok) {
-            const data = await response.json();
-            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (text) {
-              return text.trim();
-            }
-            throw new Error("No response received from Gemini.");
+        console.log("API Request:", { endpoint, requestBody });
+        console.log("Response status:", response.status);
+
+        if (response.ok) {
+          const data = await response.json();
+          const text = data?.choices?.[0]?.message?.content;
+          if (text) {
+            return text.trim();
           }
-
-          let errorData = null;
-          let errorText = "";
-
-          try {
-            errorData = await response.json();
-          } catch {
-            errorText = await response.text();
-          }
-
-          if (response.status === 404) {
-            continue;
-          }
-
-          if (response.status === 429) {
-            sawQuotaError = true;
-            const retrySeconds = extractRetryDelaySeconds(errorData, response.headers.get("retry-after"));
-            if (retrySeconds !== null) {
-              maxRetrySeconds = maxRetrySeconds === null ? retrySeconds : Math.max(maxRetrySeconds, retrySeconds);
-            }
-            continue;
-          }
-
-          lastNon404Error = buildApiError(response.status, errorData, errorText);
-          if (response.status >= 400 && response.status < 500) {
-            shouldStopFallback = true;
-            break;
-          }
+          throw new Error("No response received from Groq.");
         }
 
-        if (shouldStopFallback) {
-          break;
+        let errorData = null;
+        let errorText = "";
+
+        try {
+          errorData = await response.json();
+        } catch {
+          errorText = await response.text();
         }
 
-        if (lastNon404Error && !sawQuotaError) {
+        if (response.status === 404) {
+          continue;
+        }
+
+        if (response.status === 429) {
+          sawQuotaError = true;
+          const retrySeconds = extractRetryDelaySeconds(errorData, response.headers.get("retry-after"));
+          if (retrySeconds !== null) {
+            maxRetrySeconds = maxRetrySeconds === null ? retrySeconds : Math.max(maxRetrySeconds, retrySeconds);
+          }
+          continue;
+        }
+
+        lastNon404Error = buildApiError(response.status, errorData, errorText);
+        if (response.status >= 400 && response.status < 500) {
           break;
         }
       }
@@ -615,10 +774,15 @@
         throw new Error(lastNon404Error);
       }
 
-      throw new Error("Gemini model not available. Please check API key permissions and enabled Gemini models.");
+      throw new Error("Groq model not available. Please check API key permissions and enabled Groq models.");
     }
 
     clearChatBtn.addEventListener("click", clearChat);
+
+    const modelSelect = document.getElementById("modelSelect");
+    modelSelect.addEventListener("change", (e) => {
+      currentModel = e.target.value;
+    });
 
     quickReplyButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -628,6 +792,14 @@
         }
         sendUserMessage(quickText);
       });
+    });
+
+    const letsConnectBtn = document.getElementById("letsConnectBtn");
+    letsConnectBtn.addEventListener("click", () => {
+      if (sendBtn.disabled) {
+        return;
+      }
+      showContactInfo();
     });
 
     chatInput.addEventListener("input", autoResize);

@@ -1,0 +1,14 @@
+{
+  "name": "sahyadri-assistant",
+  "version": "1.0.0",
+  "description": "Sahyadri Consultants AI Assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {},
+  "keywords": ["ai", "assistant", "construction", "consultancy"],
+  "author": "Sahyadri Consultants",
+  "license": "MIT"
+}

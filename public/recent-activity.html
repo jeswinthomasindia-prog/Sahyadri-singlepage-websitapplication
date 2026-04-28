@@ -1,0 +1,2069 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Recent Activity | Sahyadri Consultants</title>
+  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .activity-page {
+      min-height: calc(100vh - 70px);
+      background: #0f0f0f;
+      padding: 0;
+    }
+
+    .activity-container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .activity-header {
+      background: #fff;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e5e5;
+      margin-bottom: 0;
+    }
+
+    .activity-header .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .activity-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--primary);
+      margin: 0 0 12px;
+    }
+
+    .activity-header p {
+      font-size: 1rem;
+      color: #55606c;
+      max-width: 800px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .youtube-layout {
+      max-width: 1400px;
+      margin: 0 auto 48px;
+    }
+
+    .youtube-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+    }
+
+    .main-video-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+    }
+
+    .video-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid #303030;
+    }
+
+    .sidebar-header h4 {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .video-feed-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .main-video-container {
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 0px;
+      position: relative;
+    }
+
+    .main-video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    }
+
+    .video-feed-player {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .current-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .current-video-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-feed-player:hover .video-overlay {
+      opacity: 1;
+    }
+
+    .video-progress {
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #ff0000;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .video-time {
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .video-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .play-pause-btn, .next-video-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .play-pause-btn:hover, .next-video-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .watch-youtube-btn {
+      background: #ff0000;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .watch-youtube-btn:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+    }
+
+    .music-toggle-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .music-toggle-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .music-toggle-btn.playing {
+      background: #1db954;
+    }
+
+    .music-toggle-btn.playing:hover {
+      background: #1ed760;
+    }
+
+    .main-video-thumbnail {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .video-play-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .watch-youtube-main-btn {
+      background: rgba(255, 0, 0, 0.9);
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .watch-youtube-main-btn:hover {
+      background: rgba(255, 0, 0, 1);
+      transform: scale(1.05);
+    }
+
+    .video-info {
+      padding: 8px;
+      background: #181818;
+      color: #fff;
+    }
+
+    .video-info h3 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .video-info p {
+      margin: 0;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .video-feed-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+
+    .feed-header {
+      color: #fff;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+
+    .feed-header h2 {
+      font-size: 1.4rem;
+      margin: 0 0 4px;
+      font-weight: 600;
+    }
+
+    .feed-header p {
+      color: #aaa;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .video-feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      max-width: 100%;
+    }
+
+    .video-item {
+      background: #181818;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .video-item.bottom-video {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+    }
+
+    .video-item:hover {
+      background: #272727;
+    }
+
+    .video-item.sidebar-item {
+      border-radius: 0;
+      background: transparent;
+      padding: 8px 0;
+      border-bottom: 1px solid #303030;
+    }
+
+    .video-item.sidebar-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar-thumbnail {
+      width: 168px;
+      height: 94px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .sidebar-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sidebar-title {
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .sidebar-meta {
+      color: #aaa;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      background: #000;
+      overflow: hidden;
+    }
+
+    .video-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+    }
+
+    .video-duration {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .video-details {
+      padding: 12px;
+    }
+
+    .video-title {
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0 0 4px;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .video-meta {
+      color: #aaa;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .loading-indicator {
+      text-align: center;
+      padding: 40px;
+      color: #aaa;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #333;
+      border-top: 3px solid #ff0000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      background: #ff4444;
+      color: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .activity-header {
+        padding: 16px 0;
+      }
+
+      .youtube-content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .main-video-section {
+        padding: 16px;
+      }
+
+      .video-sidebar {
+        order: 3;
+        padding: 0 16px;
+      }
+
+      .sidebar-header {
+        padding: 12px 0;
+      }
+
+      .video-feed-sidebar {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 12px 0;
+      }
+
+      .sidebar-item {
+        min-width: 200px;
+        flex-shrink: 0;
+      }
+
+      .sidebar-thumbnail {
+        width: 200px;
+        height: 112px;
+      }
+
+      .video-feed-section {
+        padding: 0 16px 16px;
+      }
+
+      .video-feed {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="recent-activity.html">Recent Activity</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="activity-page">
+    <div class="activity-container">
+      <div class="activity-header">
+        <div class="header-content">
+          <h1>Our Recent Activity</h1>
+          <p>Stay updated with our latest projects, site visits, and construction milestones through our field reports and video logs. Here you'll find site progress updates, project milestones, technical insights, team activities, and innovation showcases - all updated in real-time as we upload new content to our YouTube channel.</p>
+        </div>
+      </div>
+
+      <div class="youtube-layout">
+        <div class="youtube-content">
+          <!-- Main Video Section -->
+          <div class="main-video-section">
+            <div class="main-video-container">
+              <div class="main-video-wrapper">
+                <div id="videoFeedPlayer" class="video-feed-player">
+                  <div id="mainVideoContainer" class="main-video-container">
+                  <img id="mainVideoThumbnail" src="" alt="Video thumbnail" class="main-video-thumbnail">
+                  <div class="video-play-overlay">
+                    <button id="watchOnYouTubeBtn" class="watch-youtube-main-btn">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                      Watch on YouTube
+                    </button>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="video-info">
+              <h3 id="mainVideoTitle">Loading latest video...</h3>
+              <p id="mainVideoDescription">Please wait while we load the latest content from our YouTube channel.</p>
+            </div>
+          </div>
+
+          <!-- Video Sidebar -->
+          <div class="video-sidebar">
+            <div class="sidebar-header">
+              <h4>Up Next</h4>
+            </div>
+            <div id="videoFeed" class="video-feed-sidebar">
+              <!-- Video items will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-feed-section">
+        <div class="feed-header">
+          <h2>All Videos</h2>
+          <p>Browse through all our project updates and field reports</p>
+        </div>
+        
+        <div id="allVideosFeed" class="video-feed">
+          <div class="loading-indicator">
+            <div class="loading-spinner"></div>
+            <p>Loading videos...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: info@sahyadriconsultants.in</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919447489926?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span> 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span>© 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span>Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+  
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
+     class="whatsapp-float" 
+     target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+
+  <!-- Background Music - Relaxing Popular English Song -->
+  <audio id="backgroundMusic" loop preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.ogg" type="audio/ogg">
+  </audio>
+
+  <script>
+    // Load API keys from cred.env file
+    async function loadYouTubeApiKey() {
+      try {
+        console.log('🔍 Attempting to load YouTube API key from cred.env...');
+        
+        // Try to fetch cred.env file (works on Firebase)
+        const response = await fetch('./cred.env');
+        console.log('📁 Response status:', response.status);
+        console.log('📁 Response headers:', response.headers);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const envText = await response.text();
+        console.log('📄 Raw env file content:', envText);
+        
+        const lines = envText.split('\n');
+        console.log('📝 Parsed lines:', lines);
+        
+        for (const line of lines) {
+          console.log('🔍 Checking line:', line);
+          if (line.startsWith('YOUTUBE_API_KEY=')) {
+            const apiKey = line.split('=')[1].trim();
+            console.log('✅ Found YouTube API key:', apiKey.substring(0, 10) + '...');
+            return apiKey;
+          }
+        }
+        throw new Error('YOUTUBE_API_KEY not found in cred.env file');
+        
+      } catch (error) {
+        console.error('❌ Error loading YouTube API key:', error);
+        
+        // If it's a CORS error (local testing), provide helpful guidance
+        if (error.message.includes('CORS') || error.message.includes('NetworkError')) {
+          throw new Error("Cannot load cred.env file due to browser security restrictions. Please test on Firebase Hosting (https://your-app.firebaseapp.com) where this will work properly.");
+        }
+        
+        throw new Error('Failed to load YouTube API key from cred.env file: ' + error.message);
+      }
+    }
+
+    // Initialize YouTube API key
+    let YOUTUBE_API_KEY;
+    const youtubeApiKeyLoaded = (async () => {
+      try {
+        console.log('� Starting YouTube API key initialization...');
+        YOUTUBE_API_KEY = await loadYouTubeApiKey();
+        console.log('✅ YouTube API key loaded successfully, length:', YOUTUBE_API_KEY.length);
+        console.log('🔑 Final YouTube API key value:', YOUTUBE_API_KEY.substring(0, 10) + '...');
+      } catch (error) {
+        console.error('❌ Failed to initialize YouTube API key:', error);
+        YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY_HERE";
+        console.log('🔄 Using fallback placeholder');
+      }
+    })();
+
+    // YouTube-like video feed functionality
+    class YouTubeFeed {
+      constructor() {
+        // Using YouTube's no-API approach with channel uploads
+        this.channelHandle = '@sahyadriconsultants';
+        this.channelId = null; // Will be resolved from handle
+        this.videos = [];
+        this.currentVideoIndex = 0;
+        this.isLoading = false;
+        this.hasMoreVideos = true;
+        this.pageToken = null;
+        
+        // Video feed player properties
+        this.isPlaying = false;
+        this.currentTime = 0;
+        this.duration = 30; // Simulated 30 second videos
+        this.progressInterval = null;
+        
+        // Background music properties
+        this.backgroundMusic = null;
+        this.isMusicPlaying = false; // Will be set to true when actually playing
+        
+        this.init();
+      }
+
+      async init() {
+        try {
+          // First, try to resolve channel handle to channel ID
+          await this.resolveChannelId();
+          // Then load videos from the channel
+          await this.loadVideos();
+          this.setupInfiniteScroll();
+          this.renderMainVideo();
+          this.renderVideoFeed();
+        } catch (error) {
+          console.error('Failed to initialize YouTube feed:', error);
+          // Fallback to mock data if API fails
+          console.log('Falling back to mock data...');
+          this.loadMockData();
+        }
+      }
+
+      async resolveChannelId() {
+        // Use the known channel ID for @sahyadriconsultants directly
+        try {
+          // Known channel ID for @sahyadriconsultants
+          this.channelId = 'UCXj0HshIIznbO55B0AVAuBQ';
+          console.log('Using known channel ID:', this.channelId);
+          return;
+        } catch (error) {
+          console.error('Error setting channel ID:', error);
+          throw error;
+        }
+      }
+
+      async getChannelIdFromHandle(handle) {
+        // Wait for YouTube API key to be loaded
+        await youtubeApiKeyLoaded;
+        
+        // Get channel ID for @sahyadriconsultants specifically
+        try {
+          const apiKey = YOUTUBE_API_KEY;
+          if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
+            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+          }
+          
+          const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${handle}&type=channel&key=${apiKey}`);
+          const data = await response.json();
+          
+          if (data.items && data.items.length > 0) {
+            // Find the exact channel that matches our handle
+            const channel = data.items.find(item => 
+              item.snippet.channelTitle && 
+              item.snippet.channelTitle.toLowerCase().includes('sahyadri')
+            );
+            
+            if (channel) {
+              const channelId = channel.snippet.channelId;
+              console.log(' Found exact channel:', channel.snippet.channelTitle);
+              return channelId;
+            } else {
+              console.error(' Could not find exact channel for @sahyadriconsultants');
+              throw new Error('Channel not found');
+            }
+          }
+        } catch (error) {
+          console.error('Error getting channel ID:', error);
+        }
+        return null;
+      }
+
+      async findChannelPlaylistId(handle) {
+        // Alternative approach: Try common channel ID patterns
+        const possibleChannelIds = [
+          'UCUCuXhY1v98m_ArLGy2RAqw', // Current attempt
+          'UCsahyadriconsultants', // Direct handle conversion
+          'UCD1V8b7j8k9l0m1n2o3p4q5r', // Common pattern
+        ];
+        
+        for (const channelId of possibleChannelIds) {
+          const playlistId = 'UU' + channelId.substring(2); // Convert UC to UU
+          if (await this.testPlaylist(playlistId)) {
+            return playlistId;
+          }
+        }
+        
+        throw new Error('Could not find valid playlist for channel');
+      }
+
+      async testPlaylist(playlistId) {
+        try {
+          const testUrl = `https://www.youtube-nocookie.com/embed/videoseries?list=${playlistId}`;
+          const response = await fetch(testUrl, { method: 'HEAD' });
+          return response.ok;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      async loadVideos() {
+        if (this.isLoading || !this.hasMoreVideos) return;
+        
+        this.isLoading = true;
+        this.showLoadingIndicator();
+
+        try {
+          // Only fetch from YouTube API using your verified key
+          const videos = await this.fetchYouTubeVideos();
+          
+          if (videos && videos.length > 0) {
+            this.videos = [...this.videos, ...videos];
+            this.hideLoadingIndicator();
+            console.log(`✅ Loaded ${videos.length} videos from @sahyadriconsultants`);
+          } else {
+            console.log('ℹ️ No videos found in channel');
+            this.videos = [];
+            this.hideLoadingIndicator();
+          }
+        } catch (error) {
+          console.error('💥 Failed to load videos from YouTube API:', error);
+          this.showError(`Unable to load videos from YouTube: ${error.message}`);
+        } finally {
+          this.isLoading = false;
+        }
+      }
+
+      async fetchYouTubeVideos() {
+        // Wait for YouTube API key to be loaded
+        await youtubeApiKeyLoaded;
+        
+        // Direct fetch from @sahyadriconsultants using API key from cred.env
+        try {
+          const apiKey = YOUTUBE_API_KEY;
+          console.log('🔑 YouTube API key:', apiKey ? apiKey.substring(0, 10) + '...' : 'undefined');
+          
+          if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
+            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+          }
+          
+          console.log('🎥 Starting direct fetch from @sahyadriconsultants...');
+          
+          // Step 1: Use the channel ID we already found
+          const channelId = this.channelId; // Use the channel ID from resolveChannelId
+          console.log('✅ Using resolved channel ID:', channelId);
+          
+          // Get channel details and uploads playlist
+          const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${channelId}&key=${apiKey}`;
+          console.log('📡 Fetching channel details:', channelUrl);
+          
+          const channelResponse = await fetch(channelUrl);
+          if (!channelResponse.ok) {
+            throw new Error(`Channel API failed: ${channelResponse.status}`);
+          }
+          
+          const channelData = await channelResponse.json();
+          console.log('📊 Channel data:', channelData);
+          
+          if (!channelData.items || channelData.items.length === 0) {
+            throw new Error(`No channel details found for ID: ${channelId}`);
+          }
+          
+          const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+          console.log('✅ Channel ID:', channelId);
+          console.log('✅ Uploads Playlist:', uploadsPlaylistId);
+          
+          // Step 2: Get videos from uploads playlist with video details
+          const videosUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${uploadsPlaylistId}&key=${apiKey}`;
+          console.log('📡 Fetching videos:', videosUrl);
+          
+          const videosResponse = await fetch(videosUrl);
+          if (!videosResponse.ok) {
+            throw new Error(`Videos API failed: ${videosResponse.status}`);
+          }
+          
+          const videosData = await videosResponse.json();
+          console.log('📊 Videos data:', videosData);
+          
+          if (!videosData.items || videosData.items.length === 0) {
+            console.log('ℹ️ No videos found in uploads playlist');
+            return [];
+          }
+          
+          // Extract video IDs and get detailed video information with duration
+          const videoIds = videosData.items.map(item => item.snippet.resourceId.videoId).join(',');
+          const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoIds}&key=${apiKey}`;
+          console.log('📡 Fetching video details with duration:', videoDetailsUrl);
+          
+          const videoDetailsResponse = await fetch(videoDetailsUrl);
+          if (!videoDetailsResponse.ok) {
+            throw new Error(`Video details API failed: ${videoDetailsResponse.status}`);
+          }
+          
+          const videoDetailsData = await videoDetailsResponse.json();
+          console.log('📊 Video details data:', videoDetailsData);
+          
+          const videos = this.transformYouTubeVideos(videoDetailsData.items);
+          console.log(`✅ Successfully fetched ${videos.length} videos from @sahyadriconsultants`);
+          return videos;
+          
+        } catch (error) {
+          console.error('💥 Error in YouTube API fetch:', error);
+          throw error; // Don't use fallback, let the error propagate
+        }
+      }
+
+      async getUploadsPlaylistId() {
+        // Wait for YouTube API key to be loaded
+        await youtubeApiKeyLoaded;
+        
+        try {
+          // Use YouTube API key from cred.env to get uploads playlist
+          const apiKey = YOUTUBE_API_KEY;
+          if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
+            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+          }
+          
+          console.log(' Fetching channel details for @sahyadriconsultants...');
+          
+          const response = await fetch(
+            `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=@sahyadriconsultants&key=${apiKey}`
+          );
+          
+          if (response.ok) {
+            const data = await response.json();
+            console.log(' Channel API response:', data);
+            
+            if (data.items && data.items.length > 0) {
+              const uploadsId = data.items[0].contentDetails.relatedPlaylists.uploads;
+              console.log(' Found uploads playlist ID:', uploadsId);
+              return uploadsId;
+            } else {
+              console.error(' No items found in channel response');
+            }
+          } else {
+            console.error(' Channel API request failed with status:', response.status);
+          }
+        } catch (error) {
+          console.error(' Error getting uploads playlist ID:', error);
+        }
+        
+        // Fallback: Try to construct from channel ID
+        if (this.channelId && this.channelId.startsWith('UC')) {
+          const playlistId = 'UU' + this.channelId.substring(2);
+          console.log(' Using fallback playlist ID:', playlistId);
+          return playlistId;
+        }
+        
+        return null;
+      }
+
+      transformYouTubeVideos(youtubeItems) {
+        console.log('🔄 Transforming YouTube videos:', youtubeItems.length, 'items');
+        
+        const videos = youtubeItems.map((item, index) => {
+          console.log(`📝 Processing video ${index + 1}:`, {
+            id: item.id,
+            title: item.snippet?.title,
+            videoId: item.id,
+            thumbnail: item.snippet?.thumbnails?.medium?.url,
+            duration: item.contentDetails?.duration
+          });
+          
+          return {
+            id: item.id,
+            title: item.snippet.title,
+            description: item.snippet.description,
+            thumbnail: item.snippet.thumbnails.medium.url,
+            duration: this.formatDuration(item.contentDetails?.duration),
+            publishedAt: item.snippet.publishedAt,
+            videoId: item.id,
+            durationInSeconds: this.getDurationInSeconds(item.contentDetails?.duration)
+          };
+        });
+        
+        // Filter out shorts (< 1 minute)
+        const filteredVideos = videos.filter(video => video.durationInSeconds > 60);
+        console.log(`✅ Transformed videos: ${videos.length} total, ${filteredVideos.length} after filtering shorts (<1min)`);
+        return filteredVideos;
+      }
+
+      getDurationInSeconds(duration) {
+        // Convert ISO 8601 duration to seconds
+        if (!duration || typeof duration !== 'string') {
+          return 0;
+        }
+        
+        const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+        if (!match) {
+          return 0;
+        }
+        
+        const hours = parseInt(match[1]) || 0;
+        const minutes = parseInt(match[2]) || 0;
+        const seconds = parseInt(match[3]) || 0;
+        
+        return hours * 3600 + minutes * 60 + seconds;
+      }
+
+      
+      formatDuration(duration) {
+        // Convert ISO 8601 duration to readable format
+        if (!duration || typeof duration !== 'string') {
+          return '0:00'; // Default duration if not available
+        }
+        
+        const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+        if (!match) {
+          return '0:00'; // Default if regex doesn't match
+        }
+        
+        const hours = parseInt(match[1]) || 0;
+        const minutes = parseInt(match[2]) || 0;
+        const seconds = parseInt(match[3]) || 0;
+        
+        if (hours > 0) {
+          return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+          return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+      }
+
+      async scrapeChannelVideos() {
+        // Fallback method: Try to get videos from channel page
+        try {
+          // This would require server-side proxy due to CORS
+          // For now, return null to use fallback videos
+          console.log('Channel scraping not available in browser, using fallback...');
+          return null;
+        } catch (error) {
+          return null;
+        }
+      }
+
+      async extractVideosFromPlaylist() {
+        // This is a simplified approach - in reality, extracting from iframe is complex
+        // For now, we'll return null to use fallback
+        return null;
+      }
+
+      loadFallbackVideos() {
+        // Try to get actual videos from @sahyadriconsultants channel
+        // Since we can't use API keys in browser, we'll use the direct playlist embed approach
+        this.loadChannelVideosDirectly();
+      }
+
+      async loadChannelVideosDirectly() {
+        // Use the direct playlist embed for @sahyadriconsultants
+        // The channel handle @sahyadriconsultants should have an uploads playlist
+        
+        // For now, create realistic videos that would be from your construction channel
+        const channelVideos = [
+          {
+            id: 'video1',
+            title: 'Sahyadri Consultants - 40 Years of Excellence',
+            description: 'Celebrating 40 years of trusted construction and engineering consultancy in Kerala. From humble beginnings to becoming a leader in civil engineering projects.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-1/mqdefault.jpg',
+            duration: '4:32',
+            publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+            videoId: 'your-video-id-1', // Replace with actual video ID from your channel
+            durationInSeconds: 272
+          },
+          {
+            id: 'video2',
+            title: 'Green Valley Apartments - Latest Construction Update',
+            description: 'Week 16 progress at Green Valley Apartments, Thiruvananthapuram. Structural work complete, interior finishing in progress. Expected completion Q2 2024.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-2/mqdefault.jpg',
+            duration: '7:15',
+            publishedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+            videoId: 'your-video-id-2',
+            durationInSeconds: 435
+          },
+          {
+            id: 'video3',
+            title: 'St Johns HSS - Educational Infrastructure Complete',
+            description: 'Major milestone achieved at St Johns HSS, Mavellikara. New academic block with smart classrooms, laboratories, and sports facilities now ready.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-3/mqdefault.jpg',
+            duration: '5:48',
+            publishedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), // 8 days ago
+            videoId: 'your-video-id-3',
+            durationInSeconds: 348
+          },
+          {
+            id: 'video4',
+            title: 'Bharath Matha Nursing College - Modern Healthcare Education',
+            description: 'Tour of the newly completed nursing college facilities in Ernakulam. State-of-the-art simulation labs, clinical training wards, and student accommodations.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-4/mqdefault.jpg',
+            duration: '9:22',
+            publishedAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), // 12 days ago
+            videoId: 'your-video-id-4',
+            durationInSeconds: 562
+          },
+          {
+            id: 'video5',
+            title: 'Safety First - Construction Site Protocols 2024',
+            description: 'Comprehensive safety training session at our Kannur construction site. Latest safety protocols, equipment handling, and emergency procedures.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-5/mqdefault.jpg',
+            duration: '11:05',
+            publishedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), // 15 days ago
+            videoId: 'your-video-id-5',
+            durationInSeconds: 665
+          },
+          {
+            id: 'video6',
+            title: 'Client Success Story - Villa Project in Kannur',
+            description: 'Happy client testimonial from our recent villa construction project in Kannur. From design to completion in just 8 months.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-6/mqdefault.jpg',
+            duration: '6:30',
+            publishedAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString(), // 20 days ago
+            videoId: 'your-video-id-6',
+            durationInSeconds: 390
+          },
+          {
+            id: 'video7',
+            title: 'Innovation in Construction - Smart Building Technologies',
+            description: 'Showcasing the latest smart building technologies being integrated into our commercial projects. IoT, automation, and sustainable design.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-7/mqdefault.jpg',
+            duration: '8:45',
+            publishedAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString(), // 25 days ago
+            videoId: 'your-video-id-7',
+            durationInSeconds: 525
+          },
+          {
+            id: 'video8',
+            title: 'Team Sahyadri - Meet Our Expert Engineers',
+            description: 'Introduction to our core engineering team and their expertise in various construction domains. Civil, structural, and interior design specialists.',
+            thumbnail: 'https://img.youtube.com/vi/your-video-id-8/mqdefault.jpg',
+            duration: '4:18',
+            publishedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days ago
+            videoId: 'your-video-id-8',
+            durationInSeconds: 258
+          }
+        ];
+
+        // Filter out shorts (< 1 minute) from channel videos
+        const filteredChannelVideos = channelVideos.filter(video => video.durationInSeconds > 60);
+        this.videos = [...this.videos, ...filteredChannelVideos];
+        console.log(`📊 Channel videos: ${channelVideos.length} total, ${filteredChannelVideos.length} after filtering shorts (<1min)`);
+        this.hideLoadingIndicator();
+        
+        console.log('Loaded channel videos for @sahyadriconsultants');
+        console.log('Note: Replace "your-video-id-X" with actual video IDs from your YouTube channel');
+      }
+
+      loadMockData() {
+        // Ultimate fallback with basic structure
+        this.videos = [
+          {
+            id: 'video1',
+            title: 'Sahyadri Consultants - Project Showcase',
+            description: 'Explore our latest construction and engineering projects.',
+            thumbnail: 'https://img.youtube.com/vi/ScMzIvxBSi4/mqdefault.jpg',
+            duration: '5:00',
+            publishedAt: new Date().toISOString(),
+            videoId: 'ScMzIvxBSi4',
+            durationInSeconds: 300
+          }
+        ];
+        
+        this.renderMainVideo();
+        this.renderVideoFeed();
+      }
+
+      renderMainVideo() {
+        console.log('🎬 Rendering video feed player. Total videos:', this.videos.length);
+        
+        if (this.videos.length === 0) {
+          console.log('❌ No videos available to render');
+          return;
+        }
+        
+        // Start with latest video (index 0) - all videos are already filtered (>1min)
+        this.currentVideoIndex = 0;
+        this.loadVideoIntoPlayer(this.currentVideoIndex);
+        
+        // Render both sidebar and bottom sections
+        this.renderVideoFeed();
+        this.renderAllVideosSection();
+      }
+
+      loadVideoIntoPlayer(videoIndex) {
+        console.log(`🎬 loadVideoIntoPlayer called with index: ${videoIndex}`);
+        console.log(`📊 Total videos available: ${this.videos.length}`);
+        
+        if (videoIndex >= this.videos.length) {
+          console.log('❌ Video index out of range');
+          return;
+        }
+        
+        const video = this.videos[videoIndex];
+        console.log(`📺 Loading video into player: ${video.title}`);
+        console.log(`🎥 Video details:`, {
+          id: video.id,
+          title: video.title,
+          videoId: video.videoId,
+          duration: video.duration,
+          durationInSeconds: video.durationInSeconds
+        });
+        
+        // Update video info
+        const titleElement = document.getElementById('mainVideoTitle');
+        const descriptionElement = document.getElementById('mainVideoDescription');
+        
+        if (titleElement) {
+          titleElement.textContent = video.title;
+          console.log('✅ Title element updated');
+        } else {
+          console.log('❌ Title element not found');
+        }
+        
+        if (descriptionElement) {
+          descriptionElement.textContent = video.description;
+          console.log('✅ Description element updated');
+        } else {
+          console.log('❌ Description element not found');
+        }
+        
+        // Create and embed YouTube video
+        console.log(`🎬 Calling embedYouTubeVideo with videoId: ${video.videoId}`);
+        this.embedYouTubeVideo(video.videoId);
+        
+        // Reset progress
+        this.currentTime = 0;
+        this.updateProgress();
+        
+        // Start automatic playback simulation
+        this.startVideoSimulation();
+      }
+
+      embedYouTubeVideo(videoId) {
+        console.log(`🎬 Starting embedYouTubeVideo for videoId: ${videoId}`);
+        
+        const thumbnailElement = document.getElementById('mainVideoThumbnail');
+        const watchButtonElement = document.getElementById('watchOnYouTubeBtn');
+        
+        if (!thumbnailElement) {
+          console.log('❌ Thumbnail element not found');
+          return;
+        }
+        
+        if (!watchButtonElement) {
+          console.log('❌ Watch button element not found');
+          return;
+        }
+        
+        // Get video information
+        const video = this.videos.find(v => v.videoId === videoId);
+        if (!video) {
+          console.log('❌ Video not found');
+          return;
+        }
+        
+        console.log(`🖼️ Setting thumbnail to: ${video.thumbnail}`);
+        
+        // Set thumbnail
+        thumbnailElement.src = video.thumbnail;
+        thumbnailElement.alt = video.title;
+        
+        // Set up watch button to open YouTube
+        const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+        watchButtonElement.onclick = () => {
+          console.log(`🔗 Opening YouTube: ${youtubeUrl}`);
+          window.open(youtubeUrl, '_blank');
+        };
+        
+        console.log(`✅ Set up video thumbnail for: ${video.title}`);
+      }
+
+      showVideoFallback(videoId) {
+        const playerContainer = document.getElementById('videoFeedPlayer');
+        const video = this.videos.find(v => v.videoId === videoId);
+        
+        if (!playerContainer || !video) return;
+        
+        // Create fallback with thumbnail and play button
+        playerContainer.innerHTML = `
+          <div class="current-video-container">
+            <img src="${video.thumbnail}" alt="${video.title}" class="current-video-thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="video-overlay">
+              <button class="play-button" onclick="window.open('https://www.youtube.com/watch?v=${videoId}', '_blank')">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="white">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+        
+        console.log('📺 Using video thumbnail fallback');
+      }
+
+      setupVideoFeedControls() {
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const nextVideoBtn = document.getElementById('nextVideoBtn');
+        const watchOnYouTubeBtn = document.getElementById('watchOnYouTubeBtn');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        
+        // Initialize background music
+        this.initializeBackgroundMusic();
+        
+        if (playPauseBtn) {
+          playPauseBtn.addEventListener('click', () => {
+            this.togglePlayPause();
+          });
+        }
+        
+        if (nextVideoBtn) {
+          nextVideoBtn.addEventListener('click', () => {
+            this.playNextVideo();
+          });
+        }
+        
+        if (watchOnYouTubeBtn) {
+          watchOnYouTubeBtn.addEventListener('click', () => {
+            this.openCurrentVideoOnYouTube();
+          });
+        }
+        
+        if (musicToggleBtn) {
+          musicToggleBtn.addEventListener('click', () => {
+            this.toggleBackgroundMusic();
+          });
+        }
+      }
+
+      startVideoSimulation() {
+        // Stop any existing simulation
+        this.stopVideoSimulation();
+        
+        // Start progress simulation
+        this.isPlaying = true;
+        this.updatePlayPauseButton();
+        
+        this.progressInterval = setInterval(() => {
+          if (this.currentTime < this.duration) {
+            this.currentTime += 0.1;
+            this.updateProgress();
+          } else {
+            // Video ended, play next video
+            this.playNextVideo();
+          }
+        }, 100);
+      }
+
+      stopVideoSimulation() {
+        if (this.progressInterval) {
+          clearInterval(this.progressInterval);
+          this.progressInterval = null;
+        }
+        this.isPlaying = false;
+      }
+
+      updateProgress() {
+        const progressFill = document.getElementById('progressFill');
+        const currentTimeElement = document.getElementById('currentTime');
+        
+        if (progressFill) {
+          const progress = (this.currentTime / this.duration) * 100;
+          progressFill.style.width = `${progress}%`;
+        }
+        
+        if (currentTimeElement) {
+          currentTimeElement.textContent = this.formatTime(this.currentTime);
+        }
+      }
+
+      formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+      }
+
+      togglePlayPause() {
+        if (this.isPlaying) {
+          this.stopVideoSimulation();
+        } else {
+          this.startVideoSimulation();
+        }
+        this.updatePlayPauseButton();
+      }
+
+      updatePlayPauseButton() {
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        if (playPauseBtn) {
+          if (this.isPlaying) {
+            playPauseBtn.innerHTML = `
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            `;
+          } else {
+            playPauseBtn.innerHTML = `
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            `;
+          }
+        }
+      }
+
+      playNextVideo() {
+        this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
+        this.loadVideoIntoPlayer(this.currentVideoIndex);
+      }
+
+      openCurrentVideoOnYouTube() {
+        const video = this.videos[this.currentVideoIndex];
+        if (video) {
+          window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank');
+        }
+      }
+
+      initializeBackgroundMusic() {
+        // Use real audio element for background music
+        this.backgroundMusic = document.getElementById('backgroundMusic');
+        if (this.backgroundMusic) {
+          // Set proper volume for background music
+          this.backgroundMusic.volume = 0.5; // Increased volume for better audibility
+          
+          // Add event listeners for better error handling
+          this.backgroundMusic.addEventListener('loadstart', () => {
+            console.log('🎵 Loading background music...');
+          });
+          
+          this.backgroundMusic.addEventListener('canplay', () => {
+            console.log('🎵 Music ready to play');
+            // Ensure volume is set and try to start music when ready
+            this.backgroundMusic.volume = 0.5;
+            this.startBackgroundMusic();
+          });
+          
+          this.backgroundMusic.addEventListener('loadeddata', () => {
+            console.log('🎵 Music data loaded, attempting to play');
+            // Try to play when data is loaded
+            this.backgroundMusic.volume = 0.5;
+            this.startBackgroundMusic();
+          });
+          
+          this.backgroundMusic.addEventListener('error', (e) => {
+            console.log('🎵 Music loading error:', e);
+            // Set music as not playing if there's an error
+            this.isMusicPlaying = false;
+            this.updateMusicButton();
+          });
+          
+          this.backgroundMusic.addEventListener('play', () => {
+            console.log('🎵 Music started playing with volume:', this.backgroundMusic.volume);
+            this.isMusicPlaying = true;
+            this.updateMusicButton();
+          });
+          
+          this.backgroundMusic.addEventListener('pause', () => {
+            console.log('🎵 Music paused');
+            this.isMusicPlaying = false;
+            this.updateMusicButton();
+          });
+          
+          // Try to load the music
+          this.backgroundMusic.load();
+          
+          // Set initial button state to show music is intended to be on
+          this.updateMusicButton();
+          
+          // Try multiple approaches to start music
+          setTimeout(() => {
+            console.log('🎵 Attempting to start music (1st attempt)');
+            this.backgroundMusic.volume = 0.5;
+            this.startBackgroundMusic();
+          }, 1000);
+          
+          setTimeout(() => {
+            console.log('🎵 Attempting to start music (2nd attempt)');
+            this.backgroundMusic.volume = 0.5;
+            this.startBackgroundMusic();
+          }, 2000);
+          
+          setTimeout(() => {
+            console.log('🎵 Attempting to start music (3rd attempt)');
+            this.backgroundMusic.volume = 0.5;
+            this.startBackgroundMusic();
+          }, 3000);
+        }
+      }
+
+      createBackgroundMusic() {
+        if (!this.audioContext) return;
+        
+        // Create a sophisticated relaxing soundscape
+        this.oscillators = [];
+        this.gainNodes = [];
+        this.lfos = [];
+        
+        // Create a calming chord progression (Am7 - F - C - G)
+        const chords = [
+          [220.00, 277.18, 329.63], // A3, C#4, E4 (Am7)
+          [174.61, 220.00, 261.63], // F3, A3, C4 (F)
+          [130.81, 164.81, 196.00], // C3, E3, G3 (C)
+          [196.00, 246.94, 293.66]  // G3, B3, D4 (G)
+        ];
+        
+        // Create oscillators for the current chord (starting with Am7)
+        const currentChord = chords[0];
+        
+        currentChord.forEach((freq, index) => {
+          const oscillator = this.audioContext.createOscillator();
+          const gainNode = this.audioContext.createGain();
+          
+          // Connect nodes
+          oscillator.connect(gainNode);
+          gainNode.connect(this.audioContext.destination);
+          
+          // Set tone properties for relaxing sound
+          oscillator.frequency.value = freq;
+          oscillator.type = index === 0 ? 'triangle' : 'sine'; // Triangle for bass, sine for harmony
+          gainNode.gain.value = 0.015 / currentChord.length; // Very low volume
+          
+          // Add slight detuning for natural chorus effect
+          oscillator.detune.value = (Math.random() - 0.5) * 1;
+          
+          this.oscillators.push(oscillator);
+          this.gainNodes.push(gainNode);
+          
+          // Start the oscillator
+          oscillator.start();
+        });
+        
+        // Create gentle LFOs for volume modulation
+        this.createModulationLFOs();
+        
+        this.isMusicPlaying = true;
+        this.updateMusicButton();
+        
+        console.log('🎵 Relaxing background music started');
+      }
+
+      createModulationLFOs() {
+        // Create slow volume modulation for breathing effect
+        const volumeLFO = this.audioContext.createOscillator();
+        const volumeLFOGain = this.audioContext.createGain();
+        volumeLFO.connect(volumeLFOGain);
+        volumeLFOGain.gain.value = 0.008;
+        
+        // Connect to all gain nodes
+        this.gainNodes.forEach(gainNode => {
+          volumeLFOGain.connect(gainNode.gain);
+        });
+        
+        volumeLFO.frequency.value = 0.2; // Very slow breathing effect
+        volumeLFO.type = 'sine';
+        volumeLFO.start();
+        
+        // Create subtle pitch modulation
+        this.gainNodes.forEach((gainNode, index) => {
+          if (this.oscillators[index]) {
+            const pitchLFO = this.audioContext.createOscillator();
+            const pitchLFOGain = this.audioContext.createGain();
+            pitchLFO.connect(pitchLFOGain);
+            pitchLFOGain.connect(this.oscillators[index].frequency);
+            
+            pitchLFOGain.gain.value = 2; // Subtle pitch variation
+            pitchLFO.frequency.value = 0.1 + (index * 0.05); // Different rates for each voice
+            pitchLFO.type = 'sine';
+            pitchLFO.start();
+            
+            this.lfos.push(pitchLFO);
+          }
+        });
+      }
+
+      startBackgroundMusic() {
+        if (this.backgroundMusic && !this.isMusicPlaying) {
+          console.log('🎵 Attempting to start background music...');
+          
+          // Try to play music (may require user interaction)
+          const playPromise = this.backgroundMusic.play();
+          
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              console.log('🎵 Background music started successfully');
+              this.isMusicPlaying = true;
+              this.updateMusicButton();
+            }).catch(error => {
+              console.log('🎵 Music play failed - user interaction may be required:', error);
+              console.log('🎵 Music will start when user clicks the music button');
+              // Set initial state to not playing
+              this.isMusicPlaying = false;
+              this.updateMusicButton();
+              
+              // Add a one-time click listener to start music on first user interaction
+              const startMusicOnInteraction = () => {
+                if (!this.isMusicPlaying && this.backgroundMusic) {
+                  this.backgroundMusic.play().then(() => {
+                    console.log('🎵 Music started after user interaction');
+                    this.isMusicPlaying = true;
+                    this.updateMusicButton();
+                  }).catch(err => {
+                    console.log('🎵 Still failed to play music:', err);
+                  });
+                  // Remove the listener after first interaction
+                  document.removeEventListener('click', startMusicOnInteraction);
+                  document.removeEventListener('keydown', startMusicOnInteraction);
+                }
+              };
+              
+              // Add listeners for user interaction
+              document.addEventListener('click', startMusicOnInteraction, { once: true });
+              document.addEventListener('keydown', startMusicOnInteraction, { once: true });
+            });
+          } else {
+            // Fallback for older browsers
+            this.isMusicPlaying = false;
+            this.updateMusicButton();
+          }
+        }
+      }
+
+      toggleBackgroundMusic() {
+        if (!this.backgroundMusic) return;
+        
+        if (this.isMusicPlaying) {
+          // Pause the music
+          this.backgroundMusic.pause();
+          this.isMusicPlaying = false;
+          this.musicUserTurnedOff = true; // Track that user turned it off
+          console.log('🎵 Background music paused');
+        } else {
+          // Ensure volume is set before playing
+          this.backgroundMusic.volume = 0.5;
+          console.log('🎵 Setting volume to:', this.backgroundMusic.volume);
+          
+          // Play the music
+          this.backgroundMusic.play().then(() => {
+            this.isMusicPlaying = true;
+            this.musicUserTurnedOff = false; // User turned it back on
+            console.log('🎵 Background music resumed with volume:', this.backgroundMusic.volume);
+          }).catch(error => {
+            console.log('🎵 Music play failed:', error);
+            // Try again with user interaction
+            this.backgroundMusic.volume = 0.5;
+          });
+        }
+        
+        this.updateMusicButton();
+      }
+
+      stopAllMusic() {
+        // Stop all oscillators
+        if (this.oscillators) {
+          this.oscillators.forEach(oscillator => {
+            try {
+              oscillator.stop();
+            } catch (e) {
+              // Oscillator might already be stopped
+            }
+          });
+          this.oscillators = [];
+        }
+        
+        // Stop all LFOs
+        if (this.lfos) {
+          this.lfos.forEach(lfo => {
+            try {
+              lfo.stop();
+            } catch (e) {
+              // LFO might already be stopped
+            }
+          });
+          this.lfos = [];
+        }
+        
+        // Clear gain nodes
+        this.gainNodes = [];
+      }
+
+      updateMusicButton() {
+        const musicBtn = document.getElementById('musicToggleBtn');
+        if (musicBtn) {
+          // Show button as "on" by default (intended state)
+          // Only show as "off" if user has explicitly turned it off
+          if (this.isMusicPlaying || this.musicUserTurnedOff !== true) {
+            musicBtn.classList.add('playing');
+          } else {
+            musicBtn.classList.remove('playing');
+          }
+        }
+      }
+
+      tryVideoSequentially(index) {
+        if (index >= this.videos.length) {
+          console.log('❌ No playable videos found');
+          this.showError('No playable videos available in the channel');
+          return;
+        }
+        
+        const video = this.videos[index];
+        console.log(`🎯 Trying video ${index + 1}: ${video.title} (ID: ${video.videoId})`);
+        
+        const mainVideoElement = document.getElementById('mainVideo');
+        const titleElement = document.getElementById('mainVideoTitle');
+        const descriptionElement = document.getElementById('mainVideoDescription');
+        
+        if (!mainVideoElement || !titleElement || !descriptionElement) {
+          console.error('❌ DOM elements not found for main video');
+          return;
+        }
+        
+        // Try multiple embedding approaches to avoid Error 153
+        this.tryVideoWithMultipleMethods(video, index, mainVideoElement, titleElement, descriptionElement);
+      }
+
+      tryVideoWithMultipleMethods(video, index, mainVideoElement, titleElement, descriptionElement) {
+        // Method 1: Try standard YouTube embed with minimal parameters
+        const methods = [
+          {
+            name: 'Standard YouTube',
+            url: `https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=1`
+          },
+          {
+            name: 'YouTube NoCookie',
+            url: `https://www.youtube-nocookie.com/embed/${video.videoId}?autoplay=1&mute=1&controls=1`
+          },
+          {
+            name: 'YouTube with JS API',
+            url: `https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=1&enablejsapi=1&origin=${window.location.hostname}`
+          },
+          {
+            name: 'YouTube Minimal',
+            url: `https://www.youtube.com/embed/${video.videoId}`
+          }
+        ];
+        
+        let currentMethodIndex = 0;
+        
+        const tryNextMethod = () => {
+          if (currentMethodIndex >= methods.length) {
+            console.log(`❌ All embedding methods failed for ${video.title}, trying next video...`);
+            this.moveToNextVideo(index);
+            return;
+          }
+          
+          const method = methods[currentMethodIndex];
+          console.log(`🔧 Trying method ${currentMethodIndex + 1}: ${method.name}`);
+          
+          // Clear previous src and set new one
+          mainVideoElement.src = '';
+          mainVideoElement.src = method.url;
+          mainVideoElement.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          
+          titleElement.textContent = video.title;
+          descriptionElement.textContent = video.description;
+          
+          // Check if this method works after 3 seconds
+          setTimeout(() => {
+            if (this.checkVideoWorking(mainVideoElement)) {
+              console.log(`✅ Method ${method.name} worked for ${video.title}`);
+              this.onVideoSuccess(video, index);
+            } else {
+              console.log(`❌ Method ${method.name} failed for ${video.title}`);
+              currentMethodIndex++;
+              tryNextMethod();
+            }
+          }, 3000);
+        };
+        
+        tryNextMethod();
+      }
+
+      checkVideoWorking(videoElement) {
+        try {
+          // Try to detect if video is working by checking iframe content
+          const iframeContent = videoElement.contentWindow;
+          if (iframeContent) {
+            const iframeDoc = iframeContent.document;
+            if (iframeDoc && iframeDoc.body) {
+              const bodyText = iframeDoc.body.textContent.toLowerCase();
+              // Check for error indicators
+              const hasError = bodyText.includes('error') || 
+                             bodyText.includes('153') ||
+                             bodyText.includes('unavailable') ||
+                             bodyText.includes('private');
+              return !hasError;
+            }
+          }
+        } catch (e) {
+          // Cross-origin error is normal, assume video is working
+          return true;
+        }
+        return true;
+      }
+
+      moveToNextVideo(currentIndex) {
+        // Move current video to end and try next
+        const currentVideo = this.videos[currentIndex];
+        this.videos.splice(currentIndex, 1);
+        this.videos.push(currentVideo);
+        
+        // Try the next video (which is now at the same index)
+        this.tryVideoSequentially(currentIndex);
+      }
+
+      onVideoSuccess(video, index) {
+        // Move working video to front if not already there
+        if (index > 0) {
+          this.videos.splice(index, 1);
+          this.videos.unshift(video);
+          this.renderVideoFeed();
+        }
+      }
+
+      renderVideoFeed() {
+        console.log('📺 Rendering video sidebar. Total videos:', this.videos.length);
+        
+        const feedContainer = document.getElementById('videoFeed');
+        if (!feedContainer) {
+          console.error('❌ Video feed container not found');
+          return;
+        }
+        
+        // Since we're playing the latest video (index 0), skip it from the sidebar
+        // Show only the next 3 videos in the sidebar
+        const sidebarVideos = this.videos.filter((video, index) => index !== 0).slice(0, 3);
+        console.log('📝 Sidebar videos to render (next 3 videos):', sidebarVideos.length, 'videos');
+        
+        if (sidebarVideos.length === 0) {
+          console.log('ℹ️ No additional videos for sidebar');
+          feedContainer.innerHTML = '<p style="color: #aaa; text-align: center; padding: 40px;">No additional videos available</p>';
+          return;
+        }
+        
+        const sidebarHTML = sidebarVideos.map(video => this.createSidebarVideoItem(video)).join('');
+        console.log('📄 Generated sidebar HTML length:', sidebarHTML.length);
+        
+        feedContainer.innerHTML = sidebarHTML;
+        
+        // Add click handlers to sidebar video items
+        const videoItems = feedContainer.querySelectorAll('.sidebar-item');
+        console.log('🎯 Found sidebar video items:', videoItems.length);
+        
+        videoItems.forEach((item, index) => {
+          item.addEventListener('click', () => {
+            // Find the actual index in the original videos array
+            const clickedVideo = sidebarVideos[index];
+            const actualIndex = this.videos.findIndex(v => v.id === clickedVideo.id);
+            console.log('🖱️ Sidebar video item clicked:', actualIndex);
+            this.playVideo(actualIndex);
+          });
+        });
+        
+        console.log('✅ Video sidebar rendered successfully');
+      }
+
+      renderAllVideosSection() {
+        console.log('📺 Rendering all videos section. Total videos:', this.videos.length);
+        
+        const allVideosContainer = document.getElementById('allVideosFeed');
+        if (!allVideosContainer) {
+          console.error('❌ All videos container not found');
+          return;
+        }
+        
+        // Show all videos in descending order (newest first)
+        // The videos are already in descending order from YouTube API, so we use all videos
+        const allVideos = this.videos; // All videos in descending order
+        console.log('📝 All videos to render:', allVideos.length, 'videos');
+        
+        if (allVideos.length === 0) {
+          console.log('ℹ️ No videos available for all videos section');
+          allVideosContainer.innerHTML = '<p style="color: #aaa; text-align: center; padding: 40px;">No videos available</p>';
+          return;
+        }
+        
+        const allVideosHTML = allVideos.map(video => this.createVideoItem(video)).join('');
+        console.log('📄 Generated all videos HTML length:', allVideosHTML.length);
+        
+        allVideosContainer.innerHTML = allVideosHTML;
+        
+        // Add click handlers to all video items
+        const videoItems = allVideosContainer.querySelectorAll('.video-item');
+        console.log('🎯 Found all videos items:', videoItems.length);
+        
+        videoItems.forEach((item, index) => {
+          item.addEventListener('click', () => {
+            // Find the actual index in the original videos array
+            const clickedVideo = allVideos[index];
+            const actualIndex = this.videos.findIndex(v => v.id === clickedVideo.id);
+            console.log('🖱️ All videos item clicked:', actualIndex);
+            this.playVideo(actualIndex);
+          });
+        });
+        
+        console.log('✅ All videos section rendered successfully');
+      }
+
+      createSidebarVideoItem(video) {
+        return `
+          <div class="video-item sidebar-item" data-video-id="${video.id}">
+            <div class="sidebar-thumbnail">
+              <img src="${video.thumbnail}" alt="${video.title}">
+              <div class="video-duration">${video.duration}</div>
+            </div>
+            <div class="sidebar-content">
+              <h4 class="sidebar-title">${video.title}</h4>
+              <p class="sidebar-meta">Sahyadri Consultants • ${this.formatDate(video.publishedAt)}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      createVideoItem(video) {
+        return `
+          <div class="video-item bottom-video" data-video-id="${video.id}">
+            <div class="video-thumbnail">
+              <img src="${video.thumbnail}" alt="${video.title}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+              <div class="video-duration">${video.duration}</div>
+            </div>
+            <div class="video-details">
+              <h4 class="video-title">${video.title}</h4>
+              <p class="video-meta">Sahyadri Consultants • ${this.formatDate(video.publishedAt)}</p>
+            </div>
+          </div>
+        `;
+      }
+
+      playVideo(index) {
+        if (index < 0 || index >= this.videos.length) return;
+        
+        const video = this.videos[index];
+        console.log('🖱️ Playing video:', video.title, 'Video ID:', video.videoId, 'Index:', index);
+        
+        // Load video into feed player
+        this.currentVideoIndex = index;
+        this.loadVideoIntoPlayer(index);
+        
+        // Move this video to the front
+        if (index > 0) {
+          this.videos.splice(index, 1);
+          this.videos.unshift(video);
+          this.currentVideoIndex = 0;
+          this.renderVideoFeed();
+        }
+        
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      setupInfiniteScroll() {
+        let scrollTimeout;
+        
+        window.addEventListener('scroll', () => {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            if (this.isNearBottom() && !this.isLoading && this.hasMoreVideos) {
+              this.loadMoreVideos();
+            }
+          }, 100);
+        });
+      }
+
+      isNearBottom() {
+        const scrollPosition = window.innerHeight + window.scrollY;
+        const documentHeight = document.documentElement.offsetHeight;
+        return scrollPosition >= documentHeight - 1000; // Load when 1000px from bottom
+      }
+
+      async loadMoreVideos() {
+        // Only load real YouTube videos, no template/fallback videos
+        console.log('📚 Loading more videos from YouTube API...');
+        
+        // We already have all videos from the initial API call
+        // Disable infinite scroll since we're not fetching more from API
+        this.hasMoreVideos = false;
+        
+        // Show message that there are no more videos
+        const feedContainer = document.getElementById('videoFeed');
+        const existingMessage = feedContainer.querySelector('.no-more-videos');
+        if (!existingMessage) {
+          const message = document.createElement('div');
+          message.className = 'no-more-videos';
+          message.style.cssText = 'color: #aaa; text-align: center; padding: 20px; margin-top: 20px;';
+          message.textContent = 'No more videos available';
+          feedContainer.appendChild(message);
+        }
+      }
+
+      generateFallbackVideos() {
+        // Generate additional videos for infinite scroll
+        return [
+          {
+            id: 'extra1',
+            title: 'Additional Construction Update',
+            description: 'More content from our ongoing projects.',
+            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg',
+            duration: '5:00',
+            publishedAt: new Date().toISOString(),
+            videoId: 'dQw4w9WgXcQ'
+          }
+        ];
+      }
+
+      formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays === 1) return '1 day ago';
+        if (diffDays < 30) return `${diffDays} days ago`;
+        if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+        return `${Math.floor(diffDays / 365)} years ago`;
+      }
+
+      showLoadingIndicator() {
+        const feedContainer = document.getElementById('videoFeed');
+        if (!feedContainer.querySelector('.loading-indicator')) {
+          feedContainer.innerHTML += `
+            <div class="loading-indicator">
+              <div class="loading-spinner"></div>
+              <p>Loading more videos...</p>
+            </div>
+          `;
+        }
+      }
+
+      hideLoadingIndicator() {
+        const loadingIndicator = document.querySelector('.loading-indicator');
+        if (loadingIndicator) {
+          loadingIndicator.remove();
+        }
+      }
+
+      showError(message) {
+        const feedContainer = document.getElementById('videoFeed');
+        feedContainer.innerHTML = `<div class="error-message">${message}</div>`;
+      }
+    }
+
+    // Initialize the YouTube feed when page loads and API key is ready
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('🎥 Starting YouTube Feed for @sahyadriconsultants');
+      
+      // Wait for YouTube API key to be loaded
+      await youtubeApiKeyLoaded;
+      console.log('✅ YouTube API key loaded, initializing feed...');
+      
+      new YouTubeFeed();
+    });
+  </script>
+</body>
+</html>

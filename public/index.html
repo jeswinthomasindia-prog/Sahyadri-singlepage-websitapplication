@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahyadri Consultants | Kannur</title>
+  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
      <!-- Essential for WhatsApp Link Preview -->
     <meta property="og:title" content="Sahyadri Consultants | Kannur" />
@@ -16,14 +17,16 @@
   <header class="container">
     <div class="topbar">
       <a href="#" class="brand" aria-label="Sahyadri Consultants home">
-        <img src="logo.svg" alt="Sahyadri logo" />
+        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
         <h1>Sahyadri Consultants</h1>
       </a>
       <nav class="nav">
-        <a href="assistant.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#testimonials">Testimonials</a>
+        <a href="recent-activity.html">Recent Activity</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -40,9 +43,12 @@
         <h2>40+ Years of Excellence in Civil & Construction Consultancy</h2>
         <p>Based in Kannur, Kerala. 1000+ successful projects delivering quality, innovation, and timely completion.</p>
         <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'});">See Our Work</button>
-        <a href="assistant.html" class="btn mobile-assistant-btn" aria-label="Talk to our Sahyadri Assistant">
+        <a href="login.html" class="btn mobile-assistant-btn" aria-label="Talk to our Sahyadri Assistant">
           <span class="ai-btn-icon" aria-hidden="true">🤖</span>
           <span>Talk to Assistant</span>
+        </a>
+        <a href="login.html" class="btn mobile-login-btn" aria-label="Login to Sahyadri Consultants">
+          <span>Login</span>
         </a>
       </div>
     </div>
@@ -141,22 +147,23 @@
 
   <footer id="contact">
     <div class="container footer-grid">
-      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: info@sahyadriconsultants.in</p><p>Phone: +91 99999 99999</p></div>
-      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="assistant.html">Talk to Assistant</a></p></div>
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: info@sahyadriconsultants.in</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p></div>
       <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
       <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
     </div>
     <div class="container footer-bottom"> 
-      <span>© 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span> 2026 Sahyadri Consultants. All Rights Reserved.</span>
       <span>Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
 
-<a href="https://wa.me/919447489926?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
+<a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
    class="whatsapp-float" 
    target="_blank">
    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
 </a>
   <script src="script.js"></script>
+  <script type="module" src="firebase_script.js"></script>
 </body>
 </html>
