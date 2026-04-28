@@ -209,32 +209,80 @@ function showErrorMessage(message) {
   if (artifactList) artifactList.style.display = 'none';
 }
 
-// Hardcoded status data for each user
-const userStatusData = {
-  jeswin: {
-    currentStatus: 'Design Phase - Finalizing architectural plans',
-    workDone: 'Completed site survey, structural analysis, and initial design concepts. All permits submitted for approval.',
-    nextSteps: 'Review final blueprints with client, begin material procurement, schedule construction start date.'
-  },
-  asha: {
-    currentStatus: 'Construction Phase - Foundation work in progress',
-    workDone: 'Site preparation complete, foundation excavation done, concrete pouring scheduled for next week.',
-    nextSteps: 'Complete foundation work, begin structural framing, install utilities and plumbing systems.'
-  },
-  guest: {
-    currentStatus: 'Planning Phase - Initial consultation completed',
-    workDone: 'Initial project discussion held, requirements gathered, preliminary budget estimate provided.',
-    nextSteps: 'Detailed site survey, create design proposals, finalize project scope and timeline.'
-  },
-  thomas: {
-    currentStatus: 'Final Inspection Phase - Project near completion',
-    workDone: 'All construction work completed, interior finishing done, landscaping in progress.',
-    nextSteps: 'Final quality inspection, handover documentation, client walkthrough and project sign-off.'
+// Load user status data from Google Sheets
+let userStatusData = {};
+
+async function loadUserStatusData() {
+  try {
+    console.log('🔍 Loading user status data from Google Sheets...');
+    
+    // Load user status from User Status sheet - use correct CSV export format
+    const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
+    
+    const response = await fetch(statusUrl, {
+      mode: 'cors',
+      headers: {
+        'Accept': 'text/csv',
+        'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+      },
+      redirect: 'follow'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const csvText = await response.text();
+    console.log('✅ Successfully loaded user status data');
+    console.log('📄 Raw CSV content:', csvText);
+    console.log('🔍 CSV content length:', csvText.length);
+    console.log('🔍 First 200 characters:', csvText.substring(0, 200));
+    console.log('🔍 Response URL was:', statusUrl);
+    
+    // Parse CSV data
+    const lines = csvText.split('\n');
+    const users = {};
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      
+      // Skip header row
+      if (i === 0) continue;
+      
+      // Handle CSV separators
+      const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
+      const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
+      
+      if (values.length >= 4) {
+        const username = values[0];
+        const currentStatus = values[1];
+        const workDone = values[2];
+        const nextSteps = values[3];
+        
+        if (username) {
+          users[username] = {
+            currentStatus: currentStatus || 'Status not available',
+            workDone: workDone || 'Work details not available',
+            nextSteps: nextSteps || 'Next steps not available'
+          };
+          console.log(`👤 Loaded status for user: ${username}`);
+        }
+      }
+    }
+    
+    console.log('✅ User status data loaded successfully:', Object.keys(users));
+    return users;
+    
+  } catch (error) {
+    console.error('❌ Error loading user status data:', error);
+    // Return empty object if Google Sheets fails - no hardcoded fallback
+    return {};
   }
-};
+}
 
 // Show status tile for the current user
-function showStatusTile(username) {
+async function showStatusTile(username) {
   const statusTile = document.getElementById('statusTile');
   const currentStatusEl = document.getElementById('currentStatus');
   const workDoneEl = document.getElementById('workDone');
@@ -242,6 +290,16 @@ function showStatusTile(username) {
   
   if (!statusTile || !currentStatusEl || !workDoneEl || !nextStepsEl) {
     console.log('Status tile elements not found');
+    return;
+  }
+  
+  // Load user status data from Google Sheets
+  console.log('🔍 Loading status data for user:', username);
+  userStatusData = await loadUserStatusData();
+  
+  const userData = userStatusData[username];
+  if (!userData) {
+    console.log('No status data found for user:', username);
     return;
   }
   
