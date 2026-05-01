@@ -1,29 +1,12 @@
 // Google Drive Configuration for User Folders
-// This file contains the mapping between users and their Google Drive folders
+// This file loads user folder mappings from Google Sheets
 
-const GOOGLE_DRIVE_CONFIG = {
-  // Base Google Drive link - you'll need to provide this
-  BASE_DRIVE_URL: "https://drive.google.com/drive/folders/12wB1N93jBlOzInfj00blR3JoCrvknZD7/",
+let GOOGLE_DRIVE_CONFIG = {
+  // Base Google Drive link - loaded from Google Sheets
+  BASE_DRIVE_URL: "",
   
-  // User-specific folder IDs and names
-  USER_FOLDERS: {
-    jeswin: {
-      folderId: "1mjLhna-0I8rQ4T5Uqp_EsH9zNDMb9q0w", // Replace with actual folder ID
-      folderName: "Jeswin"
-    },
-    thomas: {
-      folderId: "1xVRWWXs2wKiOQtwYgrTY9_C_dc5KMozF", // Replace with actual folder ID
-      folderName: "Thomas"
-    },
-    asha: {
-      folderId: "1OPvNOfm_rFNM3AKZ4_Oeb0HV1qzXz9nD", // Replace with actual folder ID
-      folderName: "Asha"
-    },
-    guest: {
-      folderId: "1zHfczpvZ5hwoVVE_ivES5ExbmuGHIShn", // Replace with actual folder ID
-      folderName: "Guest"
-    }
-  },
+  // User-specific folder IDs and names - loaded from Google Sheets
+  USER_FOLDERS: {},
   
   // File types to display and their icons
   SUPPORTED_FILE_TYPES: {
@@ -40,6 +23,83 @@ const GOOGLE_DRIVE_CONFIG = {
     dwg: { icon: "📐", name: "AutoCAD Drawing" }
   }
 };
+
+// Load Google Drive folder configuration from Google Sheets
+async function loadGoogleDriveConfig() {
+  try {
+    console.log('🔍 Loading Google Drive configuration from Google Sheets...');
+    
+    // Load user folders from Google Sheets
+    const configUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=1355520136&single=true&output=csv';
+    
+    const response = await fetch(configUrl, {
+      mode: 'cors',
+      headers: {
+        'Accept': 'text/csv',
+        'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+      },
+      redirect: 'follow'
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const csvText = await response.text();
+    console.log('✅ Successfully loaded Google Drive configuration');
+    console.log('📄 Raw CSV content:', csvText);
+    
+    // Parse CSV data
+    const lines = csvText.split('\n');
+    const userFolders = {};
+    let baseDriveUrl = "";
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      
+      // Skip header row
+      if (i === 0) continue;
+      
+      // Handle CSV separators
+      const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
+      const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
+      
+      if (values.length >= 4) {
+        const username = values[0];
+        const folderId = values[1];
+        const folderName = values[2];
+        const driveUrl = values[3];
+        
+        if (username) {
+          userFolders[username] = {
+            folderId: folderId || '',
+            folderName: folderName || username
+          };
+          
+          // Set base drive URL from first row
+          if (!baseDriveUrl && driveUrl) {
+            baseDriveUrl = driveUrl;
+          }
+          
+          console.log(`👤 Loaded folder config for user: ${username}`);
+        }
+      }
+    }
+    
+    // Update configuration
+    GOOGLE_DRIVE_CONFIG.USER_FOLDERS = userFolders;
+    GOOGLE_DRIVE_CONFIG.BASE_DRIVE_URL = baseDriveUrl;
+    
+    console.log('✅ Google Drive configuration loaded successfully:', Object.keys(userFolders));
+    return GOOGLE_DRIVE_CONFIG;
+    
+  } catch (error) {
+    console.error('❌ Error loading Google Drive configuration:', error);
+    // Return empty configuration if Google Sheets fails
+    return GOOGLE_DRIVE_CONFIG;
+  }
+}
 
 // Load API keys from cred.env file
 async function loadGoogleApiKeys() {

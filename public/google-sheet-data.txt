@@ -1,5 +1,0 @@
-username	password
-jeswin	jeswinpass
-thomas	thomaspass
-asha	ashapass
-guest	guestpass

@@ -56,8 +56,11 @@ async function loadUserCredentials() {
     // Simplified approach - use direct CSV download
     console.log('🌐 STEP 4: Preparing CSV download approach...');
     const approaches = [
-      // Direct CSV download from published Google Sheet
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?output=csv'
+      // Direct CSV download from published Google Sheet with cache-busting
+      (() => {
+        const timestamp = Date.now();
+        return `https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?output=csv&_t=${timestamp}`;
+      })()
     ];
     console.log('🌐 STEP 5: API approaches prepared:', approaches.length);
     
@@ -69,20 +72,33 @@ async function loadUserCredentials() {
         console.log(`🔄 STEP 6: Trying approach ${approaches.indexOf(url) + 1}: ${url}`);
         console.log('📡 STEP 7: Preparing fetch request...');
         
+        // Add cache-busting timestamp to URL
+        const cacheBustingUrl = url.includes('?') ? 
+          `${url}&_t=${Date.now()}` : 
+          `${url}?_t=${Date.now()}`;
+        
+        console.log('🔄 STEP 7.1: Cache-busting URL:', cacheBustingUrl);
+        
         const response = await fetch(url, {
-          mode: 'cors',
+          method: 'GET',
           headers: {
             'Accept': 'text/csv',
-            'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+            'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache'
           },
-          redirect: 'follow' // Follow redirects
+          redirect: 'follow'
         });
         
-        console.log('📡 STEP 8: API Request URL:', url);
+        console.log('📡 STEP 8: API Request URL:', cacheBustingUrl);
         console.log('📡 STEP 9: Request headers:', {
           'Accept': 'text/csv',
-          'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+          'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
         });
+        console.log('🔄 STEP 9.1: Cache settings: cache=no-store');
         console.log('📊 STEP 10: Response status:', response.status);
         console.log('📊 STEP 11: Response headers:', Object.fromEntries(response.headers.entries()));
         console.log('📊 STEP 12: Full response object:', response);
@@ -451,15 +467,25 @@ function showStatus(message, type = 'info') {
 
 async function handleLogin(event) {
   event.preventDefault();
+  
+  // Prevent multiple clicks during login
+  if (primaryAuthBtn.disabled) {
+    console.log('🔄 Login already in progress, preventing multiple clicks');
+    return;
+  }
+  
   const usernameValue = usernameInput.value.trim();
   const passwordValue = passwordInput.value;
-
+  
   if (!usernameValue || !passwordValue) {
     showStatus('Please enter both username and password.', 'error');
     return;
   }
-
+  
   try {
+    // Show loading spinner
+    showLoadingSpinner();
+    
     // Load user credentials from Google Sheets
     allowedUsers = await loadUserCredentials();
     console.log('🔍 Validating credentials against Google Sheets data...');
@@ -479,19 +505,37 @@ async function handleLogin(event) {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('username', usernameValue);
       
+      // Hide loading spinner
+      hideLoadingSpinner();
+      
       // Redirect to user dashboard
       setTimeout(() => {
         window.location.href = `user-dashboard.html?user=${usernameValue}`;
       }, 1500);
     } else {
-      console.log('❌ Login failed for user:', usernameValue);
-      console.log('🔍 Available users:', Object.keys(allowedUsers));
-      console.log('❌ Password mismatch - provided password does not match expected password');
-      showStatus('Invalid username or password. Please try again.', 'error');
+      showStatus('Invalid username or password.', 'error');
+      hideLoadingSpinner();
     }
   } catch (error) {
     console.error('❌ Login error:', error);
-    showStatus('Login system temporarily unavailable. Please try again later.', 'error');
+    showStatus('Login failed. Please try again.', 'error');
+    hideLoadingSpinner();
+  }
+}
+
+function showLoadingSpinner() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  if (loadingOverlay) {
+    loadingOverlay.style.display = 'flex';
+    console.log('🔄 Showing loading spinner');
+  }
+}
+
+function hideLoadingSpinner() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  if (loadingOverlay) {
+    loadingOverlay.style.display = 'none';
+    console.log('✅ Hiding loading spinner');
   }
 }
 

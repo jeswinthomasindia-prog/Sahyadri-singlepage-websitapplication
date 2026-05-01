@@ -1,4 +1,4 @@
-function setupCarousel(containerKey, trackId) {
+function setupCarousel(containerKey, trackId, interval = 6500) {
   const track = document.getElementById(trackId);
   const slides = Array.from(track.children);
   let current = 0;
@@ -13,7 +13,7 @@ function setupCarousel(containerKey, trackId) {
   const controls = document.querySelectorAll(`[data-target='${containerKey}']`);
   controls.forEach(btn => btn.addEventListener('click', () => update(btn.dataset.direction)));
 
-  const intervalId = setInterval(() => update('next'), 6500);
+  const intervalId = setInterval(() => update('next'), interval);
   window.addEventListener('resize', () => update('none'));
 
   return () => clearInterval(intervalId);
@@ -22,5 +22,6 @@ function setupCarousel(containerKey, trackId) {
 window.addEventListener('DOMContentLoaded', () => {
   setupCarousel('projects','projectTrack');
   setupCarousel('testimonials','testiTrack');
+  setupCarousel('awards','awardsTrack', 16250); // 2.5x slower than 6500ms
 });
 

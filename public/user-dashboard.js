@@ -37,7 +37,13 @@ function initializeDashboard() {
 
   // Load artifacts for the current user
   if (currentUser) {
-    loadUserArtifacts(currentUser);
+    // Load Google Drive configuration first, then load artifacts
+    loadGoogleDriveConfig().then(() => {
+      loadUserArtifacts(currentUser);
+    }).catch(error => {
+      console.error('Failed to load Google Drive configuration:', error);
+      showErrorMessage('Failed to load Google Drive configuration. Please try again.');
+    });
   } else {
     showErrorMessage('Please log in to view your artifacts.');
   }

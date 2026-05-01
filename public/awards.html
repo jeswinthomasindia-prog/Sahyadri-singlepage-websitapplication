@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awards & Recognitions | Sahyadri Consultants</title>
+  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .awards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      padding: 40px 0;
+    }
+    
+    .award-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.15);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .award-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,.2);
+    }
+    
+    .award-image {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    
+    .award-card:hover .award-image {
+      transform: scale(1.05);
+    }
+    
+    .award-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 10px 0;
+    }
+    
+    .award-description {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.6;
+      margin: 0 0 15px 0;
+    }
+    
+    .award-date {
+      font-size: 0.9rem;
+      color: #666;
+      font-style: italic;
+    }
+    
+    /* Modal for zoom functionality */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      cursor: pointer;
+    }
+    
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .modal-close:hover {
+      color: #bbb;
+    }
+    
+    @media (max-width: 768px) {
+      .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px 0;
+      }
+      
+      .award-card {
+        padding: 20px;
+      }
+      
+      .award-image {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="industry-insights.html">Industry Insights</a>
+        <a href="recent-activity.html">Recent Activity</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="container">
+    <div class="section-title"><h2>Awards & Recognitions</h2></div>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: #666; line-height: 1.6;">
+      Over our 40+ years of excellence, Sahyadri Consultants has been recognized with numerous awards for outstanding project management, innovative design solutions, and exceptional client service. Click on any award below to view it in detail.
+    </p>
+    
+    <div class="awards-grid">
+      <div class="award-card" onclick="openModal('resources/images/awards/st_joseph_hospital.png')">
+        <img src="resources/images/awards/st_joseph_hospital.png?auto=format&fit=contain&w=400&q=80" alt="St Joseph Hospital Award" class="award-image" />
+        <h3 class="award-title">St Joseph Hospital, Karuvanchal</h3>
+        <p class="award-description">Recognized for project management of construction of a new building at St Joseph Hospital, Karuvanchal</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/jacob_and_george_kannur.png')">
+        <img src="resources/images/awards/jacob_and_george_kannur.png?auto=format&fit=contain&w=400&q=80" alt="Jacob and George Kannur Award" class="award-image" />
+        <h3 class="award-title">Jacob and George, Kannur</h3>
+        <p class="award-description">Awarded for outstanding interiors at Jacob and George, Kannur</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/jacob_and_george_kanjagad.png')">
+        <img src="resources/images/awards/jacob_and_george_kanjagad.png?auto=format&fit=contain&w=400&q=80" alt="Jacob and George Kanhangad Award" class="award-image" />
+        <h3 class="award-title">Jacob and George, Kanhangad</h3>
+        <p class="award-description">Recognized for project management of new office building of Jacob and George, Kanhangad</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/jacob_and_george_kanjagad_interior.png')">
+        <img src="resources/images/awards/jacob_and_george_kanjagad_interior.png?auto=format&fit=contain&w=400&q=80" alt="Jacob and George Kanhangad Interior Award" class="award-image" />
+        <h3 class="award-title">Jacob and George, Kanhangad</h3>
+        <p class="award-description">Awarded for outstanding interiors at Jacob and George, Kanhangad</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/vimal_jyothi_enginengineering_college.png')">
+        <img src="resources/images/awards/vimal_jyothi_enginengineering_college.png?auto=format&fit=contain&w=400&q=80" alt="Vimal Jyothi Engineering College Award" class="award-image" />
+        <h3 class="award-title">Vimal Jyothi Engineering College, Chemperi</h3>
+        <p class="award-description">Awarded for project management of Vimal Jyothi Engineering College, Chemperi</p>
+      </div>
+
+      <div class="award-card" onclick="openModal('resources/images/awards/holy_family_church_kannur.png')">
+        <img src="resources/images/awards/holy_family_church_kannur.png?auto=format&fit=contain&w=400&q=80" alt="Holy Family Church Kannur Award" class="award-image" />
+        <h3 class="award-title">Holy Family Church, Kannur</h3>
+        <p class="award-description">Awarded for project management of presbytery at Holy Family Church, Kannur</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/holy_family_church_kannur_interior.png')">
+        <img src="resources/images/awards/holy_family_church_kannur_interior.png?auto=format&fit=contain&w=400&q=80" alt="Holy Family Church Kannur Interior Award" class="award-image" />
+        <h3 class="award-title">Holy Family Church, Kannur</h3>
+        <p class="award-description">Awarded for outstanding designs of presbytery at Holy Family Church, Kannur</p>
+      </div>
+      
+      <div class="award-card" onclick="openModal('resources/images/awards/canossa_cherukunnu.png')">
+        <img src="resources/images/awards/canossa_cherukunnu.png?auto=format&fit=contain&w=400&q=80" alt="Canossa Cherukunnu Award" class="award-image" />
+        <h3 class="award-title">Canossa, Cherukunnu</h3>
+        <p class="award-description">Awarded for outstanding designs at Canossa Cherukunnu</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for zoom functionality -->
+  <div id="awardModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage" />
+  </div>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span> 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span>Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <script>
+    function openModal(imageSrc) {
+      const modal = document.getElementById('awardModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.style.display = 'block';
+      modalImg.src = imageSrc;
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('awardModal');
+      modal.style.display = 'none';
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
