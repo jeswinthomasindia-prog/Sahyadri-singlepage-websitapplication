@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ultra Modern Company | Sahyadri Consultants</title>
+  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    /* Alternating image layout for ultra modern tiles */
+    .about-content-grid {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    /* Ensure section-link containers use flex */
+    .about-content-grid .section-link {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      width: 100%;
+    }
+    
+    /* Tile 1: Image left, Content right */
+    .about-content-grid:nth-child(1) {
+      flex-direction: row;
+    }
+    
+    /* Tile 2: Content left, Image right */
+    .about-content-grid:nth-child(2) {
+      flex-direction: row-reverse;
+    }
+    
+    /* Tile 3: Image left, Content right */
+    .about-content-grid:nth-child(3) {
+      flex-direction: row;
+    }
+    
+    /* Tile 4: Content left, Image right */
+    .about-content-grid:nth-child(4) {
+      flex-direction: row-reverse;
+    }
+    
+    /* Tile 5: Image left, Content right */
+    .about-content-grid:nth-child(5) {
+      flex-direction: row;
+    }
+    
+    /* Tile 6: Content left, Image right */
+    .about-content-grid:nth-child(6) {
+      flex-direction: row-reverse;
+    }
+    
+    /* Tile 7: Image left, Content right */
+    .about-content-grid:nth-child(7) {
+      flex-direction: row;
+    }
+    
+    /* Tile 8: Content left, Image right */
+    .about-content-grid:nth-child(8) {
+      flex-direction: row-reverse;
+    }
+    
+    /* Tile 9: Image left, Content right */
+    .about-content-grid:nth-child(9) {
+      flex-direction: row;
+    }
+    
+    /* Content and image sizing */
+    .about-content-grid .section-link > div,
+    .about-content-grid > div {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    /* Ensure images fit properly */
+    .about-content-grid img {
+      width: 100%;
+      height: auto;
+      max-height: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    
+    /* Text styling */
+    .about-content-grid h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .about-content-grid p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .about-content-grid {
+        flex-direction: column !important;
+        gap: 1.5rem;
+      }
+      
+      .about-content-grid img {
+        max-height: 250px;
+        width: 100%;
+      }
+      
+      .about-content-grid h4 {
+        font-size: 1.1rem;
+      }
+      
+      .about-content-grid p {
+        font-size: 0.95rem;
+      }
+    }
+    
+    /* Extra small screens (smartphones) */
+    @media (max-width: 480px) {
+      .about-content-grid {
+        gap: 1rem;
+      }
+      
+      .about-content-grid img {
+        max-height: 200px;
+        width: 100%;
+      }
+      
+      .about-content-grid h4 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .about-content-grid p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+    }
+  </style>
+  
+  <!-- Essential for WhatsApp Link Preview -->
+  <meta property="og:title" content="Ultra Modern Company | Sahyadri Consultants" />
+  <meta property="og:description" content="Discover how Sahyadri Consultants blends 40 years of legacy with cutting-edge technology - VR views, 360° projects, walkthrough videos, and more." />
+  <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.jpg" />
+  <meta property="og:url" content="https://sahyadri-61c65.webapp/ultra-modern-company.html" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Ultra Modern Company Hero">
+      <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" alt="Modern architectural technology and innovation" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Ultra+Modern+Technology'" />
+      
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="box">
+          <h2>Ultra Modern Company</h2>
+          <p>Where 40 years of architectural legacy meets cutting-edge technology. We blend traditional expertise with innovative digital solutions to deliver exceptional experiences.</p>
+          <button class="btn" onclick="document.getElementById('modern-features').scrollIntoView({behavior:'smooth'});">Discover Our Innovations</button>
+          <a href="login.html" class="btn mobile-assistant-btn" aria-label="Talk to our Sahyadri Assistant">
+            <span class="ai-btn-icon" aria-hidden="true">🤖</span>
+            <span>Talk to Assistant</span>
+          </a>
+          <a href="login.html" class="btn mobile-login-btn" aria-label="Login to Sahyadri Consultants">
+            <span>Login</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="margin-top: 40px;">
+      <div class="section-info" style="text-align: center; max-width: 800px; margin: 0 auto;">
+        <h4>Sahyadri Consultants - Ultra Modern Architectural Excellence</h4>
+        <p>Sahyadri Consultants stands as a testament to ultra modern architectural innovation, combining 40 years of engineering excellence with cutting-edge digital transformation. Established in 1986 by Er. Thomas PJ, our firm has successfully completed over 1,000 projects while evolving into a technology-driven architectural powerhouse. Our modern capabilities include immersive 360° project experiences, AI-powered Sahyadri Assistant providing 24/7 intelligent client support, virtual reality architectural walkthroughs, and comprehensive project management dashboards. We maintain active digital presence across YouTube, Instagram, Threads, Facebook, WhatsApp ensuring seamless client connectivity. The integration of traditional Vastu principles with advanced technologies like VR views, walkthrough videos, and real-time project tracking demonstrates our commitment to amplifying structural excellence through innovation. This harmonious blend of timeless architectural wisdom and state-of-the-art digital solutions positions Sahyadri Consultants as a truly ultra modern consultancy, delivering exceptional service through both heritage expertise and technological advancement.</p>
+      </div>
+    </section>
+
+    <section id="modern-features" class="container" style="margin-top: 60px;">
+      <div class="section-title"><h3>Our Ultra Modern Features</h3></div>
+      
+      <div class="about-content-grid">
+        <a href="recent-activity.html" class="section-link" aria-label="View walkthrough videos and latest projects">
+          <div>
+            <h4>🎥 Walkthrough Videos</h4>
+            <p>Experience our projects like never before with immersive walkthrough videos that take you through every detail of our architectural masterpieces. From concept to completion, our video tours showcase the journey of transformation.</p>
+          </div>
+          <div>
+            <img src="resources/images/ultra_modern_company/walkthrough.jpg?auto=format&fit=crop&w=600&q=80" alt="Architectural walkthrough video production" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=Walkthrough+Videos'" />
+          </div>
+        </a>
+      </div>
+
+      <div class="about-content-grid" style="margin-top: 40px;">
+        <a href="experience-projects-360.html" class="section-link" aria-label="Try VR architectural experiences">
+          <div>
+            <img src="resources/images/ultra_modern_company/vr.jpg?auto=format&fit=crop&w=600&q=80" alt="360° panoramic project view" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=360+Project+Views'" />
+          </div>
+          <div>
+            <h4>🥽 VR Views</h4>
+            <p>Step into the future with Virtual Reality architectural experiences. Our VR technology allows you to walk through and experience spaces before they're built, making design decisions with confidence and clarity.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="about-content-grid" style="margin-top: 40px;">
+        <a href="experience-projects-360.html" class="section-link" aria-label="Explore 360° panoramic project views">
+          <div>
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="360° panoramic project view" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=360+Project+Views'" />
+          </div>
+          <div>
+            <h4>🌐 360° Project Views</h4>
+            <p>Explore our completed projects from every angle with interactive 360° panoramic views. This immersive technology gives you complete visibility of our work, showcasing attention to detail and design excellence.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="contact" class="container" style="margin-top: 60px;">
+      <div class="section-title"><h3>Connected & Digital-First</h3></div>
+      
+      <div class="about-content-grid">
+        <a href="#contact" class="section-link" aria-label="Visit our contact section">
+          <div>
+            <img src="resources/images/ultra_modern_company/social_media.jpg?auto=format&fit=crop&w=600&q=80" alt="Social media platforms and digital connectivity" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=Social+Media+Presence'" />
+          </div>
+          <div>
+            <h4>📱 Active Social Media Presence</h4>
+            <p>Stay connected with our latest projects, insights, and updates across all major social platforms. We share our journey, showcase our work, and engage with our community daily.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="about-content-grid" style="margin-top: 40px;">
+        <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
+           class="section-link" aria-label="Chat with us on WhatsApp" target="_blank">
+          <div>
+            <h4>💬 Direct WhatsApp Connection</h4>
+            <p>Reach us instantly through WhatsApp for quick consultations, project inquiries, or to discuss your architectural needs. We're just a message away from bringing your vision to life.</p>
+          </div>
+          <div>
+            <img src="resources/images/ultra_modern_company/whatsapp.jpg?auto=format&fit=crop&w=600&q=80" alt="WhatsApp messaging and communication" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=WhatsApp+Connection'" />
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="industry-leadership" class="container" style="margin-top: 60px;">
+      <div class="section-title"><h3>Industry Leadership & Insights</h3></div>
+      
+      <div class="about-content-grid">
+        <a href="https://www.youtube.com/@sahyadriconsultants" class="section-link" aria-label="Subscribe to our YouTube channel" target="_blank">
+          <div>
+            <img src="resources/images/ultra_modern_company/youtube.jpg?auto=format&fit=crop&w=600&q=80" alt="YouTube channel showcasing architectural projects" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=YouTube+Channel'" />
+          </div>
+          <div>
+            <h4>🎬 YouTube Channel Integration</h4>
+            <p>Oue website is deeply intergated to our youtube channel. Please subscribe to our YouTube channel for detailed project walkthroughs, architectural insights, and behind-the-scenes content. We regularly update our channel with the latest projects and industry knowledge.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="about-content-grid">
+        <a href="industry-insights.html" class="section-link" aria-label="Read latest industry insights">
+          <div>
+            <img src="resources/images/industry_insights/Modular_Construction_Revolution.jpg?auto=format&fit=crop&w=600&q=80" alt="Industry insights and architectural trends" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=Industry+Insights'" />
+          </div>
+          <div>
+            <h4>📊 Latest Industry Insights</h4>
+            <p>Stay ahead with our comprehensive analysis of architectural trends, construction innovations, and industry developments. We share our expertise to help you make informed decisions for your projects.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+<!-- 
+    <section class="container" style="margin-top: 60px; margin-bottom: 40px;">
+      <div class="section-title"><h3>Legacy Meets Innovation</h3></div>
+      
+      <div class="about-content-grid">
+        <a href="index.html#about" class="section-link" aria-label="Learn about our legacy and innovation">
+          <div>
+            <p>Since 1986, Sahyadri Consultants has been at the forefront of architectural excellence. While we honor our rich legacy of over 1,000 completed projects, we continuously embrace cutting-edge technology to enhance our services and client experiences.</p>
+            <p>Our ultra-modern approach doesn't replace our traditional values—it amplifies them. We combine the wisdom of experience with the power of innovation to deliver architectural solutions that are both timeless and technologically advanced.</p>
+          </div>
+        </a>
+        <div>
+          <img src="https://images.unsplash.com/photo-1448630361842-1e6e739a6a33?auto=format&fit=crop&w=600&q=80" alt="Traditional architecture meets modern technology" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=Legacy+Meets+Innovation'" />
+        </div>
+      </div>
+    </section> -->
+
+    <section id="advanced-services" class="container" style="margin-top: 60px; margin-bottom: 40px;">
+      <div class="section-title"><h3>Advanced Digital Services</h3></div>
+      
+      <div class="about-content-grid">
+        <a href="login.html" class="section-link" aria-label="Chat with Sahyadri Assistant">
+          <div>
+            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80" alt="AI assistant chat interface" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=AI+Assistant+Chat'" />
+          </div>
+          <div>
+            <h4>🤖 Chat with Sahyadri Assistant</h4>
+            <p>Experience our industry-leading AI-powered assistant that provides instant, intelligent responses to your architectural queries. Get personalized project recommendations, design insights, and expert guidance 24/7. This cutting-edge feature represents our commitment to leveraging artificial intelligence for enhanced client service.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="about-content-grid" style="margin-top: 40px;">
+        <a href="login.html" class="section-link" aria-label="Create account or login to user dashboard">
+          <div>
+            <h4>👤 Personal User Accounts</h4>
+            <p>Create your personalized account to access our high-tech interface where you can track your latest project updates, manage your artifacts, and monitor progress in real-time. Our advanced dashboard provides comprehensive project management tools, secure document storage, and seamless collaboration features designed for modern architectural workflows.</p>
+          </div>
+          <div>
+            <img src="resources/images/ultra_modern_company/account.jpg?auto=format&fit=crop&w=600&q=80" alt="User dashboard with project artifacts" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400.png?text=User+Dashboard'" />
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span> 2026 Sahyadri Consultants. All Rights Reserved.</span>
+      <span>Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
+   class="whatsapp-float" 
+   target="_blank">
+   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

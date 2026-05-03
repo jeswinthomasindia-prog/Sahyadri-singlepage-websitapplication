@@ -26,7 +26,7 @@ class IndustryInsights {
       this.updateLoadingState();
       
       // Always load from RSS feed
-      console.log('🔄 Loading RSS feed from thinkmatter.in');
+      // console.log('🔄 Loading RSS feed from thinkmatter.in');
       await this.loadRSSFeed();
       
     } catch (error) {
@@ -40,14 +40,15 @@ class IndustryInsights {
 
   async loadRSSFeed() {
     // Since all external approaches fail with CORS, create local industry insights data
-    console.log('🔄 Creating local industry insights data with images...');
+    // console.log('🔄 Creating local industry insights data with images...');
     
     try {
       // Create comprehensive industry insights data with real images
       const localInsights = [
         {
           title: 'Sustainable Architecture Trends 2026',
-          description: 'Green building design is revolutionizing modern architecture with energy-efficient materials, solar integration, and biophilic design principles. Industry leaders are adopting net-zero carbon building standards.',
+          description: 'Green building design is revolutionizing modern architecture with energy-efficient materials, solar integration, and biophilic design principles. Industry leaders are adopting net-zero carbon policy.',
+          summary: 'Discover how net-zero carbon buildings, solar integration, biophilic design, and energy efficiency are revolutionizing modern architecture with sustainable green building design principles.',
           importantPoints: ['Net-zero carbon buildings', 'Solar integration', 'Biophilic design', 'Energy efficiency'],
           imageUrl: 'resources/images/industry_insights/Sustainable_Architecture_Trends_2026.jpg?auto=format&fit=crop&w=400&q=80',
           source: 'Architecture Today',
@@ -59,6 +60,7 @@ class IndustryInsights {
         {
           title: 'Smart Construction Technology',
           description: 'IoT sensors and AI-powered construction equipment are transforming job sites. Real-time monitoring, predictive maintenance, and automated machinery are improving safety and efficiency.',
+          summary: 'Explore how IoT sensors, AI-powered equipment, real-time monitoring, and predictive maintenance are transforming construction job sites with improved safety and efficiency.',
           importantPoints: ['IoT sensors', 'AI-powered equipment', 'Real-time monitoring', 'Predictive maintenance'],
           imageUrl: 'resources/images/industry_insights/Smart_Construction_Technology.jpg?auto=format&fit=crop&w=400&q=80',
           source: 'Construction Tech Weekly',
@@ -70,6 +72,7 @@ class IndustryInsights {
         {
           title: 'Urban Planning for Climate Resilience',
           description: 'Cities worldwide are redesigning infrastructure to combat climate change. Green roofs, permeable pavements, and flood-resistant architecture are becoming mandatory in new developments.',
+          summary: 'Learn how climate resilience, green infrastructure, flood resistance, and sustainable urban design are becoming mandatory in new developments worldwide.',
           importantPoints: ['Climate resilience', 'Green infrastructure', 'Flood resistance', 'Sustainable urban design'],
           imageUrl: 'resources/images/industry_insights/Urban _lanning_for_Climate_Resilience.jpg?auto=format&fit=crop&w=400&q=80',
           source: 'Urban Planning Magazine',
@@ -81,6 +84,7 @@ class IndustryInsights {
         {
           title: 'Modular Construction Revolution',
           description: 'Prefabricated and modular construction methods are reducing project timelines by 40%. Factory-built components offer better quality control and reduced waste.',
+          summary: 'Discover how modular construction, prefabrication, reduced timelines, and quality control are revolutionizing the construction industry with factory-built components.',
           importantPoints: ['Modular construction', 'Prefabrication', 'Reduced timelines', 'Quality control'],
           imageUrl: 'resources/images/industry_insights/Modular_Construction_Revolution.jpg?auto=format&fit=crop&w=400&q=80',
           source: 'Building Industry Report',
@@ -92,6 +96,7 @@ class IndustryInsights {
         {
           title: 'Digital Twin Technology in Infrastructure',
           description: 'Digital twins are enabling predictive maintenance and optimization of bridges, roads, and utilities. Real-time data integration is transforming infrastructure management.',
+          summary: 'Explore how digital twins, predictive maintenance, real-time data, and infrastructure optimization are transforming management of bridges, roads, and utilities.',
           importantPoints: ['Digital twins', 'Predictive maintenance', 'Real-time data', 'Infrastructure optimization'],
           imageUrl: 'resources/images/industry_insights/Digital_Twin_Technology_in Infrastructure.jpg?auto=format&fit=crop&w=400&q=80',
           source: 'Infrastructure Digital',
@@ -157,10 +162,13 @@ class IndustryInsights {
         // }
       ];
       
-      console.log(`✅ Created ${localInsights.length} local industry insights with images`);
+      // console.log(`✅ Created ${localInsights.length} local industry insights with images`);
+      
+      // Process the local insights through parseRSSItems to create summaries
+      const processedItems = this.parseRSSItems(localInsights);
       
       // Store in allItems for infinite scroll
-      this.allItems = localInsights;
+      this.allItems = processedItems;
       
       // Render the items
       this.renderItems();
@@ -181,7 +189,7 @@ class IndustryInsights {
           // Local data - use fields directly
           return {
             title: item.title || '',
-            summary: item.summary || this.createSummary(item.description || ''),
+            summary: this.createSummary(item.description || ''),
             importantPoints: item.importantPoints || [],
             imageUrl: item.imageUrl,
             source: item.source || 'Sahyadri Consultants',
@@ -229,24 +237,24 @@ class IndustryInsights {
   }
 
   extractImage(item, description) {
-    console.log('🔍 Extracting image from RSS item...');
+    // console.log('🔍 Extracting image from RSS item...');
     
     // Handle WordPress post-id structure with nested media:thumbnail
     const postId = item.querySelector('post-id');
     if (postId) {
-      console.log('📝 Found post-id element, looking for nested media...');
+      // console.log('📝 Found post-id element, looking for nested media...');
       
       // Look for media:thumbnail inside post-id
       const thumbnail = postId.querySelector('media\\:thumbnail')?.getAttribute('url');
       if (thumbnail) {
-        console.log('✅ Found post-id media:thumbnail image:', thumbnail);
+        // console.log('✅ Found post-id media:thumbnail image:', thumbnail);
         return thumbnail;
       }
       
       // Look for media:content inside post-id
       const featuredImage = postId.querySelector('media\\:content')?.getAttribute('url');
       if (featuredImage) {
-        console.log('✅ Found post-id media:content image:', featuredImage);
+        // console.log('✅ Found post-id media:content image:', featuredImage);
         return featuredImage;
       }
       
@@ -255,7 +263,7 @@ class IndustryInsights {
       for (const mediaContent of allMediaContents) {
         const mediaUrl = mediaContent?.getAttribute('url');
         if (mediaUrl && mediaUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
-          console.log('✅ Found post-id media:content image:', mediaUrl);
+          // console.log('✅ Found post-id media:content image:', mediaUrl);
           return mediaUrl;
         }
       }
@@ -264,28 +272,28 @@ class IndustryInsights {
     // Try to extract from media:thumbnail (standard RSS - outside post-id)
     const standardThumbnail = item.querySelector('media\\:thumbnail')?.getAttribute('url');
     if (standardThumbnail) {
-      console.log('✅ Found standard media:thumbnail image:', standardThumbnail);
+      // console.log('✅ Found standard media:thumbnail image:', standardThumbnail);
       return standardThumbnail;
     }
     
     // Try to extract from media:content (WordPress featured image - outside post-id)
     const featuredImage = item.querySelector('media\\:content')?.getAttribute('url');
     if (featuredImage) {
-      console.log('✅ Found media:content image:', featuredImage);
+      // console.log('✅ Found media:content image:', featuredImage);
       return featuredImage;
     }
     
     // Try to get image from enclosure
     const enclosure = item.querySelector('enclosure');
     if (enclosure && enclosure.getAttribute('type')?.startsWith('image/')) {
-      console.log('✅ Found enclosure image:', enclosure.getAttribute('url'));
+      // console.log('✅ Found enclosure image:', enclosure.getAttribute('url'));
       return enclosure.getAttribute('url');
     }
     
     // Try to extract image from description content
     const imgMatch = description.match(/<img[^>]+src=['"]([^'"]+)['"][^>]*>/i);
     if (imgMatch && imgMatch[1]) {
-      console.log('✅ Found description image:', imgMatch[1]);
+      // console.log('✅ Found description image:', imgMatch[1]);
       return imgMatch[1];
     }
     
@@ -294,14 +302,14 @@ class IndustryInsights {
     if (content) {
       const contentImgMatch = content.match(/<img[^>]+src=['"]([^'"]+)['"][^>]*>/i);
       if (contentImgMatch && contentImgMatch[1]) {
-        console.log('✅ Found content:encoded image:', contentImgMatch[1]);
+        // console.log('✅ Found content:encoded image:', contentImgMatch[1]);
         return contentImgMatch[1];
       }
     }
     
     // If no image found, return a beautiful placeholder based on category
     const category = item.querySelector('category')?.textContent || 'Industry News';
-    console.log('⚠️ No image found, using category placeholder for:', category);
+    // console.log('⚠️ No image found, using category placeholder for:', category);
     return this.getCategoryPlaceholder(category);
   }
 
@@ -376,7 +384,7 @@ class IndustryInsights {
     
     // Safety check: ensure allItems is defined and has content
     if (!this.allItems || this.allItems.length === 0) {
-      console.log('⚠️ No items to render, showing empty state');
+      // console.log('⚠️ No items to render, showing empty state');
       grid.innerHTML = '<div class="no-content"><p>No industry insights available at the moment.</p></div>';
       this.isLoading = false;
       this.updateLoadingState();
@@ -386,7 +394,7 @@ class IndustryInsights {
     // Render items from current position in allItems
     const itemsToRender = this.allItems.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
     
-    console.log(`🔄 Rendering ${itemsToRender.length} items from position ${this.currentStartIndex}`);
+    // console.log(`🔄 Rendering ${itemsToRender.length} items from position ${this.currentStartIndex}`);
     
     itemsToRender.forEach((item, index) => {
       const globalIndex = this.currentStartIndex + index;
@@ -411,7 +419,7 @@ class IndustryInsights {
   }
 
   startRSSLoop() {
-    console.log('🔄 Starting RSS feed loop for continuous content...');
+    // console.log('🔄 Starting RSS feed loop for continuous content...');
     this.rssLoopInterval = setInterval(() => {
       this.fetchRSSUpdates();
     }, 60000); // Check for updates every 60 seconds
@@ -419,7 +427,7 @@ class IndustryInsights {
 
   async fetchRSSUpdates() {
     try {
-      console.log('🔄 Checking for RSS feed updates...');
+      // console.log('🔄 Checking for RSS feed updates...');
       
       // Try to fetch fresh RSS data
       const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://thinkmatter.in/feed/')}`;
@@ -442,7 +450,7 @@ class IndustryInsights {
         
         // Extract latest items from RSS
         const items = xmlDoc.querySelectorAll('item');
-        console.log(`📊 RSS feed check: ${items.length} items found`);
+        // console.log(`📊 RSS feed check: ${items.length} items found`);
         
         if (items.length > 0) {
           const latestItems = this.parseRSSItems(items);
@@ -453,7 +461,7 @@ class IndustryInsights {
           });
           
           if (newItems.length > 0) {
-            console.log(`✅ Found ${newItems.length} new RSS items, adding to display...`);
+            // console.log(`✅ Found ${newItems.length} new RSS items, adding to display...`);
             
             // Add new items to the beginning of the list
             this.items = [...newItems, ...this.items];
@@ -462,7 +470,7 @@ class IndustryInsights {
             // Re-render items
             this.renderItems();
           } else {
-            console.log('ℹ️ No new RSS items found');
+            // console.log('ℹ️ No new RSS items found');
           }
         }
       }
@@ -495,21 +503,21 @@ class IndustryInsights {
       </div>
       <div class="insight-content">
         <div class="insight-category" style="background: ${categoryColor};">
-          ${item.category}
+          ${item.category || 'Industry News'}
         </div>
-        <h3 class="insight-title">${item.title}</h3>
-        <p class="insight-summary">${item.summary}</p>
-        ${item.importantPoints.length > 0 ? `
+        <h3 class="insight-title">${item.title || 'Industry Insight'}</h3>
+        <p class="insight-summary">${item.summary || 'No summary available'}</p>
+        ${item.importantPoints && item.importantPoints.length > 0 ? `
           <div style="margin-top: 15px;">
             <strong style="color: var(--primary); font-size: 0.9rem;">Key Points:</strong>
             <ul style="margin: 8px 0; padding-left: 20px; color: var(--text); font-size: 0.9rem; line-height: 1.4;">
-              ${item.importantPoints.map(point => `<li>${point}</li>`).join('')}
+              ${item.importantPoints.map(point => `<li>${point || ''}</li>`).join('')}
             </ul>
           </div>
         ` : ''}
         <div class="insight-meta">
-          <span class="insight-date">${item.date}</span>
-          <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="insight-source">
+          <span class="insight-date">${item.date || new Date().toLocaleDateString()}</span>
+          <a href="${item.link || '#'}" target="_blank" rel="noopener noreferrer" class="insight-source">
             Read More →
           </a>
         </div>
@@ -562,11 +570,11 @@ class IndustryInsights {
         imgElement.src = imageUrl;
         imgElement.alt = this.items[index].title;
         this.loadedImages.add(index);
-        console.log(`✅ Loaded image for item ${index}`);
+        // console.log(`✅ Loaded image for item ${index}`);
       };
       
       img.onerror = () => {
-        console.log(`⚠️ Failed to load image: ${imageUrl}`);
+        // console.log(`⚠️ Failed to load image: ${imageUrl}`);
         // Keep placeholder on error
       };
       
@@ -591,13 +599,13 @@ class IndustryInsights {
         
         // Check if user is near end (80% scrolled) and proactively load more
         if (scrollPercentage > 0.8 && !this.isLoading && this.hasMore) {
-          console.log('🔄 Near end detected, proactively loading more...');
+          // console.log('🔄 Near end detected, proactively loading more...');
           this.loadMore();
         }
         
         // Check if user is very close to end (90% scrolled) and preload next batch
         if (scrollPercentage > 0.9 && !this.isLoading && this.hasMore) {
-          console.log('🔄 Very close to end, preloading next batch...');
+          // console.log('🔄 Very close to end, preloading next batch...');
           this.preloadNextBatch();
         }
         
@@ -616,7 +624,7 @@ class IndustryInsights {
     let newItems = this.items.slice(startIndex, endIndex);
     
     if (newItems.length === 0) {
-      console.log('🔄 Preloading additional insights...');
+      // console.log('🔄 Preloading additional insights...');
       newItems = this.generateMoreInsights();
       this.items = [...this.items, ...newItems];
       this.hasMore = true;
@@ -634,14 +642,14 @@ class IndustryInsights {
       const startIndex = nextPage * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       
-      console.log(`🔄 Auto-loading more items: page ${nextPage}`);
+      // console.log(`🔄 Auto-loading more items: page ${nextPage}`);
       
       // Get next batch of items from allItems list
       let newItems = this.allItems.slice(startIndex, endIndex);
       
       if (newItems.length === 0) {
         // If we've reached the end, restart from beginning like YouTube
-        console.log('🔄 Reached end, restarting from beginning like YouTube...');
+        // console.log('🔄 Reached end, restarting from beginning like YouTube...');
         this.currentStartIndex = (this.currentStartIndex + this.itemsPerPage) % this.allItems.length;
         this.currentPage = 1; // Reset to first page
         newItems = this.allItems.slice(this.currentStartIndex, this.currentStartIndex + this.itemsPerPage);
@@ -739,7 +747,7 @@ class IndustryInsights {
       }
     ];
     
-    console.log(`✅ Generated ${additionalItems.length} additional insights`);
+    // console.log(`✅ Generated ${additionalItems.length} additional insights`);
     return additionalItems;
   }
 

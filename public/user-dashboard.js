@@ -11,18 +11,18 @@ function initializeDashboard() {
   const urlParams = new URLSearchParams(window.location.search);
   let currentUser = urlParams.get('user');
   
-  console.log('Dashboard initialized');
-  console.log('Username from URL:', currentUser);
+  // console.log('Dashboard initialized');
+  // console.log('Username from URL:', currentUser);
   
   if (dashboardGreeting) {
     if (currentUser && currentUser.trim() !== '') {
       // Capitalize first letter
       const capitalizedUser = currentUser.charAt(0).toUpperCase() + currentUser.slice(1);
       dashboardGreeting.textContent = `Hello ${capitalizedUser}`;
-      console.log('✓ Greeting updated to: Hello ' + capitalizedUser);
+      // console.log('✓ Greeting updated to: Hello ' + capitalizedUser);
     } else {
       dashboardGreeting.textContent = 'Hello Guest';
-      console.log('✗ No user found in URL, showing "Hello Guest"');
+      // console.log('✗ No user found in URL, showing "Hello Guest"');
     }
   }
 
@@ -52,7 +52,7 @@ function initializeDashboard() {
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log('Logging out...');
+      // console.log('Logging out...');
       window.location.href = 'login.html';
     });
   }
@@ -79,7 +79,7 @@ async function loadUserArtifacts(username) {
     
     // Get user folder information
     const folderInfo = getUserFolderInfo(username);
-    console.log('Loading artifacts for user:', username, 'Folder:', folderInfo);
+    // console.log('Loading artifacts for user:', username, 'Folder:', folderInfo);
     
     // Check if folder ID is configured
     if (!folderInfo.folderId || folderInfo.folderId === 'YOUR_' + username.toUpperCase() + '_FOLDER_ID_HERE') {
@@ -90,7 +90,7 @@ async function loadUserArtifacts(username) {
     }
     
     // Since API credentials aren't set up, directly show folder link
-    console.log('Showing direct folder link for:', folderInfo.folderName);
+    // console.log('Showing direct folder link for:', folderInfo.folderName);
     showFolderLink(folderInfo);
     
   } catch (error) {
@@ -220,7 +220,7 @@ let userStatusData = {};
 
 async function loadUserStatusData() {
   try {
-    console.log('🔍 Loading user status data from Google Sheets...');
+    // console.log('🔍 Loading user status data from Google Sheets...');
     
     // Load user status from User Status sheet - use correct CSV export format
     const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
@@ -239,11 +239,11 @@ async function loadUserStatusData() {
     }
     
     const csvText = await response.text();
-    console.log('✅ Successfully loaded user status data');
-    console.log('📄 Raw CSV content:', csvText);
-    console.log('🔍 CSV content length:', csvText.length);
-    console.log('🔍 First 200 characters:', csvText.substring(0, 200));
-    console.log('🔍 Response URL was:', statusUrl);
+    // console.log('✅ Successfully loaded user status data');
+    // console.log('📄 Raw CSV content:', csvText);
+    // console.log('🔍 CSV content length:', csvText.length);
+    // console.log('🔍 First 200 characters:', csvText.substring(0, 200));
+    // console.log('🔍 Response URL was:', statusUrl);
     
     // Parse CSV data
     const lines = csvText.split('\n');
@@ -272,12 +272,12 @@ async function loadUserStatusData() {
             workDone: workDone || 'Work details not available',
             nextSteps: nextSteps || 'Next steps not available'
           };
-          console.log(`👤 Loaded status for user: ${username}`);
+          // console.log(`👤 Loaded status for user: ${username}`);
         }
       }
     }
     
-    console.log('✅ User status data loaded successfully:', Object.keys(users));
+    // console.log('✅ User status data loaded successfully:', Object.keys(users));
     return users;
     
   } catch (error) {
@@ -295,17 +295,17 @@ async function showStatusTile(username) {
   const nextStepsEl = document.getElementById('nextSteps');
   
   if (!statusTile || !currentStatusEl || !workDoneEl || !nextStepsEl) {
-    console.log('Status tile elements not found');
+    // console.log('Status tile elements not found');
     return;
   }
   
   // Load user status data from Google Sheets
-  console.log('🔍 Loading status data for user:', username);
+  // console.log('🔍 Loading status data for user:', username);
   userStatusData = await loadUserStatusData();
   
   const userData = userStatusData[username];
   if (!userData) {
-    console.log('No status data found for user:', username);
+    // console.log('No status data found for user:', username);
     return;
   }
   
@@ -319,14 +319,14 @@ async function showStatusTile(username) {
   // Show the status tile
   statusTile.style.display = 'block';
   
-  console.log(`✓ Status tile displayed for ${username}`);
+  // console.log(`✓ Status tile displayed for ${username}`);
 }
 
 // Run on DOM ready
 if (document.readyState === 'loading') {
-  console.log('Dashboard: Waiting for DOM to be ready...');
+  // console.log('Dashboard: Waiting for DOM to be ready...');
   document.addEventListener('DOMContentLoaded', initializeDashboard);
 } else {
-  console.log('Dashboard: DOM already ready, initializing...');
+  // console.log('Dashboard: DOM already ready, initializing...');
   initializeDashboard();
 }

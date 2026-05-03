@@ -12,6 +12,7 @@
     <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.jpg" />
     <meta property="og:url" content="https://sahyadri-61c65.web.app" />
     <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="image_slider/BeerSlider.css">
 </head>
 <body>
   <header class="container">
@@ -27,9 +28,45 @@
         <a href="#about">About</a>
         <a href="#awards">Awards</a>
         <a href="#testimonials">Testimonials</a>
-        <a href="industry-insights.html">Industry Insights</a>
-        <a href="recent-activity.html">Recent Activity</a>
+        <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
         <a href="#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="ultra-modern-company.html">Ultra Modern Company</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#awards">Awards</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+        <a href="#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="ultra-modern-company.html">Ultra Modern Company</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -56,7 +93,7 @@
     </div>
   </section>
 
-  <section id="projects" class="container">
+  <section id="projects" class="container" style="margin-top: 30px;">
     <div class="section-title"><h3>Our Featured Projects</h3></div>
     <div class="carousel-wrap" id="projectCarousel">
       <div class="carousel-track" id="projectTrack">
@@ -105,7 +142,7 @@
       <div class="about-content-grid">
         <div>
           <p>Established in 1986 by Er. Thomas PJ, Sahyadri Consultants is a premier engineering and architectural consultancy in Kannur, Kerala. With a 40-year legacy and over 1,000 completed projects, the firm blends traditional Vastu principles with modern innovation. Our practice is defined by "Engineered Integrity," providing the technical oversight and architectural precision required to transform complex visions into structural reality.</p>
-          <p>The firm’s expertise is complemented by Well & Dwell Interiors, a specialized division founded by Er. Rose Thomas, DID. As a distinct branch focused on independent interior consultancy, it delivers bespoke, sophisticated designs that balance the firm’s structural excellence. Whether through on-site advisory or global online services, we provide a high-end consultancy experience built to serve for generations.</p>
+          <p>The firm's expertise is complemented by Well & Dwell Interiors, a specialized division founded by Er. Rose Thomas, DID. As a distinct branch focused on independent interior consultancy, it delivers bespoke, sophisticated designs that balance the firm's structural excellence. Whether through on-site advisory or global online services, we provide a high-end consultancy experience built to serve for generations.</p>
         </div>
         <div>
           <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80" alt="Facade of modern commercial complex" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Commercial+Project'" />
@@ -166,7 +203,7 @@
         <div class="carousel-item">
           <a href="awards.html" class="card-link" aria-label="View all awards and recognitions">
             <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
-              <img src="resources/images/awards/holy_family_church_kannur.png?auto=format&fit=contain&w=800&q=60" alt="Holy Family Church Kannur Award" loading="lazy" style="width:80px; height:100px; object-fit:cover; border:2px solid var(--accent);" />
+              <img src="resources/images/awards/holy_family_church_kannur.png?auto=format&fit=contain&w=800&q=60" alt="Holy Family Church Kannur Award" loading="lazy" style="width:80px; height:100px; object-fit:contain; object-position: top; border:2px solid var(--accent);" />
               <h4>Holy Family Church, Kannur</h4>
               <p>Awarded for project management of presbytery at Holy Family Church, Kannur </p>
             </div>
@@ -175,7 +212,7 @@
         <div class="carousel-item">
           <a href="awards.html" class="card-link" aria-label="View all awards and recognitions">
             <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
-              <img src="resources/images/awards/holy_family_church_kannur_interior.png?auto=format&fit=contain&w=800&q=60" alt="Holy Family Church Kannur Interior Award" loading="lazy" style="width:80px; height:100px; object-fit:cover; border:2px solid var(--accent);" />
+              <img src="resources/images/awards/holy_family_church_kannur_interior.png?auto=format&fit=contain&w=800&q=60" alt="Holy Family Church Kannur Interior Award" loading="lazy" style="width:80px; height:100px; object-fit:contain; object-position: top; border:2px solid var(--accent);" />
               <h4>Holy Family Church, Kannur</h4>
               <p>Awarded for outstanding designs of presbytery at Holy Family Church, Kannur</p>
             </div>
@@ -199,7 +236,44 @@
     </div>
   </section>
 
-  <section id="testimonials" class="container">
+  <section id="transformations" class="container">
+    <div class="section-title"><h3>Transformations</h3></div>
+    <div class="about-content-grid">
+        <a href="transformations.html" class="section-link" aria-label="Open detailed Transformations page">
+        <div>
+          <p>Our transformation services showcase the dramatic before-and-after results that define our expertise. From bare structures to stunning interiors, we breathe new life into spaces through innovative design and meticulous execution. Each transformation tells a story of vision, creativity, and technical excellence.</p>
+          <p>Specializing in both residential and commercial transformations, our team combines architectural precision with aesthetic sensibility to create spaces that not only look beautiful but function perfectly for our clients' needs. Whether it's a complete renovation or strategic interior redesign, we deliver results that exceed expectations.</p>
+        </div>
+        </a>
+        <div>
+          <div id="slider" class="beer-slider" data-beer-label="after">
+            <img src="resources/images/transformations/pt_jose/after.png" alt="After transformation">
+            <div class="beer-reveal" data-beer-label="before">
+              <img src="resources/images/transformations/pt_jose/before.png" alt="Before transformation">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </section>
+
+  <section id="experience-360" class="container">
+    <div class="section-title"><h3>Experience Projects in 360°</h3></div>
+    <div class="about-content-grid">
+        <a href="experience-projects-360.html" class="section-link" aria-label="Open detailed Experience Projects in 360° page">
+        <div>
+          <p>Step into our world of immersive 360° project experiences. Explore our architectural and construction projects from every angle with interactive virtual tours that bring our work to life. Each 360° experience offers a comprehensive view of our design excellence and technical precision.</p>
+          <p>From residential homes to commercial complexes, our 360° showcases allow you to virtually walk through our completed projects, experiencing the spaces as if you were there. This innovative approach demonstrates our commitment to transparency and client engagement, letting you appreciate the quality and attention to detail that defines every Sahyadri project.</p>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="360° virtual tour of modern architectural project" loading="lazy" onerror="this.src='https://via.placeholder.com/1200x800.png?text=360+Project+Experience'" />
+        </div>
+        </a>
+      </div>
+    
+  </section>
+
+  <section id="testimonials" class="container" style="margin-top: 60px;">
     <div class="section-title"><h3>Testimonials</h3></div>
     <div class="carousel-wrap" id="testiCarousel">
       <div class="carousel-track" id="testiTrack">
@@ -217,7 +291,7 @@
             <div class="carousel-item-inner" style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
               <img src="resources/images/Jacob_PJ_Jacob_and_George.jpg?auto=format&fit=crop&w=120&q=80" alt="Jacob PJ profile" style="width:80px; height:100px; border-radius:50%; object-fit:cover; border:2px solid var(--accent);" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.png?text=User'" />
               <p class="quote">"Very Happy with Sahyadri Consultants"</p>
-              <div class="person">Jacob PJ<br><small>Founder, Jacob and George Chartered Accountants</small></div>
+              <div class="person">Jacob PJ<br><small>Co-Founder, Jacob and George Chartered Accountants</small></div>
             </div>
           </a>
           </div>
@@ -240,7 +314,8 @@
   <footer id="contact">
     <div class="container footer-grid">
       <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
-      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
+      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="ultra-modern-company.html">Ultra Modern Company</a></p><p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
       <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
       <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
     </div>
@@ -256,5 +331,62 @@
    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
 </a>
   <script src="script.js"></script>
+  <script>
+    // Global error handler for onetype.ai script
+    window.addEventListener('error', function(e) {
+      if (e.message && e.message.includes('transforms is not defined')) {
+        console.log('onetype.ai script error handled - transforms variable not available');
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    
+    // Fallback for onetype.ai script to prevent errors
+    if (typeof transforms === 'undefined') {
+      console.log('onetype.ai library not loaded, using fallback');
+      // Basic before/after slider functionality
+      document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.getElementById('pullSlider');
+        if (slider) {
+          const beforeImage = slider.querySelector('img[alt="Before"]');
+          const afterImage = slider.querySelector('img[alt="After"]');
+          
+          if (beforeImage && afterImage) {
+            let isDragging = false;
+            let currentPull = 0;
+            
+            slider.addEventListener('mousedown', (e) => {
+              isDragging = true;
+              slider.style.cursor = 'grabbing';
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+              if (!isDragging) return;
+              const diffY = e.clientY - e.clientY;
+              const pullAmount = Math.max(0, Math.min(100, diffY / 2));
+              currentPull = Math.min(100, Math.max(0, currentPull + (diffY / 2)));
+              
+              if (diffY > 0) {
+                afterImage.style.transform = `translateY(-${100 - currentPull}%)`;
+                afterImage.style.opacity = currentPull / 100;
+              } else {
+                beforeImage.style.transform = `translateY(${100 - currentPull}%)`;
+                beforeImage.style.opacity = (100 - currentPull) / 100;
+              }
+            });
+            
+            document.addEventListener('mouseup', () => {
+              isDragging = false;
+              slider.style.cursor = 'grab';
+            });
+          }
+        }
+      });
+    }
+  </script>
+  <script src="image_slider/BeerSlider.js"></script>
+  <script>
+    new BeerSlider(document.getElementById('slider'));
+  </script>
 </body>
 </html>
