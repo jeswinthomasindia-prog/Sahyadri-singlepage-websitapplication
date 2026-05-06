@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sahyadrico.com/sitemap.xml
+
+# Block common non-content paths
+Disallow: /login.html
+Disallow: /user-dashboard.html
+Disallow: /assistant.html
+Disallow: /cred.env
+
+# Allow search engines to crawl all important pages
+#Allow: /index.html
+#Allow: /about.html
+#Allow: /projects-*.html
+#Allow: /awards.html
+#Allow: /testimonials.html
+#Allow: /transformations.html
+#Allow: /well-and-dwell-interiors.html
+#Allow: /industry-insights.html
+#Allow: /recent-activity.html
+#Allow: /experience-projects-360.html

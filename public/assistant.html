@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Talk to our Sahyadri Assistant</title>
+  <meta name="description" content="Chat with Sahya for instant help with your construction and architectural queries. Get expert advice and support for your projects." />
+  <title>Talk to our Sahyadri Assistant Sahya</title>
   <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -427,10 +428,10 @@
   </header>
 
   <main class="assistant-page">
-    <section class="assistant-shell" aria-label="Talk to our Sahyadri Assistant">
+    <section class="assistant-shell" aria-label="Talk to our Sahyadri Assistant: Sahya">
       <div class="assistant-head">
         <div>
-          <h2>Talk to our Sahyadri Assistant</h2>
+          <h2>Talk to our Sahyadri Assistant: Sahya</h2>
           <p>Ask about projects, services, timelines, and consultation details.</p>
         </div>
         <div class="head-actions">
@@ -632,7 +633,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       history.length = 0;
       chatLog.innerHTML = "";
       addMessage("system", "Chat history cleared.");
-      addMessage("bot", "Hello. I am your Sahyadri Assistant. Tell me about your project, and I can help with next steps.");
+      addMessage("bot", "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.");
     }
 
     async function sendUserMessage(userText) {
@@ -726,7 +727,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       const messages = [
         {
           role: "system",
-          content: `You are the Sahyadri Assistant for a civil and construction consultancy in Kerala.
+          content: `You are the Sahyadri Assistant: Sahya for a civil and construction consultancy in Kerala.
           You must decline any requests for adult, violent, or illegal content or any content that may violate our policies firmly but politely.
           Keep replies concise, clear, and client-friendly.
 About Sahyadri:Sahyadri Consultants is a trusted consultancy firm in Kannur, Kerala, specializing in engineering 🏗️, architecture 📐, and a dedicated interior design division ✨. Established in 1986, we have over 38 years of experience and more than 1,000 completed residential projects. We also offer our services online and blend traditional wisdom with modern innovation, specializing in Vastu-compliant and eco-friendly design solutions. As a proud sister firm of Sahyadri Properties, a premier real estate developer, we provide our expertise for exceptional residential villas and commercial projects.
@@ -865,7 +866,7 @@ For our social media handles and phone number:
       sendUserMessage(userText);
     });
 
-    addMessage("bot", "Hello. I am your Sahyadri Assistant. Tell me about your project, and I can help with next steps.");
+    addMessage("bot", "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.");
     autoResize();
   </script>
 

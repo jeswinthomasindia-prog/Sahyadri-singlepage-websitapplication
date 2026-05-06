@@ -651,6 +651,184 @@ header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9
   margin: 20px 0;
 }
 
+.nav .login-btn {
+  background: #22c55e;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+/* Header logout link */
+.logout-link-header {
+  background: #dc2626;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+  margin-left: auto;
+}
+
+.logout-link-header:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.logout-link-header:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Responsive positioning for logout links */
+@media (max-width: 768px) {
+  .logout-link-header {
+    margin-left: 10px;
+    font-size: 13px;
+  }
+  
+  .assistant-nav-link {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logout-link-header {
+    margin-left: 5px;
+    font-size: 12px;
+  }
+  
+  .assistant-nav-link {
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+}
+
+.logout-btn-physical {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-left: 8px;
+}
+
+.logout-btn-physical:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.logout-btn-physical:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Top right logout button */
+.logout-btn-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
+  font-size: 14px;
+}
+
+.logout-btn-top-right:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.logout-btn-top-right:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Responsive logout button */
+@media (max-width: 768px) {
+  .logout-btn-top-right {
+    top: 15px;
+    right: 15px;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logout-btn-top-right {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Dashboard card logout link */
+.logout-link-dashboard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #dc2626;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 10;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.logout-link-dashboard:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.logout-link-dashboard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .logout-btn-dashboard {
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logout-btn-dashboard {
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
 .retry-btn {
   background: var(--primary);
   color: white;
@@ -701,6 +879,12 @@ section { padding: 70px 0; }
 .stat h4 { margin:0; font-size:2.1rem; color:var(--accent); }
 .stat span { color:#666; font-weight:600; }
 .about-content-grid { margin-top:22px; display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:18px; align-items:center; background:#fff; border-radius:var(--radius); padding:20px; box-shadow:0 10px 20px rgba(0,0,0,.08); }
+
+/* Vertically center transformations section */
+#transformations .about-content-grid {
+  min-height: 400px;
+  justify-content: center;
+}
 .about-content-grid img { width:100%; border-radius:8px; object-fit:cover; }
 .section-link { text-decoration:none; color:inherit; display:block; }
 .section-link:hover { opacity:.96; }
@@ -1152,6 +1336,78 @@ footer a:hover{color:#fff;}
   .leader-card img { width:90px; height:90px; }
   .leader-card h4 { font-size:1.1rem; }
   .leader-card p { font-size:0.9rem; }
+  
+  /* Fix transformation slider images on mobile - using PC logic */
+  .transformation-slider .beer-slider {
+    width: 100%;
+    height: 300px !important;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .transformation-slider .beer-slider img,
+  .transformation-slider .beer-reveal img {
+    width: 100%;
+    height: 300px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block;
+  }
+  
+  #slider1 .beer-slider img,
+  #slider1 .beer-reveal img {
+    width: 100%;
+    height: 300px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block;
+  }
+    
+  .transformation-slider .beer-reveal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px !important;
+    overflow: hidden;
+  }
+}
+
+/* Tablet specific fixes - using PC logic */
+@media (min-width: 561px) and (max-width: 1024px) {
+  .transformation-slider .beer-slider {
+    width: 100%;
+    height: 400px !important;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .transformation-slider .beer-slider img,
+  .transformation-slider .beer-reveal img {
+    width: 100%;
+    height: 400px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block;
+  }
+  
+  #slider1 .beer-slider img,
+  #slider1 .beer-reveal img {
+    width: 100%;
+    height: 400px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block;
+  }
+    
+  .transformation-slider .beer-reveal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px !important;
+    overflow: hidden;
+  }
 }
 
 /* For WhatsApp Floating Button to show only on Phones and Tablets */
@@ -1345,15 +1601,13 @@ footer a:hover{color:#fff;}
 }
 
 #transformations .beer-slider {
-  width: 100% !important;
   height: 400px !important; /* Full width height */
   margin: 0 auto;
 }
 
 #transformations .beer-slider img {
-  width: 100% !important;
   height: 400px !important; /* Full width height */
-  object-fit: cover !important;
+  object-fit: fill !important;
 }
 
 .awards-carousel .card img {
@@ -1419,10 +1673,13 @@ footer a:hover{color:#fff;}
   
   #transformations .beer-slider {
     height: 300px !important; /* Full width height on mobile */
+    
   }
   
   #transformations .beer-slider img {
     height: 300px !important; /* Full width height on mobile */
+    object-fit: fill !important;
+    
   }
   
   .awards-carousel .card {
@@ -1512,7 +1769,7 @@ footer a:hover{color:#fff;}
 .transformation-slider .beer-slider img {
   width: 100%;
   height: 400px;
-  object-fit: cover;
+  object-fit: fill !important;
 }
 
 .placeholder-slider {
@@ -1709,9 +1966,10 @@ footer a:hover{color:#fff;}
   .transformation-slider .beer-slider img,
   .placeholder-slider {
     height: 300px;
+    object-fit: fill !important;
   }
 }
-}
+
 
 @media (max-width: 560px) {
   .transformation-item {
@@ -1727,8 +1985,7 @@ footer a:hover{color:#fff;}
   .transformation-slider .beer-slider img,
   .placeholder-slider {
     height: 250px;
+    object-fit: fill !important;
   }
 }
 
-/* onetype.ai script for Transformations section */
-@import url('https://cdn.transforms.onetype.ai/script/0c46b838ed7743a1a233483533a1d25e.js');

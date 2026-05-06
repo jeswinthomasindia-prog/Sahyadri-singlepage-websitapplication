@@ -53,7 +53,17 @@ function initializeDashboard() {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       // console.log('Logging out...');
-      window.location.href = 'login.html';
+      
+      // Call logout function from login.js if available
+      if (typeof logout === 'function') {
+        logout();
+      } else {
+        // Fallback: clear localStorage manually and redirect
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('username');
+        console.log('User logged out, localStorage cleared');
+        window.location.href = 'login.html';
+      }
     });
   }
 

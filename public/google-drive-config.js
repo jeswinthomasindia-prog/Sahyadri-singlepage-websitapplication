@@ -27,7 +27,7 @@ let GOOGLE_DRIVE_CONFIG = {
 // Load Google Drive folder configuration from Google Sheets
 async function loadGoogleDriveConfig() {
   try {
-    console.log('🔍 Loading Google Drive configuration from Google Sheets...');
+    // console.log('🔍 Loading Google Drive configuration from Google Sheets...');
     
     // Load user folders from Google Sheets
     const configUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=1355520136&single=true&output=csv';
@@ -46,8 +46,8 @@ async function loadGoogleDriveConfig() {
     }
     
     const csvText = await response.text();
-    console.log('✅ Successfully loaded Google Drive configuration');
-    console.log('📄 Raw CSV content:', csvText);
+    // console.log('✅ Successfully loaded Google Drive configuration');
+    // console.log('📄 Raw CSV content:', csvText);
     
     // Parse CSV data
     const lines = csvText.split('\n');
@@ -82,7 +82,7 @@ async function loadGoogleDriveConfig() {
             baseDriveUrl = driveUrl;
           }
           
-          console.log(`👤 Loaded folder config for user: ${username}`);
+          // console.log(`👤 Loaded folder config for user: ${username}`);
         }
       }
     }
@@ -91,7 +91,7 @@ async function loadGoogleDriveConfig() {
     GOOGLE_DRIVE_CONFIG.USER_FOLDERS = userFolders;
     GOOGLE_DRIVE_CONFIG.BASE_DRIVE_URL = baseDriveUrl;
     
-    console.log('✅ Google Drive configuration loaded successfully:', Object.keys(userFolders));
+    // console.log('✅ Google Drive configuration loaded successfully:', Object.keys(userFolders));
     return GOOGLE_DRIVE_CONFIG;
     
   } catch (error) {
