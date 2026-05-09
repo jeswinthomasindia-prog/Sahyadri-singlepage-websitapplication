@@ -1,6 +1,6 @@
 cred.env
 firebase_script.js
-.firebase
-hosting.cHVibGlj.cache
+*.firebase
+hosting.*.cache
 firebase.json
-.mp4
+*.mp4
