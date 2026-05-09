@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Read testimonials from satisfied clients of Sahyadri Consultants. See what clients say about our civil engineering and construction services." />
   <title>Testimonials | Sahyadri Consultants</title>
-  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
   <link rel="stylesheet" href="styles.css" />
   <!-- Essential for WhatsApp Link Preview -->
   <meta property="og:title" content="Testimonials | Sahyadri Consultants" />
   <meta property="og:description" content="Read what our satisfied clients have to say about our civil engineering and construction consultancy services across Kerala." />
-  <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.jpg" />
+  <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
   <meta property="og:url" content="https://sahyadri-61c65.web.app/testimonials.html" />
   <meta property="og:type" content="website" />
 </head>
@@ -18,7 +18,7 @@
   <header class="container">
     <div class="topbar">
       <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
-        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
         <h1>Sahyadri Consultants</h1>
       </a>
       <nav class="nav">
@@ -106,7 +106,7 @@
         'mar-joseph-pamplany': {
           name: 'Mar Joseph Pamplany',
           title: 'Archbishop of Tellicherry, Vicar of Major Archbishop for the Archeparchy of Ernakulam–Angamaly',
-          image: 'resources/images/Joseph_Pamplany_Thalassey_Archbishop.jpg?auto=format&fit=crop&w=120&q=80',
+          image: 'resources/images/Joseph_Pamplany_Thalassey_Archbishop.webp?auto=format&fit=crop&w=120&q=80',
           quote: '"Thomas Sir is very hardworking and sincere"',
           projectType: 'Religious Institution',
           completionDate: 'Archbishop Testimonial'
@@ -114,7 +114,7 @@
         'jacob-pj': {
           name: 'Jacob PJ',
           title: 'Founder, Jacob and George Chartered Accountants',
-          image: 'resources/images/Jacob_PJ_Jacob_and_George.jpg?auto=format&fit=crop&w=120&q=80',
+          image: 'resources/images/Jacob_PJ_Jacob_and_George.webp?auto=format&fit=crop&w=120&q=80',
           quote: '"Very Happy with Sahyadri Consultants"',
           projectType: 'Professional Services',
           completionDate: 'Client Testimonial'
@@ -133,7 +133,7 @@
               <h4>Watch Video Testimonial</h4>
               <div class="video-container">
                 <video controls poster="${testimonial.image}" class="testimonial-video">
-                  <source src="resources/videos/Bishop_Joseph_Pamplany_Testimonial.mp4" type="video/mp4">
+                  // <source src="resources/videos/Bishop_Joseph_Pamplany_Testimonial.mp4" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
               </div>
@@ -144,7 +144,7 @@
         container.innerHTML = `
           <div class="testimonial-card">
             <div class="testimonial-header">
-              <img src="${testimonial.image}" alt="${testimonial.name} profile" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.png?text=${testimonial.name.charAt(0)}'" />
+              <img src="${testimonial.image}" alt="${testimonial.name} profile" loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.webp?text=${testimonial.name.charAt(0)}'" />
               <div class="client-info">
                 <h4>${testimonial.name}</h4>
                 <p>${testimonial.title}</p>

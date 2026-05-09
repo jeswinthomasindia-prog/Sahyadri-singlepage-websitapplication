@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Login to Sahyadri Consultants portal to access your personalized dashboard, project updates, and exclusive client resources." />
   <title>Login | Sahyadri Consultants</title>
-  <link rel="icon" type="image/jpeg" href="sahyadri_logo.jpg" />
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     .loading-overlay {
@@ -64,7 +64,7 @@
   <header class="container">
     <div class="topbar">
       <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
-        <img src="sahyadri_logo.jpg" alt="Sahyadri logo" />
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
         <h1>Sahyadri Consultants</h1>
       </a>
       <nav class="nav">
@@ -133,7 +133,7 @@
           <div style="position: relative;">
             <input id="passwordInput" class="auth-input" type="password" placeholder="Enter your password" required />
             <button type="button" id="togglePassword" class="toggle-password-btn" onclick="togglePasswordVisibility()">
-              <span id="eyeIcon"><img src="resources/images/login/show.png" alt="Show password" style="width: 16px; height: 16px;"></span>
+              <span id="eyeIcon"><img src="resources/images/login/show.webp" alt="Show password" style="width: 16px; height: 16px;"></span>
             </button>
           </div>
 
@@ -169,10 +169,10 @@
       
       if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        eyeIcon.innerHTML = '<img src="resources/images/login/hide.png" alt="Hide password" style="width: 16px; height: 16px;">';
+        eyeIcon.innerHTML = '<img src="resources/images/login/hide.webp" alt="Hide password" style="width: 16px; height: 16px;">';
       } else {
         passwordInput.type = 'password';
-        eyeIcon.innerHTML = '<img src="resources/images/login/show.png" alt="Show password" style="width: 16px; height: 16px;">';
+        eyeIcon.innerHTML = '<img src="resources/images/login/show.webp" alt="Show password" style="width: 16px; height: 16px;">';
       }
     }
   </script>
