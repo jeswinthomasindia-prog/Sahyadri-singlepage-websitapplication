@@ -38,7 +38,12 @@ jobs:
         with:
           # Tell GitHub to look INSIDE the public folder
           path: './public'
-          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+
+
+
+
+
