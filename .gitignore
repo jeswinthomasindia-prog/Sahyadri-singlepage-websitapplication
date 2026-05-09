@@ -1,6 +1,59 @@
+# Environment variables (SECURITY CRITICAL)
+*.env
+.env.*
 cred.env
-firebase_script.js
-*.firebase
-hosting.*.cache
+
+# Firebase
+.firebase/
 firebase.json
+firebase_script.js
+hosting.*.cache
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Media files (if not needed in repo)
 *.mp4
+*.avi
+*.mov
+*.wmv
+
+# Temporary files
+*.tmp
+*.temp
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Backup files
+*.bak
+*.backup
