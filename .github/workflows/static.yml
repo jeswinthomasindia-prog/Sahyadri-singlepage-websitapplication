@@ -36,6 +36,9 @@ jobs:
       - name: Create cred.env from Secret
         run: |
           echo "${{ secrets.ENV_FILE_CONTENT }}" > public/cred.env
+      - name: Ensure Custom Domain Persists
+        run: |
+          echo "app.sahyadrico.com" > public/CNAME
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
