@@ -7,6 +7,44 @@
   <title>Other Projects | Sahyadri Consultants</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Modal for zoom functionality */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      cursor: pointer;
+    }
+    
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .modal-close:hover {
+      color: #bbb;
+    }
+  </style>
   
   <!-- Essential for WhatsApp Link Preview -->
   <meta property="og:title" content="Other Projects | Sahyadri Consultants" />
@@ -122,86 +160,215 @@
       
       <div class="projects-simple-grid">
         <!-- Project 1 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_kannur.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/residentail_building_kannur.webp" alt="Residential Building, Kannur" loading="lazy">
           <div class="project-large-info">
             <h4>Residential Building, Kannur</h4>
             <div class="project-meta">
               <span class="project-category-tag">Residential</span>
               <span class="project-year">2000</span>
+              <span class="project-sqft-tag">2,500 sq ft</span>
             </div>
           </div>
         </div>
 
         <!-- Project 2 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/dr_thomas_house.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/dr_thomas_house.webp" alt="Residential Building, Calicut" loading="lazy">
           <div class="project-large-info">
             <h4>Residential Building, Calicut</h4>
             <div class="project-meta">
               <span class="project-category-tag">Residential</span>
-              <span class="project-year">2020</span>
+              <span class="project-year">2002</span>
+              <span class="project-sqft-tag">3,200 sq ft</span>
             </div>
           </div>
         </div>
 
         <!-- Project 3 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_1.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/j_andG_kannur_interiors_1.webp" alt="Jacob and George Chartered Accountants Kannur Interiors" loading="lazy">
           <div class="project-large-info">
-            <h4>Jacob and George Chartered Accountants, Kannur - Interiors</h4>
+            <h4>Jacob and George Chartered Accountants, Kannur</h4>
             <div class="project-meta">
               <span class="project-category-tag">Commercial</span>
               <span class="project-year">2023</span>
+              <span class="project-sqft-tag">1,800 sq ft</span>
             </div>
           </div>
         </div>
 
         <!-- Project 4 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_2.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/j_andG_kannur_interiors_2.webp" alt="Jacob and George Chartered Accountants, Kannur Interiors" loading="lazy">
          <div class="project-large-info">
-            <h4>Jacob and George Chartered Accountants, Kannur - Interiors</h4>
+            <h4>Jacob and George Chartered Accountants, Kannur</h4>
             <div class="project-meta">
               <span class="project-category-tag">Commercial</span>
               <span class="project-year">2023</span>
+              <span class="project-sqft-tag">1,800 sq ft</span>
             </div>
           </div>
         </div>
 
           <!-- Project 5 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_3.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/j_andG_kannur_interiors_3.webp" alt="Jacob and George Chartered Accountants, Kannur Interiors" loading="lazy">
           <div class="project-large-info">
-            <h4>Jacob and George Chartered Accountants, Kannur - Interiors</h4>
+            <h4>Jacob and George Chartered Accountants, Kannur</h4>
             <div class="project-meta">
               <span class="project-category-tag">Commercial</span>
               <span class="project-year">2023</span>
+              <span class="project-sqft-tag">1,800 sq ft</span>
             </div>
           </div>
         </div>
 
         <!-- Project 6 -->
-        <div class="project-large-card">
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/sunny_uncle_sister_house.webp')" style="cursor: pointer;">
           <img src="resources/images/other_projects/sunny_uncle_sister_house.webp" alt="Residential Building, Kasaragod" loading="lazy">
           <div class="project-large-info">
-            <h4>Residential Building, Kasaragod</h4>
+            <h4>Residential Building, Kasargod</h4>
             <div class="project-meta">
               <span class="project-category-tag">Residential</span>
               <span class="project-year">2022</span>
+              <span class="project-sqft-tag">2,800 sq ft</span>
             </div>
           </div>
         </div>
 
+      <!-- Project 7 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residential_buidling_melechovva_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residential_buidling_melechovva_kannur.webp" alt="Residential residential_buidling Melechovva, Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Melechovva, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">2025</span>
+              <span class="project-sqft-tag">3,000 sq ft</span>
+            </div>
+          </div>
+        </div>
+
+     <!-- Project 8 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_palavayal_kasargod.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residentail_building_palavayal_kasargod.webp" alt="Residential Building, Palavayal, Kasargod" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Palavayal, Kasargod</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">Ongoing</span>
+              <span class="project-sqft-tag">3000 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 9 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/nirmagiri college.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/nirmagiri college.webp" alt="Nirmalagiri College of Advanced Studies, Kuthuparambu, Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Nirmalagiri College of Advanced Studies, Kuthuparambu, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Educational</span>
+              <span class="project-year">2026</span>
+              <span class="project-sqft-tag">40,000 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 10 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_talap_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residentail_building_talap_kannur.webp" alt="Residential Building, Talap Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Talap, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">1990</span>
+              <span class="project-sqft-tag">2,000 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 11 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residential_building_cherupuzha_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residential_building_cherupuzha_kannur.webp" alt="Residential Building, Cherupuzha Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Cherupuzha, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">1992</span>
+              <span class="project-sqft-tag">4,000 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 12 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_sreekandapuram_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residentail_building_sreekandapuram_kannur.webp" alt="Residential Building, Sreekandapuram Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Sreekandapuram, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">Ongoing</span>
+              <span class="project-sqft-tag">2,500 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 13 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_pallikunnu_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residentail_building_pallikunnu_kannur.webp" alt="Residential Building, Pallikunnu Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Pallikunnu, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">2026</span>
+              <span class="project-sqft-tag">2,500 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 14 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/shopping_complex_cum_apartment_payannur_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/shopping_complex_cum_apartment_payannur_kannur.webp" alt="Residential Building, Payannur, Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Shopping Complex cum Apartment, Payannur, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Commercial</span>
+              <span class="project-year">2024</span>
+              <span class="project-sqft-tag">11,000 sq ft</span>
+            </div>
+          </div>
+        </div>
+      
+      <!-- Project 15 -->
+        <div class="project-large-card" onclick="openModal('resources/images/other_projects/residentail_building_karuvanchal_kannur.webp')" style="cursor: pointer;">
+          <img src="resources/images/other_projects/residentail_building_karuvanchal_kannur.webp" alt="Residential Building, Karuvanchal, Kannur" loading="lazy">
+          <div class="project-large-info">
+            <h4>Residential Building, Karuvanchal, Kannur</h4>
+            <div class="project-meta">
+              <span class="project-category-tag">Residential</span>
+              <span class="project-year">Ongoing</span>
+              <span class="project-sqft-tag">3,500 sq ft</span>
+            </div>
+          </div>
+        </div>
+            
 
       <!-- Call to Action -->
-      <div style="text-align: center; margin-top: 60px; padding: 40px; background: linear-gradient(135deg, var(--primary), #004d8a); border-radius: 12px; color: white;">
+      <div style="margin: 60px auto; padding: 40px; background: linear-gradient(135deg, var(--primary), #004d8a); border-radius: 12px; color: white; max-width: 500px; text-align: center;">
         <h3 style="margin-bottom: 16px;">Ready to Start Your Project?</h3>
         <p style="margin-bottom: 24px; font-size: 1.1rem;">Let us bring our 40+ years of experience to your next construction project</p>
         <a href="index.html#contact" class="btn" style="background: white; color: var(--primary); text-decoration: none;">Get in Touch</a>
       </div>
     </section>
   </main>
+
+  <!-- Modal for zoom functionality -->
+  <div id="projectModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage" />
+  </div>
 
   <footer id="contact">
     <div class="container footer-grid">
@@ -217,5 +384,25 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function openModal(imageSrc) {
+      const modal = document.getElementById('projectModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.style.display = 'block';
+      modalImg.src = imageSrc;
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('projectModal');
+      modal.style.display = 'none';
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  </script>
 </body>
 </html>

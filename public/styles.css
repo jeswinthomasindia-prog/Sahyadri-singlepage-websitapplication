@@ -917,18 +917,33 @@ header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9
   display: inline-block;
   background: var(--accent);
   color: white;
-  padding: 6px 16px;
-  border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.project-sqft-tag {
+  display: inline-block;
+  background: #007bff;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
 }
 
 .project-year {
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
+  display: inline-block;
+  background: #8b5cf6;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
 }
 
 /* Responsive project grid */
@@ -948,7 +963,7 @@ header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9
   }
   
   .project-large-info h4 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 }
 
