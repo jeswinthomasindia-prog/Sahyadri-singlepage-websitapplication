@@ -187,8 +187,11 @@
                       
                       // Check if this row matches current user and show_360 is true
                       console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
+                      console.log(`🔍 CSV Username length: ${rowUsername.length}, chars: [${Array.from(rowUsername).map(c => c.charCodeAt(0)).join(',')}]`);
+                      console.log(`🔍 Stored Username length: ${username.length}, chars: [${Array.from(username).map(c => c.charCodeAt(0)).join(',')}]`);
                       console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
                       console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
+                      console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
                       
                       if (rowUsername.trim().toLowerCase() === username.trim().toLowerCase() && show360 === 'true' && projectName && projectUrl) {
                           console.log('✅ Found matching project for user:', projectName);
@@ -196,7 +199,7 @@
                           loadProject(projectName, projectUrl);
                           return; // Exit after finding user's project
                       } else {
-                          console.log(`❌ No match - User: "${rowUsername}" vs "${username}", Show360: "${show360}"`);
+                          console.log(`❌ No match - User: "${rowUsername.trim()}" vs "${username.trim()}", Show360: "${show360}"`);
                       }
                   }
               }
