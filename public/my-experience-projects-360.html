@@ -118,11 +118,18 @@
       </div> -->
 
     <!-- 360° Viewer Section -->
-    <iframe id="tour-embeded" name="My Home" src="https://tour.panoee.net/iframe/jills-home" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy"></iframe>
-    <script>
-      var pano_iframe_name = "tour-embeded";
-      window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
-    </script>
+    <div id="project-loader" style="text-align: center; padding: 20px;">
+        <div class="loading-spinner" style="margin: 0 auto 10px;"></div>
+        <p>Loading your 360° projects...</p>
+    </div>
+    <div id="project-viewer" style="display: none;">
+        <h3 id="project-title" style="text-align: center; margin-bottom: 20px; color: var(--primary);"></h3>
+        <iframe id="tour-embeded" name="" src="" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy"></iframe>
+        <script>
+            var pano_iframe_name = "tour-embeded";
+            window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
+        </script>
+    </div>
   </section>
 
   <footer id="contact">
@@ -138,134 +145,73 @@
   </footer>
 
   <!-- Photo Sphere Viewer JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.js"></script>
-  
+   -->
   <script>
-      // 3. Sample 360° images - Replace with your actual project images
-      const projectImages = {
-          'kitchen': 'https://via.placeholder.com/2000x1000.webp?text=Your+Kitchen+360°',
-          'living': 'https://via.placeholder.com/2000x1000.webp?text=Your+Living+Room+360°',
-          'bedroom': 'https://via.placeholder.com/2000x1000.webp?text=Your+Bedroom+360°',
-          'exterior': 'https://via.placeholder.com/2000x1000.webp?text=Your+Exterior+360°'
-      };
+      // Fetch user's 360° projects from Google Sheets
+      async function loadUser360Projects() {
+          try {
+              // Get username from localStorage
+              const username = localStorage.getItem('username');
+              if (!username) {
+                  showError('Please login to view your 360° projects.');
+                  return;
+              }
 
-      let currentViewer = null;
-      let isGyroActive = false;
-      let orientationListener = null;
-      let permissionGranted = false;
-
-      function initializeViewer(projectId) {
-          // Destroy previous viewer if exists
-          if (currentViewer) {
-              currentViewer.destroy();
-          }
-
-          // Create new viewer
-          const viewer = new PhotoSphereViewer.Viewer({
-              container: document.querySelector('#viewer'),
-              panorama: projectImages[projectId],
-              caption: `Your ${projectId.charAt(0).toUpperCase() + projectId.slice(1)} View`,
-              loadingImg: 'https://via.placeholder.com/64x64.webp?text=Loading',
-              navbar: [
-                  'zoom',
-                  'caption',
-                  'fullscreen'
-              ],
-              plugins: []
-          });
-
-          currentViewer = viewer;
-          
-          // Stop gyroscope when switching projects
-          if (isGyroActive) {
-              stopGyroscope();
-          }
-      }
-
-      function toggleGyroscope() {
-          if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-              // iOS 13+ requires permission
-              if (!permissionGranted) {
-                  DeviceOrientationEvent.requestPermission()
-                      .then(response => {
-                          if (response === 'granted') {
-                              permissionGranted = true;
-                              startGyroscope();
-                          } else {
-                              alert('Permission denied for device orientation');
-                          }
-                      })
-                      .catch(console.error);
-              } else {
-                  if (isGyroActive) {
-                      stopGyroscope();
-                  } else {
-                      startGyroscope();
+              const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=845513265&single=true&output=csv');
+              const csvText = await response.text();
+              
+              // Simple CSV parsing - split by lines and get first data row
+              const lines = csvText.trim().split('\n');
+              
+              // Skip header and find user's row
+              for (let i = 1; i < lines.length; i++) {
+                  const line = lines[i].trim();
+                  if (line) {
+                      const [rowUsername, show360, projectName, projectUrl] = line.split(',');
+                      
+                      // Check if this row matches current user and show_360 is true
+                      if (rowUsername === username && show360 === 'true' && projectName && projectUrl) {
+                          // Load user's 360° project
+                          loadProject(projectName, projectUrl);
+                          return; // Exit after finding user's project
+                      }
                   }
               }
-          } else {
-              // Non-iOS devices
-              if (isGyroActive) {
-                  stopGyroscope();
-              } else {
-                  startGyroscope();
-              }
+              
+              // If no project found for user
+              showError('No 360° projects found for your account.');
+          } catch (error) {
+              console.error('Error loading 360° projects:', error);
+              showError('Failed to load your 360° projects. Please try again later.');
           }
       }
 
-      function startGyroscope() {
-          if (!currentViewer) return;
+      function loadProject(projectName, projectUrl) {
+          const loader = document.getElementById('project-loader');
+          const viewer = document.getElementById('project-viewer');
+          const titleElement = document.getElementById('project-title');
+          const iframe = document.getElementById('tour-embeded');
           
-          isGyroActive = true;
-          const gyroButton = document.getElementById('gyroBtn');
-          gyroButton.textContent = 'Disable Tilt Controls';
-          gyroButton.style.background = '#dc3545';
+          // Hide loader and show viewer
+          loader.style.display = 'none';
+          viewer.style.display = 'block';
           
-          orientationListener = (event) => {
-              if (event.alpha !== null && event.beta !== null && event.gamma !== null && currentViewer) {
-                  // Get current viewer position
-                  const currentPosition = currentViewer.getPosition();
-                  
-                  // Convert device orientation to viewer rotation with sensitivity adjustment
-                  const yaw = event.alpha; // 0-360 degrees
-                  const pitch = Math.max(-90, Math.min(90, event.beta)); // Limit pitch to -90 to 90
-                  
-                  // Apply sensitivity factor for smoother movement
-                  const sensitivity = 0.5;
-                  
-                  // Update viewer position directly
-                  currentViewer.rotate({
-                      yaw: yaw * Math.PI / 180,
-                      pitch: pitch * Math.PI / 180 * sensitivity
-                  }, false); // false = no animation for direct response
-              }
-          };
-          
-          window.addEventListener('deviceorientation', orientationListener);
+          // Set project details
+          titleElement.textContent = projectName;
+          iframe.name = projectName;
+          iframe.src = projectUrl;
       }
-      
-      function stopGyroscope() {
-              if (!isGyroActive) return;
-              isGyroActive = false;
-              const gyroButton = document.getElementById('gyroBtn');
-              gyroButton.textContent = 'Enable Tilt Controls';
-              gyroButton.style.background = 'var(--primary)';
-              
-              if (orientationListener) {
-                  window.removeEventListener('deviceorientation', orientationListener);
-                  orientationListener = null;
-              }
-          }
-          
-          // For non-iOS devices, permission is granted by default
-          if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
-              permissionGranted = true;
-          }
-      
-      // Initialize viewer on page load
+
+      function showError(message) {
+          const loader = document.getElementById('project-loader');
+          loader.innerHTML = `<p style="color: #dc3545; text-align: center;">${message}</p>`;
+      }
+
+      // Initialize on page load
       document.addEventListener('DOMContentLoaded', function() {
-          initializeViewer('kitchen');
+          loadUser360Projects();
       });
   </script>
 </body>
