@@ -197,13 +197,17 @@
                       const directCompare = (rowUsername.trim() === username.trim());
                       console.log(`🔍 Direct string comparison: ${directCompare}`);
                       
-                      if (directCompare && show360 === 'true' && projectName && projectUrl) {
+                      // More robust matching - check if stored username is contained in CSV username
+                      const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
+                      console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
+                      
+                      if (isUsernameMatch && show360 === 'true' && projectName && projectUrl) {
                           console.log('✅ Found matching project for user:', projectName);
                           // Load user's 360° project
                           loadProject(projectName, projectUrl);
                           return; // Exit after finding user's project
                       } else {
-                          console.log(`❌ No match - User: "${rowUsername.trim()}" vs "${username.trim()}", Show360: "${show360}", Direct: ${directCompare}`);
+                          console.log(`❌ No match - User: "${username.trim()}" vs "${rowUsername.trim()}", Contains: ${isUsernameMatch}, Show360: "${show360}"`);
                       }
                   }
               }
