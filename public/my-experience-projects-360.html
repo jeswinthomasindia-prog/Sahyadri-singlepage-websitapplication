@@ -109,8 +109,8 @@
     
     <div class="about-content-grid">
         <div>
-          <p>Welcome to your personal 360° project experience. Here you can explore your specific projects with immersive virtual tours that bring your vision to life. Each 360° view allows you to experience your projects as if you were there, providing a comprehensive understanding of the space and design details.</p>
-          <p>Use the interactive controls to navigate through your projects, zoom in on specific features, and experience the full scope of your architectural journey. This personalized view ensures you have complete visibility into your project progress and details.</p>
+          <p>Welcome to your personal 360° project experience. Here you can explore your specific projects with immersive virtual tours that bring your vision to life. Each 360° view allows you to experience your projects as if you were there, providing a comprehensive understanding of space and design details.</p>
+          <p>Use interactive controls to navigate through your projects, zoom in on specific features, and experience full scope of your architectural journey. This personalized view ensures you have complete visibility into your project progress and details.</p>
         </div>
         <div>
           <img src="resources/images/360_image.webp?auto=format&fit=cover&w=800&q=80" alt="Your Personal 360° Project Experience" loading="lazy" style="width: 100%; height: auto; max-height: 300px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/800x300.webp?text=Your+360+Projects'" />
@@ -118,19 +118,11 @@
       </div>
 
     <!-- 360° Viewer Section -->
-    <div style="margin-top: 40px;">
-      <h4 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Your Project 360° View</h4>
-      <div id="viewer"></div>
-      
-      <!-- Project Selection Controls -->
-      <div style="text-align: center; margin-top: 20px;">
-        <button onclick="initializeViewer('kitchen')" class="btn" style="margin: 5px;">Kitchen View</button>
-        <button onclick="initializeViewer('living')" class="btn" style="margin: 5px;">Living Room</button>
-        <button onclick="initializeViewer('bedroom')" class="btn" style="margin: 5px;">Bedroom</button>
-        <button onclick="initializeViewer('exterior')" class="btn" style="margin: 5px;">Exterior</button>
-        <button onclick="toggleGyroscope()" id="gyroBtn" class="btn" style="margin: 5px; background: var(--primary);">Enable Tilt Controls</button>
-      </div>
-    </div>
+    <iframe id="tour-embeded" name="Jils" src="https://tour.panoee.net/iframe/jills-home" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy"></iframe>
+    <script>
+      var pano_iframe_name = "tour-embeded";
+      window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
+    </script>
   </section>
 
   <footer id="contact">
