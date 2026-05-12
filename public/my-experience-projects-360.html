@@ -186,7 +186,11 @@
                       console.log(`📋 Parsed values - Username: "${rowUsername}", Show360: "${show360}", Project: "${projectName}", URL: "${projectUrl}"`);
                       
                       // Check if this row matches current user and show_360 is true
-                      if (rowUsername === username && show360 === 'true' && projectName && projectUrl) {
+                      console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
+                      console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
+                      console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
+                      
+                      if (rowUsername.trim().toLowerCase() === username.trim().toLowerCase() && show360 === 'true' && projectName && projectUrl) {
                           console.log('✅ Found matching project for user:', projectName);
                           // Load user's 360° project
                           loadProject(projectName, projectUrl);
