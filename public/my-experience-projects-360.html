@@ -193,13 +193,17 @@
                       console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
                       console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
                       
-                      if (rowUsername.trim().toLowerCase() === username.trim().toLowerCase() && show360 === 'true' && projectName && projectUrl) {
+                      // Debug: Test exact string comparison
+                      const directCompare = (rowUsername.trim() === username.trim());
+                      console.log(`🔍 Direct string comparison: ${directCompare}`);
+                      
+                      if (directCompare && show360 === 'true' && projectName && projectUrl) {
                           console.log('✅ Found matching project for user:', projectName);
                           // Load user's 360° project
                           loadProject(projectName, projectUrl);
                           return; // Exit after finding user's project
                       } else {
-                          console.log(`❌ No match - User: "${rowUsername.trim()}" vs "${username.trim()}", Show360: "${show360}"`);
+                          console.log(`❌ No match - User: "${rowUsername.trim()}" vs "${username.trim()}", Show360: "${show360}", Direct: ${directCompare}`);
                       }
                   }
               }
