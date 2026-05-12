@@ -1128,7 +1128,9 @@ section { padding: 70px 0; }
 .section-title { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
 .section-title h3 { margin:0; font-size: clamp(1.32rem, 2.1vw, 2rem); color: var(--primary);}    
 .card-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
-.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14);width: 90vw;}
+.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14);
+  /* width: 90vw; */
+}
 .card img { width:100%; height:550px; object-fit:cover; }
 .card-content { padding:16px; }
 .card-content h4 { margin:0 0 8px; }
