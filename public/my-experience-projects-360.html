@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Experience your personal 360° project views with Sahyadri Consultants. Explore your projects with interactive virtual tours." />
+  <title>My 360° Projects | Sahyadri Consultants</title>
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+     <!-- Essential for WhatsApp Link Preview -->
+    <meta property="og:title" content="My 360° Projects | Sahyadri Consultants" />
+    <meta property="og:description" content="Experience your personal 360° project views with interactive virtual tours." />
+    <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
+    <meta property="og:url" content="https://sahyadri-61c65.webapp/my-experience-projects-360.html" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="image_slider/BeerSlider.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+    <style>
+        /* 2. Important: The photo sphere 360 viewer needs a height to be visible! */
+        #viewer {
+            width: 100%;
+            height: 500px;
+            background-color: #f0f0f0; /* Light gray while loading */
+        }
+    </style>
+    <!-- Photo Sphere Viewer Stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css">
+</head>
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="My 360° Projects Experience Hero">
+    <img src="resources/images/homesuperimage_top.webp" alt="360° Project Experience Hero" />
+    
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="box">
+        <h2>My Personal 360° Project Experience</h2>
+        <p>Explore your personal project collection in immersive 360° views. Experience your projects from every angle with interactive virtual tours.</p>
+        <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'});">View My Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="container">
+    <div class="section-title"><h3>My 360° Projects</h3></div>
+    
+    <div class="about-content-grid">
+        <div>
+          <p>Welcome to your personal 360° project experience. Here you can explore your specific projects with immersive virtual tours that bring your vision to life. Each 360° view allows you to experience your projects as if you were there, providing a comprehensive understanding of the space and design details.</p>
+          <p>Use the interactive controls to navigate through your projects, zoom in on specific features, and experience the full scope of your architectural journey. This personalized view ensures you have complete visibility into your project progress and details.</p>
+        </div>
+        <div>
+          <img src="resources/images/360_image.webp?auto=format&fit=cover&w=800&q=80" alt="Your Personal 360° Project Experience" loading="lazy" style="width: 100%; height: auto; max-height: 300px; object-fit: cover; border-radius: 8px;" onerror="this.src='https://via.placeholder.com/800x300.webp?text=Your+360+Projects'" />
+        </div>
+      </div>
+
+    <!-- 360° Viewer Section -->
+    <div style="margin-top: 40px;">
+      <h4 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Your Project 360° View</h4>
+      <div id="viewer"></div>
+      
+      <!-- Project Selection Controls -->
+      <div style="text-align: center; margin-top: 20px;">
+        <button onclick="initializeViewer('kitchen')" class="btn" style="margin: 5px;">Kitchen View</button>
+        <button onclick="initializeViewer('living')" class="btn" style="margin: 5px;">Living Room</button>
+        <button onclick="initializeViewer('bedroom')" class="btn" style="margin: 5px;">Bedroom</button>
+        <button onclick="initializeViewer('exterior')" class="btn" style="margin: 5px;">Exterior</button>
+        <button onclick="toggleGyroscope()" id="gyroBtn" class="btn" style="margin: 5px; background: var(--primary);">Enable Tilt Controls</button>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/whatsapp_logo.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p></div>
+      <div><h5>Services</h5><p><a href="#services">Architectural Design</a></p><p><a href="#services">Structural Engineering</a></p><p><a href="#services">Project Management</a></p><p><a href="#services">Interior Design</a></p></div>
+      <div><h5>Contact</h5><p><a href="#contact">Get in Touch</a></p><p><a href="login.html">Client Portal</a></p><p><a href="my-experience-projects-360.html">My 360° Projects</a></p></div>
+    </div>
+    <div class="container" style="text-align: center; padding: 20px 0; border-top: 1px solid #eee; margin-top: 40px;">
+      <p style="margin: 0; color: #666; font-size: 0.9rem;">&copy; 2026 Sahyadri Consultants. All rights reserved. | <a href="#contact" style="color: inherit;">Privacy Policy</a> | <a href="#contact" style="color: inherit;">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <!-- Photo Sphere Viewer JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.js"></script>
+  
+  <script>
+      // 3. Sample 360° images - Replace with your actual project images
+      const projectImages = {
+          'kitchen': 'https://via.placeholder.com/2000x1000.webp?text=Your+Kitchen+360°',
+          'living': 'https://via.placeholder.com/2000x1000.webp?text=Your+Living+Room+360°',
+          'bedroom': 'https://via.placeholder.com/2000x1000.webp?text=Your+Bedroom+360°',
+          'exterior': 'https://via.placeholder.com/2000x1000.webp?text=Your+Exterior+360°'
+      };
+
+      let currentViewer = null;
+      let isGyroActive = false;
+      let orientationListener = null;
+      let permissionGranted = false;
+
+      function initializeViewer(projectId) {
+          // Destroy previous viewer if exists
+          if (currentViewer) {
+              currentViewer.destroy();
+          }
+
+          // Create new viewer
+          const viewer = new PhotoSphereViewer.Viewer({
+              container: document.querySelector('#viewer'),
+              panorama: projectImages[projectId],
+              caption: `Your ${projectId.charAt(0).toUpperCase() + projectId.slice(1)} View`,
+              loadingImg: 'https://via.placeholder.com/64x64.webp?text=Loading',
+              navbar: [
+                  'zoom',
+                  'caption',
+                  'fullscreen'
+              ],
+              plugins: []
+          });
+
+          currentViewer = viewer;
+          
+          // Stop gyroscope when switching projects
+          if (isGyroActive) {
+              stopGyroscope();
+          }
+      }
+
+      function toggleGyroscope() {
+          if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+              // iOS 13+ requires permission
+              if (!permissionGranted) {
+                  DeviceOrientationEvent.requestPermission()
+                      .then(response => {
+                          if (response === 'granted') {
+                              permissionGranted = true;
+                              startGyroscope();
+                          } else {
+                              alert('Permission denied for device orientation');
+                          }
+                      })
+                      .catch(console.error);
+              } else {
+                  if (isGyroActive) {
+                      stopGyroscope();
+                  } else {
+                      startGyroscope();
+                  }
+              }
+          } else {
+              // Non-iOS devices
+              if (isGyroActive) {
+                  stopGyroscope();
+              } else {
+                  startGyroscope();
+              }
+          }
+      }
+
+      function startGyroscope() {
+          if (!currentViewer) return;
+          
+          isGyroActive = true;
+          const gyroButton = document.getElementById('gyroBtn');
+          gyroButton.textContent = 'Disable Tilt Controls';
+          gyroButton.style.background = '#dc3545';
+          
+          orientationListener = (event) => {
+              if (event.alpha !== null && event.beta !== null && event.gamma !== null && currentViewer) {
+                  // Get current viewer position
+                  const currentPosition = currentViewer.getPosition();
+                  
+                  // Convert device orientation to viewer rotation with sensitivity adjustment
+                  const yaw = event.alpha; // 0-360 degrees
+                  const pitch = Math.max(-90, Math.min(90, event.beta)); // Limit pitch to -90 to 90
+                  
+                  // Apply sensitivity factor for smoother movement
+                  const sensitivity = 0.5;
+                  
+                  // Update viewer position directly
+                  currentViewer.rotate({
+                      yaw: yaw * Math.PI / 180,
+                      pitch: pitch * Math.PI / 180 * sensitivity
+                  }, false); // false = no animation for direct response
+              }
+          };
+          
+          window.addEventListener('deviceorientation', orientationListener);
+      }
+      
+      function stopGyroscope() {
+              if (!isGyroActive) return;
+              isGyroActive = false;
+              const gyroButton = document.getElementById('gyroBtn');
+              gyroButton.textContent = 'Enable Tilt Controls';
+              gyroButton.style.background = 'var(--primary)';
+              
+              if (orientationListener) {
+                  window.removeEventListener('deviceorientation', orientationListener);
+                  orientationListener = null;
+              }
+          }
+          
+          // For non-iOS devices, permission is granted by default
+          if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
+              permissionGranted = true;
+          }
+      
+      // Initialize viewer on page load
+      document.addEventListener('DOMContentLoaded', function() {
+          initializeViewer('kitchen');
+      });
+  </script>
+</body>
+</html>
