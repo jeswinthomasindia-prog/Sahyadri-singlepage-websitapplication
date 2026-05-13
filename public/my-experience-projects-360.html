@@ -45,7 +45,7 @@
       </a>
       <nav class="nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
-        <a href="login.html" class="login-btn">Login</a>
+        <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
@@ -71,7 +71,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <nav class="mobile-menu-nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
-        <a href="login.html" class="login-btn">Login</a>
+        <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
@@ -201,13 +201,18 @@
                       const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
                       console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
                       
-                      if (isUsernameMatch && (show360 === 'yes' || show360 === 'true') && projectName && projectUrl) {
+                      const show360Match = (show360 === 'yes' || show360 === 'true');
+                      console.log(`🔍 Show360 check: "${show360}" matches: ${show360Match}`);
+                      console.log(`🔍 ProjectName: "${projectName}", ProjectUrl: "${projectUrl}"`);
+                      console.log(`🔍 Final condition - Username: ${isUsernameMatch}, Show360: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
+                      
+                      if (isUsernameMatch && show360Match && projectName && projectUrl) {
                           console.log('✅ Found matching project for user:', projectName);
                           // Load user's 360° project
                           loadProject(projectName, projectUrl);
                           return; // Exit after finding user's project
                       } else {
-                          console.log(`❌ No match - User: "${username.trim()}" vs "${rowUsername.trim()}", Contains: ${isUsernameMatch}, Show360: "${show360}"`);
+                          console.log(`❌ No match - User: "${username.trim()}" vs "${rowUsername.trim()}", Contains: ${isUsernameMatch}, Show360: "${show360}", Show360Match: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
                       }
                   }
               }
@@ -240,6 +245,12 @@
       function showError(message) {
           const loader = document.getElementById('project-loader');
           loader.innerHTML = `<p style="color: #dc3545; text-align: center;">${message}</p>`;
+      }
+
+      function logout() {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          window.location.href = 'login.html';
       }
 
       // Initialize on page load
