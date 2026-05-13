@@ -89,24 +89,9 @@
     <priority>0.6</priority>
   </url>
   
-  <!-- Additional Pages -->
-  <url>
-    <loc>https://sahyadrico.com/assistant.html</loc>
-    <lastmod>2026-05-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://sahyadrico.com/login.html</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
   <url>
     <loc>https://sahyadrico.com/my-experience-projects-360.html</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -115,13 +100,7 @@
     <loc>https://sahyadrico.com/other-projects.html</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   
-  <url>
-    <loc>https://sahyadrico.com/user-dashboard.html</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
 </urlset>
