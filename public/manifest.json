@@ -1,0 +1,18 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Sahyadri Consultants",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Sahyadri",
+  "start_url": "https://www.sahyadrico.com/",
+  "theme_color": "#ffffff",
+  "id": "sahyadri_consultants",
+  "description": "PWA App for Sahyadri Consultants Kannur",
+  "lang": "en",
+  "categories": [
+    "education",
+    "utilities"
+  ]
+}
