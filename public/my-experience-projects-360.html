@@ -227,19 +227,26 @@
       }
 
       function loadProject(projectName, projectUrl) {
+          console.log('🎬 loadProject called with:', projectName, projectUrl);
           const loader = document.getElementById('project-loader');
           const viewer = document.getElementById('project-viewer');
           const titleElement = document.getElementById('project-title');
           const iframe = document.getElementById('tour-embeded');
           
+          console.log('🔍 Elements found - Loader:', !!loader, 'Viewer:', !!viewer, 'Title:', !!titleElement, 'Iframe:', !!iframe);
+          
           // Hide loader and show viewer
           loader.style.display = 'none';
           viewer.style.display = 'block';
+          
+          console.log('🔍 Display styles updated - Loader display:', loader.style.display, 'Viewer display:', viewer.style.display);
           
           // Set project details
           titleElement.textContent = projectName;
           iframe.name = projectName;
           iframe.src = projectUrl;
+          
+          console.log('✅ Project loaded - Title:', titleElement.textContent, 'Iframe src:', iframe.src);
       }
 
       function showError(message) {
