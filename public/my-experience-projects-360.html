@@ -46,7 +46,7 @@
       <nav class="nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
         <a href="index.html">Home</a>
-        <a href="user-dashboard.html">My Page</a>
+        <a href="user-dashboard.html" id="mypage-link-desktop">My Page</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
         <a href="index.html#awards">Awards</a>
@@ -74,7 +74,7 @@
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
         <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
         <a href="index.html">Home</a>
-        <a href="user-dashboard.html">My Page</a>
+        <a href="user-dashboard.html" id="mypage-link-mobile">My Page</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
         <a href="index.html#awards">Awards</a>
@@ -265,6 +265,16 @@
       // Initialize on page load
       document.addEventListener('DOMContentLoaded', function() {
           loadUser360Projects();
+          
+          // Set dynamic My Page links with username
+          const username = localStorage.getItem('username');
+          const mypageLinks = ['mypage-link-desktop', 'mypage-link-mobile'];
+          mypageLinks.forEach(linkId => {
+              const link = document.getElementById(linkId);
+              if (link && username) {
+                  link.href = `user-dashboard.html?user=${username}`;
+              }
+          });
       });
   </script>
   <script src="script.js"></script>
