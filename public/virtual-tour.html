@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Experience your project walkthrough with immersive video tours from Sahyadri Consultants." />
+  <title>Virtual Tour | Sahyadri Consultants</title>
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    #walkthrough-loader {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    #walkthrough-viewer {
+      display: none;
+    }
+  </style>
+</head>
+<body class="dashboard-body">
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="assistant.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="user-dashboard.html" id="mypage-link-desktop">My Page</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+        <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="assistant.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
+        <a href="user-dashboard.html" id="mypage-link-mobile">My Page</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard-page">
+    <section class="dashboard-card">
+      <h1>Virtual Walkthrough</h1>
+      <p style="margin-bottom: 20px; color: #666;">Experience your project with an immersive video walkthrough tour.</p>
+      
+      <div id="walkthrough-loader">
+        <div class="loading-spinner" style="margin: 0 auto 10px;"></div>
+        <p>Loading your virtual walkthrough...</p>
+      </div>
+      
+      <div id="walkthrough-viewer">
+        <h3 id="walkthrough-title" style="text-align: center; margin-bottom: 20px; color: var(--primary);"></h3>
+        <div class="video-container">
+          <iframe id="walkthrough-iframe" src="" title="Project Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p><p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p><p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Sahya, our AI Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <script>
+      // Fetch user's walkthrough from Google Sheets
+      async function loadUserWalkthrough() {
+          try {
+              console.log('🔍 Starting loadUserWalkthrough function');
+              
+              // Get username from localStorage
+              const username = localStorage.getItem('username');
+              console.log('👤 Username from localStorage:', username);
+              
+              if (!username) {
+                  console.log('❌ No username found in localStorage');
+                  showError('Please login to view your virtual walkthrough.');
+                  return;
+              }
+
+              console.log('📡 Fetching data from Google Sheets...');
+              const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=2018183995&single=true&output=csv');
+              console.log('📡 Response status:', response.status);
+              
+              const csvText = await response.text();
+              console.log('📄 Raw CSV text length:', csvText.length);
+              
+              // Simple CSV parsing - split by lines and get first data row
+              const lines = csvText.trim().split('\n');
+              console.log('📊 Total lines in CSV:', lines.length);
+              console.log('📊 Header line:', lines[0]);
+              
+              // Skip header and find user's row
+              for (let i = 1; i < lines.length; i++) {
+                  const line = lines[i].trim();
+                  console.log(`🔍 Processing line ${i}:`, line);
+                  
+                  if (line) {
+                      const [rowUsername, showWalkthrough, walkthroughUrl, url] = line.split(',');
+                      console.log(`📋 Parsed values - Username: "${rowUsername}", ShowWalkthrough: "${showWalkthrough}", WalkthroughURL: "${walkthroughUrl}", URL: "${url}"`);
+                      
+                      // Check if this row matches current user
+                      console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
+                      console.log(`🔍 CSV Username length: ${rowUsername.length}, chars: [${Array.from(rowUsername).map(c => c.charCodeAt(0)).join(',')}]`);
+                      console.log(`🔍 Stored Username length: ${username.length}, chars: [${Array.from(username).map(c => c.charCodeAt(0)).join(',')}]`);
+                      console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
+                      console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
+                      console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
+                      
+                      // More robust matching - check if stored username is contained in CSV username
+                      const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
+                      console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
+                      
+                      const showWalkthroughMatch = (showWalkthrough === 'yes' || showWalkthrough === 'true');
+                      console.log(`🔍 ShowWalkthrough check: "${showWalkthrough}" matches: ${showWalkthroughMatch}`);
+                      console.log(`🔍 WalkthroughURL: "${walkthroughUrl}"`);
+                      console.log(`🔍 Final condition - Username: ${isUsernameMatch}, ShowWalkthrough: ${showWalkthroughMatch}, WalkthroughURL: ${!!walkthroughUrl}`);
+                      
+                      if (isUsernameMatch && showWalkthroughMatch && walkthroughUrl) {
+                          console.log('✅ Found matching walkthrough for user');
+                          // Load user's walkthrough
+                          loadWalkthrough(walkthroughUrl);
+                          return; // Exit after finding user's walkthrough
+                      } else if (isUsernameMatch && !showWalkthroughMatch) {
+                          console.log('❌ User found but show_walkthrough is no');
+                          showError('No walkthrough available for your account at this time.');
+                          return;
+                      }
+                  }
+              }
+              
+              // If no walkthrough found for user
+              console.log('❌ No matching walkthrough found for user');
+              showError('No walkthrough available for your account at this time.');
+          } catch (error) {
+              console.error('❌ Error loading walkthrough:', error);
+              showError('Failed to load your virtual walkthrough. Please try again later.');
+          }
+      }
+
+      function loadWalkthrough(walkthroughUrl) {
+          console.log('🎬 loadWalkthrough called with:', walkthroughUrl);
+          const loader = document.getElementById('walkthrough-loader');
+          const viewer = document.getElementById('walkthrough-viewer');
+          const titleElement = document.getElementById('walkthrough-title');
+          const iframe = document.getElementById('walkthrough-iframe');
+          
+          console.log('🔍 Elements found - Loader:', !!loader, 'Viewer:', !!viewer, 'Title:', !!titleElement, 'Iframe:', !!iframe);
+          
+          // Hide loader and show viewer
+          loader.style.display = 'none';
+          viewer.style.display = 'block';
+          
+          console.log('🔍 Display styles updated - Loader display:', loader.style.display, 'Viewer display:', viewer.style.display);
+          
+          // Set walkthrough details
+          titleElement.textContent = 'Your Project Walkthrough';
+          iframe.src = walkthroughUrl;
+          
+          console.log('✅ Walkthrough loaded - Title:', titleElement.textContent, 'Iframe src:', iframe.src);
+      }
+
+      function showError(message) {
+          const loader = document.getElementById('walkthrough-loader');
+          loader.innerHTML = `<p style="color: #dc3545; text-align: center;">${message}</p>`;
+      }
+
+      function logout() {
+          localStorage.removeItem('isLoggedIn');
+          localStorage.removeItem('username');
+          window.location.href = 'login.html';
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', function() {
+          loadUserWalkthrough();
+          
+          // Set dynamic My Page links with username
+          const username = localStorage.getItem('username');
+          const mypageLinks = ['mypage-link-desktop', 'mypage-link-mobile'];
+          mypageLinks.forEach(linkId => {
+              const link = document.getElementById(linkId);
+              if (link && username) {
+                  link.href = `user-dashboard.html?user=${username}`;
+              }
+          });
+      });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
