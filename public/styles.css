@@ -2263,3 +2263,19 @@ footer a:hover{color:#fff;}
   }
 }
 
+/* 1. Prevent iOS from trying to select or drag the images/container, this is for enabling image slider in ios devices */
+.beer-slider, 
+.beer-slider * {
+  -webkit-user-select: none; /* Safari iOS */
+  user-select: none;
+  -webkit-touch-callout: none; /* Prevents long-press menu */
+}
+
+/* 2. Make the native invisible touch-track thumb match your handle size, this is for enabling image slider in ios devices */
+.beer-range::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 50px; /* Match the height of your .beer-handle */
+  width: 50px;  /* Match the width of your .beer-handle */
+  display: block;
+  cursor: ew-resize;
+}
