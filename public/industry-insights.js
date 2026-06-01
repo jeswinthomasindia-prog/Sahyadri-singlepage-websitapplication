@@ -47,7 +47,7 @@ class IndustryInsights {
       const localInsights = [
         {
           title: 'Sustainable Architecture Trends 2026',
-          description: 'Green building design is revolutionizing modern architecture with energy-efficient materials, solar integration, and biophilic design principles. Industry leaders are adopting net-zero carbon policy.',
+          description: 'Green building design is revolutionizing modern architecture with energy-efficient materials, solar integration, and biophilic design principles. Industry leaders are adopting net-zero carbon policies.',
           summary: 'Discover how net-zero carbon buildings, solar integration, biophilic design, and energy efficiency are revolutionizing modern architecture with sustainable green building design principles.',
           importantPoints: ['Net-zero carbon buildings', 'Solar integration', 'Biophilic design', 'Energy efficiency'],
           imageUrl: 'resources/images/industry_insights/Sustainable_Architecture_Trends_2026.webp?auto=format&fit=crop&w=400&q=80',
