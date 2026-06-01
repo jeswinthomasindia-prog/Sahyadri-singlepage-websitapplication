@@ -485,7 +485,7 @@ async function handleLogin(event) {
   try {
     // Show loading spinner
     showLoadingSpinner();
-    
+    passwordValue=btoa(passwordValue).replaceAll("=","!@");
     // Load user credentials from Google Sheets
     allowedUsers = await loadUserCredentials();
     // // // console.log('🔍 Validating credentials against Google Sheets data...');
