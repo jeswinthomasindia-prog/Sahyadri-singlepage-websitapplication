@@ -475,7 +475,7 @@ async function handleLogin(event) {
   }
   
   const usernameValue = usernameInput.value.trim();
-  const passwordValue = passwordInput.value;
+  passwordValue = passwordInput.value;
   
   if (!usernameValue || !passwordValue) {
     showStatus('Please enter both username and password.', 'error');
