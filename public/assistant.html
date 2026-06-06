@@ -36,7 +36,7 @@
       box-shadow: 0 18px 40px rgba(8, 33, 58, 0.14);
       overflow: hidden;
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: auto 1fr auto auto;
       min-height: calc(100vh - 150px);
       max-height: calc(100vh - 150px);
     }
@@ -166,10 +166,37 @@
     .chat-log {
       padding: 18px;
       overflow-y: auto;
+      overflow-x: hidden;
+      /* Ensure scrollbar is visible on all devices */
+      scrollbar-width: auto;
+      scrollbar-color: #c9d7e8 #f1f5fb;
+      /* Smooth scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
       background:
         radial-gradient(circle at 1px 1px, rgba(120, 147, 173, 0.2) 1px, transparent 0),
         var(--chat-bg);
       background-size: 16px 16px;
+    }
+
+    /* WebKit scrollbar styling for Chrome, Safari, Edge */
+    .chat-log::-webkit-scrollbar {
+      width: 8px;
+      display: block;
+    }
+
+    .chat-log::-webkit-scrollbar-track {
+      background: #f1f5fb;
+      border-radius: 4px;
+    }
+
+    .chat-log::-webkit-scrollbar-thumb {
+      background: #c9d7e8;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .chat-log::-webkit-scrollbar-thumb:hover {
+      background: #a8c4e3;
     }
 
     .msg {
@@ -400,11 +427,29 @@
       }
 
       .assistant-shell {
-        min-height: calc(100vh - 100px);
-        max-height: none;
+        min-height: calc(100dvh - 70px);
+        max-height: calc(100dvh - 70px);
+        height: calc(100dvh - 70px);
         border-radius: 0;
-        border-left: 0;
-        border-right: 0;
+        border: none;
+        grid-template-rows: auto 1fr auto auto;
+      }
+
+      .chat-log {
+        overflow-y: auto;
+        height: 100%;
+      }
+
+      /* Force scrollbar visibility on mobile */
+      .chat-log::-webkit-scrollbar {
+        width: 6px;
+        display: block !important;
+      }
+
+      .chat-log::-webkit-scrollbar-thumb {
+        background: #c9d7e8;
+        border-radius: 3px;
+        display: block !important;
       }
 
       .msg {
@@ -416,6 +461,7 @@
         flex-direction: column;
         align-items: stretch;
         gap: 12px;
+        flex-shrink: 0;
       }
 
       .assistant-head h2 {
@@ -719,8 +765,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
-      // Scroll to show the new message without going to bottom
-      msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Default scroll for general messages to the bottom
+      msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
       return msg;
     }
 
@@ -749,8 +795,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
       typingMessage.appendChild(dots);
 
       chatLog.appendChild(typingMessage);
-      // Scroll to show typing indicator without going to bottom
-      typingMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Scroll typing indicator into view at the bottom
+      typingMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
       return typingMessage;
     }
 
@@ -763,7 +809,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
     async function sendUserMessage(userText) {
       console.log("Sending user message:", userText);
-      addMessage("user", userText);
+      const userMsg = addMessage("user", userText);
       history.push({ role: "user", text: userText });
       chatInput.value = "";
       autoResize();
@@ -775,14 +821,15 @@ Feel free to reach out to us through any of these channels. We're here to help w
         const aiText = await askGroq(userText);
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
-        // Scroll to show the bot response without going to bottom
-        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // Custom Scroll: Push the question to the top so the answer starting below it is visible
+        userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
         history.push({ role: "assistant", text: aiText });
       } catch (error) {
         typingBubble.className = "msg system";
         typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
-        // Scroll to show the error message
-        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
       } finally {
         setLoading(false);
         chatInput.focus();
