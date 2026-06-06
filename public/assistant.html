@@ -719,10 +719,6 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
-      chatLog.scrollTo({
-        top: chatLog.scrollHeight,
-        behavior: 'smooth'
-      });
       return msg;
     }
 
@@ -751,10 +747,6 @@ Feel free to reach out to us through any of these channels. We're here to help w
       typingMessage.appendChild(dots);
 
       chatLog.appendChild(typingMessage);
-      chatLog.scrollTo({
-        top: chatLog.scrollHeight,
-        behavior: 'smooth'
-      });
       return typingMessage;
     }
 
