@@ -63,14 +63,96 @@
       color: #4f6378;
     }
 
-    .small-btn {
-      border: none;
-      border-radius: 8px;
-      background: #e6edf6;
-      color: #123451;
+    /* Model Selector Styling */
+    .model-select-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .model-label {
+      font-size: 0.85rem;
       font-weight: 600;
-      padding: 8px 12px;
+      color: #52667a;
+      white-space: nowrap;
+    }
+
+    /* Gradient Border Container */
+    .model-select-border {
+      position: relative;
+      padding: 1.5px;
+      background: linear-gradient(135deg, #2f6df6 0%, #6a5df6 30%, #00a7ff 58%, #14c7b7 80%, #58d26f 100%);
+      border-radius: 11px; /* Slightly more than select radius */
+      display: flex;
+      align-items: center;
+    }
+
+    .model-select {
+      background-color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      color: var(--chat-bot-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 32px 6px 12px;
       cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234f6378' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 14px;
+      height: 32px;
+      width: 100%;
+    }
+
+    .model-select:hover {
+      background-color: #fcfdfe;
+    }
+
+    .model-select:focus {
+      background-color: #ffffff;
+    }
+
+    .model-select-border:focus-within {
+      box-shadow: 0 0 0 3px rgba(47, 109, 246, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .small-btn {
+      border: 1px solid #d1dbe7;
+      border-radius: 10px;
+      background: #f8fbff;
+      color: #2d4a67;
+      font-weight: 600;
+      padding: 7px 14px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .small-btn:hover {
+      background: #ffffff;
+      border-color: #2f6df6;
+      color: #2f6df6;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(47, 109, 246, 0.12);
+    }
+
+    .small-btn#clearChatBtn {
+      /* Keep standard styling but with clear active cues */
+    }
+
+    .small-btn#clearChatBtn:hover {
+      background: #fff5f5;
+      color: #e53e3e;
+      border-color: #feb2b2;
+      box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
     }
 
     .head-actions {
@@ -115,6 +197,20 @@
       color: var(--chat-bot-text);
       border-bottom-left-radius: 4px;
       border: 1px solid #dde7f3;
+    }
+
+    .msg a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .msg.bot a {
+      color: #2f6df6;
+    }
+
+    .msg.user a {
+      color: #ffffff;
     }
 
     .msg.system {
@@ -437,12 +533,16 @@
           <p>Ask about projects, services, timelines, and consultation details.</p>
         </div>
         <div class="head-actions">
-          <label for="modelSelect" style="font-size: 0.9rem; color: #4f6378; margin-right: 8px;">Model:</label>
-          <select id="modelSelect" style="border: 1px solid #c9d7e8; border-radius: 6px; padding: 4px 8px; font-size: 0.9rem;">
-            <option value="llama-3.1-8b-instant">Llama 3.1 8B Instant - Fast responses, good for quick chats</option>
-            <option value="qwen/qwen3-32b">Qwen 3 32B - Advanced multilingual model</option>
-            <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile - High-performance versatile model</option>
-          </select>
+          <div class="model-select-wrapper">
+            <!-- <label for="modelSelect" class="model-label">Model:</label> -->
+            <div class="model-select-border">
+              <select id="modelSelect" class="model-select">
+                <option value="llama-3.1-8b-instant">Sahya Classic</option>
+                <option value="llama-3.3-70b-versatile">Sahya Pro</option>
+                <option value="qwen/qwen3-32b">Sahya Air</option>
+              </select>
+            </div>
+          </div>
           <button class="small-btn" id="clearChatBtn" type="button">Clear Chat</button>
         </div>
       </div>
@@ -593,24 +693,31 @@
     };
 
     function showContactInfo() {
-      const contactMessage = `📞 **Phone**: ${SOCIAL_MEDIA.whatsapp.no}
-
-🌐 **Connect with us on social media**:
-• **YouTube**: ${SOCIAL_MEDIA.youtube.url}
-• **Instagram**: ${SOCIAL_MEDIA.instagram.url}
-• **Threads**: ${SOCIAL_MEDIA.threads.url}
-• **Facebook**: ${SOCIAL_MEDIA.facebook.url}
-• **WhatsApp**: https://wa.me/${SOCIAL_MEDIA.whatsapp.no}
-
+      const contactMessage = `📞 <strong>Phone</strong>: <a href="tel:+919074497780">919074497780</a><br><br>
+🌐 <strong>Connect with us on social media</strong>:<br>
+• <strong>YouTube</strong>: <a href="${SOCIAL_MEDIA.youtube.url}" target="_blank">Sahyadri YouTube</a><br>
+• <strong>Instagram</strong>: <a href="${SOCIAL_MEDIA.instagram.url}" target="_blank">Sahyadri Instagram</a><br>
+• <strong>Threads</strong>: <a href="${SOCIAL_MEDIA.threads.url}" target="_blank">Sahyadri Threads</a><br>
+• <strong>Facebook</strong>: <a href="${SOCIAL_MEDIA.facebook.url}" target="_blank">Sahyadri Facebook</a><br>
+• <strong>WhatsApp</strong>: <a href="https://wa.me/${SOCIAL_MEDIA.whatsapp.no}" target="_blank">Chat on WhatsApp</a><br><br>
 Feel free to reach out to us through any of these channels. We're here to help with your construction and design needs!`;
       
-      addMessage("bot", contactMessage);
+      addMessage("bot", contactMessage, true);
     }
 
-    function addMessage(role, text) {
+    function linkify(text) {
+      const urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+    }
+
+    function addMessage(role, content, isHTML = false) {
       const msg = document.createElement("div");
       msg.className = `msg ${role}`;
-      msg.textContent = text;
+      if (isHTML) {
+        msg.innerHTML = content;
+      } else {
+        msg.textContent = content;
+      }
       chatLog.appendChild(msg);
       chatLog.scrollTop = chatLog.scrollHeight;
       return msg;
