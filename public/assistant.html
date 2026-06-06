@@ -846,9 +846,9 @@ Feel free to reach out to us through any of these channels. We're here to help w
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
         
-        // Manual scroll within chatLog only: Push the question to the top of the chat area
+        // Manual scroll within chatLog only: Push the question to the top with a small offset for visibility
         chatLog.scrollTo({
-          top: userMsg.offsetTop,
+          top: userMsg.offsetTop - 15,
           behavior: 'smooth'
         });
         
