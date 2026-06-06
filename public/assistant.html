@@ -1051,7 +1051,13 @@ For our social media handles and phone number:
       if (sendBtn.disabled) {
         return;
       }
+      // Add user context bubble and scroll to it to prevent response clipping
+      const userMsg = addMessage("user", "Let's Connect");
       showContactInfo();
+      chatLog.scrollTo({
+        top: userMsg.offsetTop - 30,
+        behavior: 'smooth'
+      });
     });
 
     chatInput.addEventListener("input", autoResize);
