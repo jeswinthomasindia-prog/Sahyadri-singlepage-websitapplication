@@ -16,6 +16,24 @@
       top: 0;
       left: 0;
     }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      margin: 30px 0;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
   </style>
   <meta property="og:title" content="Sahyadri Properties | Sahyadri Consultants" />
   <meta property="og:description" content="Premium real estate and property consultancy services in Kannur, Kerala. A sister firm to Sahyadri Consultants, specializing in regional property expertise." />
@@ -95,28 +113,73 @@
     </div>
   </section>
 
-  <section class="container" style="margin-top: 40px;">
+  <section id="about" class="container" style="margin-top: 60px; margin-bottom: 100px;">
+    <div class="section-title"><h3>About Us</h3></div>
     <div class="project-detail about-content">
       <div style="text-align: center;">
         <img src="resources\images\sahyadri_properties\logo.webp" alt="Sahyadri Properties Logo" style="width: 300px; height: auto; border-radius: 8px;" />
       </div>
-      <p>Guided by Er. Thomas PJ, Sahyadri Properties is a specialized real estate and construction division that builds upon the 40-year legacy of Sahyadri Consultants. We bring a foundation of engineering excellence to the art of premium home building. Our mission is to understand each client’s unique vision and transform their dream of a Kerala paradise into a personalized sanctuary—a place of beauty, comfort, and enduring structural quality.</p>
+      <p>Guided by Er. Thomas PJ, Sahyadri Properties is a premium real estate and construction company.
+        We build upon the trusted 40-year legacy of Sahyadri Consultants to offer a stress-free experience for land buyers and home builders.
+        Our mission is simple: to help you secure perfect land and build a beautiful, structurally flawless home</p>
 
       <p>We provide a meticulous design-to-construction approach through four key pillars:</p>
+      
+      <h3>What We Do</h3>
+      <h4>Prime Property Sourcing</h4>
+      <p>We find and develop premium, clear-title residential plots. Every property is legally vetted for 100% peace of mind.</p>
 
-      <h4>Conceptual Design Solutions</h4>
-      <p>Translating your specific residential vision into a highly functional, aesthetic engineering plan.</p>
+      <h4>Turnkey Home Construction</h4>
+      <p>We handle your entire home building journey from foundation to handover, blending modern designs with long-lasting structural quality.</p>
 
-      <h4>Material & Craftsmanship Selection</h4>
-      <p>Expert guidance on choosing premium materials that balance local architectural style with long-term structural durability.</p>
+      <h4>Vastu & Modern Engineering</h4>
+      <p>We perfectly balance traditional Vastu Shastra principles with contemporary architecture to create healthy, positive living spaces.</p>
 
-      <h4>Project Management</h4>
-      <p>Strategic oversight and technical integrity to ensure your property is executed within exact timelines and high ethical standards.</p>
-
-      <h4>Global Building Standards</h4>
-      <p>Integrating seasoned international experience to complete the sophisticated, cutting-edge character of your physical space.</p>
+      <h4>Honest Project Management</h4>
+      <p>No hidden costs, no compromised materials. We supervise every detail to ensure your home is completed on time and up to elite standards.</p>
 
       <p>Whether through local on-site building advisory in Kannur or our synchronized engineering network, we deliver custom spaces for modern living, defined by excellence in every detail.</p>
+      
+      <h3>Why Choose Us?</h3>
+      <p>Whether you live locally or are an NRI looking to invest back home, Sahyadri Properties represents trust, transparency, and elite craftsmanship.</p>
+      <p>We don't just sell land or build walls—we deliver your dream sanctuary.</p>
+    </div>
+  </section>
+
+  <section id="featured-projects" class="container" style="margin-bottom: 120px;">
+    <div class="section-title"><h3>Featured Projects</h3></div>
+    <div class="project-detail about-content">
+      <h4 style="font-size: 1.5rem; margin-bottom: 20px; color: var(--primary);">Sahyadri Green Villas - Premium Eco-Luxury Living</h4>
+
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/qcuPtu-a6eY" title="Sahyadri Green Villas Walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <p style="margin-top: 25px;">Sahyadri Green Villas is a premium eco-luxury residential project by Sahyadri Properties, located in the tranquil surroundings of Mathukkoth, Kannur, Kerala. This development offers a unique opportunity to own architect-designed, ready-to-occupy 4-BHK villas that seamlessly blend contemporary architectural luxury with sustainable and natural living principles.</p>
+      
+      <p>Designed for those who seek premium quality at an affordable price, these villas provide an elite lifestyle experience in one of Kannur's most promising residential hubs.</p>
+      
+      <h4>Key Features & Specifications</h4>
+      <ul style="margin-bottom: 20px; color: #444; line-height: 1.75;">
+        <li><strong>Architectural Excellence:</strong> 4 Bedrooms (Attached) plus 1 guest powder room.</li>
+        <li><strong>Functional Planning:</strong> Spacious Kitchen, dedicated Work Area, and a convenient Store room.</li>
+        <li><strong>Smart Amenities:</strong> Modern Kitchen equipped with a Smokeless Chimney for a clean cooking environment.</li>
+        <li><strong>Natural Resources:</strong> Independent Open Well ensuring a 24/7 natural and reliable water supply.</li>
+        <li><strong>Security & Privacy:</strong> All-round Compound Wall and Gate protecting your sanctuary.</li>
+        <li><strong>Exterior Quality:</strong> Fully interlocked yards and dedicated Car Parking space.</li>
+      </ul>
+
+      <h4>Strategic Location & Connectivity</h4>
+      <p>Enjoy the perfect balance of serenity and accessibility with proximity to major hubs:</p>
+      <ul style="margin-bottom: 30px; color: #444; line-height: 1.75;">
+        <li><strong>Kannur International Airport:</strong> 18 kms</li>
+        <li><strong>Kannur Railway Station:</strong> 11 kms</li>
+        <li><strong>Kannur Civil Station:</strong> 9.8 kms</li>
+      </ul>
+      
+      <p style="margin-top: 24px; text-align: center;">
+        <a class="btn" href="index.html#contact" style="background: var(--accent); color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; display: inline-block;">Enquire for Sahyadri Green Villas</a>
+      </p>
 
       <p style="margin-top: 24px;"><a class="back-link" href="index.html">Back to Home</a></p>
     </div>
