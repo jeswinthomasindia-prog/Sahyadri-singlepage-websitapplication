@@ -719,6 +719,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
+      // Scroll to show the new message without going to bottom
+      msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       return msg;
     }
 
@@ -747,6 +749,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
       typingMessage.appendChild(dots);
 
       chatLog.appendChild(typingMessage);
+      // Scroll to show typing indicator without going to bottom
+      typingMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       return typingMessage;
     }
 
@@ -771,10 +775,14 @@ Feel free to reach out to us through any of these channels. We're here to help w
         const aiText = await askGroq(userText);
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
+        // Scroll to show the bot response without going to bottom
+        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         history.push({ role: "assistant", text: aiText });
       } catch (error) {
         typingBubble.className = "msg system";
         typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
+        // Scroll to show the error message
+        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       } finally {
         setLoading(false);
         chatInput.focus();
