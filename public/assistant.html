@@ -164,6 +164,7 @@
     }
 
     .chat-log {
+      position: relative;
       padding: 18px;
       overflow-y: auto;
       overflow-x: hidden;
@@ -765,8 +766,11 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
-      // Default scroll for general messages to the bottom
-      msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      // Use container scroll to prevent the parent window from moving
+      chatLog.scrollTo({
+        top: chatLog.scrollHeight,
+        behavior: 'smooth'
+      });
       return msg;
     }
 
@@ -795,8 +799,11 @@ Feel free to reach out to us through any of these channels. We're here to help w
       typingMessage.appendChild(dots);
 
       chatLog.appendChild(typingMessage);
-      // Scroll typing indicator into view at the bottom
-      typingMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      // Use container scroll to prevent the parent window from moving
+      chatLog.scrollTo({
+        top: chatLog.scrollHeight,
+        behavior: 'smooth'
+      });
       return typingMessage;
     }
 
@@ -822,14 +829,20 @@ Feel free to reach out to us through any of these channels. We're here to help w
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
         
-        // Custom Scroll: Push the question to the top so the answer starting below it is visible
-        userMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Manual scroll within chatLog only: Push the question to the top of the chat area
+        chatLog.scrollTo({
+          top: userMsg.offsetTop,
+          behavior: 'smooth'
+        });
         
         history.push({ role: "assistant", text: aiText });
       } catch (error) {
         typingBubble.className = "msg system";
         typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
-        typingBubble.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        chatLog.scrollTo({
+          top: chatLog.scrollHeight,
+          behavior: 'smooth'
+        });
       } finally {
         setLoading(false);
         chatInput.focus();
