@@ -862,7 +862,6 @@ Feel free to reach out to us through any of these channels. We're here to help w
         });
       } finally {
         setLoading(false);
-        chatInput.focus();
       }
     }
 
@@ -1058,6 +1057,7 @@ For our social media handles and phone number:
     chatInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
+        chatInput.blur(); // Dismiss keyboard immediately on Enter
         chatForm.requestSubmit();
       }
     });
