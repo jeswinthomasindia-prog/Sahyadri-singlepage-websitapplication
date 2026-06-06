@@ -16,6 +16,36 @@
       top: 0;
       left: 0;
     }
+    /* Modal for zoom functionality */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      cursor: pointer;
+    }
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
   </style>
   <meta property="og:title" content="Well & Dwell Interiors | Sahyadri Consultants" />
   <meta property="og:description" content="A specialized division of Sahyadri Consultants focused on independent interior consultancy, delivering bespoke, sophisticated designs that balance structural excellence." />
@@ -32,6 +62,7 @@
       </a>
       <nav class="nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="assistant.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
         <a href="login.html" class="login-btn">Login</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
@@ -60,6 +91,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <nav class="mobile-menu-nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="assistant.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
         <a href="login.html" class="login-btn">Login</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
@@ -125,10 +157,12 @@
     <div class="projects-simple-grid">
       <!-- Project 1 -->
       <div class="project-large-card">
+      <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_1.webp')" style="cursor: pointer;">
         <img src="resources/images/other_projects/j_andG_kannur_interiors_1.webp" alt="Jacob and George Chartered Accountants Interior, South Bazar, Kannur" loading="lazy">
         <div class="project-large-info">
           <h4>Jacob and George Chartered Accountants, South Bazar, Kannur</h4>
           <!-- <p class="project-type">Commercial Interior</p> -->
+          <p class="project-type">Commercial Interior</p>
           <p>A sophisticated professional environment blending modern aesthetics with functional design to create a productive and welcoming corporate space.</p>
           <div class="project-meta">
             <span class="project-category-tag">Commercial</span>
@@ -140,10 +174,12 @@
 
       <!-- Project 1 -->
       <div class="project-large-card">
+      <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_2.webp')" style="cursor: pointer;">
         <img src="resources/images/other_projects/j_andG_kannur_interiors_2.webp" alt="Jacob and George Chartered Accountants Interior, South Bazar, Kannur" loading="lazy">
         <div class="project-large-info">
           <h4>Jacob and George Chartered Accountants, South Bazar, Kannur</h4>
           <!-- <p class="project-type">Commercial Interior</p> -->
+          <p class="project-type">Office Interior</p>
           <p>A sophisticated professional environment blending modern aesthetics with functional design to create a productive and welcoming corporate space.</p>
           <div class="project-meta">
             <span class="project-category-tag">Commercial</span>
@@ -155,10 +191,12 @@
 
       <!-- Project 1 -->
       <div class="project-large-card">
+      <div class="project-large-card" onclick="openModal('resources/images/other_projects/j_andG_kannur_interiors_3.webp')" style="cursor: pointer;">
         <img src="resources/images/other_projects/j_andG_kannur_interiors_3.webp" alt="Jacob and George Chartered Accountants Interior, South Bazar, Kannur" loading="lazy">
         <div class="project-large-info">
           <h4>Jacob and George Chartered Accountants, South Bazar, Kannur</h4>
           <!-- <p class="project-type">Commercial Interior</p> -->
+          <p class="project-type">Interior Design</p>
           <p>A sophisticated professional environment blending modern aesthetics with functional design to create a productive and welcoming corporate space.</p>
           <div class="project-meta">
             <span class="project-category-tag">Commercial</span>
@@ -167,8 +205,16 @@
           </div>
         </div>
       </div>
+    </div>
 
   </section>
+
+  <!-- Modal for zoom functionality -->
+  <div id="projectModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage" />
+  </div>
+
   <div style="margin-top: 40px; text-align: center;">
       <p><a class="back-link" href="index.html" style="color: var(--accent); text-decoration: none; font-weight: 700;">Back to Home</a></p>
   </div>
@@ -189,6 +235,21 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function openModal(imageSrc) {
+      const modal = document.getElementById('projectModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.style.display = 'block';
+      modalImg.src = imageSrc;
+    }
+    function closeModal() {
+      const modal = document.getElementById('projectModal');
+      modal.style.display = 'none';
+    }
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeModal();
+    });
+  </script>
   
   <!-- WhatsApp Floating Button -->
   <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." 
