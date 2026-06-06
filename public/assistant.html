@@ -80,11 +80,27 @@
     /* Gradient Border Container */
     .model-select-border {
       position: relative;
-      padding: 1.5px;
-      background: linear-gradient(135deg, #2f6df6 0%, #6a5df6 30%, #00a7ff 58%, #14c7b7 80%, #58d26f 100%);
+      padding: 2.5px;
+      background: linear-gradient(90deg, #2f6df6, #6a5df6, #00a7ff, #14c7b7, #58d26f, #2f6df6);
+      background-size: 300% 100%;
       border-radius: 11px; /* Slightly more than select radius */
       display: flex;
       align-items: center;
+      animation: fluidRotate 8s linear infinite; /* Subtle slow flow in normal state */
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(47, 109, 246, 0.15);
+    }
+
+    .model-select-border:hover {
+      animation: fluidRotate 2s linear infinite; /* Speeds up on hover */
+      box-shadow: 0 0 15px rgba(47, 109, 246, 0.4), 0 5px 20px rgba(8, 33, 58, 0.15);
+      transform: translateY(-1px);
+      filter: saturate(1.4) brightness(1.1);
+    }
+
+    @keyframes fluidRotate {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .model-select {
@@ -121,9 +137,9 @@
     }
 
     .small-btn {
-      border: 1px solid #d1dbe7;
+      border: 1.5px solid var(--primary);
       border-radius: 10px;
-      background: #f8fbff;
+      background: #ffffff;
       color: #2d4a67;
       font-weight: 600;
       padding: 7px 14px;
@@ -145,14 +161,15 @@
     }
 
     .small-btn#clearChatBtn {
-      /* Keep standard styling but with clear active cues */
+      border-color: #f87171;
+      color: #dc2626;
     }
 
     .small-btn#clearChatBtn:hover {
-      background: #fff5f5;
-      color: #e53e3e;
-      border-color: #feb2b2;
-      box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #ef4444;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
     }
 
     .head-actions {
