@@ -41,7 +41,7 @@ logs/
 *.log
 
 # Media files (if not needed in repo)
-*.mp4
+#*.mp4
 *.avi
 *.mov
 *.wmv
