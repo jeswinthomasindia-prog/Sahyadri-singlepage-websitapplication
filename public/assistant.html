@@ -993,22 +993,18 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
         if (chatSummary && chatSummary.trim() !== "") {
           initialGreeting = `
-            Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
-            <p>We had discussed about following:
-            ${chatSummary.trim()}</p>
+            Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following:${chatSummary.trim()}</p>
             What shall we discuss today?
           `.trim();
         } else {
           initialGreeting = `
-            Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
-            <p>What shall we discuss today?</p>
+            Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
           `.trim();
         }
       } catch (error) {
         console.error("Failed to load user chat summary for greeting:", error);
         initialGreeting = `
-          Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
-          <p>What shall we discuss today?</p>
+          Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
         `.trim();
       }
 
