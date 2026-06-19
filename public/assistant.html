@@ -1,9 +1,11 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Chat with Sahya for instant help with your construction and architectural queries. Get expert advice and support for your projects." />
+  <meta name="description"
+    content="Chat with Sahya for instant help with your construction and architectural queries. Get expert advice and support for your projects." />
   <title>Talk to our Sahyadri Assistant Sahya</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
   <link rel="stylesheet" href="styles.css" />
@@ -83,24 +85,32 @@
       padding: 2.5px;
       background: linear-gradient(90deg, #2f6df6, #6a5df6, #00a7ff, #14c7b7, #58d26f, #2f6df6);
       background-size: 300% 100%;
-      border-radius: 11px; /* Slightly more than select radius */
+      border-radius: 11px;
+      /* Slightly more than select radius */
       display: flex;
       align-items: center;
-      animation: fluidRotate 8s linear infinite; /* Subtle slow flow in normal state */
+      animation: fluidRotate 8s linear infinite;
+      /* Subtle slow flow in normal state */
       transition: all 0.3s ease;
       box-shadow: 0 2px 8px rgba(47, 109, 246, 0.15);
     }
 
     .model-select-border:hover {
-      animation: fluidRotate 2s linear infinite; /* Speeds up on hover */
+      animation: fluidRotate 2s linear infinite;
+      /* Speeds up on hover */
       box-shadow: 0 0 15px rgba(47, 109, 246, 0.4), 0 5px 20px rgba(8, 33, 58, 0.15);
       transform: translateY(-1px);
       filter: saturate(1.4) brightness(1.1);
     }
 
     @keyframes fluidRotate {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+      0% {
+        background-position: 0% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
     }
 
     .model-select {
@@ -149,7 +159,7 @@
       height: 32px;
       display: flex;
       align-items: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
     .small-btn:hover {
@@ -311,12 +321,14 @@
     }
 
     @keyframes typing-bounce {
+
       0%,
       80%,
       100% {
         transform: translateY(0);
         opacity: 0.35;
       }
+
       40% {
         transform: translateY(-3px);
         opacity: 1;
@@ -437,10 +449,12 @@
     }
 
     @keyframes send-pulse {
+
       0%,
       100% {
         transform: translateX(1px) scale(1);
       }
+
       50% {
         transform: translateX(1px) scale(0.86);
       }
@@ -542,6 +556,7 @@
     }
   </style>
 </head>
+
 <body>
   <header class="container">
     <div class="topbar">
@@ -627,9 +642,12 @@
       <div id="chatLog" class="chat-log" aria-live="polite"></div>
 
       <div class="quick-replies" aria-label="Quick replies">
-        <button class="chip-btn" type="button" data-quick-reply="What services do you provide at Sahyadri Consultants?">Services</button>
-        <button class="chip-btn" type="button" data-quick-reply="What is the typical project timeline for residential and commercial works?">Timeline</button>
-        <button class="chip-btn" type="button" data-quick-reply="Tell me about Sahyadri Consultants,its leadership team and your history.">About Us</button>
+        <button class="chip-btn" type="button"
+          data-quick-reply="What services do you provide at Sahyadri Consultants?">Services</button>
+        <button class="chip-btn" type="button"
+          data-quick-reply="What is the typical project timeline for residential and commercial works?">Timeline</button>
+        <button class="chip-btn" type="button"
+          data-quick-reply="Tell me about Sahyadri Consultants,its leadership team and your history.">About Us</button>
         <button class="chip-btn" type="button" id="letsConnectBtn">Let's Connect</button>
       </div>
 
@@ -647,42 +665,100 @@
 
   <footer id="contact" style="margin-top: 60px;">
     <div class="container footer-grid">
-      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
-      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p><p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p><p><a href="sahyadri-properties.html">Sahyadri Properties</a></p><p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Sahya, our AI Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
-      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
-      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+      <div>
+        <h5>Sahyadri Consultants</h5>
+        <p>Pallikunnu KP Road, Kannur, Kerala</p>
+        <p>Email: sahyadriconsultantsindia@gmail.com</p>
+        <p>Phone: +91 9074497780</p>
+        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a
+            href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="index.html#projects">Projects</a></p>
+        <p><a href="index.html#about">About</a></p>
+        <p><a href="index.html#testimonials">Testimonials</a></p>
+        <p><a href="awards.html">Awards</a></p>
+        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
+        <p><a href="transformations.html">Transformations</a></p>
+        <p><a href="recent-activity.html">Recent Activity</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="login.html">Talk to Sahya, our AI Assistant</a></p>
+        <p><a href="industry-insights.html">Industry Insights</a></p>
+      </div>
+      <div>
+        <h5>Our Values</h5>
+        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+      </div>
+      <div>
+        <h5>Working Hours</h5>
+        <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+        <p>Sun: Closed</p>
+      </div>
     </div>
-    <div class="footer-bottom"> 
+    <div class="footer-bottom">
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and
+        interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister
+        firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent
+        of any other organizations sharing the Sahyadri name.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
 
-  
+
   <script>
     // Load API keys from cred.env file
     let GROQ_API_KEY;
     let GOOGLE_SHEETS_API_KEY;
+    let GOOGLE_APPS_SCRIPT_URL;
 
     // Load API keys from cred.env file
     async function loadApiKeys() {
       try {
         console.log('🔍 Loading API keys from cred.env file...');
-        
+
         const response = await fetch('./cred.env');
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const envText = await response.text();
         console.log('📄 Successfully loaded cred.env content');
-        
+
         // Parse the environment file
         const env = {};
         const lines = envText.split('\n');
-        
+
         for (const line of lines) {
           const trimmedLine = line.trim();
           if (trimmedLine && !trimmedLine.startsWith('#')) {
@@ -692,26 +768,28 @@
             }
           }
         }
-        
+
         console.log('📝 Parsed environment variables:', Object.keys(env));
-        
+
         if (!env.GROQ_API_KEY || env.GROQ_API_KEY === "YOUR_GROQ_API_KEY_HERE") {
           throw new Error("GROQ_API_KEY not found or not configured in cred.env file");
         }
-        
+
         GROQ_API_KEY = env.GROQ_API_KEY;
         GOOGLE_SHEETS_API_KEY = env.GOOGLE_SHEETS_API_KEY || "";
+        GOOGLE_APPS_SCRIPT_URL = env.GOOGLE_APPS_SCRIPT_URL || "";
         console.log('✅ Found GROQ API key:', GROQ_API_KEY.substring(0, 10) + '...');
         console.log('✅ Found Google Sheets API key:', GOOGLE_SHEETS_API_KEY ? GOOGLE_SHEETS_API_KEY.substring(0, 10) + '...' : 'not found');
+        console.log('✅ Found Google Apps Script URL:', GOOGLE_APPS_SCRIPT_URL ? GOOGLE_APPS_SCRIPT_URL.substring(0, 15) + '...' : 'not found');
         return GROQ_API_KEY;
-        
+
       } catch (error) {
         console.error('❌ Error loading API keys:', error);
-        
+
         if (error.message.includes('CORS') || error.message.includes('NetworkError')) {
           throw new Error("Cannot load cred.env file. Please ensure you're accessing this page from Firebase Hosting (https://your-app.firebaseapp.com) and not opening it directly as a file.");
         }
-        
+
         throw new Error("Failed to load API keys from cred.env: " + error.message);
       }
     }
@@ -730,6 +808,7 @@
         console.error('❌ Failed to initialize API keys:', error);
         GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE";
         GOOGLE_SHEETS_API_KEY = "";
+        GOOGLE_APPS_SCRIPT_URL = "";
         console.log('🔄 Using fallback placeholder');
       }
     })();
@@ -783,7 +862,7 @@
 • <img src="${SOCIAL_MEDIA.facebook.logo}" alt="${SOCIAL_MEDIA.facebook.alt}" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px; display: inline-block;"><strong>Facebook</strong>: <a href="${SOCIAL_MEDIA.facebook.url}" target="_blank">Sahyadri Facebook</a><br>
 • <img src="${SOCIAL_MEDIA.whatsapp.logo}" alt="${SOCIAL_MEDIA.whatsapp.alt}" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px; display: inline-block;"><strong>WhatsApp</strong>: <a href="https://wa.me/${SOCIAL_MEDIA.whatsapp.no}" target="_blank">Chat on WhatsApp</a><br><br>
 Feel free to reach out to us through any of these channels. We're here to help with your construction and design needs!`;
-      
+
       addMessage("bot", contactMessage, true);
     }
 
@@ -907,79 +986,39 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
     async function writeSummaryToGoogleSheet(summaryText) {
       await apiKeysLoaded;
-      
-      const apiKey = GOOGLE_SHEETS_API_KEY.trim();
-      if (!apiKey) {
-        throw new Error("Google Sheets API key not configured in cred.env file.");
+
+      const webAppUrl = GOOGLE_APPS_SCRIPT_URL.trim();
+      if (!webAppUrl || webAppUrl === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
+        throw new Error("Google Apps Script URL is not configured in cred.env file.");
       }
-
-      // 1. Fetch current User Status CSV to find row matching logged-in user
-      const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
-      const csvResponse = await fetch(statusUrl, {
-        mode: 'cors',
-        headers: {
-          'Accept': 'text/csv',
-          'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        redirect: 'follow'
-      });
-
-      if (!csvResponse.ok) {
-        throw new Error(`Failed to fetch User Status sheet: ${csvResponse.status} ${csvResponse.statusText}`);
-      }
-
-      const csvText = await csvResponse.text();
-      const lines = csvText.split('\n');
 
       // Determine target user
       let username = localStorage.getItem('username');
       if (!username || username.trim() === '') {
         username = 'guest';
       }
-      username = username.trim().toLowerCase();
+      username = username.trim();
 
-      // Find user row (1-indexed, line index + 1)
-      let rowNumber = -1;
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line) continue;
-        const parts = line.split(',').map(p => p.trim().replace(/^"|"$/g, ''));
-        if (parts.length > 0 && parts[0].toLowerCase() === username) {
-          rowNumber = i + 1; // row in sheet
-          break;
-        }
-      }
-
-      // If user row not found, default to guest or append
-      if (rowNumber === -1) {
-        console.warn(`User row for ${username} not found in CSV. Defaulting to row 4 (guest).`);
-        rowNumber = 4; // guest row index in default CSV sheet
-      }
-
-      // Range is User Status!F{rowNumber} (Column F is chatSummary)
-      const range = `User Status!F${rowNumber}`;
-      const spreadsheetId = '1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl';
-      
-      const sheetsApiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?valueInputOption=USER_ENTERED&key=${apiKey}`;
-
-      const updateResponse = await fetch(sheetsApiUrl, {
-        method: 'PUT',
+      // Make a POST request to Google Apps Script Web App
+      // Note: We use 'text/plain' to prevent browser preflight CORS OPTIONS requests
+      const response = await fetch(webAppUrl, {
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'text/plain'
         },
         body: JSON.stringify({
-          range: range,
-          majorDimension: 'ROWS',
-          values: [[summaryText]]
+          username: username,
+          chatSummary: summaryText
         })
       });
 
-      if (!updateResponse.ok) {
-        const errJson = await updateResponse.json().catch(() => ({}));
-        const errMsg = errJson?.error?.message || `${updateResponse.status} ${updateResponse.statusText}`;
-        throw new Error(`Google Sheets API write failed: ${errMsg}`);
+      if (!response.ok) {
+        throw new Error(`Apps Script responded with error: ${response.status} ${response.statusText}`);
+      }
+
+      const resJson = await response.json().catch(() => ({}));
+      if (resJson.status === "error") {
+        throw new Error(resJson.message || "Unknown error occurred in Apps Script Web App.");
       }
 
       return true;
@@ -1035,13 +1074,13 @@ Feel free to reach out to us through any of these channels. We're here to help w
         const aiText = await askGroq(userText);
         typingBubble.className = "msg bot";
         typingBubble.textContent = aiText;
-        
+
         // Manual scroll within chatLog only: Push the question to the top with a small offset for visibility
         chatLog.scrollTo({
           top: userMsg.offsetTop - 30,
           behavior: 'smooth'
         });
-        
+
         history.push({ role: "assistant", text: aiText });
       } catch (error) {
         typingBubble.className = "msg system";
@@ -1058,17 +1097,17 @@ Feel free to reach out to us through any of these channels. We're here to help w
     async function askGroq(userText) {
       // Wait for API key to be loaded
       await apiKeysLoaded;
-      
+
       console.log('🔍 askGroq called, checking API key...');
       console.log('🔑 GROQ_API_KEY value:', GROQ_API_KEY ? GROQ_API_KEY.substring(0, 10) + '...' : 'undefined/null');
       console.log('🔑 GROQ_API_KEY type:', typeof GROQ_API_KEY);
-      
+
       const apiKey = GROQ_API_KEY.trim();
       if (!apiKey || apiKey === "YOUR_GROQ_API_KEY_HERE") {
         console.log('❌ API key validation failed');
         throw new Error("Assistant is not configured yet. Please ensure cred.env file is accessible and contains a valid GROQ_API_KEY.");
       }
-      
+
       console.log('✅ API key validation passed');
 
       function extractRetryDelaySeconds(errorData, retryAfterHeader) {
@@ -1137,7 +1176,8 @@ For our social media handles and phone number:
 • Instagram: ${SOCIAL_MEDIA.instagram.url}
 • Threads: ${SOCIAL_MEDIA.threads.url}
 • Facebook: ${SOCIAL_MEDIA.facebook.url}
-• WhatsApp: ${SOCIAL_MEDIA.whatsapp.no}`},
+• WhatsApp: ${SOCIAL_MEDIA.whatsapp.no}`
+        },
         ...history.map(item => ({ role: item.role === "assistant" ? "assistant" : "user", content: item.text }))
       ];
 
@@ -1280,18 +1320,74 @@ For our social media handles and phone number:
 
   <footer id="contact">
     <div class="container footer-grid">
-      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
-      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
-        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
-      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
-      <div><h5>Working Hours</h5><p>Mon - Sat: 9:00 AM - 6:00 PM</p><p>Sun: Closed</p></div>
+      <div>
+        <h5>Sahyadri Consultants</h5>
+        <p>Pallikunnu KP Road, Kannur, Kerala</p>
+        <p>Email: sahyadriconsultantsindia@gmail.com</p>
+        <p>Phone: +91 9074497780</p>
+        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a
+            href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="index.html#projects">Projects</a></p>
+        <p><a href="index.html#about">About</a></p>
+        <p><a href="index.html#testimonials">Testimonials</a></p>
+        <p><a href="awards.html">Awards</a></p>
+        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
+        <p><a href="transformations.html">Transformations</a></p>
+        <p><a href="recent-activity.html">Recent Activity</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="login.html">Talk to Assistant</a></p>
+        <p><a href="industry-insights.html">Industry Insights</a></p>
+      </div>
+      <div>
+        <h5>Our Values</h5>
+        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+      </div>
+      <div>
+        <h5>Working Hours</h5>
+        <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+        <p>Sun: Closed</p>
+      </div>
     </div>
-    <div class="container footer-bottom"> 
+    <div class="container footer-bottom">
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and
+        interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister
+        firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent
+        of any other organizations sharing the Sahyadri name.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
