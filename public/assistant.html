@@ -929,12 +929,12 @@ Feel free to reach out to us through any of these channels. We're here to help w
         username = 'guest';
       }
       username = username.trim();
-      
+
       const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
 
       try {
         const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
-        
+
         // Fetch status CSV with cache-busting
         const response = await fetch(`${statusUrl}&_t=${Date.now()}`, {
           mode: 'cors',
@@ -981,10 +981,10 @@ Feel free to reach out to us through any of these channels. We're here to help w
         for (let i = 1; i < lines.length; i++) {
           const line = lines[i].trim();
           if (!line) continue;
-          
+
           const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
           const values = parseCsvLine(line, separator);
-          
+
           if (values.length >= 6 && values[0].toLowerCase() === targetUserLower) {
             chatSummary = values[5];
             break;
@@ -993,21 +993,21 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
         if (chatSummary && chatSummary.trim() !== "") {
           initialGreeting = `
-            <p>Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
-            <p>We had discussed about following:</p>
-            <p>${chatSummary.trim()}</p>
-            <p>What shall we discuss today?</p>
+            Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
+            <p>We had discussed about following:
+            ${chatSummary.trim()}</p>
+            What shall we discuss today?
           `.trim();
         } else {
           initialGreeting = `
-            <p>Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
+            Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
             <p>What shall we discuss today?</p>
           `.trim();
         }
       } catch (error) {
         console.error("Failed to load user chat summary for greeting:", error);
         initialGreeting = `
-          <p>Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
+          Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.
           <p>What shall we discuss today?</p>
         `.trim();
       }
