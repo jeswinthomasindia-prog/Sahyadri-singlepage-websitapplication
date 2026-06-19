@@ -992,16 +992,27 @@ Feel free to reach out to us through any of these channels. We're here to help w
         }
 
         if (chatSummary && chatSummary.trim() !== "") {
-          initialGreeting = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${chatSummary.trim()}.\n\nWhat shall we discuss today?`;
+          initialGreeting = `
+            <p>Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
+            <p>We had discussed about following:</p>
+            <p>${chatSummary.trim()}</p>
+            <p>What shall we discuss today?</p>
+          `.trim();
         } else {
-          initialGreeting = `Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. What shall we discuss today?`;
+          initialGreeting = `
+            <p>Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
+            <p>What shall we discuss today?</p>
+          `.trim();
         }
       } catch (error) {
         console.error("Failed to load user chat summary for greeting:", error);
-        initialGreeting = `Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. What shall we discuss today?`;
+        initialGreeting = `
+          <p>Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.</p>
+          <p>What shall we discuss today?</p>
+        `.trim();
       }
 
-      addMessage("bot", initialGreeting);
+      addMessage("bot", initialGreeting, true);
     }
 
     function clearChat() {
@@ -1009,7 +1020,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       chatLog.innerHTML = "";
       addMessage("system", "Chat history cleared.");
       if (initialGreeting) {
-        addMessage("bot", initialGreeting);
+        addMessage("bot", initialGreeting, true);
       } else {
         addMessage("bot", "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.");
       }
