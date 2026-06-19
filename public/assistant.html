@@ -172,6 +172,18 @@
       box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
     }
 
+    .small-btn#saveChatBtn {
+      border-color: #10b981;
+      color: #059669;
+    }
+
+    .small-btn#saveChatBtn:hover {
+      background: #ecfdf5;
+      color: #047857;
+      border-color: #10b981;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+
     .head-actions {
       display: flex;
       align-items: center;
@@ -607,6 +619,7 @@
               </select>
             </div>
           </div>
+          <button class="small-btn" id="saveChatBtn" type="button">Save Chat</button>
           <button class="small-btn" id="clearChatBtn" type="button">Clear Chat</button>
         </div>
       </div>
@@ -649,6 +662,10 @@
   
   <script>
     // Load API keys from cred.env file
+    let GROQ_API_KEY;
+    let GOOGLE_SHEETS_API_KEY;
+
+    // Load API keys from cred.env file
     async function loadApiKeys() {
       try {
         console.log('🔍 Loading API keys from cred.env file...');
@@ -682,8 +699,11 @@
           throw new Error("GROQ_API_KEY not found or not configured in cred.env file");
         }
         
-        console.log('✅ Found API key:', env.GROQ_API_KEY.substring(0, 10) + '...');
-        return env.GROQ_API_KEY;
+        GROQ_API_KEY = env.GROQ_API_KEY;
+        GOOGLE_SHEETS_API_KEY = env.GOOGLE_SHEETS_API_KEY || "";
+        console.log('✅ Found GROQ API key:', GROQ_API_KEY.substring(0, 10) + '...');
+        console.log('✅ Found Google Sheets API key:', GOOGLE_SHEETS_API_KEY ? GOOGLE_SHEETS_API_KEY.substring(0, 10) + '...' : 'not found');
+        return GROQ_API_KEY;
         
       } catch (error) {
         console.error('❌ Error loading API keys:', error);
@@ -696,7 +716,6 @@
       }
     }
 
-    let GROQ_API_KEY;
     let DEFAULT_MODEL_NAME = "llama-3.1-8b-instant";
     const FALLBACK_MODELS = ["qwen/qwen3-32b", "llama-3.3-70b-versatile"];
     const API_VERSION_CANDIDATES = ["v1"];
@@ -705,13 +724,12 @@
     let apiKeysLoaded = (async () => {
       try {
         console.log('🚀 Starting API key initialization...');
-        GROQ_API_KEY = await loadApiKeys();
-        console.log('✅ API key loaded successfully, length:', GROQ_API_KEY.length);
-        console.log('🔑 Final API key value:', GROQ_API_KEY.substring(0, 10) + '...');
+        await loadApiKeys();
+        console.log('✅ API keys loaded successfully');
       } catch (error) {
         console.error('❌ Failed to initialize API keys:', error);
-        // Fallback to a placeholder or show error message
         GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE";
+        GOOGLE_SHEETS_API_KEY = "";
         console.log('🔄 Using fallback placeholder');
       }
     })();
@@ -830,6 +848,178 @@ Feel free to reach out to us through any of these channels. We're here to help w
       addMessage("system", "Chat history cleared.");
       addMessage("bot", "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.");
     }
+
+    async function getChatSummaryFromAI() {
+      if (history.length === 0) {
+        throw new Error("Chat history is empty.");
+      }
+
+      await apiKeysLoaded;
+      const apiKey = GROQ_API_KEY.trim();
+      if (!apiKey || apiKey === "YOUR_GROQ_API_KEY_HERE") {
+        throw new Error("GROQ API key not configured.");
+      }
+
+      const summaryMessages = [
+        {
+          role: "system",
+          content: "You are a helpful assistant. Summarize the conversation history between the user and the assistant in exactly 2 lines. Keep it extremely concise, clear, and direct."
+        },
+        ...history.map(item => ({
+          role: item.role === "assistant" ? "assistant" : "user",
+          content: item.text
+        })),
+        {
+          role: "user",
+          content: "Summarize our conversation above in exactly 2 lines."
+        }
+      ];
+
+      const modelName = currentModel || DEFAULT_MODEL_NAME;
+      const endpoint = `https://api.groq.com/openai/v1/chat/completions`;
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: modelName,
+          messages: summaryMessages,
+          temperature: 0.3,
+          max_tokens: 150
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const summary = data?.choices?.[0]?.message?.content;
+      if (!summary) {
+        throw new Error("Empty summary received from AI.");
+      }
+
+      return summary.trim();
+    }
+
+    async function writeSummaryToGoogleSheet(summaryText) {
+      await apiKeysLoaded;
+      
+      const apiKey = GOOGLE_SHEETS_API_KEY.trim();
+      if (!apiKey) {
+        throw new Error("Google Sheets API key not configured in cred.env file.");
+      }
+
+      // 1. Fetch current User Status CSV to find row matching logged-in user
+      const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
+      const csvResponse = await fetch(statusUrl, {
+        mode: 'cors',
+        headers: {
+          'Accept': 'text/csv',
+          'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        redirect: 'follow'
+      });
+
+      if (!csvResponse.ok) {
+        throw new Error(`Failed to fetch User Status sheet: ${csvResponse.status} ${csvResponse.statusText}`);
+      }
+
+      const csvText = await csvResponse.text();
+      const lines = csvText.split('\n');
+
+      // Determine target user
+      let username = localStorage.getItem('username');
+      if (!username || username.trim() === '') {
+        username = 'guest';
+      }
+      username = username.trim().toLowerCase();
+
+      // Find user row (1-indexed, line index + 1)
+      let rowNumber = -1;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const parts = line.split(',').map(p => p.trim().replace(/^"|"$/g, ''));
+        if (parts.length > 0 && parts[0].toLowerCase() === username) {
+          rowNumber = i + 1; // row in sheet
+          break;
+        }
+      }
+
+      // If user row not found, default to guest or append
+      if (rowNumber === -1) {
+        console.warn(`User row for ${username} not found in CSV. Defaulting to row 4 (guest).`);
+        rowNumber = 4; // guest row index in default CSV sheet
+      }
+
+      // Range is User Status!F{rowNumber} (Column F is chatSummary)
+      const range = `User Status!F${rowNumber}`;
+      const spreadsheetId = '1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl';
+      
+      const sheetsApiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?valueInputOption=USER_ENTERED&key=${apiKey}`;
+
+      const updateResponse = await fetch(sheetsApiUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          range: range,
+          majorDimension: 'ROWS',
+          values: [[summaryText]]
+        })
+      });
+
+      if (!updateResponse.ok) {
+        const errJson = await updateResponse.json().catch(() => ({}));
+        const errMsg = errJson?.error?.message || `${updateResponse.status} ${updateResponse.statusText}`;
+        throw new Error(`Google Sheets API write failed: ${errMsg}`);
+      }
+
+      return true;
+    }
+
+    const saveChatBtn = document.getElementById("saveChatBtn");
+    saveChatBtn.addEventListener("click", async () => {
+      if (saveChatBtn.disabled) return;
+      if (history.length === 0) {
+        addMessage("system", "Cannot save: Chat history is empty.");
+        return;
+      }
+
+      // Disable buttons during saving
+      saveChatBtn.disabled = true;
+      const originalText = saveChatBtn.textContent;
+      saveChatBtn.textContent = "Saving...";
+
+      const progressBubble = addMessage("system", "⏳ Generating chat summary and saving to Google Sheets...");
+
+      try {
+        const summary = await getChatSummaryFromAI();
+        console.log("Generated Chat Summary:", summary);
+
+        // Attempt to write to Google Sheets
+        try {
+          await writeSummaryToGoogleSheet(summary);
+          progressBubble.textContent = `✅ Chat summary saved to Google Sheet successfully!\n\nAI Summary (2 lines):\n"${summary}"`;
+        } catch (sheetError) {
+          console.error("Failed to save to Google Sheets:", sheetError);
+          progressBubble.textContent = `⚠️ Chat summary was generated but could not be saved to Google Sheet: ${sheetError.message}\n\nAI Summary (2 lines):\n"${summary}"`;
+        }
+      } catch (error) {
+        console.error("Failed to generate chat summary:", error);
+        progressBubble.textContent = `❌ Error: Failed to generate chat summary: ${error.message}`;
+      } finally {
+        saveChatBtn.disabled = false;
+        saveChatBtn.textContent = originalText;
+      }
+    });
 
     async function sendUserMessage(userText) {
       console.log("Sending user message:", userText);
