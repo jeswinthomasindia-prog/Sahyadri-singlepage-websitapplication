@@ -634,8 +634,8 @@
               </select>
             </div>
           </div>
-          <button class="small-btn" id="saveChatBtn" type="button">Save Chat</button>
-          <button class="small-btn" id="clearChatBtn" type="button">Clear Chat</button>
+          <button class="small-btn" id="saveChatBtn" type="button">Save</button>
+          <button class="small-btn" id="clearChatBtn" type="button">Clear</button>
         </div>
       </div>
 
@@ -1016,7 +1016,13 @@ Feel free to reach out to us through any of these channels. We're here to help w
         throw new Error(`Apps Script responded with error: ${response.status} ${response.statusText}`);
       }
 
-      const resJson = await response.json().catch(() => ({}));
+      let resJson;
+      try {
+        resJson = await response.json();
+      } catch (parseError) {
+        throw new Error("Received invalid response from Google Apps Script Web App. Please verify the Web App deployment and settings.");
+      }
+
       if (resJson.status === "error") {
         throw new Error(resJson.message || "Unknown error occurred in Apps Script Web App.");
       }
