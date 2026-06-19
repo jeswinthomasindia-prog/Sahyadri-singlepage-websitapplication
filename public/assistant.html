@@ -1078,6 +1078,9 @@ For our social media handles and phone number:
       // Hide mobile keyboard to prevent it from interfering with scrolling
       chatInput.blur();
 
+      // Scroll the outer page to the top (dont touch inner scroll)
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
       sendUserMessage(userText);
     });
 
