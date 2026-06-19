@@ -922,6 +922,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
     }
 
     let initialGreeting = "";
+    let initialGreetingText = "";
 
     async function initializeGreeting() {
       let username = localStorage.getItem('username');
@@ -995,19 +996,23 @@ Feel free to reach out to us through any of these channels. We're here to help w
           initialGreeting = `
             Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following:${chatSummary.trim()}</p>What shall we discuss today?
           `.trim();
+          initialGreetingText = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${chatSummary.trim()}. What shall we discuss today?`;
         } else {
           initialGreeting = `
             Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
           `.trim();
+          initialGreetingText = `Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. What shall we discuss today?`;
         }
       } catch (error) {
         console.error("Failed to load user chat summary for greeting:", error);
         initialGreeting = `
           Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
         `.trim();
+        initialGreetingText = `Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. What shall we discuss today?`;
       }
 
       addMessage("bot", initialGreeting, true);
+      history.push({ role: "assistant", text: initialGreetingText });
     }
 
     function clearChat() {
@@ -1016,8 +1021,11 @@ Feel free to reach out to us through any of these channels. We're here to help w
       addMessage("system", "Chat history cleared.");
       if (initialGreeting) {
         addMessage("bot", initialGreeting, true);
+        history.push({ role: "assistant", text: initialGreetingText });
       } else {
-        addMessage("bot", "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.");
+        const fallbackText = "Hello. I am your Sahyadri Assistant: Sahya. Tell me about your project, and I can help with next steps.";
+        addMessage("bot", fallbackText);
+        history.push({ role: "assistant", text: fallbackText });
       }
     }
 
