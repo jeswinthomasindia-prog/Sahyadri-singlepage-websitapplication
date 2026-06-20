@@ -512,7 +512,10 @@ async function handleLogin(event) {
       localStorage.removeItem('percentageCompleted');
       localStorage.removeItem('chatSummary');
       
-      // Redirect to user dashboard (keep spinner active during transition)
+      // Hide loading spinner
+      hideLoadingSpinner();
+      
+      // Redirect to user dashboard
       setTimeout(() => {
         window.location.href = `user-dashboard.html?user=${usernameValue}`;
       }, 1500);
