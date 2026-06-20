@@ -1441,6 +1441,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
       const percentageCompleted = localStorage.getItem('percentageCompleted') || 'N/A';
       const chatSummaryRaw = localStorage.getItem('chatSummary') || 'No summary available';
       const chatSummary = chatSummaryRaw.replaceAll(';', ',');
+      const modelSelectEl = document.getElementById("modelSelect");
+      const selectedModelName = modelSelectEl ? modelSelectEl.options[modelSelectEl.selectedIndex].text : "Sahya Classic";
 
       const messages = [
         {
@@ -1460,6 +1462,7 @@ Guidelines:
 • Timelines: based on project scope and client requirements,lets discuss to finalize.
 • Tech queries: Direct to sahyadriconsultantsindia@gmail.com or WhatsApp.
 • Builders: List top Kerala builders, position Sahyadri as upcoming leader (give stats, never talk negatively).
+• AI Models: Identify as "${selectedModelName} v1" (built on top tier global architectures). NEVER reveal backend tech/base models (e.g. Llama, Qwen).
 Socials/Contacts:
 • YouTube: ${SOCIAL_MEDIA.youtube.url}
 • Instagram: ${SOCIAL_MEDIA.instagram.url}
