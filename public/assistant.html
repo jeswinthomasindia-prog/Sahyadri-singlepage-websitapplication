@@ -936,10 +936,12 @@ Feel free to reach out to us through any of these channels. We're here to help w
       const chatSummary = localStorage.getItem('chatSummary');
 
       if (chatSummary && chatSummary.trim() !== "" && chatSummary.trim() !== "No summary available") {
+        // Replace semicolon back to commas when reading chatSummary
+        const formattedSummary = chatSummary.replaceAll(';', ',');
         initialGreeting = `
-          Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following: ${chatSummary.trim()}</p>What shall we discuss today?
+          Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following: ${formattedSummary.trim()}</p>What shall we discuss today?
         `.trim();
-        initialGreetingText = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${chatSummary.trim()}. What shall we discuss today?`;
+        initialGreetingText = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${formattedSummary.trim()}. What shall we discuss today?`;
       } else {
         initialGreeting = `
           Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
@@ -977,7 +979,9 @@ Feel free to reach out to us through any of these channels. We're here to help w
         throw new Error("GROQ API key not configured.");
       }
 
-      const lastSummary = localStorage.getItem('chatSummary');
+      const lastSummaryRaw = localStorage.getItem('chatSummary');
+      // Replace semicolon back to commas when reading chatSummary for AI prompt context
+      const lastSummary = lastSummaryRaw ? lastSummaryRaw.replaceAll(';', ',') : '';
       const hasLastSummary = lastSummary && lastSummary.trim() !== "" && lastSummary.trim() !== "No summary available" && lastSummary.trim() !== "N/A";
       
       let systemContent = "You are a helpful assistant. Summarize the conversation history between the user and the assistant in 2 to 3 lines. Keep it extremely concise, clear, and direct.";
@@ -1050,6 +1054,9 @@ Feel free to reach out to us through any of these channels. We're here to help w
       }
       username = username.trim();
 
+      // Convert all commas to semicolons to prevent CSV formatting issues
+      const sanitizedSummary = summaryText.replaceAll(',', ';');
+
       // Make a POST request to Google Apps Script Web App
       // Note: We use 'text/plain' to prevent browser preflight CORS OPTIONS requests
       const response = await fetch(webAppUrl, {
@@ -1059,7 +1066,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
         },
         body: JSON.stringify({
           username: username,
-          chatSummary: summaryText
+          chatSummary: sanitizedSummary
         })
       });
 
@@ -1102,8 +1109,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
         // Attempt to write to Google Sheets
         try {
           await writeSummaryToGoogleSheet(summary);
-          // Also save the updated summary to localStorage for instant local access
-          localStorage.setItem('chatSummary', summary);
+          // Also save the updated summary to localStorage for instant local access (with commas converted to semicolons)
+          localStorage.setItem('chatSummary', summary.replaceAll(',', ';'));
           // Reset unsaved counter
           unsavedMessageCount = 0;
           progressBubble.textContent = `✅ Chat summary saved to Google Sheet successfully!\n\nAI Summary (2 lines):\n"${summary}"`;

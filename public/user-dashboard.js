@@ -353,7 +353,7 @@ async function showStatusTile(username) {
       percentageCompletedEl.textContent = cachedPercentage;
     }
     if (chatSummaryEl && cachedChatSummary) {
-      chatSummaryEl.textContent = cachedChatSummary;
+      chatSummaryEl.textContent = cachedChatSummary.replaceAll(';', ',');
     }
     statusTile.style.display = 'block';
   }
@@ -378,7 +378,7 @@ async function showStatusTile(username) {
     percentageCompletedEl.textContent = statusData.percentageCompleted || 'N/A';
   }
   if (chatSummaryEl) {
-    chatSummaryEl.textContent = statusData.chatSummary || 'No summary available';
+    chatSummaryEl.textContent = (statusData.chatSummary || 'No summary available').replaceAll(';', ',');
   }
 
   // Store user status details in localStorage as separate fields
