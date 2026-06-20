@@ -499,7 +499,8 @@ async function handleLogin(event) {
       // // // console.log('🎯 Expected password:', allowedUsers[usernameValue]);
       // // // console.log('🎯 Provided password matches:', passwordValue === allowedUsers[usernameValue] ? 'YES' : 'NO');
       
-      showStatus(`Welcome back, ${usernameValue}!`, 'success');
+      const capitalizedUsername = usernameValue.charAt(0).toUpperCase() + usernameValue.slice(1);
+      showStatus(`Welcome back, ${capitalizedUsername}!`, 'success');
       
       // Store login state
       localStorage.setItem('isLoggedIn', 'true');
