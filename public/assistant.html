@@ -880,7 +880,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
-      
+
       // Scroll to top for the first message itself, so it doesn't get clipped.
       if (chatLog.children.length === 1) {
         chatLog.scrollTo({
@@ -1142,6 +1142,18 @@ Feel free to reach out to us through any of these channels. We're here to help w
       await saveChat();
     });
 
+    function isContactQuery(text) {
+      if (!text) return false;
+      const lower = text.toLowerCase();
+      const keywords = [
+        'discuss', 'contact', 'phone', 'call', 'email', 'whatsapp', 
+        'reach', 'connect', 'social', 'address', 'location', 
+        'youtube', 'instagram', 'threads', 'facebook', 'appointment',
+        'schedule', 'talk to', 'meeting'
+      ];
+      return keywords.some(keyword => lower.includes(keyword));
+    }
+
     async function sendUserMessage(userText) {
       console.log("Sending user message:", userText);
 
@@ -1186,6 +1198,11 @@ Feel free to reach out to us through any of these channels. We're here to help w
         });
 
         history.push({ role: "assistant", text: aiText });
+
+        // Show formatted contact info if user is asking about contact, discussion, or social media
+        if (isContactQuery(userText)) {
+          showContactInfo();
+        }
 
         // Increment unsaved message count and trigger auto-save if limit reached
         unsavedMessageCount++;
@@ -1270,25 +1287,46 @@ Feel free to reach out to us through any of these channels. We're here to help w
         return `Groq API error (${statusCode}).`;
       }
 
+      const username = localStorage.getItem('username') || 'guest';
+      const currentStatus = localStorage.getItem('currentStatus') || 'Status not available';
+      const workDone = localStorage.getItem('workDone') || 'Work details not available';
+      const nextSteps = localStorage.getItem('nextSteps') || 'Next steps not available';
+      const percentageCompleted = localStorage.getItem('percentageCompleted') || 'N/A';
+      const chatSummaryRaw = localStorage.getItem('chatSummary') || 'No summary available';
+      const chatSummary = chatSummaryRaw.replaceAll(';', ',');
+
       const messages = [
         {
           role: "system",
-          content: `You are the Sahyadri Assistant: Sahya for a civil and construction consultancy in Kerala.
-          You must decline any requests for adult, violent, or illegal content or any content that may violate our policies firmly but politely.
-          Keep replies concise, clear, and client-friendly.
-About Sahyadri:Sahyadri Consultants is a trusted consultancy firm in Kannur, Kerala, specializing in engineering 🏗️, architecture 📐, and a dedicated interior design division ✨. Established in 1986, we have over 38 years of experience and more than 1,000 completed residential projects. We also offer our services online and blend traditional wisdom with modern innovation, specializing in Vastu-compliant and eco-friendly design solutions. As a proud sister firm of Sahyadri Properties, a premier real estate developer, we provide our expertise for exceptional residential villas and commercial projects.
-Leadership Team: Thomas PJ (MD and Lead Partner, 40+ years of experience, BTech, MBA, Diploma in Vasthushatra), Rose Thomas (Partner and Head of Dwell and Well, The Interior Design Wing of Sahyadri, 4+ years of experience, BTech, Interior Design Certified), Asha Thomas (Manager Human Resources).
-If asked about project timelines, mention that typical timelines are 6-12 months for residential projects and 12-24 months for commercial projects, but can vary based on project scope and client requirements.
-Always maintain a helpful and professional tone, and provide clear next steps or contact information when relevant 
-Also when asked more tech  question please continue by reaching out by clicking whatapp button or reach us by mail at sahyadriconsultantsindia@gmail.com.
-When asked about best builders in kerala,list of top builders and say Sahyadri is upcoming leader in kera.tell stats of sahyadri.never talk negative about sahyadri.if customer rude,politely thank them and excuse yourself out.
-
-For our social media handles and phone number:
+          content: `Role: Sahya, AI assistant for Sahyadri Consultants (civil, architecture, construction & interiors, Kannur, Kerala).
+Tone/Style: Helpful, professional, concise, client-friendly. Polite departure if customer is rude.
+Policy: Firmly/politely decline adult, violent, illegal, or violating requests.
+About Sahyadri:
+• Est. 1986 (38+ yrs exp, 1000+ homes). Online & offline engineering, architecture, Vastu-compliant, eco-friendly.
+• "Well & Dwell": Dedicated interior design division.
+• Sister Firm: Sahyadri Properties (residential villas & commercial projects).
+Leadership:
+• Thomas PJ: MD/Lead Partner (40+ yrs exp, BTech, MBA, Vastu Diploma).
+• Rose Thomas: Partner/Head of Well & Dwell (4+ yrs exp, BTech, Certified Interior Designer).
+• Asha Thomas: Manager.
+Guidelines:
+• Timelines: based on project scope and client requirements,lets discuss to finalize.
+• Tech queries: Direct to sahyadriconsultantsindia@gmail.com or WhatsApp.
+• Builders: List top Kerala builders, position Sahyadri as upcoming leader (give stats, never talk negatively).
+Socials/Contacts:
 • YouTube: ${SOCIAL_MEDIA.youtube.url}
 • Instagram: ${SOCIAL_MEDIA.instagram.url}
 • Threads: ${SOCIAL_MEDIA.threads.url}
 • Facebook: ${SOCIAL_MEDIA.facebook.url}
-• WhatsApp: ${SOCIAL_MEDIA.whatsapp.no}`
+• WhatsApp: ${SOCIAL_MEDIA.whatsapp.no}
+
+User Project Context:
+• Username: ${username}
+• Current Status: ${currentStatus}
+• Work Done: ${workDone}
+• Next Steps: ${nextSteps}
+• Percentage Completed: ${percentageCompleted}
+• Previous Chat Summary: ${chatSummary}`
         },
         ...history.map(item => ({ role: item.role === "assistant" ? "assistant" : "user", content: item.text }))
       ];
