@@ -324,6 +324,18 @@ async function loadUserStatusData() {
   }
 }
 
+function updateProgressBar(percentage) {
+  const barFill = document.getElementById('progressBarFill');
+  if (!barFill) return;
+  let numVal = parseInt(percentage, 10);
+  if (isNaN(numVal) || numVal < 0) {
+    numVal = 0;
+  } else if (numVal > 100) {
+    numVal = 100;
+  }
+  barFill.style.width = numVal + '%';
+}
+
 // Show status tile for the current user
 async function showStatusTile(username) {
   const statusTile = document.getElementById('statusTile');
@@ -350,7 +362,8 @@ async function showStatusTile(username) {
     workDoneEl.textContent = cachedWorkDone || 'Work details not available';
     nextStepsEl.textContent = cachedNextSteps || 'Next steps not available';
     if (percentageCompletedEl && cachedPercentage) {
-      percentageCompletedEl.textContent = cachedPercentage;
+      percentageCompletedEl.textContent = cachedPercentage.includes('%') || cachedPercentage === 'N/A' ? cachedPercentage : cachedPercentage + '%';
+      updateProgressBar(cachedPercentage);
     }
     if (chatSummaryEl && cachedChatSummary) {
       chatSummaryEl.textContent = cachedChatSummary.replaceAll(';', ',');
@@ -375,7 +388,9 @@ async function showStatusTile(username) {
   workDoneEl.textContent = statusData.workDone;
   nextStepsEl.textContent = statusData.nextSteps;
   if (percentageCompletedEl) {
-    percentageCompletedEl.textContent = statusData.percentageCompleted || 'N/A';
+    const pct = statusData.percentageCompleted || 'N/A';
+    percentageCompletedEl.textContent = pct.includes('%') || pct === 'N/A' ? pct : pct + '%';
+    updateProgressBar(pct);
   }
   if (chatSummaryEl) {
     chatSummaryEl.textContent = (statusData.chatSummary || 'No summary available').replaceAll(';', ',');
