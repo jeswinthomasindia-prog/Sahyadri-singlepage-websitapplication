@@ -71,6 +71,20 @@
       font-weight: bold;
       cursor: pointer;
     }
+    /* Villa gallery hover lift effect */
+    .villa-gallery-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .villa-gallery-img:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+    }
   </style>
   <meta property="og:title" content="Sahyadri Properties | Sahyadri Consultants" />
   <meta property="og:description" content="Premium real estate and property consultancy services in Kannur, Kerala. A sister firm to Sahyadri Consultants, specializing in regional property expertise." />
@@ -216,9 +230,9 @@
       
       <h4 style="font-size: clamp(1.25rem, 4vw, 1.5rem); margin-top: 40px; margin-bottom: 20px; color: var(--primary); text-align: center;">A Closer Look at Green Villas</h4>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
-        <img src="resources/images/sahyadri_properties/villa1_night.webp" alt="Green Villas, Villa 1 Night View" onclick="openModal(this.src)" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s ease;">
-        <img src="resources/images/sahyadri_properties/villa1.webp" alt="Green Villas, Villa 1 Day View" onclick="openModal(this.src)" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s ease;">
-        <img src="resources/images/sahyadri_properties/villa2.webp" alt="Green Villas, Villa 2 Day View" onclick="openModal(this.src)" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s ease;">
+        <img src="resources/images/sahyadri_properties/villa1_night.webp" alt="Green Villas, Villa 1 Night View" onclick="openModal(this.src)" class="villa-gallery-img">
+        <img src="resources/images/sahyadri_properties/villa1.webp" alt="Green Villas, Villa 1 Day View" onclick="openModal(this.src)" class="villa-gallery-img">
+        <img src="resources/images/sahyadri_properties/villa2.webp" alt="Green Villas, Villa 2 Day View" onclick="openModal(this.src)" class="villa-gallery-img">
       </div>
 
       <p style="margin-top: 24px; text-align: center;">
