@@ -932,79 +932,14 @@ Feel free to reach out to us through any of these channels. We're here to help w
       username = username.trim();
 
       const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
+      const chatSummary = localStorage.getItem('chatSummary');
 
-      try {
-        const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
-
-        // Fetch status CSV with cache-busting
-        const response = await fetch(`${statusUrl}&_t=${Date.now()}`, {
-          mode: 'cors',
-          headers: {
-            'Accept': 'text/csv',
-            'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
-          },
-          redirect: 'follow'
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const csvText = await response.text();
-        const lines = csvText.split('\n');
-        let chatSummary = "";
-        const targetUserLower = username.toLowerCase();
-
-        function parseCsvLine(csvLine, separator = ',') {
-          const result = [];
-          let current = '';
-          let inQuotes = false;
-          for (let k = 0; k < csvLine.length; k++) {
-            const char = csvLine[k];
-            if (char === '"') {
-              if (inQuotes && csvLine[k + 1] === '"') {
-                current += '"';
-                k++;
-              } else {
-                inQuotes = !inQuotes;
-              }
-            } else if (char === separator && !inQuotes) {
-              result.push(current.trim());
-              current = '';
-            } else {
-              current += char;
-            }
-          }
-          result.push(current.trim());
-          return result;
-        }
-
-        for (let i = 1; i < lines.length; i++) {
-          const line = lines[i].trim();
-          if (!line) continue;
-
-          const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-          const values = parseCsvLine(line, separator);
-
-          if (values.length >= 6 && values[0].toLowerCase() === targetUserLower) {
-            chatSummary = values[5];
-            break;
-          }
-        }
-
-        if (chatSummary && chatSummary.trim() !== "") {
-          initialGreeting = `
-            Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following:${chatSummary.trim()}</p>What shall we discuss today?
-          `.trim();
-          initialGreetingText = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${chatSummary.trim()}. What shall we discuss today?`;
-        } else {
-          initialGreeting = `
-            Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
-          `.trim();
-          initialGreetingText = `Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. What shall we discuss today?`;
-        }
-      } catch (error) {
-        console.error("Failed to load user chat summary for greeting:", error);
+      if (chatSummary && chatSummary.trim() !== "" && chatSummary.trim() !== "No summary available") {
+        initialGreeting = `
+          Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>We had discussed about following: ${chatSummary.trim()}</p>What shall we discuss today?
+        `.trim();
+        initialGreetingText = `Welcome back ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant. We had discussed about following: ${chatSummary.trim()}. What shall we discuss today?`;
+      } else {
         initialGreeting = `
           Hello ${capitalizedUsername}. I am Sahya, your Sahyadri Assistant.<p>What shall we discuss today?</p>
         `.trim();

@@ -17,10 +17,11 @@ function initializeDashboard() {
   // console.log('Dashboard initialized');
   // console.log('Username from URL:', currentUser);
   
+  const capitalizedUser = (currentUser && currentUser.trim() !== '') ? 
+    (currentUser.charAt(0).toUpperCase() + currentUser.slice(1)) : '';
+
   if (dashboardGreeting) {
-    if (currentUser && currentUser.trim() !== '') {
-      // Capitalize first letter
-      const capitalizedUser = currentUser.charAt(0).toUpperCase() + currentUser.slice(1);
+    if (capitalizedUser) {
       dashboardGreeting.textContent = `Hello ${capitalizedUser}`;
       // console.log('✓ Greeting updated to: Hello ' + capitalizedUser);
     } else {
@@ -30,7 +31,7 @@ function initializeDashboard() {
   }
 
   if (dashboardNote) {
-    dashboardNote.textContent = currentUser ? 'Welcome to your dashboard.' : 'Please log in to personalize this dashboard.';
+    dashboardNote.textContent = capitalizedUser ? `Welcome to your dashboard, ${capitalizedUser}.` : 'Please log in to personalize this dashboard.';
   }
 
   // Show status tile for the current user
