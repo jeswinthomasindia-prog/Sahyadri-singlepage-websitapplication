@@ -504,6 +504,12 @@ async function handleLogin(event) {
       // Store login state
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('username', usernameValue);
+      // Clean any leftover status cache from previous login
+      localStorage.removeItem('currentStatus');
+      localStorage.removeItem('workDone');
+      localStorage.removeItem('nextSteps');
+      localStorage.removeItem('percentageCompleted');
+      localStorage.removeItem('chatSummary');
       
       // Hide loading spinner
       hideLoadingSpinner();
@@ -543,6 +549,11 @@ function logout() {
   // Clear localStorage values
   localStorage.removeItem('isLoggedIn');
   localStorage.removeItem('username');
+  localStorage.removeItem('currentStatus');
+  localStorage.removeItem('workDone');
+  localStorage.removeItem('nextSteps');
+  localStorage.removeItem('percentageCompleted');
+  localStorage.removeItem('chatSummary');
   
   console.log('User logged out, localStorage cleared');
   

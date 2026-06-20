@@ -7,9 +7,12 @@ function initializeDashboard() {
   const errorMessage = document.getElementById('errorMessage');
   const retryBtn = document.getElementById('retryBtn');
   
-  // Get username from URL parameter
+  // Get username from URL parameter, fallback to localStorage if not in URL
   const urlParams = new URLSearchParams(window.location.search);
   let currentUser = urlParams.get('user');
+  if (!currentUser || currentUser.trim() === '') {
+    currentUser = localStorage.getItem('username');
+  }
   
   // console.log('Dashboard initialized');
   // console.log('Username from URL:', currentUser);
@@ -61,6 +64,11 @@ function initializeDashboard() {
         // Fallback: clear localStorage manually and redirect
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('username');
+        localStorage.removeItem('currentStatus');
+        localStorage.removeItem('workDone');
+        localStorage.removeItem('nextSteps');
+        localStorage.removeItem('percentageCompleted');
+        localStorage.removeItem('chatSummary');
         console.log('User logged out, localStorage cleared');
         window.location.href = 'login.html';
       }
@@ -275,12 +283,16 @@ async function loadUserStatusData() {
         const currentStatus = values[1];
         const workDone = values[2];
         const nextSteps = values[3];
+        const percentageCompleted = values[4] || 'N/A';
+        const chatSummary = values[5] || 'No summary available';
         
         if (username) {
           users[username] = {
             currentStatus: currentStatus || 'Status not available',
             workDone: workDone || 'Work details not available',
-            nextSteps: nextSteps || 'Next steps not available'
+            nextSteps: nextSteps || 'Next steps not available',
+            percentageCompleted: percentageCompleted || 'N/A',
+            chatSummary: chatSummary || 'No summary available'
           };
           // console.log(`👤 Loaded status for user: ${username}`);
         }
@@ -303,10 +315,32 @@ async function showStatusTile(username) {
   const currentStatusEl = document.getElementById('currentStatus');
   const workDoneEl = document.getElementById('workDone');
   const nextStepsEl = document.getElementById('nextSteps');
+  const percentageCompletedEl = document.getElementById('percentageCompleted');
+  const chatSummaryEl = document.getElementById('chatSummary');
   
   if (!statusTile || !currentStatusEl || !workDoneEl || !nextStepsEl) {
     // console.log('Status tile elements not found');
     return;
+  }
+  
+  // Load cached status from localStorage first if available, so it displays immediately
+  const cachedStatus = localStorage.getItem('currentStatus');
+  const cachedWorkDone = localStorage.getItem('workDone');
+  const cachedNextSteps = localStorage.getItem('nextSteps');
+  const cachedPercentage = localStorage.getItem('percentageCompleted');
+  const cachedChatSummary = localStorage.getItem('chatSummary');
+  
+  if (cachedStatus || cachedWorkDone || cachedNextSteps || cachedPercentage || cachedChatSummary) {
+    currentStatusEl.textContent = cachedStatus || 'Status not available';
+    workDoneEl.textContent = cachedWorkDone || 'Work details not available';
+    nextStepsEl.textContent = cachedNextSteps || 'Next steps not available';
+    if (percentageCompletedEl && cachedPercentage) {
+      percentageCompletedEl.textContent = cachedPercentage;
+    }
+    if (chatSummaryEl && cachedChatSummary) {
+      chatSummaryEl.textContent = cachedChatSummary;
+    }
+    statusTile.style.display = 'block';
   }
   
   // Load user status data from Google Sheets
@@ -325,6 +359,19 @@ async function showStatusTile(username) {
   currentStatusEl.textContent = statusData.currentStatus;
   workDoneEl.textContent = statusData.workDone;
   nextStepsEl.textContent = statusData.nextSteps;
+  if (percentageCompletedEl) {
+    percentageCompletedEl.textContent = statusData.percentageCompleted || 'N/A';
+  }
+  if (chatSummaryEl) {
+    chatSummaryEl.textContent = statusData.chatSummary || 'No summary available';
+  }
+  
+  // Store user status details in localStorage as separate fields
+  localStorage.setItem('currentStatus', statusData.currentStatus);
+  localStorage.setItem('workDone', statusData.workDone);
+  localStorage.setItem('nextSteps', statusData.nextSteps);
+  localStorage.setItem('percentageCompleted', statusData.percentageCompleted || 'N/A');
+  localStorage.setItem('chatSummary', statusData.chatSummary || 'No summary available');
   
   // Show the status tile
   statusTile.style.display = 'block';
