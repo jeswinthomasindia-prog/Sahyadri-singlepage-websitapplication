@@ -406,14 +406,28 @@
       transform: translateY(-1px);
     }
 
-    .chat-composer {
+    .composer-container {
+      background: #ffffff;
       border-top: 1px solid var(--chat-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-composer {
       padding: 12px;
       display: flex;
       flex-wrap: nowrap;
       align-items: flex-end;
       gap: 10px;
       background: #ffffff;
+    }
+
+    .chat-disclaimer {
+      text-align: center;
+      font-size: 0.76rem;
+      color: #718096;
+      margin: 4px 12px 10px;
+      line-height: 1.4;
     }
 
     .chat-composer textarea {
@@ -694,15 +708,18 @@
         <button class="chip-btn" type="button" id="letsConnectBtn">Let's Connect</button>
       </div>
 
-      <form id="chatForm" class="chat-composer" autocomplete="off">
-        <textarea id="chatInput" placeholder="Type your message..." rows="1" required></textarea>
-        <button id="sendBtn" class="send-btn" type="submit" aria-label="Send message">
-          <svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z"></path>
-          </svg>
-          <span class="send-label">Send</span>
-        </button>
-      </form>
+      <div class="composer-container">
+        <form id="chatForm" class="chat-composer" autocomplete="off">
+          <textarea id="chatInput" placeholder="Type your message..." rows="1" required></textarea>
+          <button id="sendBtn" class="send-btn" type="submit" aria-label="Send message">
+            <svg class="send-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M2.01 21L23 12L2.01 3L2 10L17 12L2 14L2.01 21Z"></path>
+            </svg>
+            <span class="send-label">Send</span>
+          </button>
+        </form>
+        <p class="chat-disclaimer">Sahya is experimental and may display inaccurate info, so please verify results for better accuracy.</p>
+      </div>
     </section>
   </main>
 
