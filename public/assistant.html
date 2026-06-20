@@ -239,10 +239,51 @@
       background: #a8c4e3;
     }
 
+    .msg-row {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 16px;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .msg-row.user {
+      flex-direction: row-reverse;
+    }
+
+    .msg-row.bot {
+      flex-direction: row;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      user-select: none;
+    }
+
+    .avatar.user {
+      background-color: #ffe8db; /* Light orange background */
+      color: #ea580c; /* Dark orange letter */
+      border: 1px solid #ffccb3;
+    }
+
+    .avatar.bot {
+      background-color: #e6f0fa; /* Light blue background */
+      color: #003965; /* Dark blue letter matching header */
+      border: 1px solid #bcd6f0;
+    }
+
     .msg {
-      max-width: 80%;
+      max-width: calc(80% - 46px);
       width: fit-content;
-      margin-bottom: 12px;
       border-radius: 14px;
       padding: 11px 14px;
       line-height: 1.45;
@@ -252,14 +293,12 @@
     }
 
     .msg.user {
-      margin-left: auto;
       background: var(--chat-user);
       color: var(--chat-user-text);
       border-bottom-right-radius: 4px;
     }
 
     .msg.bot {
-      margin-right: auto;
       background: var(--chat-bot);
       color: var(--chat-bot-text);
       border-bottom-left-radius: 4px;
@@ -871,15 +910,113 @@ Feel free to reach out to us through any of these channels. We're here to help w
       return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
     }
 
+    function formatMarkdown(text) {
+      if (!text) return "";
+      
+      // Escape HTML characters to prevent rendering problems
+      let html = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+
+      // Replace bold text: **text** with <strong>text</strong>
+      html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+      // Replace italic text: *text* or _text_ with <em>text</em>
+      html = html.replace(/\*(.*?)\*/g, "<em>$1</em>");
+      html = html.replace(/_(.*?)_/g, "<em>$1</em>");
+
+      // Convert line breaks and handle lists
+      const lines = html.split("\n");
+      let inList = false;
+      const formattedLines = [];
+
+      for (let line of lines) {
+        const trimmed = line.trim();
+        
+        // Match bullet lists starting with *, -, or •
+        if (trimmed.startsWith("- ") || trimmed.startsWith("* ") || trimmed.startsWith("• ")) {
+          if (!inList) {
+            formattedLines.push('<ul style="margin: 6px 0; padding-left: 20px;">');
+            inList = true;
+          }
+          const content = trimmed.replace(/^[-*•]\s+/, "");
+          formattedLines.push(`<li>${content}</li>`);
+        } else {
+          if (inList) {
+            formattedLines.push('</ul>');
+            inList = false;
+          }
+          formattedLines.push(line);
+        }
+      }
+
+      if (inList) {
+        formattedLines.push('</ul>');
+      }
+
+      html = formattedLines.join("\n");
+      
+      // Convert remaining single newlines to <br>, but avoid breaking list tags
+      html = html.replace(/\n/g, "<br>");
+      html = html.replace(/<\/ul><br>/g, "</ul>");
+      html = html.replace(/<ul><br>/g, "<ul>");
+      html = html.replace(/<li>(.*?)<\/li><br>/g, "<li>$1</li>");
+
+      return linkify(html);
+    }
+
     function addMessage(role, content, isHTML = false) {
+      if (role === "system") {
+        const msg = document.createElement("div");
+        msg.className = `msg ${role}`;
+        msg.innerHTML = isHTML ? content : formatMarkdown(content);
+        chatLog.appendChild(msg);
+
+        // Scroll to top for the first message itself, so it doesn't get clipped.
+        if (chatLog.children.length === 1) {
+          chatLog.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else {
+          chatLog.scrollTo({
+            top: chatLog.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
+        return msg;
+      }
+
+      // Create message row container
+      const row = document.createElement("div");
+      row.className = `msg-row ${role}`;
+
+      // Create avatar
+      const avatar = document.createElement("div");
+      avatar.className = `avatar ${role}`;
+      if (role === "user") {
+        const username = localStorage.getItem('username') || 'Guest';
+        avatar.textContent = username.trim().charAt(0).toUpperCase();
+      } else {
+        avatar.textContent = "S";
+      }
+      row.appendChild(avatar);
+
+      // Create message bubble
       const msg = document.createElement("div");
       msg.className = `msg ${role}`;
       if (isHTML) {
         msg.innerHTML = content;
       } else {
-        msg.textContent = content;
+        if (role === "bot") {
+          msg.innerHTML = formatMarkdown(content);
+        } else {
+          msg.textContent = content;
+        }
       }
-      chatLog.appendChild(msg);
+      row.appendChild(msg);
+      chatLog.appendChild(row);
 
       // Scroll to top for the first message itself, so it doesn't get clipped.
       if (chatLog.children.length === 1) {
@@ -894,7 +1031,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
           behavior: 'smooth'
         });
       }
-      return msg;
+      return row;
     }
 
     function autoResize() {
@@ -913,6 +1050,14 @@ Feel free to reach out to us through any of these channels. We're here to help w
     }
 
     function addTypingIndicator() {
+      const row = document.createElement("div");
+      row.className = "msg-row bot";
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar bot";
+      avatar.textContent = "S";
+      row.appendChild(avatar);
+
       const typingMessage = document.createElement("div");
       typingMessage.className = "msg bot typing";
 
@@ -920,14 +1065,15 @@ Feel free to reach out to us through any of these channels. We're here to help w
       dots.className = "typing-dots";
       dots.innerHTML = "<span></span><span></span><span></span>";
       typingMessage.appendChild(dots);
+      row.appendChild(typingMessage);
 
-      chatLog.appendChild(typingMessage);
+      chatLog.appendChild(row);
       // Use container scroll to prevent the parent window from moving
       chatLog.scrollTo({
         top: chatLog.scrollHeight,
         behavior: 'smooth'
       });
-      return typingMessage;
+      return row;
     }
 
     let initialGreeting = "";
@@ -1188,8 +1334,9 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
       try {
         const aiText = await askGroq(userText);
-        typingBubble.className = "msg bot";
-        typingBubble.textContent = aiText;
+        const msgBubble = typingBubble.querySelector(".msg");
+        msgBubble.className = "msg bot";
+        msgBubble.innerHTML = formatMarkdown(aiText);
 
         // Manual scroll within chatLog only: Push the question to the top with a small offset for visibility
         chatLog.scrollTo({
@@ -1212,8 +1359,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
           saveChat();
         }
       } catch (error) {
-        typingBubble.className = "msg system";
-        typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
+        typingBubble.remove();
+        addMessage("system", error.message || "Something went wrong while contacting Groq.");
         chatLog.scrollTo({
           top: chatLog.scrollHeight,
           behavior: 'smooth'
