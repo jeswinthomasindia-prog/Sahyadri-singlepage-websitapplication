@@ -880,11 +880,20 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msg.textContent = content;
       }
       chatLog.appendChild(msg);
-      // Use container scroll to prevent the parent window from moving
-      chatLog.scrollTo({
-        top: chatLog.scrollHeight,
-        behavior: 'smooth'
-      });
+      
+      // Scroll to top for the first message itself, so it doesn't get clipped.
+      if (chatLog.children.length === 1) {
+        chatLog.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      } else {
+        // Use container scroll to prevent the parent window from moving
+        chatLog.scrollTo({
+          top: chatLog.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
       return msg;
     }
 
@@ -983,7 +992,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       // Replace semicolon back to commas when reading chatSummary for AI prompt context
       const lastSummary = lastSummaryRaw ? lastSummaryRaw.replaceAll(';', ',') : '';
       const hasLastSummary = lastSummary && lastSummary.trim() !== "" && lastSummary.trim() !== "No summary available" && lastSummary.trim() !== "N/A";
-      
+
       let systemContent = "You are a helpful assistant. Summarize the conversation history between the user and the assistant in 2 to 3 lines. Keep it extremely concise, clear, and direct.";
       if (hasLastSummary) {
         systemContent += `\n\nPreviously discussed summary context: "${lastSummary.trim()}". You MUST combine this previous summary context with the new conversation history below to generate a single, cumulative, updated summary of 2 to 3 lines.`;
@@ -1100,7 +1109,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       saveChatBtn.disabled = true;
       saveChatBtn.textContent = "Saving...";
 
-      const progressBubble = addMessage("system", "⏳ Generating chat summary and saving to Google Sheets...");
+      const progressBubble = addMessage("system", "⏳ Wrapping up your session... getting ready for your next visit...");
 
       try {
         const summary = await getChatSummaryFromAI();
@@ -1113,14 +1122,14 @@ Feel free to reach out to us through any of these channels. We're here to help w
           localStorage.setItem('chatSummary', summary.replaceAll(',', ';'));
           // Reset unsaved counter
           unsavedMessageCount = 0;
-          progressBubble.textContent = `✅ Chat summary saved to Google Sheet successfully!\n\nAI Summary (2 lines):\n"${summary}"`;
+          progressBubble.textContent = `✅ All caught up! Your progress is safe and ready for next time!`;
         } catch (sheetError) {
           console.error("Failed to save to Google Sheets:", sheetError);
-          progressBubble.textContent = `⚠️ Chat summary was generated but could not be saved to Google Sheet: ${sheetError.message}\n\nAI Summary (2 lines):\n"${summary}"`;
+          progressBubble.textContent = `⚠️ Unfortunately your progress could nt be saved. Please try again later`;
         }
       } catch (error) {
         console.error("Failed to generate chat summary:", error);
-        progressBubble.textContent = `❌ Error: Failed to generate chat summary: ${error.message}`;
+        progressBubble.textContent = `❌ Error: Unfortunately your progress could nt be saved. Please try again later`;
       } finally {
         saveChatBtn.disabled = originalDisabled;
         saveChatBtn.textContent = originalText;
@@ -1424,10 +1433,10 @@ For our social media handles and phone number:
     const currentUsername = localStorage.getItem('username');
     const mypageLinks = ['mypage-link-desktop', 'mypage-link-mobile'];
     mypageLinks.forEach(linkId => {
-        const link = document.getElementById(linkId);
-        if (link && currentUsername) {
-            link.href = `user-dashboard.html?user=${currentUsername}`;
-        }
+      const link = document.getElementById(linkId);
+      if (link && currentUsername) {
+        link.href = `user-dashboard.html?user=${currentUsername}`;
+      }
     });
   </script>
 
