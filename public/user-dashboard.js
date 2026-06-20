@@ -35,15 +35,17 @@ function initializeDashboard() {
   }
 
   // Show status tile for the current user
+  let statusPromise = Promise.resolve();
   if (currentUser) {
-    showStatusTile(currentUser);
+    statusPromise = showStatusTile(currentUser);
   }
 
   // Load artifacts for the current user
+  let artifactsPromise = Promise.resolve();
   if (currentUser) {
     // Load Google Drive configuration first, then load artifacts
-    loadGoogleDriveConfig().then(() => {
-      loadUserArtifacts(currentUser);
+    artifactsPromise = loadGoogleDriveConfig().then(() => {
+      return loadUserArtifacts(currentUser);
     }).catch(error => {
       console.error('Failed to load Google Drive configuration:', error);
       showErrorMessage('Failed to load Google Drive configuration. Please try again.');
@@ -51,6 +53,18 @@ function initializeDashboard() {
   } else {
     showErrorMessage('Please log in to view your artifacts.');
   }
+
+  // Stop loading spinner only after all elements are rendered (including user's Google Drive folders)
+  Promise.all([statusPromise, artifactsPromise]).finally(() => {
+    if (typeof hideLoadingSpinner === 'function') {
+      hideLoadingSpinner();
+    } else {
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+      }
+    }
+  });
 
   // Handle logout
   if (logoutBtn) {
