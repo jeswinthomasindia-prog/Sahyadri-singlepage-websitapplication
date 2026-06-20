@@ -975,10 +975,23 @@ Feel free to reach out to us through any of these channels. We're here to help w
         throw new Error("GROQ API key not configured.");
       }
 
+      const lastSummary = localStorage.getItem('chatSummary');
+      const hasLastSummary = lastSummary && lastSummary.trim() !== "" && lastSummary.trim() !== "No summary available" && lastSummary.trim() !== "N/A";
+      
+      let systemContent = "You are a helpful assistant. Summarize the conversation history between the user and the assistant in 2 to 3 lines. Keep it extremely concise, clear, and direct.";
+      if (hasLastSummary) {
+        systemContent += `\n\nPreviously discussed summary context: "${lastSummary.trim()}". You MUST combine this previous summary context with the new conversation history below to generate a single, cumulative, updated summary of 2 to 3 lines.`;
+      }
+
+      let userPrompt = "Summarize our conversation above in 2 to 3 lines.";
+      if (hasLastSummary) {
+        userPrompt = `Summarize our conversation above combined with our previous summary ("${lastSummary.trim()}") in 2 to 3 lines.`;
+      }
+
       const summaryMessages = [
         {
           role: "system",
-          content: "You are a helpful assistant. Summarize the conversation history between the user and the assistant in exactly 2 lines. Keep it extremely concise, clear, and direct."
+          content: systemContent
         },
         ...history.map(item => ({
           role: item.role === "assistant" ? "assistant" : "user",
@@ -986,7 +999,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
         })),
         {
           role: "user",
-          content: "Summarize our conversation above in exactly 2 lines."
+          content: userPrompt
         }
       ];
 
@@ -1088,6 +1101,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
         // Attempt to write to Google Sheets
         try {
           await writeSummaryToGoogleSheet(summary);
+          // Also save the updated summary to localStorage for instant local access
+          localStorage.setItem('chatSummary', summary);
           progressBubble.textContent = `✅ Chat summary saved to Google Sheet successfully!\n\nAI Summary (2 lines):\n"${summary}"`;
         } catch (sheetError) {
           console.error("Failed to save to Google Sheets:", sheetError);
