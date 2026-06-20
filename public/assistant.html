@@ -270,14 +270,18 @@
     }
 
     .avatar.user {
-      background-color: #ffe8db; /* Light orange background */
-      color: #ea580c; /* Dark orange letter */
+      background-color: #ffe8db;
+      /* Light orange background */
+      color: #ea580c;
+      /* Dark orange letter */
       border: 1px solid #ffccb3;
     }
 
     .avatar.bot {
-      background-color: #e6f0fa; /* Light blue background */
-      color: #003965; /* Dark blue letter matching header */
+      background-color: #e6f0fa;
+      /* Light blue background */
+      color: #003965;
+      /* Dark blue letter matching header */
       border: 1px solid #bcd6f0;
     }
 
@@ -912,7 +916,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
     function formatMarkdown(text) {
       if (!text) return "";
-      
+
       // Escape HTML characters to prevent rendering problems
       let html = text
         .replace(/&/g, "&amp;")
@@ -933,7 +937,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
       for (let line of lines) {
         const trimmed = line.trim();
-        
+
         // Match bullet lists starting with *, -, or •
         if (trimmed.startsWith("- ") || trimmed.startsWith("* ") || trimmed.startsWith("• ")) {
           if (!inList) {
@@ -956,7 +960,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       }
 
       html = formattedLines.join("\n");
-      
+
       // Convert remaining single newlines to <br>, but avoid breaking list tags
       html = html.replace(/\n/g, "<br>");
       html = html.replace(/<\/ul><br>/g, "</ul>");
@@ -1292,8 +1296,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
       if (!text) return false;
       const lower = text.toLowerCase();
       const keywords = [
-        'discuss', 'contact', 'phone', 'call', 'email', 'whatsapp', 
-        'reach', 'connect', 'social', 'address', 'location', 
+        'discuss', 'contact', 'phone', 'call', 'email', 'whatsapp',
+        'reach', 'connect', 'social', 'address', 'location',
         'youtube', 'instagram', 'threads', 'facebook', 'appointment',
         'schedule', 'talk to', 'meeting'
       ];
@@ -1623,76 +1627,6 @@ User Project Context:
       }
     });
   </script>
-
-  <footer id="contact">
-    <div class="container footer-grid">
-      <div>
-        <h5>Sahyadri Consultants</h5>
-        <p>Pallikunnu KP Road, Kannur, Kerala</p>
-        <p>Email: sahyadriconsultantsindia@gmail.com</p>
-        <p>Phone: +91 9074497780</p>
-        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a
-            href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
-              src="resources/images/youtube_logo.svg" alt="YouTube"
-              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
-            href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
-              src="resources/images/Instagram_logo.svg" alt="Instagram"
-              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
-            href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
-              src="resources/images/threads_logo.svg" alt="Threads"
-              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
-            href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
-              src="resources/images/facebook_logo.svg" alt="Facebook"
-              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
-            href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
-            target="_blank" rel="noopener noreferrer"
-            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
-            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
-              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div>
-      </div>
-      <div>
-        <h5>Quick Links</h5>
-        <p><a href="index.html">Home</a></p>
-        <p><a href="index.html#projects">Projects</a></p>
-        <p><a href="index.html#about">About</a></p>
-        <p><a href="index.html#testimonials">Testimonials</a></p>
-        <p><a href="awards.html">Awards</a></p>
-        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
-        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
-        <p><a href="transformations.html">Transformations</a></p>
-        <p><a href="recent-activity.html">Recent Activity</a></p>
-        <p><a href="login.html">Login</a></p>
-        <p><a href="login.html">Talk to Assistant</a></p>
-        <p><a href="industry-insights.html">Industry Insights</a></p>
-      </div>
-      <div>
-        <h5>Our Values</h5>
-        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
-      </div>
-      <div>
-        <h5>Working Hours</h5>
-        <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
-        <p>Sun: Closed</p>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent engineering and
-        interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister
-        firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent
-        of any other organizations sharing the Sahyadri name.</span>
-      <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
-    </div>
-  </footer>
   <script src="script.js"></script>
 </body>
 
