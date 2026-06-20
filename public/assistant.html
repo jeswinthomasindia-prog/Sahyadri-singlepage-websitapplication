@@ -769,7 +769,8 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
+        engineering and
         interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister
         firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent
         of any other organizations sharing the Sahyadri name.</span>
@@ -906,7 +907,7 @@
 • <img src="${SOCIAL_MEDIA.whatsapp.logo}" alt="${SOCIAL_MEDIA.whatsapp.alt}" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px; display: inline-block;"><strong>WhatsApp</strong>: <a href="https://wa.me/${SOCIAL_MEDIA.whatsapp.no}" target="_blank">Chat on WhatsApp</a><br><br>
 Feel free to reach out to us through any of these channels. We're here to help with your construction and design needs!`;
 
-      addMessage("bot", contactMessage, true);
+      addMessage("bot", contactMessage, true, true);
     }
 
     function linkify(text) {
@@ -970,7 +971,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       return linkify(html);
     }
 
-    function addMessage(role, content, isHTML = false) {
+    function addMessage(role, content, isHTML = false, skipScroll = false) {
       if (role === "system") {
         const msg = document.createElement("div");
         msg.className = `msg ${role}`;
@@ -979,15 +980,19 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
         // Scroll to top for the first message itself, so it doesn't get clipped.
         if (chatLog.children.length === 1) {
-          chatLog.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
+          if (!skipScroll) {
+            chatLog.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          }
         } else {
-          chatLog.scrollTo({
-            top: chatLog.scrollHeight,
-            behavior: 'smooth'
-          });
+          if (!skipScroll) {
+            chatLog.scrollTo({
+              top: chatLog.scrollHeight,
+              behavior: 'smooth'
+            });
+          }
         }
         return msg;
       }
@@ -1024,16 +1029,20 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
       // Scroll to top for the first message itself, so it doesn't get clipped.
       if (chatLog.children.length === 1) {
-        chatLog.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
+        if (!skipScroll) {
+          chatLog.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
       } else {
         // Use container scroll to prevent the parent window from moving
-        chatLog.scrollTo({
-          top: chatLog.scrollHeight,
-          behavior: 'smooth'
-        });
+        if (!skipScroll) {
+          chatLog.scrollTo({
+            top: chatLog.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
       }
       return row;
     }
@@ -1296,10 +1305,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
       if (!text) return false;
       const lower = text.toLowerCase();
       const keywords = [
-        'discuss', 'contact', 'phone', 'call', 'email', 'whatsapp',
-        'reach', 'connect', 'social', 'address', 'location',
-        'youtube', 'instagram', 'threads', 'facebook', 'appointment',
-        'schedule', 'talk to', 'meeting'
+        'phone', 'call', 'email', 'whatsapp',
+        'social media', 'socials', 'youtube', 'instagram', 'threads', 'facebook'
       ];
       return keywords.some(keyword => lower.includes(keyword));
     }
@@ -1342,18 +1349,20 @@ Feel free to reach out to us through any of these channels. We're here to help w
         msgBubble.className = "msg bot";
         msgBubble.innerHTML = formatMarkdown(aiText);
 
-        // Manual scroll within chatLog only: Push the question to the top with a small offset for visibility
-        chatLog.scrollTo({
-          top: userMsg.offsetTop - 30,
-          behavior: 'smooth'
-        });
-
         history.push({ role: "assistant", text: aiText });
 
         // Show formatted contact info if user query or AI response mentions contact, discussion, or social media
         if (isContactQuery(userText) || isContactQuery(aiText)) {
           showContactInfo();
         }
+
+        // Manual scroll within chatLog only: Push the question to the top with a small offset for visibility
+        setTimeout(() => {
+          chatLog.scrollTo({
+            top: userMsg.offsetTop - 30,
+            behavior: 'smooth'
+          });
+        }, 50);
 
         // Increment unsaved message count and trigger auto-save if limit reached
         unsavedMessageCount++;
