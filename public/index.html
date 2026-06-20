@@ -88,6 +88,108 @@
       height: 500px;
       overflow: hidden;
     }
+
+    /* One Ecosystem Section styles */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .ecosystem-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .ecosystem-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ecosystem-link:hover .ecosystem-card {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .ecosystem-card-image {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ecosystem-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+    }
+
+    .ecosystem-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(0, 57, 101, 0.95);
+      padding: 6px 14px;
+      border-radius: 20px;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ecosystem-card-content {
+      padding: 24px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ecosystem-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ecosystem-card-header img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .ecosystem-card-header h4 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    .ecosystem-card-text {
+      margin: 0 0 16px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .ecosystem-card-footer {
+      color: var(--accent);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
   </style>
 
   <!-- Essential for WhatsApp Link Preview -->
@@ -349,6 +451,37 @@
     </a>
   </section>
 
+  <section id="ultra-modern" class="container" style="margin-top: 60px; margin-bottom: 60px;">
+    <div class="section-title">
+      <h3>Ultra Modern Company</h3>
+    </div>
+    <a href="ultra-modern-company.html" class="section-link" aria-label="Open detailed Ultra Modern Company page">
+      <div class="about-content-grid">
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: var(--primary); margin-top: 0; margin-bottom: 12px;">
+            Where 40 Years of Architectural Legacy Meets Cutting-Edge Technology</p>
+          <p style="margin-bottom: 16px;">We blend our trusted engineering heritage with state-of-the-art digital
+            innovations to deliver a premium, high-tech experience for our clients. Discover our key capabilities:</p>
+          <ul style="padding-left: 20px; margin-bottom: 24px; line-height: 1.7; color: var(--muted); text-align: left;">
+            <li style="margin-bottom: 8px;"><strong>Virtual Reality (VR) & 360° views:</strong> Experience immersive
+              architectural designs before construction starts.</li>
+            <li style="margin-bottom: 8px;"><strong>Walkthrough Videos:</strong> Conceptualized video tours illustrating
+              every step of your project's transformation.</li>
+            <li style="margin-bottom: 8px;"><strong>Sahya - AI Assistant:</strong> Benefit from instant, 24/7
+              intelligent AI who knows you, helps you with project queries and remembers yours discussions.</li>
+            <li style="margin-bottom: 8px;"><strong>User Dashboards:</strong> Access real-time project milestones,
+              project files, and progress tracking online.</li>
+          </ul>
+        </div>
+        <div>
+          <img src="resources/images/ultra_modern_company/vr.webp" alt="Virtual Reality architectural experience"
+            loading="lazy" style="width: 100%; height: 100%; max-height: 380px; object-fit: cover; border-radius: 8px;"
+            onerror="this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80'" />
+        </div>
+      </div>
+    </a>
+  </section>
+
   <section id="awards" class="container awards-section">
     <div class="section-title">
       <h3>Awards & Recognitions</h3>
@@ -514,6 +647,65 @@
       </a>
     </div>
 
+  </section>
+
+  <section id="ecosystem" class="container" style="margin-top: 60px; margin-bottom: 80px;">
+    <div class="section-title">
+      <h3>One Ecosystem</h3>
+    </div>
+    <div class="ecosystem-grid">
+      <!-- Left Tile: Well & Dwell Interiors -->
+      <a href="well-and-dwell-interiors.html" class="ecosystem-link" aria-label="Explore Well & Dwell Interiors">
+        <div class="ecosystem-card">
+          <div class="ecosystem-card-image">
+            <img src="resources/images/other_projects/j_andG_kannur_interiors_1.webp"
+              alt="Well & Dwell Interiors design work" loading="lazy" />
+            <div class="ecosystem-badge">Interior Design Division</div>
+          </div>
+          <div class="ecosystem-card-content">
+            <div>
+              <div class="ecosystem-card-header">
+                <!-- <img src="resources/images/well_and_dwell_interiors/logo.webp" alt="Well & Dwell Logo" /> -->
+                <h4>Well & Dwell Interiors</h4>
+              </div>
+              <p class="ecosystem-card-text">Founded by Er. Rose Thomas, DID, Well & Dwell Interiors brings a foundation
+                of engineering excellence to the art of interior design. We understand each client's unique vision and
+                transform their space into a personalized sanctuary—a place of beauty, comfort, and enduring quality
+                that truly feels like home.</p>
+            </div>
+            <!-- <div class="ecosystem-card-footer">
+              View Interior Projects ➔
+            </div> -->
+          </div>
+        </div>
+      </a>
+
+      <!-- Right Tile: Sahyadri Properties -->
+      <a href="sahyadri-properties.html" class="ecosystem-link" aria-label="Explore Sahyadri Properties">
+        <div class="ecosystem-card">
+          <div class="ecosystem-card-image">
+            <img src="resources/images/sahyadri_properties/villa1_night.webp" alt="Sahyadri Green Villas"
+              loading="lazy" />
+            <div class="ecosystem-badge">Real Estate & Builder</div>
+          </div>
+          <div class="ecosystem-card-content">
+            <div>
+              <div class="ecosystem-card-header">
+                <!-- <img src="resources/images/sahyadri_properties/logo_transparent.webp" alt="Sahyadri Properties Logo" /> -->
+                <h4>Sahyadri Properties</h4>
+              </div>
+              <p class="ecosystem-card-text">Guided by Er. Thomas PJ, Sahyadri Properties is a premium real estate and
+                construction company. Evolving from the trusted 40-year legacy of Sahyadri Consultants, we offer a
+                stress-free experience for land buyers and home builders to secure perfect land and construct
+                structurally flawless homes.</p>
+            </div>
+            <!-- <div class="ecosystem-card-footer">
+              Explore Properties & Villas ➔
+            </div> -->
+          </div>
+        </div>
+      </a>
+    </div>
   </section>
 
   <section id="testimonials" class="container" style="margin-top: 60px; margin-bottom: 80px;">
