@@ -923,6 +923,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
     let initialGreeting = "";
     let initialGreetingText = "";
+    let unsavedMessageCount = 0;
 
     async function initializeGreeting() {
       let username = localStorage.getItem('username');
@@ -954,6 +955,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
       history.length = 0;
       chatLog.innerHTML = "";
       addMessage("system", "Chat history cleared.");
+      unsavedMessageCount = 0;
       if (initialGreeting) {
         addMessage("bot", initialGreeting, true);
         history.push({ role: "assistant", text: initialGreetingText });
@@ -1079,17 +1081,16 @@ Feel free to reach out to us through any of these channels. We're here to help w
       return true;
     }
 
-    const saveChatBtn = document.getElementById("saveChatBtn");
-    saveChatBtn.addEventListener("click", async () => {
-      if (saveChatBtn.disabled) return;
+    async function saveChat() {
       if (history.length === 0) {
         addMessage("system", "Cannot save: Chat history is empty.");
         return;
       }
 
       // Disable buttons during saving
-      saveChatBtn.disabled = true;
+      const originalDisabled = saveChatBtn.disabled;
       const originalText = saveChatBtn.textContent;
+      saveChatBtn.disabled = true;
       saveChatBtn.textContent = "Saving...";
 
       const progressBubble = addMessage("system", "⏳ Generating chat summary and saving to Google Sheets...");
@@ -1103,6 +1104,8 @@ Feel free to reach out to us through any of these channels. We're here to help w
           await writeSummaryToGoogleSheet(summary);
           // Also save the updated summary to localStorage for instant local access
           localStorage.setItem('chatSummary', summary);
+          // Reset unsaved counter
+          unsavedMessageCount = 0;
           progressBubble.textContent = `✅ Chat summary saved to Google Sheet successfully!\n\nAI Summary (2 lines):\n"${summary}"`;
         } catch (sheetError) {
           console.error("Failed to save to Google Sheets:", sheetError);
@@ -1112,9 +1115,15 @@ Feel free to reach out to us through any of these channels. We're here to help w
         console.error("Failed to generate chat summary:", error);
         progressBubble.textContent = `❌ Error: Failed to generate chat summary: ${error.message}`;
       } finally {
-        saveChatBtn.disabled = false;
+        saveChatBtn.disabled = originalDisabled;
         saveChatBtn.textContent = originalText;
       }
+    }
+
+    const saveChatBtn = document.getElementById("saveChatBtn");
+    saveChatBtn.addEventListener("click", async () => {
+      if (saveChatBtn.disabled) return;
+      await saveChat();
     });
 
     async function sendUserMessage(userText) {
@@ -1139,6 +1148,14 @@ Feel free to reach out to us through any of these channels. We're here to help w
         });
 
         history.push({ role: "assistant", text: aiText });
+
+        // Increment unsaved message count and trigger auto-save if limit reached
+        unsavedMessageCount++;
+        console.log("Unsaved message count:", unsavedMessageCount);
+        if (unsavedMessageCount >= 5) {
+          console.log("Unsaved message count reached 5. Auto-saving chat summary...");
+          saveChat();
+        }
       } catch (error) {
         typingBubble.className = "msg system";
         typingBubble.textContent = error.message || "Something went wrong while contacting Groq.";
