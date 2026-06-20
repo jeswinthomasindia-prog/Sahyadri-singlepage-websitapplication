@@ -7,7 +7,6 @@ Sitemap: https://sahyadrico.com/sitemap.xml
 # Block common non-content paths
 Disallow: /login.html
 Disallow: /user-dashboard.html
-Disallow: /assistant.html
 Disallow: /cred.env
 
 # Allow search engines to crawl all important pages
