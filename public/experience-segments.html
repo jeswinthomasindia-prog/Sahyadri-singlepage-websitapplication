@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience Segments - Sahyadri Consultants</title>
+  <meta name="description"
+    content="Compare our Bronze, Silver, and Gold experience segments to find the perfect architecture and civil engineering package for your project.">
+  <meta name="keywords"
+    content="experience segments, bronze, silver, gold, packages, architectural drawings, 3d walkthrough, virtual reality, Sahyadri Consultants">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Experience Segments - Sahyadri Consultants" />
+  <meta property="og:description"
+    content="Compare our Bronze, Silver, and Gold experience segments to find the perfect package for your project." />
+  <meta property="og:image"
+    content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
+  <meta property="og:url" content="https://sahyadri-61c65.web.app/experience-segments.html" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Experience Segments - Sahyadri Consultants" />
+  <meta property="twitter:description"
+    content="Compare our Bronze, Silver, and Gold experience segments to find the perfect package for your project." />
+  <meta property="twitter:image"
+    content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
+
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
+  <link rel="stylesheet" href="styles.css" />
+
+
+  <link rel="canonical" href="https://sahyadri-61c65.web.app/experience-segments.html">
+
+  <style>
+    /* Hero image layout compatibility */
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Local Styles for Experience Segments */
+    .segments-section {
+      padding: 80px 0 100px;
+      background: #f8fafc;
+    }
+
+
+
+    .segments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      align-items: stretch;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .segment-card {
+      background: var(--surface);
+      border-radius: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 30px rgba(10, 25, 70, 0.04);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+    }
+
+    .segment-card:hover {
+      transform: translateY(-8px);
+    }
+
+    /* Top Accent Borders */
+    .segment-card:not(.gold)::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      z-index: 10;
+    }
+
+    .segment-card.bronze::before {
+      background: linear-gradient(90deg, #b45309, #d97706, #78350f);
+    }
+
+    .segment-card.silver::before {
+      background: linear-gradient(90deg, #94a3b8, #cbd5e1, #475569);
+    }
+
+    /* Glow effect & Rotating Gold Shine Border for gold card */
+    .segment-card.gold {
+      position: relative;
+      border: none;
+      padding: 3px;
+      /* Border thickness */
+      background: #f1f5f9;
+      /* fallback */
+      border-radius: 24px;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 20px 40px rgba(217, 119, 6, 0.08), 0 5px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .segment-card.gold:hover {
+      box-shadow: 0 25px 50px rgba(217, 119, 6, 0.15), 0 8px 25px rgba(0, 0, 0, 0.03);
+    }
+
+    .segment-card.gold::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg,
+          transparent 0%,
+          transparent 35%,
+          #fbbf24 45%,
+          #fffbeb 50%,
+          #fbbf24 55%,
+          transparent 65%,
+          transparent 100%);
+      animation: rotate-gold-shine 4s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate-gold-shine {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .segment-card.gold .card-inner {
+      background: var(--surface);
+      border-radius: 21px;
+      /* Inner radius slightly smaller than card outer radius */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      z-index: 2;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .segment-card.gold .card-inner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #fbbf24, #fef08a, #b45309);
+      z-index: 10;
+    }
+
+    /* Card Header */
+    .segment-header {
+      padding: 45px 30px 24px;
+      text-align: center;
+      border-bottom: 1px solid #f1f5f9;
+      position: relative;
+    }
+
+    .segment-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+    }
+
+    .bronze .segment-badge {
+      background: #fdf6ee;
+      color: #9a3412;
+      border: 1px solid #ffedd5;
+    }
+
+    .silver .segment-badge {
+      background: #f8fafc;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .gold .segment-badge {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde047;
+    }
+
+    .segment-name {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 0 0 10px;
+    }
+
+    .segment-description {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0;
+      font-weight: 600;
+    }
+
+
+    /* Card Body */
+    .segment-body {
+      padding: 35px 30px 40px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .segment-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 35px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f8fafc;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+
+    .feature-text {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .feature-item.disabled .feature-text {
+      color: #94a3b8;
+      text-decoration: line-through;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    /* Custom Check/Cross Indicator Icons */
+    .indicator-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .bronze .indicator-icon.included {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .silver .indicator-icon.included {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .gold .indicator-icon.included {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .indicator-icon.excluded {
+      background: #f1f5f9;
+      color: #cbd5e1;
+    }
+
+    /* Non-clickable Action Button */
+    .segment-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      border: none;
+      transition: all 0.2s ease;
+      cursor: default;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .bronze .segment-btn {
+      border: 2px solid #ea580c;
+      background: transparent;
+      color: #ea580c;
+      opacity: 0.88;
+    }
+
+    .silver .segment-btn {
+      border: 2px solid #475569;
+      background: transparent;
+      color: #475569;
+      opacity: 0.88;
+    }
+
+    .gold .segment-btn {
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      color: white;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+      .segments-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .segment-card {
+        margin-bottom: 20px;
+      }
+
+      .segments-section .section-title {
+        display: block !important;
+        text-align: center !important;
+      }
+
+      .segments-section .section-title h3 {
+        text-align: center !important;
+        display: inline-block !important;
+      }
+
+      .segments-section .container > p {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .hero-content {
+        text-align: center !important;
+        justify-content: center !important;
+      }
+
+      .hero-content .box {
+        text-align: center !important;
+        margin: 0 auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="sahyadri-properties.html">Sahyadri Properties</a>
+            <a href="ultra-modern-company.html">Ultra Modern Company</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="recent-activity.html">Recent Activity</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="#" class="current-page">Experience Segments</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+        <a href="sahyadri-properties.html">Sahyadri Properties</a>
+        <a href="recent-activity.html">Recent Activity</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="ultra-modern-company.html">Ultra Modern Company</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="#" class="current-page">Experience Segments</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Experience Segments hero section">
+    <img src="resources/images/homesuperimage_top.webp" alt="Immersive architectural planning and consulting" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="box">
+        <h2>Our Experience Segments</h2>
+        <p>Explore our Experience Segments designed to bring clarity, precision, and immersive
+          visualization to your dream project.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="segments-section">
+    <div class="container">
+      <div class="section-title" style="margin-bottom: 12px;">
+        <h3>Choose Your Experience Segment</h3>
+      </div>
+      <p style="margin-top: 0; margin-bottom: 40px; color: var(--muted); font-size: 1.05rem; line-height: 1.6; max-width: 800px;">We
+        believe in absolute transparency and state-of-the-art visuals. Select from our customized tiers to align with
+        your project's architectural and visualization needs.</p>
+
+      <div class="segments-grid">
+        <!-- Bronze Package -->
+        <div class="segment-card bronze">
+          <div class="segment-header">
+            <span class="segment-badge">Basic Tier</span>
+            <h4 class="segment-name">Bronze</h4>
+            <p class="segment-description">The Essential Foundation</p>
+          </div>
+          <div class="segment-body">
+            <ul class="segment-features">
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Detailed Architectural Plans</span>
+              </li>
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Construction Cost Estimate</span>
+              </li>
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Minimal 3D Drawings</span>
+              </li>
+              <li class="feature-item disabled">
+                <span class="indicator-icon excluded">✕</span>
+                <span class="feature-text">As-Required 3D Drawings</span>
+              </li>
+              <li class="feature-item disabled">
+                <span class="indicator-icon excluded">✕</span>
+                <span class="feature-text">Immersive Video Walkthrough</span>
+              </li>
+              <li class="feature-item disabled">
+                <span class="indicator-icon excluded">✕</span>
+                <span class="feature-text">Experience Interactive 3D and VR</span>
+              </li>
+            </ul>
+            <button class="segment-btn">Bronze Package</button>
+          </div>
+        </div>
+
+        <!-- Silver Package -->
+        <div class="segment-card silver">
+          <div class="segment-header">
+            <span class="segment-badge">Standard Tier</span>
+            <h4 class="segment-name">Silver</h4>
+            <p class="segment-description">The Signature Standard</p>
+          </div>
+          <div class="segment-body">
+            <ul class="segment-features">
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Detailed Architectural Plans</span>
+              </li>
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Construction Cost Estimate</span>
+              </li>
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Ample 3D Drawings</span>
+              </li>
+              <li class="feature-item">
+                <span class="indicator-icon included">✓</span>
+                <span class="feature-text">Immersive Video Walkthrough</span>
+              </li>
+              <li class="feature-item disabled">
+                <span class="indicator-icon excluded">✕</span>
+                <span class="feature-text">Experience Interactive 3D and VR</span>
+              </li>
+            </ul>
+            <button class="segment-btn">Silver Package</button>
+          </div>
+        </div>
+
+        <!-- Gold Package -->
+        <div class="segment-card gold">
+          <div class="card-inner">
+            <div class="segment-header">
+              <span class="segment-badge">Premium Tier</span>
+              <h4 class="segment-name">Gold</h4>
+              <p class="segment-description">The Premium Pinnacle</p>
+            </div>
+            <div class="segment-body">
+              <ul class="segment-features">
+                <li class="feature-item">
+                  <span class="indicator-icon included">✓</span>
+                  <span class="feature-text">Detailed Architectural Plans</span>
+                </li>
+                <li class="feature-item">
+                  <span class="indicator-icon included">✓</span>
+                  <span class="feature-text">Construction Cost Estimate</span>
+                </li>
+                <li class="feature-item">
+                  <span class="indicator-icon included">✓</span>
+                  <span class="feature-text">Ample 3D Drawings</span>
+                </li>
+                <li class="feature-item">
+                  <span class="indicator-icon included">✓</span>
+                  <span class="feature-text">Immersive Video Walkthrough</span>
+                </li>
+                <li class="feature-item">
+                  <span class="indicator-icon included">✓</span>
+                  <span class="feature-text">Experience Interactive 3D and VR</span>
+                </li>
+              </ul>
+              <button class="segment-btn">Gold Package</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div>
+        <h5>Sahyadri Consultants</h5>
+        <p>Pallikunnu KP Road, Kannur, Kerala</p>
+        <p>Email: sahyadriconsultantsindia@gmail.com</p>
+        <p>Phone: +91 9074497780</p>
+        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;">
+          <a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p><a href="index.html#projects">Projects</a></p>
+        <p><a href="index.html#about">About</a></p>
+        <p><a href="index.html#testimonials">Testimonials</a></p>
+        <p><a href="awards.html">Awards</a></p>
+        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
+        <p><a href="ultra-modern-company.html">Ultra Modern Company</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
+        <p><a href="transformations.html">Transformations</a></p>
+        <p><a href="recent-activity.html">Recent Activity</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="login.html">Talk to Sahya, our AI Assistant</a></p>
+        <p><a href="industry-insights.html">Industry Insights</a></p>
+        <p><a href="#" class="current-page">Experience Segments</a></p>
+      </div>
+      <div>
+        <h5>Our Values</h5>
+        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+      </div>
+      <div>
+        <h5>Working Hours</h5>
+        <p>Mon - Sat: 9:00 AM - 6:00 PM</p>
+        <p>Sun: Closed</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
+        engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide.
+        Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and
+        are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+    class="whatsapp-float" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+  </a>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
