@@ -150,3 +150,20 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+function toggleImmersiveMode() {
+  const video = document.getElementById('heroVideo');
+  const btn = document.getElementById('immersiveToggle');
+  if (video && btn) {
+    if (video.muted) {
+      video.muted = false;
+      btn.classList.remove('muted');
+      btn.classList.add('unmuted');
+    } else {
+      video.muted = true;
+      btn.classList.remove('unmuted');
+      btn.classList.add('muted');
+    }
+  }
+}
+
+
