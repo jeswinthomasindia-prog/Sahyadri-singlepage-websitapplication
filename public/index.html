@@ -141,6 +141,53 @@
         font-size: 0.85rem;
       }
     }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: color 0.3s ease;
+      animation: scroll-bounce-blink 2s infinite;
+    }
+    .scroll-indicator:hover {
+      color: var(--accent);
+    }
+    .scroll-indicator svg {
+      width: 36px;
+      height: 36px;
+      stroke: currentColor;
+      stroke-width: 2.5px;
+      fill: none;
+    }
+    @keyframes scroll-bounce-blink {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translate(-50%, 0);
+        opacity: 0.9;
+      }
+      40% {
+        transform: translate(-50%, -10px);
+        opacity: 0.45;
+      }
+      60% {
+        transform: translate(-50%, -4px);
+        opacity: 0.7;
+      }
+    }
+    @media (max-width: 768px) {
+      .scroll-indicator {
+        bottom: 15px;
+      }
+      .scroll-indicator svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
   </style>
 
   <style>
@@ -432,6 +479,13 @@
       </span>
       <span class="immersive-text">Immersive Mode</span>
     </button>
+    
+    <!-- Scroll Down Indicator -->
+    <a href="#projects" class="scroll-indicator" aria-label="Scroll down to featured projects" onclick="event.preventDefault(); document.getElementById('projects').scrollIntoView({behavior:'smooth'});">
+      <svg viewBox="0 0 24 24">
+        <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </section>
 
   <section id="projects" class="container" style="margin-top: 30px;">
