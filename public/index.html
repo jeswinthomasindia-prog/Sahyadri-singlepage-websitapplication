@@ -9,12 +9,14 @@
   <title>Sahyadri Consultants | Kannur</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="preload" as="image" href="https://res.cloudinary.com/kebvyvbg/image/upload/v1783530636/hero_image_we1c7p.webp" />
+  <link rel="preload" as="image"
+    href="https://res.cloudinary.com/kebvyvbg/image/upload/v1783530636/hero_image_we1c7p.webp" />
   <style>
     .hero {
       height: calc(100vh - 70px);
       min-height: calc(100vh - 70px);
     }
+
     .hero img,
     .hero video {
       width: 100%;
@@ -24,6 +26,7 @@
       top: 0;
       left: 0;
     }
+
     .immersive-btn {
       position: absolute;
       bottom: 40px;
@@ -42,32 +45,38 @@
       align-items: center;
       gap: 8px;
       transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                  box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
     }
+
     .immersive-btn.muted {
       background-color: rgba(0, 57, 101, 0.45);
     }
+
     .immersive-btn.muted:hover {
       background-color: rgba(0, 57, 101, 0.7);
       border-color: rgba(255, 255, 255, 0.4);
       transform: translateY(-2px);
       box-shadow: 0 6px 35px rgba(0, 57, 101, 0.35);
     }
+
     .immersive-btn.unmuted {
       background-color: rgba(255, 139, 0, 0.8);
       border-color: rgba(255, 255, 255, 0.4);
     }
+
     .immersive-btn.unmuted:hover {
       background-color: rgba(255, 139, 0, 0.95);
       transform: translateY(-2px);
       box-shadow: 0 6px 35px rgba(255, 139, 0, 0.4);
     }
+
     .immersive-btn:active {
       transform: translateY(0);
     }
+
     .immersive-icon {
       position: relative;
       width: 18px;
@@ -76,6 +85,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .immersive-icon svg {
       position: absolute;
       top: 0;
@@ -87,35 +97,41 @@
       fill: none;
       transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .immersive-btn.muted .icon-muted {
       opacity: 1;
       transform: scale(1) rotate(0deg);
     }
+
     .immersive-btn.muted .icon-unmuted {
       opacity: 0;
       transform: scale(0.6) rotate(-45deg);
       pointer-events: none;
     }
+
     .immersive-btn.unmuted .icon-muted {
       opacity: 0;
       transform: scale(0.6) rotate(45deg);
       pointer-events: none;
     }
+
     .immersive-btn.unmuted .icon-unmuted {
       opacity: 1;
       transform: scale(1) rotate(0deg);
     }
-    
+
     .immersive-btn:hover .immersive-icon svg {
       transform: scale(1.1);
     }
+
     .immersive-btn.muted:hover .icon-unmuted {
       transform: scale(0.66) rotate(-45deg);
     }
+
     .immersive-btn.unmuted:hover .icon-muted {
       transform: scale(0.66) rotate(45deg);
     }
+
     @media (max-width: 768px) {
       .immersive-btn {
         top: 20px;
@@ -372,8 +388,11 @@
   </header>
 
   <section class="hero" aria-label="Hero with video background">
-    <video id="heroVideo" autoplay muted loop playsinline poster="https://res.cloudinary.com/kebvyvbg/image/upload/v1783530636/hero_image_we1c7p.webp">
-      <source src="https://res.cloudinary.com/kebvyvbg/video/upload/v1783530143/hero_video_sahyadri_gyexpa.mp4" type="video/mp4" />
+    <video id="heroVideo" autoplay muted loop playsinline
+      poster="https://res.cloudinary.com/kebvyvbg/image/upload/f_auto,q_auto/v1783530636/hero_image_we1c7p.webp">
+      <source
+        src="https://res.cloudinary.com/kebvyvbg/video/upload/f_auto,q_auto/v1783530143/hero_video_sahyadri_gyexpa.mp4"
+        type="video/mp4" />
       Your browser does not support the video tag.
     </video>
     <div class="hero-overlay"></div>
@@ -392,14 +411,17 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Immersive Mode Button -->
-    <button id="immersiveToggle" class="immersive-btn muted" aria-label="Toggle Immersive Mode Sound" onclick="toggleImmersiveMode()">
+    <button id="immersiveToggle" class="immersive-btn muted" aria-label="Toggle Immersive Mode Sound"
+      onclick="toggleImmersiveMode()">
       <span class="immersive-icon">
         <!-- Mute SVG (Default) -->
         <svg class="icon-muted" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
           <line x1="1" y1="1" x2="23" y2="23"></line>
-          <path d="M9 9v6a3 3 0 0 0 3 3h1.586l4.707 4.707A1 1 0 0 0 20 22V4a1 1 0 0 0-1.707-.707L13.586 8H12a3 3 0 0 0-3 3z"></path>
+          <path
+            d="M9 9v6a3 3 0 0 0 3 3h1.586l4.707 4.707A1 1 0 0 0 20 22V4a1 1 0 0 0-1.707-.707L13.586 8H12a3 3 0 0 0-3 3z">
+          </path>
         </svg>
         <!-- Unmute SVG -->
         <svg class="icon-unmuted" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
