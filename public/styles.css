@@ -1541,6 +1541,33 @@ header {
   line-height: 1.5;
 }
 
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-color: rgba(0, 57, 101, 0.1);
+}
+
+.about-features-grid {
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.feature-icon-wrapper.highlight-icon {
+  background: rgba(0, 57, 101, 0.08);
+  color: var(--primary);
+}
+
+.feature-icon-wrapper.highlight-icon-orange {
+  background: rgba(255, 139, 0, 0.08);
+  color: var(--accent);
+}
+
+.feature-icon-wrapper.highlight-icon-green {
+  background: rgba(46, 204, 113, 0.08);
+  color: #2ecc71;
+}
+
 @media (max-width: 600px) {
   .modern-features-grid {
     grid-template-columns: 1fr;
