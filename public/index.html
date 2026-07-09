@@ -17,8 +17,8 @@
       min-height: calc(100vh - 70px);
     }
 
-    .hero img,
-    .hero video {
+    .hero>img,
+    .hero>video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -141,6 +141,7 @@
         font-size: 0.85rem;
       }
     }
+
     .scroll-indicator {
       position: absolute;
       bottom: 30px;
@@ -155,9 +156,11 @@
       transition: color 0.3s ease;
       animation: scroll-bounce-blink 2s infinite;
     }
+
     .scroll-indicator:hover {
       color: var(--accent);
     }
+
     .scroll-indicator svg {
       width: 36px;
       height: 36px;
@@ -165,24 +168,34 @@
       stroke-width: 2.5px;
       fill: none;
     }
+
     @keyframes scroll-bounce-blink {
-      0%, 20%, 50%, 80%, 100% {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
         transform: translate(-50%, 0);
         opacity: 0.9;
       }
+
       40% {
         transform: translate(-50%, -10px);
         opacity: 0.45;
       }
+
       60% {
         transform: translate(-50%, -4px);
         opacity: 0.7;
       }
     }
+
     @media (max-width: 768px) {
       .scroll-indicator {
         bottom: 15px;
       }
+
       .scroll-indicator svg {
         width: 28px;
         height: 28px;
@@ -447,6 +460,48 @@
       <div class="box">
         <h2>40+ Years of Excellence in Civil & Construction Consultancy</h2>
         <p>Based in Kannur, Kerala. 1000+ successful projects delivering quality, innovation, and timely completion.</p>
+
+        <!-- Social links and Telephone for desktop/tablet (non-smartphone) -->
+        <div class="hero-social-container desktop-hero-social">
+          <a href="tel:+919074497780" aria-label="Call Sahyadri Consultants"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/phone.svg" alt="Phone"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+        </div>
+
         <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'});">See Our
           Work</button>
         <a href="login.html" class="btn mobile-assistant-btn" aria-label="Talk to Sahya, our AI Assistant">
@@ -456,6 +511,40 @@
         <a href="login.html" class="btn mobile-login-btn" aria-label="Login to Sahyadri Consultants">
           <span>Login</span>
         </a>
+
+        <!-- Social links and Telephone for smartphone (placed under last button) -->
+        <div class="hero-social-container mobile-hero-social">
+          <a href="tel:+919074497780" aria-label="Call Sahyadri Consultants"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/phone.svg" alt="Phone"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+          <a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;">
+          </a>
+        </div>
       </div>
     </div>
 
@@ -479,11 +568,12 @@
       </span>
       <span class="immersive-text">Immersive Mode</span>
     </button>
-    
+
     <!-- Scroll Down Indicator -->
-    <a href="#projects" class="scroll-indicator" aria-label="Scroll down to featured projects" onclick="event.preventDefault(); document.getElementById('projects').scrollIntoView({behavior:'smooth'});">
+    <a href="#projects" class="scroll-indicator" aria-label="Scroll down to featured projects"
+      onclick="event.preventDefault(); document.getElementById('projects').scrollIntoView({behavior:'smooth'});">
       <svg viewBox="0 0 24 24">
-        <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7 10l5 5 5-5" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </a>
   </section>

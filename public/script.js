@@ -15,21 +15,21 @@ function toggleMobileDropdown(element) {
 }
 
 // Close mobile menu when navigation items are clicked (except dropdown toggles)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a');
   mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function () {
       // Don't close menu if it's a dropdown toggle
       if (!this.classList.contains('dropdown-toggle')) {
         closeMobileMenu();
       }
     });
   });
-  
+
   // Close mobile menu when dropdown items are clicked
   const dropdownItems = document.querySelectorAll('.dropdown-menu a');
   dropdownItems.forEach(item => {
-    item.addEventListener('click', function() {
+    item.addEventListener('click', function () {
       closeMobileMenu();
     });
   });
@@ -76,10 +76,10 @@ function setupCarousel(containerKey, trackId, interval = 6500) {
   track.addEventListener('touchend', (e) => {
     if (!isDragging) return;
     isDragging = false;
-    
+
     const diffX = startX - endX;
     const threshold = 50; // Minimum swipe distance
-    
+
     if (Math.abs(diffX) > threshold) {
       if (diffX > 0) {
         update('next'); // Swipe left - go to next
@@ -105,10 +105,10 @@ function setupCarousel(containerKey, trackId, interval = 6500) {
     if (!isDragging) return;
     isDragging = false;
     track.style.cursor = 'grab';
-    
+
     const diffX = startX - endX;
     const threshold = 50;
-    
+
     if (Math.abs(diffX) > threshold) {
       if (diffX > 0) {
         update('next');
@@ -134,15 +134,15 @@ function setupCarousel(containerKey, trackId, interval = 6500) {
 window.addEventListener('DOMContentLoaded', () => {
   // Only setup carousels if their elements exist
   if (document.getElementById('projectTrack')) {
-    setupCarousel('projects','projectTrack');
+    setupCarousel('projects', 'projectTrack');
   }
   if (document.getElementById('testiTrack')) {
-    setupCarousel('testimonials','testiTrack');
+    setupCarousel('testimonials', 'testiTrack');
   }
   if (document.getElementById('awardsTrack')) {
-    setupCarousel('awards','awardsTrack', 10000); // 10 seconds timing
+    setupCarousel('awards', 'awardsTrack', 10000); // 10 seconds timing
   }
-  
+
   // Initialize BeerSlider for Transformations section
   const slider = document.getElementById('slider');
   if (slider) {

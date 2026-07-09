@@ -354,8 +354,8 @@ header {
   overflow: hidden;
 }
 
-.hero video,
-.hero img {
+.hero > video,
+.hero > img {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -3081,3 +3081,35 @@ footer a:hover {
   visibility: hidden;
   display: none !important;
 }
+
+/* Hero section contact links layout toggling */
+.hero-social-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 20px auto 24px auto;
+}
+
+/* Toggle visibility: Desktop (shown) vs Mobile (hidden) */
+.desktop-hero-social {
+  display: flex;
+}
+
+.mobile-hero-social {
+  display: none;
+}
+
+/* Media query to switch social link layout when buttons stack on mobile/tablet */
+@media (max-width: 1400px) {
+  .desktop-hero-social {
+    display: none;
+  }
+  .mobile-hero-social {
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+}
+
+
