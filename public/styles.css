@@ -1318,6 +1318,51 @@ header {
   transition: all .25s ease;
 }
 
+/* Featured Projects carousel — match About Us stat card shadow style */
+#projectCarousel .card {
+  border: 1px solid #eef2f6;
+  box-shadow: 0 8px 24px rgba(0, 57, 101, 0.03);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#projectCarousel .card-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 57, 101, 0.08);
+  border-color: rgba(255, 139, 0, 0.2);
+}
+
+/* Awards carousel — match About Us stat card shadow style */
+#awardsCarousel .card {
+  border: 1px solid #eef2f6;
+  box-shadow: 0 8px 24px rgba(0, 57, 101, 0.03);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#awardsCarousel .card-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 57, 101, 0.08);
+  border-color: rgba(255, 139, 0, 0.2);
+}
+
+/* Testimonials carousel — match About Us stat card shadow style */
+#testiCarousel .carousel-item-inner {
+  border: 1px solid #eef2f6;
+  box-shadow: 0 8px 24px rgba(0, 57, 101, 0.03);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#testiCarousel .testimonial-link:hover .carousel-item-inner {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 57, 101, 0.08);
+  border-color: rgba(255, 139, 0, 0.2);
+}
+
 .carousel-wrap {
   position: relative;
   overflow: hidden !important;
