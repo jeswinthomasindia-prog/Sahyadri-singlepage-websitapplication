@@ -2776,6 +2776,31 @@ footer a:hover {
   width: 100%;
 }
 
+/* Awards carousel card image — constrained to match testimonials section height across all devices */
+#awardsCarousel .card img {
+  height: 220px;
+  object-fit: contain;
+  background: #f8fafc;
+}
+
+@media (max-width: 1024px) {
+  #awardsCarousel .card img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  #awardsCarousel .card img {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  #awardsCarousel .card img {
+    height: 160px;
+  }
+}
+
 .awards-carousel .carousel-item {
   min-width: 100%;
   flex: 0 0 auto;
@@ -3548,12 +3573,41 @@ footer a:hover {
     transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-on-scroll.visible .feature-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-.reveal-on-scroll.visible .feature-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
-.reveal-on-scroll.visible .feature-card:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-.reveal-on-scroll.visible .feature-card:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-.reveal-on-scroll.visible .feature-card:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.reveal-on-scroll.visible .feature-card:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+.reveal-on-scroll.visible .feature-card:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(4) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(5) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(6) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.6s;
+}
 
 /* Stat cards — rise from bottom with stagger */
 .reveal-on-scroll .stat {
@@ -3564,10 +3618,29 @@ footer a:hover {
     transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-on-scroll.visible .stat:nth-child(1) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.1s; }
-.reveal-on-scroll.visible .stat:nth-child(2) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.22s; }
-.reveal-on-scroll.visible .stat:nth-child(3) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.34s; }
-.reveal-on-scroll.visible .stat:nth-child(4) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.46s; }
+.reveal-on-scroll.visible .stat:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.1s;
+}
+
+.reveal-on-scroll.visible .stat:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.22s;
+}
+
+.reveal-on-scroll.visible .stat:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.34s;
+}
+
+.reveal-on-scroll.visible .stat:nth-child(4) {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.46s;
+}
 
 /* Awards carousel container fades in with a slight upward shift */
 .reveal-on-scroll .awards-carousel-container,
@@ -3588,7 +3661,7 @@ footer a:hover {
 }
 
 /* About content grid — left side slides in from left, right side from right */
-.reveal-on-scroll .about-content-grid > *:first-child {
+.reveal-on-scroll .about-content-grid>*:first-child {
   opacity: 0;
   transform: translateX(-30px);
   transition:
@@ -3596,7 +3669,7 @@ footer a:hover {
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
 }
 
-.reveal-on-scroll .about-content-grid > *:last-child {
+.reveal-on-scroll .about-content-grid>*:last-child {
   opacity: 0;
   transform: translateX(30px);
   transition:
@@ -3604,8 +3677,8 @@ footer a:hover {
     transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
 }
 
-.reveal-on-scroll.visible .about-content-grid > *:first-child,
-.reveal-on-scroll.visible .about-content-grid > *:last-child {
+.reveal-on-scroll.visible .about-content-grid>*:first-child,
+.reveal-on-scroll.visible .about-content-grid>*:last-child {
   opacity: 1;
   transform: translateX(0);
 }
@@ -3677,6 +3750,7 @@ footer a:hover {
 
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   .reveal-on-scroll,
   .reveal-on-scroll .section-title,
   .reveal-on-scroll .feature-card,
@@ -3684,7 +3758,7 @@ footer a:hover {
   .reveal-on-scroll .awards-carousel-container,
   .reveal-on-scroll .projects-carousel-container,
   .reveal-on-scroll .testimonials-carousel-container,
-  .reveal-on-scroll .about-content-grid > *,
+  .reveal-on-scroll .about-content-grid>*,
   .reveal-on-scroll .ecosystem-card,
   .reveal-on-scroll .transformation-layout,
   .reveal-on-scroll .transformation-slider,
