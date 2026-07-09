@@ -2750,38 +2750,15 @@ footer a:hover {
   }
 }
 
-/* Awards Section - Smaller than Projects, slightly taller than Testimonials */
-.awards-section {
-  padding: 40px 0 !important;
-  /* Reduced from 70px */
-}
-
-/* Transformations Section - Same size as Awards section */
-#transformations {
-  padding: 40px 0 !important;
-  /* Same as Awards section */
-}
-
-#transformations .beer-slider {
-  height: 400px !important;
-  /* Full width height */
-  margin: 0 auto;
-}
-
-#transformations .beer-slider img {
-  height: 400px !important;
-  /* Full width height */
-  object-fit: fill !important;
-}
-
-/* Awards Carousel Modern UI/UX Styles */
+/* Awards Carousel - same simple layout as projects/testimonials */
 .awards-carousel-container {
   position: relative;
   width: 100%;
 }
 
+/* awards-carousel class no longer used - rule kept harmlessly */
 .awards-carousel .carousel-item {
-  min-width: calc((100% - 32px) / 3) !important;
+  min-width: 100%;
   flex: 0 0 auto;
   box-sizing: border-box;
 }
@@ -3085,20 +3062,7 @@ footer a:hover {
   right: -22px;
 }
 
-/* Responsive adjustments for modern carousel */
-@media (max-width: 1024px) {
-  .awards-carousel .carousel-item {
-    min-width: calc((100% - 16px) / 2) !important;
-  }
 
-  .award-card {
-    padding: 20px;
-  }
-
-  .award-frame {
-    height: 150px;
-  }
-}
 
 @media (max-width: 880px) {
   #transformations {
@@ -3116,15 +3080,6 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
-  .awards-carousel .carousel-item {
-    min-width: 100% !important;
-  }
-
-  .award-card {
-    max-width: 450px;
-    margin: 0 auto;
-  }
-
   .awards-controls .control-btn {
     width: 38px;
     height: 38px;
