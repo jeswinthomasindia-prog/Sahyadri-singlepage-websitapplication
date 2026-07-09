@@ -1222,44 +1222,56 @@
     <div class="section-title">
       <h3>Testimonials</h3>
     </div>
-    <div class="carousel-wrap" id="testiCarousel">
-      <div class="carousel-track" id="testiTrack">
-        <div class="carousel-item">
-          <a href="testimonials.html?testimonial=mar-joseph-pamplany" class="testimonial-link"
-            aria-label="View Joseph Pamplany's full testimonial">
-            <div class="carousel-item-inner"
-              style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
-              <img src="resources/images/Joseph_Pamplany_Thalassey_Archbishop.webp?auto=format&fit=crop&w=120&q=80"
-                alt="Joseph Pamplany profile"
-                style="width:80px; height:100px !important; border-radius:50%; object-fit:cover; border:2px solid var(--accent);"
-                loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.webp?text=User'" />
-              <p class="quote">"Thomas Sir is very hardworking and sincere"</p>
-              <div class="person">Mar Joseph Pamplany<br><small>Archbishop of Tellicherry, Vicar of Major Archbishop for
-                  the Archeparchy of Ernakulam–Angamaly</small></div>
-            </div>
-          </a>
-        </div>
-        <div class="carousel-item">
-          <a href="testimonials.html?testimonial=jacob-pj" class="testimonial-link"
-            aria-label="View Jacob PJ's full testimonial">
-            <div class="carousel-item-inner"
-              style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
-              <img src="resources/images/Jacob_PJ_Jacob_and_George.webp?auto=format&fit=crop&w=120&q=80"
-                alt="Jacob PJ profile"
-                style="width:80px; height:100px !important; border-radius:50%; object-fit:cover; border:2px solid var(--accent);"
-                loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.webp?text=User'" />
-              <p class="quote">"Very Happy with Sahyadri Consultants"</p>
-              <div class="person">Jacob PJ<br><small>Co-Founder, Jacob and George Chartered Accountants</small></div>
-            </div>
-          </a>
+    <div class="testimonials-carousel-container" style="position: relative; width: 100%;">
+      <div class="carousel-wrap" id="testiCarousel">
+        <div class="carousel-track" id="testiTrack">
+          <div class="carousel-item">
+            <a href="testimonials.html?testimonial=mar-joseph-pamplany" class="testimonial-link"
+              aria-label="View Joseph Pamplany's full testimonial">
+              <div class="carousel-item-inner"
+                style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
+                <img src="resources/images/Joseph_Pamplany_Thalassey_Archbishop.webp?auto=format&fit=crop&w=120&q=80"
+                  alt="Joseph Pamplany profile"
+                  style="width:80px; height:100px !important; border-radius:50%; object-fit:cover; border:2px solid var(--accent);"
+                  loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.webp?text=User'" />
+                <p class="quote">"Thomas Sir is very hardworking and sincere"</p>
+                <div class="person">Mar Joseph Pamplany<br><small>Archbishop of Tellicherry, Vicar of Major Archbishop for
+                    the Archeparchy of Ernakulam–Angamaly</small></div>
+              </div>
+            </a>
+          </div>
+          <div class="carousel-item">
+            <a href="testimonials.html?testimonial=jacob-pj" class="testimonial-link"
+              aria-label="View Jacob PJ's full testimonial">
+              <div class="carousel-item-inner"
+                style="display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer;">
+                <img src="resources/images/Jacob_PJ_Jacob_and_George.webp?auto=format&fit=crop&w=120&q=80"
+                  alt="Jacob PJ profile"
+                  style="width:80px; height:100px !important; border-radius:50%; object-fit:cover; border:2px solid var(--accent);"
+                  loading="lazy" onerror="this.src='https://via.placeholder.com/80x80.webp?text=User'" />
+                <p class="quote">"Very Happy with Sahyadri Consultants"</p>
+                <div class="person">Jacob PJ<br><small>Co-Founder, Jacob and George Chartered Accountants</small></div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="carousel-controls">
-      <button class="control-btn" data-target="testimonials" data-direction="prev"
-        aria-label="Previous testimonial">◀</button>
-      <button class="control-btn" data-target="testimonials" data-direction="next"
-        aria-label="Next testimonial">▶</button>
+      <div class="carousel-controls testimonials-controls">
+        <button class="control-btn prev-btn" data-target="testimonials" data-direction="prev"
+          aria-label="Previous testimonial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="control-btn next-btn" data-target="testimonials" data-direction="next"
+          aria-label="Next testimonial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
     </div>
   </section>
 
