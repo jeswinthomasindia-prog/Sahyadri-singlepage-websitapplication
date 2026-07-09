@@ -2750,13 +2750,32 @@ footer a:hover {
   }
 }
 
+/* Awards Section - Smaller than Projects, slightly taller than Testimonials */
+.awards-section {
+  padding: 40px 0 !important;
+}
+
+/* Transformations Section - Same size as Awards section */
+#transformations {
+  padding: 40px 0 !important;
+}
+
+#transformations .beer-slider {
+  height: 400px !important;
+  margin: 0 auto;
+}
+
+#transformations .beer-slider img {
+  height: 400px !important;
+  object-fit: fill !important;
+}
+
 /* Awards Carousel - same simple layout as projects/testimonials */
 .awards-carousel-container {
   position: relative;
   width: 100%;
 }
 
-/* awards-carousel class no longer used - rule kept harmlessly */
 .awards-carousel .carousel-item {
   min-width: 100%;
   flex: 0 0 auto;
