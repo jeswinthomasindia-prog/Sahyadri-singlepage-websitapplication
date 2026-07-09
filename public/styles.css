@@ -354,8 +354,8 @@ header {
   overflow: hidden;
 }
 
-.hero > video,
-.hero > img {
+.hero>video,
+.hero>img {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -1430,43 +1430,133 @@ header {
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 14px;
+  gap: 16px;
 }
 
 .stat {
-  background: #fff;
-  border-radius: var(--radius);
-  padding: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+  background: var(--surface);
+  border: 1px solid #eef2f6;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 57, 101, 0.03);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .section-link:hover .stat {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 57, 101, 0.08);
+  border-color: rgba(255, 139, 0, 0.2);
 }
 
 .stat h4 {
-  margin: 0;
-  font-size: 2.1rem;
-  color: var(--accent);
+  margin: 0 0 6px 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent) 0%, #ff5e00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .stat span {
-  color: #666;
+  color: var(--muted);
   font-weight: 600;
+  font-size: 0.92rem;
+}
+
+/* Decorative subtitle and lead text for home page layouts */
+.decorative-subtitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.lead-text {
+  font-size: 1.12rem !important;
+  font-weight: 600 !important;
+  color: var(--primary) !important;
+  line-height: 1.6 !important;
+  margin-top: 0 !important;
+  margin-bottom: 14px !important;
+}
+
+/* Ultra Modern section grid layouts */
+.modern-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.feature-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(248, 250, 252, 0.8);
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.feature-icon-wrapper {
+  background: rgba(0, 57, 101, 0.05);
+  color: var(--primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-icon-wrapper svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2px;
+}
+
+.feature-card-content h5 {
+  margin: 0 0 6px 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.feature-card-content p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .modern-features-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 .about-content-grid {
   margin-top: 22px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  gap: 24px;
   align-items: center;
   background: #fff;
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 24px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -2657,93 +2747,259 @@ footer a:hover {
   object-fit: fill !important;
 }
 
-.awards-carousel .card img {
-  height: 180px !important;
-  object-fit: contain !important;
-  margin: 0 auto 10px auto !important;
-  display: block !important;
+/* Awards Carousel Modern UI/UX Styles */
+.awards-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.awards-carousel .carousel-item {
+  min-width: calc((100% - 32px) / 3) !important;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+}
+
+.award-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  outline: none;
+}
+
+.award-card {
+  background: var(--surface);
+  border: 1px solid #eef2f6;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 57, 101, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.award-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 57, 101, 0.08);
+  border-color: rgba(255, 139, 0, 0.25);
+}
+
+/* Badge/Pill on the Card */
+.award-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 139, 0, 0.08);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  border: 1px solid rgba(255, 139, 0, 0.15);
+}
+
+.award-badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Document plaque frame styling */
+.award-frame {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 170px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.award-frame img {
+  height: 100%;
+  width: auto;
   max-width: 100%;
-  width: auto !important;
-  border-radius: 0 !important;
-  border: none !important;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.12));
+  border-radius: 2px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.awards-carousel .card-content {
-  text-align: center !important;
-  padding: 0 !important;
+.award-card:hover .award-frame img {
+  transform: scale(1.05) rotate(1deg);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
 }
 
-.awards-carousel .card-content h4 {
-  font-size: 1rem !important;
-  margin: 0 0 6px !important;
-  text-align: center !important;
+/* Info Section Styling */
+.award-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.award-info h4 {
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--primary);
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 3.1rem;
 }
 
-.awards-carousel .card-content p {
-  font-size: 0.85rem !important;
-  margin: 0 !important;
-  line-height: 1.3 !important;
-  text-align: center !important;
-  color: #444;
+.award-info p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 4.2rem;
 }
 
-/* Awards carousel specific styling */
-.awards-carousel .carousel-item {
-  min-width: calc(100%/2.1) !important;
-  /* Show 2 items at a time */
+/* Bottom Action Link Style */
+.award-action-link {
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  gap: 6px;
+  transition: gap 0.25s ease, color 0.25s ease;
 }
 
-/* Awards carousel images - no border, no oval shape */
-.awards-carousel .carousel-item-inner img {
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  transition: all 0.3s ease !important;
+.award-action-link .arrow {
+  transition: transform 0.25s ease;
 }
 
-.awards-carousel .carousel-item-inner img:hover {
-  border: none !important;
-  box-shadow: none !important;
-  transform: scale(1.02) !important;
+.award-card:hover .award-action-link {
+  color: #e07a00;
 }
 
-/* Responsive adjustments for Awards section */
-@media (max-width: 880px) {
-  .awards-section {
-    padding: 30px 0 !important;
+.award-card:hover .award-action-link .arrow {
+  transform: translateX(4px);
+}
+
+/* Modern navigation buttons style */
+.awards-controls {
+  position: static;
+}
+
+.awards-controls .control-btn {
+  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  color: var(--text);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.awards-controls .control-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5px;
+}
+
+.awards-controls .control-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: scale(1.05) translateY(-50%);
+  box-shadow: 0 6px 15px rgba(0, 57, 101, 0.15);
+}
+
+.awards-controls .control-btn:active {
+  transform: scale(0.95) translateY(-50%);
+}
+
+.awards-controls .prev-btn {
+  left: -22px;
+}
+
+.awards-controls .next-btn {
+  right: -22px;
+}
+
+/* Responsive adjustments for modern carousel */
+@media (max-width: 1024px) {
+  .awards-carousel .carousel-item {
+    min-width: calc((100% - 16px) / 2) !important;
   }
 
+  .award-card {
+    padding: 20px;
+  }
+
+  .award-frame {
+    height: 150px;
+  }
+}
+
+@media (max-width: 880px) {
   #transformations {
     padding: 30px 0 !important;
-    /* Same as Awards section on mobile */
   }
 
   #transformations .beer-slider {
     height: 300px !important;
-    /* Full width height on mobile */
-
   }
 
   #transformations .beer-slider img {
     height: 300px !important;
-    /* Full width height on mobile */
     object-fit: fill !important;
-
   }
+}
 
-  .awards-carousel .card {
-    height: 240px !important;
-  }
-
-  .awards-carousel .card img {
-    height: 150px !important;
-  }
-
+@media (max-width: 768px) {
   .awards-carousel .carousel-item {
-    min-width: 85% !important;
-    /* Show 1 item on mobile */
+    min-width: 100% !important;
+  }
+
+  .award-card {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .awards-controls .control-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .awards-controls .prev-btn {
+    left: 4px;
+  }
+
+  .awards-controls .next-btn {
+    right: 4px;
   }
 }
 
@@ -3105,11 +3361,10 @@ footer a:hover {
   .desktop-hero-social {
     display: none;
   }
+
   .mobile-hero-social {
     display: flex;
     margin-top: 24px;
     margin-bottom: 8px;
   }
 }
-
-
