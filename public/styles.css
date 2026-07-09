@@ -2929,6 +2929,9 @@ footer a:hover {
 /* Modern navigation buttons style */
 .awards-controls {
   position: static;
+  height: 0;
+  margin: 0;
+  display: block;
 }
 
 .awards-controls .control-btn {
@@ -2979,6 +2982,9 @@ footer a:hover {
 /* Testimonials Controls duplication from Awards Controls */
 .testimonials-controls {
   position: static;
+  height: 0;
+  margin: 0;
+  display: block;
 }
 
 .testimonials-controls .control-btn {
@@ -3029,6 +3035,9 @@ footer a:hover {
 /* Projects Controls duplication from Awards Controls */
 .projects-controls {
   position: static;
+  height: 0;
+  margin: 0;
+  display: block;
 }
 
 .projects-controls .control-btn {
@@ -3519,5 +3528,196 @@ footer a:hover {
     display: flex;
     margin-top: 24px;
     margin-bottom: 8px;
+  }
+}
+
+/* ============================================================
+   Ultra-Modern Scroll-Driven Reveal Animation System
+   ============================================================ */
+
+/* Base reveal state — sections start invisible and slightly below */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Visible state — sections animate in */
+.reveal-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section title animates in slightly before content */
+.reveal-on-scroll .section-title {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+}
+
+.reveal-on-scroll.visible .section-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Feature cards — staggered cascade from bottom */
+.reveal-on-scroll .feature-card {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible .feature-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.reveal-on-scroll.visible .feature-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.reveal-on-scroll.visible .feature-card:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+.reveal-on-scroll.visible .feature-card:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+.reveal-on-scroll.visible .feature-card:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+.reveal-on-scroll.visible .feature-card:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+
+/* Stat cards — rise from bottom with stagger */
+.reveal-on-scroll .stat {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible .stat:nth-child(1) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.1s; }
+.reveal-on-scroll.visible .stat:nth-child(2) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.22s; }
+.reveal-on-scroll.visible .stat:nth-child(3) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.34s; }
+.reveal-on-scroll.visible .stat:nth-child(4) { opacity: 1; transform: translateY(0) scale(1); transition-delay: 0.46s; }
+
+/* Awards carousel container fades in with a slight upward shift */
+.reveal-on-scroll .awards-carousel-container,
+.reveal-on-scroll .projects-carousel-container,
+.reveal-on-scroll .testimonials-carousel-container {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.reveal-on-scroll.visible .awards-carousel-container,
+.reveal-on-scroll.visible .projects-carousel-container,
+.reveal-on-scroll.visible .testimonials-carousel-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* About content grid — left side slides in from left, right side from right */
+.reveal-on-scroll .about-content-grid > *:first-child {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+
+.reveal-on-scroll .about-content-grid > *:last-child {
+  opacity: 0;
+  transform: translateX(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.reveal-on-scroll.visible .about-content-grid > *:first-child,
+.reveal-on-scroll.visible .about-content-grid > *:last-child {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Ecosystem cards — slide in from bottom with stagger */
+.reveal-on-scroll .ecosystem-card {
+  opacity: 0;
+  transform: translateY(36px) scale(0.97);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.visible .ecosystem-link:nth-child(1) .ecosystem-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.1s;
+}
+
+.reveal-on-scroll.visible .ecosystem-link:nth-child(2) .ecosystem-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.25s;
+}
+
+/* Transformation slider section reveal */
+.reveal-on-scroll .transformation-layout,
+.reveal-on-scroll .transformation-slider {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.reveal-on-scroll.visible .transformation-layout,
+.reveal-on-scroll.visible .transformation-slider {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Decorative subtitle pops in */
+.reveal-on-scroll .decorative-subtitle {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+}
+
+.reveal-on-scroll.visible .decorative-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Lead text fades in after subtitle */
+.reveal-on-scroll .lead-text {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+}
+
+.reveal-on-scroll.visible .lead-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll .section-title,
+  .reveal-on-scroll .feature-card,
+  .reveal-on-scroll .stat,
+  .reveal-on-scroll .awards-carousel-container,
+  .reveal-on-scroll .projects-carousel-container,
+  .reveal-on-scroll .testimonials-carousel-container,
+  .reveal-on-scroll .about-content-grid > *,
+  .reveal-on-scroll .ecosystem-card,
+  .reveal-on-scroll .transformation-layout,
+  .reveal-on-scroll .transformation-slider,
+  .reveal-on-scroll .decorative-subtitle,
+  .reveal-on-scroll .lead-text {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
