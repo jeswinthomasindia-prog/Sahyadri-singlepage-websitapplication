@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check HTML
-        run:  npx htmlhint "**/*.html" --rules="tagname-lowercase=true,attr-lowercase=true,tag-pair=false,spec-char-escape=false,id-class-value=false,inline-style-disabled=false,inline-script-disabled=false,attr-no-duplication=true"
+        run:  npx htmlhint "**/*.html" --rules="tagname-lowercase=true,attr-lowercase=true,tag-pair=false,spec-char-escape=false,id-class-value=false,inline-style-disabled=true,inline-script-disabled=false,attr-no-duplication=true"
 
       - name: Check CSS
         run: npx stylelint "**/*.css" --allow-empty-input
