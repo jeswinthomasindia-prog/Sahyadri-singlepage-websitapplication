@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  check-syntax:
+  check-syntax-of-html-css-js-json:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check HTML
-        run: npx html-validate --config '{"extends":[],"rules":{"close-order":"error"}}' "**/*.html"
+        run: npx html-validate --rule "close-order:error" "**/*.html"
 
       - name: Check CSS
         run: npx stylelint "**/*.css" --allow-empty-input
