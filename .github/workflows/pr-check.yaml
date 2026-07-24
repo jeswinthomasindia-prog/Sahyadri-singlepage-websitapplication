@@ -16,8 +16,9 @@ jobs:
 
       - name: Check CSS
         run: npx stylelint "**/*.css" --allow-empty-input
+        
       - name: Check JS
-        run: npx terser "**/*.js" --parse
+        run: find . -name "*.js" -not -path "*/node_modules/*" -exec node --check {} +
 
       - name: Check Firebase JSON
         run: npx jsonlint "**/*.json" --quiet
