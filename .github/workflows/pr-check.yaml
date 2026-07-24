@@ -1,0 +1,24 @@
+name: Simple PR Syntax Check for html,css,js and json
+
+on:
+  pull_request:
+
+jobs:
+  check-syntax:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check HTML
+        run: npx htmlhint "**/*.html"
+
+      - name: Check CSS
+        run: npx stylelint "**/*.css" --allow-empty-input
+
+      - name: Check JS
+        run: npx terser "**/*.js" --parse
+
+      - name: Check Firebase JSON
+        run: npx jsonlint "**/*.json" --quiet
