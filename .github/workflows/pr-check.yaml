@@ -15,7 +15,7 @@ jobs:
         run:  npx htmlhint "**/*.html"
 
       - name: Check CSS
-        run: npx stylelint "**/*.css" --allow-empty-input
+        run: npx stylelint "**/*.css" --config "{\"rules\":{\"color-no-invalid-hex\":true,\"block-no-empty\":true}}" --allow-empty-input
 
       - name: Check JS
         run: npx terser "**/*.js" --parse
