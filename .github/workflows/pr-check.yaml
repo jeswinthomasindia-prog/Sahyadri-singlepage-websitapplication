@@ -21,4 +21,4 @@ jobs:
         run: find . -name "*.js" -not -path "*/node_modules/*" -exec node --check {} +
 
       - name: Check Firebase JSON
-        run: npx jsonlint "**/*.json" --quiet
+        run: find . -name "*.json" -not -path "*/node_modules/*" -exec node -e "process.argv.slice(1).forEach(f => JSON.parse(require('fs').readFileSync(f, 'utf8')))" {} +
