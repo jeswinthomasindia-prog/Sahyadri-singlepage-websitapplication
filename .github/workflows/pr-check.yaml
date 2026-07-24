@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check HTML
-        run: npx htmlhint "**/*.html"
+        run: npx html-validate --preset standard "**/*.html"
 
       - name: Check CSS
         run: npx stylelint "**/*.css" --allow-empty-input
