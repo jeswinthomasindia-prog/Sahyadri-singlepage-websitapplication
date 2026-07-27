@@ -2547,6 +2547,18 @@ footer a:hover {
     padding: 16px;
   }
 
+  #about .about-content-grid > *:first-child,
+  #ultra-modern .about-content-grid > *:first-child,
+  #transformations .about-content-grid > *:first-child {
+    order: 2;
+  }
+
+  #about .about-content-grid > *:last-child,
+  #ultra-modern .about-content-grid > *:last-child,
+  #transformations .about-content-grid > *:last-child {
+    order: 1;
+  }
+
   .project-detail {
     padding: 18px;
   }
