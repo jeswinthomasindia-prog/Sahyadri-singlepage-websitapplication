@@ -578,11 +578,25 @@
   </header>
 
   <section class="hero" aria-label="Hero with video background">
-    <video id="heroVideo" autoplay muted loop playsinline
-      poster="https://res.cloudinary.com/kebvyvbg/image/upload/f_auto,q_auto/v1783530636/hero_image_we1c7p.webp">
+    <video id="heroVideo" autoplay muted loop playsinline preload="metadata"
+      poster="https://res.cloudinary.com/kebvyvbg/video/upload/c_limit,w_640,q_auto:low,f_auto,e_blur:200,so_0/v1783530143/hero_video_sahyadri_gyexpa.jpg">
+
+      <!-- Desktop (Width > 1024px) -->
       <source
-        src="https://res.cloudinary.com/kebvyvbg/video/upload/f_auto,q_auto/v1783530143/hero_video_sahyadri_gyexpa.mp4"
-        type="video/mp4" />
+        src="https://res.cloudinary.com/kebvyvbg/video/upload/c_limit,w_1280,q_auto:eco,f_auto,vc_auto/v1783530143/hero_video_sahyadri_gyexpa.mp4"
+        media="(min-width: 1025px)" type="video/mp4" />
+
+      <!-- Tablet (Width 601px to 1024px) -->
+      <source
+        src="https://res.cloudinary.com/kebvyvbg/video/upload/c_limit,w_800,q_auto:eco,f_auto,vc_auto/v1783530143/hero_video_sahyadri_gyexpa.mp4"
+        media="(min-width: 601px) and (max-width: 1024px)" type="video/mp4" />
+
+      <!-- Mobile (Width <= 600px) -->
+      <source
+        src="https://res.cloudinary.com/kebvyvbg/video/upload/c_limit,w_480,q_auto:eco,f_auto,vc_auto/v1783530143/hero_video_sahyadri_gyexpa.mp4"
+        media="(max-width: 600px)" type="video/mp4" />
+
+
       Your browser does not support the video tag.
     </video>
     <div class="hero-overlay"></div>
