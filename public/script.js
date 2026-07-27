@@ -1,3 +1,19 @@
+// Function to update header height dynamically in CSS root
+function updateHeaderHeight() {
+  const header = document.querySelector('header');
+  if (header) {
+    document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+  }
+}
+// Run immediately if DOM elements are ready, or register listener
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateHeaderHeight);
+} else {
+  updateHeaderHeight();
+}
+window.addEventListener('resize', updateHeaderHeight);
+window.addEventListener('load', updateHeaderHeight);
+
 function toggleMobileMenu() {
   const mobileMenu = document.getElementById('mobileMenu');
   mobileMenu.classList.toggle('active');
