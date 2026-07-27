@@ -1332,6 +1332,30 @@ header {
   transition: all .25s ease;
 }
 
+/* Other Projects button styles */
+.other-projects-btn {
+  background: var(--accent);
+  color: white;
+  text-decoration: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(255, 139, 0, 0.3);
+}
+
+.other-projects-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 10px 20px rgba(255, 139, 0, 0.45);
+}
+
+.other-projects-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(255, 139, 0, 0.35);
+}
+
 /* Featured Projects carousel — match About Us stat card shadow style */
 #projectCarousel .card {
   border: 1px solid #eef2f6;
