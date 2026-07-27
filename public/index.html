@@ -69,7 +69,8 @@
     @media (max-width: 1400px) {
       .hero-content .box .btn {
         width: 100% !important;
-        max-width: 320px; /* Elegant centered width for stacked layout */
+        max-width: 320px;
+        /* Elegant centered width for stacked layout */
         min-height: 44px !important;
         height: 44px !important;
         padding: 0 20px !important;
@@ -95,7 +96,8 @@
       }
 
       .hero-content h2 {
-        font-size: 1.45rem !important; /* Fits well in 3 lines on mobile */
+        font-size: 1.45rem !important;
+        /* Fits well in 3 lines on mobile */
       }
 
       .hero-content p {
@@ -124,7 +126,8 @@
     }
 
     /* Position immersive button at top-left on narrow screens (e.g. Galaxy Z Fold) or short screens to avoid clashing with the scroll indicator down arrow */
-    @media (max-width: 400px), (max-height: 600px) {
+    @media (max-width: 400px),
+    (max-height: 600px) {
       .immersive-btn {
         top: 20px !important;
         bottom: auto !important;
@@ -137,12 +140,16 @@
       .hero-content h2 {
         font-size: 1.3rem !important;
       }
+
       .hero-content p {
-        display: none !important; /* Hide description on short viewports to save space */
+        display: none !important;
+        /* Hide description on short viewports to save space */
       }
+
       .hero-social-container {
         display: none !important;
       }
+
       .hero-content .box .btn {
         height: 36px !important;
         min-height: 36px !important;
@@ -701,10 +708,11 @@
     </a>
   </section>
 
-  <section id="projects" class="container reveal-on-scroll" style="margin-top: 30px; margin-bottom: 60px;">
-    <div class="section-title">
-      <h3>Our Featured Projects</h3>
-    </div>
+  <section id="projects" class="container" style="margin-top: 30px; margin-bottom: 60px;">
+    <div class="reveal-on-scroll">
+      <div class="section-title">
+        <h3>Our Featured Projects</h3>
+      </div>
     <div class="projects-carousel-container" style="position: relative; width: 100%;">
       <div class="carousel-wrap" id="projectCarousel">
         <div class="carousel-track" id="projectTrack">
@@ -819,9 +827,11 @@
       </div>
     </div>
     <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-      <a href="other-projects.html" class="btn other-projects-btn">
-        See Our Other Projects
-      </a>
+      <div class="other-projects-btn-wrapper">
+        <a href="other-projects.html" class="btn other-projects-btn">
+          See Our Other Projects
+        </a>
+      </div>
     </div>
   </section>
 

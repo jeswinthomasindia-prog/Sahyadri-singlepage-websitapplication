@@ -5,12 +5,14 @@
   --text: #1a1a1a;
   --muted: #666;
   --radius: 12px;
-  --header-height: 71px; /* Fallback for desktop: 70px topbar + 1px border */
+  --header-height: 71px;
+  /* Fallback for desktop: 70px topbar + 1px border */
 }
 
 @media (max-width: 1400px) {
   :root {
-    --header-height: 59px; /* Fallback for mobile: 42px logo + 16px padding + 1px border */
+    --header-height: 59px;
+    /* Fallback for mobile: 42px logo + 16px padding + 1px border */
   }
 }
 
@@ -1333,6 +1335,10 @@ header {
 }
 
 /* Other Projects button styles */
+.other-projects-btn-wrapper {
+  display: inline-block;
+}
+
 .other-projects-btn {
   background: var(--accent);
   color: white;
@@ -1345,13 +1351,13 @@ header {
   box-shadow: 0 4px 12px rgba(255, 139, 0, 0.3);
 }
 
-.other-projects-btn:hover {
+.other-projects-btn-wrapper:hover .other-projects-btn {
   transform: translateY(-2px);
   filter: brightness(1.1);
   box-shadow: 0 10px 20px rgba(255, 139, 0, 0.45);
 }
 
-.other-projects-btn:active {
+.other-projects-btn-wrapper:active .other-projects-btn {
   transform: translateY(0);
   box-shadow: 0 4px 10px rgba(255, 139, 0, 0.35);
 }
