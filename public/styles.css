@@ -1682,10 +1682,12 @@ header {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
-/* Vertically center transformations section */
+/* Stacks the transformation slider at top and text below it */
 #transformations .about-content-grid {
-  min-height: 400px;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: auto;
 }
 
 .about-content-grid img {
@@ -2548,14 +2550,12 @@ footer a:hover {
   }
 
   #about .about-content-grid > *:first-child,
-  #ultra-modern .about-content-grid > *:first-child,
-  #transformations .about-content-grid > *:first-child {
+  #ultra-modern .about-content-grid > *:first-child {
     order: 2;
   }
 
   #about .about-content-grid > *:last-child,
-  #ultra-modern .about-content-grid > *:last-child,
-  #transformations .about-content-grid > *:last-child {
+  #ultra-modern .about-content-grid > *:last-child {
     order: 1;
   }
 
