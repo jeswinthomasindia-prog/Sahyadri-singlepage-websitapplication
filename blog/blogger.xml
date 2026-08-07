@@ -3091,6 +3091,48 @@ margin-left:40px
         box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
       }
 
+      /* Responsive padding rules to avoid space crunch on smartphone and tablet */
+      @media (max-width: 768px) {
+        article.post,
+        .post-outer,
+        .widget.Blog {
+          padding: 24px 16px !important;
+          margin-bottom: 24px !important;
+          border-radius: 8px !important;
+        }
+
+        /* Prevent deep nesting indentation squishing on comments on phone screens */
+        .comments .comments-content .comment-thread ol {
+          padding-left: 12px !important;
+          margin-left: 0 !important;
+        }
+
+        .comments .comments-content .inline-thread {
+          padding-left: 12px !important;
+          margin-left: 0 !important;
+        }
+
+        .comments .comments-content .comment-replies {
+          margin-left: 0 !important;
+        }
+
+        .comments .comment-block {
+          padding: 12px !important;
+          margin-left: 0 !important;
+        }
+
+        /* Give comment section proper margin and breathing room */
+        .comments {
+          padding: 0 !important;
+          margin-top: 24px !important;
+        }
+
+        .comment-form {
+          padding: 0 !important;
+          margin-top: 24px !important;
+        }
+      }
+
       /* Post Titles */
       .post-title,
       .post-title a,
@@ -3273,7 +3315,6 @@ margin-left:40px
           <div class="dropdown">
             <a href="#" class="dropdown-toggle">More</a>
             <div class="dropdown-menu">
-              <a href="https://sahyadrico.com/">Home</a>
               <a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a>
               <a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a>
               <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
@@ -3307,7 +3348,6 @@ margin-left:40px
           <div class="dropdown">
             <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
             <div class="dropdown-menu">
-              <a href="https://sahyadrico.com/">Home</a>
               <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
               <a href="https://sahyadrico.com/experience-projects-360.html">Experience Projects in 360°</a>
               <a href="https://sahyadrico.com/transformations.html">Transformations</a>
