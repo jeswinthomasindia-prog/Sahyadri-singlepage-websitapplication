@@ -2,6 +2,20 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.3.3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
+    <!-- Custom Theme Metadata -->
+    <!--
+      Theme Name: Sahyadri
+      Theme URL: https://sahyadrico.com
+      Description: Custom premium theme for Sahyadri Consultants / Sahyadri Insights.
+      Author: Sahyadri Consultants
+      Preview Image: https://sahyadrico.com/sahyadri_logo.webp
+    -->
+    
+    <!-- Open Graph Preview Meta Tags -->
+    <meta content='Sahyadri' property='og:title'/>
+    <meta content='https://sahyadrico.com/sahyadri_logo.webp' property='og:image'/>
+    <meta content='Sahyadri Consultants - Premium Architectural, Engineering and Interior Design Consultancy' property='og:description'/>
+
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
     <title><data:view.title.escaped/></title>
     <b:include data='blog' name='all-head-content'/>
@@ -2956,9 +2970,355 @@ margin-left:40px
     <b:include data='blog' name='google-analytics'/>
 
     <script async='async' src='https://www.gstatic.com/external_hosted/clipboardjs/clipboard.min.js'/>
+
+    <!-- Preconnect to main website and load core styles -->
+    <link href='https://sahyadrico.com' rel='preconnect'/>
+    <link href='https://sahyadrico.com/sahyadri_logo.webp' rel='shortcut icon' type='image/webp'/>
+    <link href='https://sahyadrico.com/sahyadri_logo.webp' rel='icon' type='image/webp'/>
+    <link href='https://sahyadrico.com/styles.css' rel='stylesheet' type='text/css'/>
+
+    <!-- Brand CSS Overrides for Blogger -->
+    <style type='text/css'>
+      /*<![CDATA[*/
+      /* Override Blogger Contempo theme default layout */
+      header {
+        position: sticky !important;
+        z-index: 10000 !important;
+      }
+
+      /* Prevent clicked/focused links from turning dark blue */
+      html body a:active,
+      html body a:focus,
+      body .page a:active,
+      body .page a:focus,
+      body .page_body a:active,
+      body .page_body a:focus,
+      .post-body a:active,
+      .post-body a:focus,
+      .post-title a:active,
+      .post-title a:focus {
+        color: inherit !important;
+      }
+
+      /* Hide Contributors, Archive, and Report Abuse widgets */
+      #Profile1,
+      #BlogArchive1,
+      #ReportAbuse1 {
+        display: none !important;
+      }
+
+      /* Hide residual back arrows, menu icons, and navigation buttons */
+      .sidebar-container .navigation,
+      .sidebar-back,
+      .back-button,
+      .backArrowIcon,
+      .hamburger-menu {
+        display: none !important;
+      }
+
+      body {
+        background-color: #f4f6f9 !important;
+        color: #1a1a1a !important;
+        display: block !important;
+      }
+
+      /* Hide Blogger default header and navigation elements */
+      .centered-top-container,
+      .hamburger-menu,
+      .search-expand,
+      .bg-photo-container,
+      .bg-photo-overlay,
+      .return_link,
+      .centered-top-placeholder,
+      .skip-navigation,
+      footer.footer {
+        display: none !important;
+      }
+
+      /* Page body margins & resets */
+      .page {
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      .page_body {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        background: transparent !important;
+      }
+
+      /* Main centered container for layout */
+      .centered {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+
+      .centered-content-wrapper {
+        max-width: 1180px !important;
+        margin: 40px auto !important;
+        padding: 0 16px !important;
+        display: block !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Blogger main content column */
+      main.centered-bottom {
+        max-width: 800px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      /* Styling post cards */
+      article.post,
+      .post-outer,
+      .widget.Blog {
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        padding: 32px !important;
+        margin-bottom: 32px !important;
+        border: none !important;
+        box-sizing: border-box !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      }
+
+      .post-outer:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
+      }
+
+      /* Post Titles */
+      .post-title,
+      .post-title a,
+      .post-title a:visited {
+        color: #003965 !important;
+        font-size: clamp(1.4rem, 3vw, 1.8rem) !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+        line-height: 1.3 !important;
+        margin-top: 0 !important;
+        margin-bottom: 12px !important;
+        transition: color 0.3s ease !important;
+      }
+
+      .post-title a:hover {
+        color: #ff8b00 !important;
+      }
+
+      /* Post Content & Fonts */
+      .post-body {
+        color: #1a1a1a !important;
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif !important;
+      }
+
+      .post-body img {
+        border-radius: 8px !important;
+        margin: 16px auto !important;
+        display: block !important;
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      /* Byline / Post Meta */
+      .post-header,
+      .post-meta,
+      .byline {
+        color: #666 !important;
+        font-size: 0.88rem !important;
+        margin-bottom: 16px !important;
+      }
+
+      .byline a {
+        color: #ff8b00 !important;
+        text-decoration: none !important;
+      }
+
+      /* Jump Link ("Keep reading") */
+      .jump-link,
+      .post-footer-jump-link {
+        margin-top: 20px !important;
+        text-align: left !important;
+      }
+
+      .jump-link a,
+      .post-footer-jump-link a {
+        display: inline-block !important;
+        background-color: #ff8b00 !important;
+        color: #ffffff !important;
+        padding: 10px 24px !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+        box-shadow: 0 4px 10px rgba(255, 139, 0, 0.25) !important;
+      }
+
+      .jump-link a:hover,
+      .post-footer-jump-link a:hover {
+        background-color: #e07a00 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 15px rgba(255, 139, 0, 0.35) !important;
+      }
+
+      /* Sidebar Wrapper & Styling */
+      aside.sidebar-container {
+        display: none !important;
+      }
+
+      /* Sidebar Widgets */
+      .sidebar-container .widget {
+        background: #ffffff !important;
+        border-radius: 12px !important;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        padding: 24px !important;
+        margin-bottom: 24px !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Sidebar Widget Titles */
+      .sidebar-container h2,
+      .sidebar-container h3,
+      .sidebar-container .widget h2,
+      .sidebar-container .widget-title {
+        color: #003965 !important;
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+        border-bottom: 2px solid #dde2ea !important;
+        padding-bottom: 8px !important;
+        text-transform: capitalize !important;
+      }
+
+      /* Sidebar lists and links */
+      .sidebar-container ul {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .sidebar-container li {
+        padding: 8px 0 !important;
+        border-bottom: 1px solid #f0f3f6 !important;
+      }
+
+      .sidebar-container li:last-child {
+        border-bottom: none !important;
+      }
+
+      .sidebar-container a {
+        color: #1a1a1a !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        transition: color 0.3s ease !important;
+      }
+
+      .sidebar-container a:hover {
+        color: #ff8b00 !important;
+      }
+
+      /* Pagination / Blog Pager */
+      .blog-pager {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin: 20px 0 40px 0 !important;
+        padding: 0 !important;
+      }
+
+      .blog-pager-older-link,
+      .blog-pager-newer-link,
+      .home-link {
+        display: inline-block !important;
+        background-color: #003965 !important;
+        color: #ffffff !important;
+        padding: 10px 20px !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        transition: background-color 0.3s ease, transform 0.2s ease !important;
+      }
+
+      .blog-pager-older-link:hover,
+      .blog-pager-newer-link:hover,
+      .home-link:hover {
+        background-color: #00223d !important;
+        transform: translateY(-1px) !important;
+      }
+      /*]]>*/
+    </style>
   </head>
 
   <body>
+    <!-- Brand Header -->
+    <header class="container">
+      <div class="topbar">
+        <a href="https://sahyadrico.com/" class="brand" aria-label="Sahyadri Consultants home">
+          <img src="https://sahyadrico.com/sahyadri_logo.webp" alt="Sahyadri logo" />
+          <h1>Sahyadri Consultants</h1>
+        </a>
+        <nav class="nav">
+          <a href="https://sahyadrico.com/login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+          <a href="https://sahyadrico.com/login.html" class="login-btn">Login</a>
+          <a href="https://sahyadrico.com/#projects">Projects</a>
+          <a href="https://sahyadrico.com/#about">About</a>
+          <a href="https://sahyadrico.com/#awards">Awards</a>
+          <a href="https://sahyadrico.com/#testimonials">Testimonials</a>
+          <a href="https://sahyadrico.com/#contact">Contact</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle">More</a>
+            <div class="dropdown-menu">
+              <a href="https://sahyadrico.com/">Home</a>
+              <a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a>
+              <a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a>
+              <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
+              <a href="https://sahyadrico.com/experience-projects-360.html">Experience Projects in 360°</a>
+              <a href="https://sahyadrico.com/transformations.html">Transformations</a>
+              <a href="https://sahyadrico.com/recent-activity.html">Recent Activity</a>
+              <a href="https://sahyadrico.com/industry-insights.html">Industry Insights</a>
+              <a href="https://sahyadrico.com/experience-segments.html">Experience Segments</a>
+            </div>
+          </div>
+        </nav>
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-menu-nav">
+          <a href="https://sahyadrico.com/login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+          <a href="https://sahyadrico.com/login.html" class="login-btn">Login</a>
+          <a href="https://sahyadrico.com/">Home</a>
+          <a href="https://sahyadrico.com/#projects">Projects</a>
+          <a href="https://sahyadrico.com/#about">About</a>
+          <a href="https://sahyadrico.com/#awards">Awards</a>
+          <a href="https://sahyadrico.com/#testimonials">Testimonials</a>
+          <a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a>
+          <a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a>
+          <a href="https://sahyadrico.com/recent-activity.html">Recent Activity</a>
+          <a href="https://sahyadrico.com/#contact">Contact</a>
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+            <div class="dropdown-menu">
+              <a href="https://sahyadrico.com/">Home</a>
+              <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
+              <a href="https://sahyadrico.com/experience-projects-360.html">Experience Projects in 360°</a>
+              <a href="https://sahyadrico.com/transformations.html">Transformations</a>
+              <a href="https://sahyadrico.com/industry-insights.html">Industry Insights</a>
+              <a href="https://sahyadrico.com/experience-segments.html">Experience Segments</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
     <b:class cond='data:view.isPreview' name='preview'/>
     <b:class cond='data:view.isSingleItem' name='item-view'/>
     <b:class cond='data:view.isArchive' name='archive-view'/>
@@ -3140,7 +3500,7 @@ margin-left:40px
                 </div>
               </div>
             </header>
-            <div>
+            <div class='centered-content-wrapper'>
               <b:section ads='true' class='vertical-ad-container' id='ads' name='Ads' showaddelement='false'>
                 <b:widget id='AdSense1' locked='true' title='' type='AdSense' visible='true'>
                   <b:includable id='main'>
@@ -3178,6 +3538,10 @@ margin-left:40px
                 </b:widget>
               </b:section>
               <main class='centered-bottom' id='main' role='main' tabindex='-1'>
+                <!-- Blog Title -->
+                <div class='section-title' style='margin-bottom: 32px;'>
+                  <h3>Sahyadri Insights</h3>
+                </div>
                 <b:if cond='data:view.isMultipleItems'>
                   <h2 class='main-heading'><data:messages.posts/></h2>
                 </b:if>
@@ -3845,6 +4209,229 @@ margin-left:40px
                   </b:widget>
                 </b:section>
               </main>
+              
+              <!-- Relocated Sidebar -->
+              <aside class='sidebar-container container sidebar-invisible' role='complementary'>
+                <div class='navigation'>
+                  <b:include data='{ button: true, iconClass: &quot;flat-icon-button ripple sidebar-back&quot; }' name='backArrowIcon'/>
+                </div>
+                <div class='sidebar_top_wrapper'>
+                  <b:class cond='data:widgets none w =&gt; w.sectionId == &quot;sidebar_top&quot;' name='no-items'/>
+
+                  <b:section class='sidebar_top' id='sidebar_top' name='Sidebar (Top)'>
+                    <b:widget id='Profile1' locked='true' title='Contributors' type='Profile' visible='true'>
+                      <b:widget-settings>
+                        <b:widget-setting name='showaboutme'>true</b:widget-setting>
+                        <b:widget-setting name='showlocation'>false</b:widget-setting>
+                      </b:widget-settings>
+                      <b:includable id='main' var='this'>
+                    <div class='wrapper'>
+                      <b:class cond='!data:this.team' name='solo'/>
+                      <b:comment>No title for single profiles. Default to &#39;Blog authors&#39; for team.</b:comment>
+                      <b:with value='data:messages.blogAuthors' var='defaultTitle'>
+                        <b:include cond='data:this.team' name='widget-title'/>
+                      </b:with>
+                      <b:include name='content'/>
+                    </div>
+                  </b:includable>
+                      <b:includable id='authorProfileImage'>
+            <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/>
+          </b:includable>
+                      <b:includable id='content'>
+            <b:if cond='data:team'>
+              <div class='widget-content team'>
+                <b:include name='teamProfile'/>
+              </div>
+            <b:else/>
+              <div class='widget-content individual'>
+                <b:include name='userProfile'/>
+              </div>
+            </b:if>
+          </b:includable>
+                      <b:includable id='defaultProfileImage'>
+                    <div class='default-avatar-wrapper'>
+                      <b:include data='{ iconClass: &quot;avatar-icon&quot; }' name='defaultAvatarIcon'/>
+                    </div>
+                  </b:includable>
+                      <b:includable id='profileImage'>
+            <b:if cond='data:authorPhoto.image'>
+              <b:include name='authorProfileImage'/>
+            <b:else/>
+              <b:include name='defaultProfileImage'/>
+            </b:if>
+          </b:includable>
+                      <b:includable id='teamProfile'>
+            <ul>
+              <b:loop values='data:authors' var='author'>
+                <li>
+                  <div class='team-member'>
+                    <b:include data='author' name='teamProfileLink'/>
+                  </div>
+                </li>
+              </b:loop>
+            </ul>
+          </b:includable>
+                      <b:includable id='teamProfileLink'>
+            <a class='profile-link g-profile' expr:href='data:userUrl' rel='nofollow'>
+              <b:include name='profileImage'/>
+              <span class='profile-name'><data:display-name/></span>
+            </a>
+          </b:includable>
+                      <b:includable id='userLocation'>
+            <dd class='profile-data location'><data:location/></dd>
+          </b:includable>
+                      <b:includable id='userProfile'>
+            <b:include name='userProfileImage'/>
+            <b:include name='userProfileInfo'/>
+          </b:includable>
+                      <b:includable id='userProfileData'>
+            <dt class='profile-data'>
+              <a class='profile-link g-profile' expr:href='data:userUrl' rel='author nofollow'>
+                <data:displayname/>
+              </a>
+            </dt>
+          </b:includable>
+                      <b:includable id='userProfileImage'>
+            <a expr:href='data:userUrl' rel='nofollow'>
+              <b:include name='profileImage'/>
+            </a>
+          </b:includable>
+                      <b:includable id='userProfileInfo'>
+            <div class='profile-info'>
+              <dl class='profile-datablock'>
+                <b:class cond='data:showlocation and data:location != &quot;&quot;' name='has-location'/>
+
+                <b:include name='userProfileData'/>
+                <b:include cond='data:showlocation and data:location != &quot;&quot;' name='userLocation'/>
+                <b:include cond='data:aboutme != &quot;&quot;' name='userProfileText'/>
+              </dl>
+              <b:include name='viewProfileLink'/>
+            </div>
+          </b:includable>
+                      <b:includable id='userProfileText'>
+                    <dd class='profile-textblock profile-snippet snippet-container r-snippet-container'>
+                      <div class='snippet-item r-snippetized'>
+                        <data:aboutme/>
+                      </div>
+                      <div class='snippet-fade r-snippet-fade hidden'/>
+                    </dd>
+                  </b:includable>
+                      <b:includable id='viewProfileLink'>
+                    <b:comment>Change link to &#39;visit profile&#39;</b:comment>
+                    <a class='profile-link visit-profile pill-button' expr:href='data:userUrl' rel='author'>
+                      <data:messages.visitProfile/>
+                    </a>
+                  </b:includable>
+                    </b:widget>
+                  </b:section>
+                </div>
+                <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
+                  <b:widget id='BlogArchive1' locked='false' title='' type='BlogArchive' visible='true'>
+                    <b:widget-settings>
+                      <b:widget-setting name='showStyle'>FLAT</b:widget-setting>
+                      <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
+                      <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
+                      <b:widget-setting name='monthPattern'>MMMM yyyy</b:widget-setting>
+                      <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
+                      <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
+                      <b:widget-setting name='chronological'>false</b:widget-setting>
+                      <b:widget-setting name='showPosts'>true</b:widget-setting>
+                      <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
+                    </b:widget-settings>
+                    <b:includable id='main' var='this'>
+                    <details class='collapsible extendable'>
+                      <b:attr cond='data:view.isArchive' name='open' value='open'/>
+                      <b:with value='true' var='renderAsDetails'>
+                      <b:with value='data:messages.archive' var='defaultTitle'>
+                        <b:include name='super.main'/>
+                      </b:with>
+                      </b:with>
+                    </details>
+                  </b:includable>
+                    <b:includable id='content'>
+            <div class='widget-content'>
+              <div id='ArchiveList'>
+                <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
+                  <b:include cond='data:this.style == &quot;HIERARCHY&quot;' name='hierarchy'/>
+                  <b:include cond='data:this.style in {&quot;FLAT&quot;, &quot;MENU&quot;}' name='flat'/>
+                </div>
+              </div>
+            </div>
+          </b:includable>
+                    <b:includable id='flat'>
+                    <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.flat&quot;                             }' name='extendableItems'/>
+                  </b:includable>
+                    <b:includable id='hierarchy'>
+                    <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               limit: 1,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.hierarchy&quot;                             }' name='extendableItems'/>
+                  </b:includable>
+                    <b:includable id='interval' var='intervals'>
+            <ul class='hierarchy'>
+              <b:loop values='data:intervals' var='interval'>
+                <li class='archivedate'>
+                  <div class='hierarchy-title'>
+                    <a class='post-count-link' expr:href='data:interval.url'>
+                      <data:interval.name/>
+                      <span class='post-count'><data:interval.post-count/></span>
+                    </a>
+                  </div>
+                  <div class='hierarchy-content'>
+                    <b:include cond='data:interval.data' data='interval.data' name='interval'/>
+                    <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
+                  </div>
+                </li>
+              </b:loop>
+            </ul>
+          </b:includable>
+                    <b:includable id='posts' var='posts'>
+            <ul class='posts hierarchy'>
+              <b:loop values='data:posts' var='post'>
+                <li>
+                  <a expr:href='data:post.url'><data:post.title/></a>
+                </li>
+              </b:loop>
+            </ul>
+          </b:includable>
+                  </b:widget>
+                  <b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
+                    <b:widget-settings>
+                      <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+                      <b:widget-setting name='display'>LIST</b:widget-setting>
+                      <b:widget-setting name='selectedLabelsList'/>
+                      <b:widget-setting name='showType'>ALL</b:widget-setting>
+                      <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
+                    </b:widget-settings>
+                    <b:includable id='main' var='this'>
+                    <details class='collapsible extendable'>
+                      <b:attr cond='data:view.isLabelSearch' name='open' value='open'/>
+                      <b:with value='true' var='renderAsDetails'>
+                      <b:with value='data:messages.labels' var='defaultTitle'>
+                        <b:include name='super.main'/>
+                      </b:with>
+                      </b:with>
+                    </details>
+                  </b:includable>
+                    <b:includable id='cloud'>
+                    <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.cloud&quot;                             }' name='extendableItems'/>
+                  </b:includable>
+                    <b:includable id='content'>
+            <div class='widget-content'>
+              <b:class expr:name='data:this.display + &quot;-label-widget-content&quot;'/>
+              <b:include cond='data:this.display == &quot;list&quot;' name='list'/>
+              <b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
+            </div>
+          </b:includable>
+                    <b:includable id='list'>
+                    <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.list&quot;                             }' name='extendableItems'/>
+                  </b:includable>
+                  </b:widget>
+                  <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' visible='true'>
+                    <b:includable id='main'>
+            <b:include name='reportAbuse'/>
+          </b:includable>
+                  </b:widget>
+                </b:section>
+              </aside>
+
             </div>
             <b:section class='footer' id='footer' name='Footer' showaddelement='false' tag='footer'>
               <b:widget id='Attribution1' locked='true' title='' type='Attribution' visible='true'>
@@ -3886,226 +4473,155 @@ margin-left:40px
         </div>
       </b:with>
     </div>
-    <aside class='sidebar-container container sidebar-invisible' role='complementary'>
-      <div class='navigation'>
-        <b:include data='{ button: true, iconClass: &quot;flat-icon-button ripple sidebar-back&quot; }' name='backArrowIcon'/>
-      </div>
-      <div class='sidebar_top_wrapper'>
-        <b:class cond='data:widgets none w =&gt; w.sectionId == &quot;sidebar_top&quot;' name='no-items'/>
 
-        <b:section class='sidebar_top' id='sidebar_top' name='Sidebar (Top)'>
-          <b:widget id='Profile1' locked='true' title='Contributors' type='Profile' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='showaboutme'>true</b:widget-setting>
-              <b:widget-setting name='showlocation'>false</b:widget-setting>
-            </b:widget-settings>
-            <b:includable id='main' var='this'>
-          <div class='wrapper'>
-            <b:class cond='!data:this.team' name='solo'/>
-            <b:comment>No title for single profiles. Default to &#39;Blog authors&#39; for team.</b:comment>
-            <b:with value='data:messages.blogAuthors' var='defaultTitle'>
-              <b:include cond='data:this.team' name='widget-title'/>
-            </b:with>
-            <b:include name='content'/>
+
+    <!-- Brand Footer -->
+    <footer id="contact" style="margin-top: 60px;">
+      <div class="container footer-grid">
+        <div>
+          <h5>Sahyadri Consultants</h5>
+          <p>Pallikunnu KP Road, Kannur, Kerala</p>
+          <p>Email: sahyadriconsultantsindia@gmail.com</p>
+          <p>Phone: +91 9074497780</p>
+          <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;">
+            <a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="https://sahyadrico.com/resources/images/youtube_logo.svg" alt="YouTube"
+                   style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+            </a>
+            <a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="https://sahyadrico.com/resources/images/Instagram_logo.svg" alt="Instagram"
+                   style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+            </a>
+            <a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="https://sahyadrico.com/resources/images/threads_logo.svg" alt="Threads"
+                   style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+            </a>
+            <a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="https://sahyadrico.com/resources/images/facebook_logo.svg" alt="Facebook"
+                   style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+            </a>
+            <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+               target="_blank" rel="noopener noreferrer"
+               style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+               onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+                   style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+            </a>
           </div>
-        </b:includable>
-            <b:includable id='authorProfileImage'>
-  <img class='profile-img' expr:alt='data:messages.myPhoto' expr:height='data:authorPhoto.height' expr:src='data:authorPhoto.image' expr:width='data:authorPhoto.width'/>
-</b:includable>
-            <b:includable id='content'>
-  <b:if cond='data:team'>
-    <div class='widget-content team'>
-      <b:include name='teamProfile'/>
-    </div>
-  <b:else/>
-    <div class='widget-content individual'>
-      <b:include name='userProfile'/>
-    </div>
-  </b:if>
-</b:includable>
-            <b:includable id='defaultProfileImage'>
-          <div class='default-avatar-wrapper'>
-            <b:include data='{ iconClass: &quot;avatar-icon&quot; }' name='defaultAvatarIcon'/>
-          </div>
-        </b:includable>
-            <b:includable id='profileImage'>
-  <b:if cond='data:authorPhoto.image'>
-    <b:include name='authorProfileImage'/>
-  <b:else/>
-    <b:include name='defaultProfileImage'/>
-  </b:if>
-</b:includable>
-            <b:includable id='teamProfile'>
-  <ul>
-    <b:loop values='data:authors' var='author'>
-      <li>
-        <div class='team-member'>
-          <b:include data='author' name='teamProfileLink'/>
         </div>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-            <b:includable id='teamProfileLink'>
-  <a class='profile-link g-profile' expr:href='data:userUrl' rel='nofollow'>
-    <b:include name='profileImage'/>
-    <span class='profile-name'><data:display-name/></span>
-  </a>
-</b:includable>
-            <b:includable id='userLocation'>
-  <dd class='profile-data location'><data:location/></dd>
-</b:includable>
-            <b:includable id='userProfile'>
-  <b:include name='userProfileImage'/>
-  <b:include name='userProfileInfo'/>
-</b:includable>
-            <b:includable id='userProfileData'>
-  <dt class='profile-data'>
-    <a class='profile-link g-profile' expr:href='data:userUrl' rel='author nofollow'>
-      <data:displayname/>
+        <div>
+          <h5>Quick Links</h5>
+          <p><a href="https://sahyadrico.com/">Home</a></p>
+          <p><a href="https://sahyadrico.com/#projects">Projects</a></p>
+          <p><a href="https://sahyadrico.com/#about">About</a></p>
+          <p><a href="https://sahyadrico.com/#testimonials">Testimonials</a></p>
+          <p><a href="https://sahyadrico.com/awards.html">Awards</a></p>
+          <p><a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a></p>
+          <p><a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a></p>
+          <p><a href="https://sahyadrico.com/experience-projects-360.html">Experience Projects in 360°</a></p>
+          <p><a href="https://sahyadrico.com/transformations.html">Transformations</a></p>
+          <p><a href="https://sahyadrico.com/recent-activity.html">Recent Activity</a></p>
+          <p><a href="https://sahyadrico.com/login.html">Login</a></p>
+          <p><a href="https://sahyadrico.com/login.html">Talk to Sahya, our AI Assistant</a></p>
+          <p><a href="https://sahyadrico.com/industry-insights.html">Industry Insights</a></p>
+          <p><a href="https://sahyadrico.com/experience-segments.html">Experience Segments</a></p>
+        </div>
+        <div>
+          <h5>Our Values</h5>
+          <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+        </div>
+        <div>
+          <h5>Working Hours</h5>
+          <p>Mon - Sat: 9:30 AM - 5:30 PM</p>
+          <p>Sun: Closed</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
+        <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
+          engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide.
+          Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and
+          are entirely independent of any other organizations sharing the Sahyadri name.</span>
+        <span style="display: block; margin-top: 8px;">Built for PC &amp; Smartphone (responsive).</span>
+      </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+       class="whatsapp-float" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon" />
     </a>
-  </dt>
-</b:includable>
-            <b:includable id='userProfileImage'>
-  <a expr:href='data:userUrl' rel='nofollow'>
-    <b:include name='profileImage'/>
-  </a>
-</b:includable>
-            <b:includable id='userProfileInfo'>
-  <div class='profile-info'>
-    <dl class='profile-datablock'>
-      <b:class cond='data:showlocation and data:location != &quot;&quot;' name='has-location'/>
 
-      <b:include name='userProfileData'/>
-      <b:include cond='data:showlocation and data:location != &quot;&quot;' name='userLocation'/>
-      <b:include cond='data:aboutme != &quot;&quot;' name='userProfileText'/>
-    </dl>
-    <b:include name='viewProfileLink'/>
-  </div>
-</b:includable>
-            <b:includable id='userProfileText'>
-          <dd class='profile-textblock profile-snippet snippet-container r-snippet-container'>
-            <div class='snippet-item r-snippetized'>
-              <data:aboutme/>
-            </div>
-            <div class='snippet-fade r-snippet-fade hidden'/>
-          </dd>
-        </b:includable>
-            <b:includable id='viewProfileLink'>
-          <b:comment>Change link to &#39;visit profile&#39;</b:comment>
-          <a class='profile-link visit-profile pill-button' expr:href='data:userUrl' rel='author'>
-            <data:messages.visitProfile/>
-          </a>
-        </b:includable>
-          </b:widget>
-        </b:section>
-      </div>
-      <b:section class='sidebar_bottom' id='sidebar_bottom' name='Sidebar (Bottom)' preferred='yes'>
-        <b:widget id='BlogArchive1' locked='false' title='' type='BlogArchive' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='showStyle'>FLAT</b:widget-setting>
-            <b:widget-setting name='yearPattern'>yyyy</b:widget-setting>
-            <b:widget-setting name='showWeekEnd'>true</b:widget-setting>
-            <b:widget-setting name='monthPattern'>MMMM yyyy</b:widget-setting>
-            <b:widget-setting name='dayPattern'>MMM dd</b:widget-setting>
-            <b:widget-setting name='weekPattern'>MM/dd</b:widget-setting>
-            <b:widget-setting name='chronological'>false</b:widget-setting>
-            <b:widget-setting name='showPosts'>true</b:widget-setting>
-            <b:widget-setting name='frequency'>MONTHLY</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main' var='this'>
-          <details class='collapsible extendable'>
-            <b:attr cond='data:view.isArchive' name='open' value='open'/>
-            <b:with value='true' var='renderAsDetails'>
-            <b:with value='data:messages.archive' var='defaultTitle'>
-              <b:include name='super.main'/>
-            </b:with>
-            </b:with>
-          </details>
-        </b:includable>
-          <b:includable id='content'>
-  <div class='widget-content'>
-    <div id='ArchiveList'>
-      <div expr:id='data:widget.instanceId + &quot;_ArchiveList&quot;'>
-        <b:include cond='data:this.style == &quot;HIERARCHY&quot;' name='hierarchy'/>
-        <b:include cond='data:this.style in {&quot;FLAT&quot;, &quot;MENU&quot;}' name='flat'/>
-      </div>
-    </div>
-  </div>
-</b:includable>
-          <b:includable id='flat'>
-          <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.flat&quot;                             }' name='extendableItems'/>
-        </b:includable>
-          <b:includable id='hierarchy'>
-          <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               limit: 1,                               items: data:this.data,                               itemSet: &quot;data&quot;,                               itemsMarkup: &quot;super.hierarchy&quot;                             }' name='extendableItems'/>
-        </b:includable>
-          <b:includable id='interval' var='intervals'>
-  <ul class='hierarchy'>
-    <b:loop values='data:intervals' var='interval'>
-      <li class='archivedate'>
-        <div class='hierarchy-title'>
-          <a class='post-count-link' expr:href='data:interval.url'>
-            <data:interval.name/>
-            <span class='post-count'><data:interval.post-count/></span>
-          </a>
-        </div>
-        <div class='hierarchy-content'>
-          <b:include cond='data:interval.data' data='interval.data' name='interval'/>
-          <b:include cond='data:interval.posts' data='interval.posts' name='posts'/>
-        </div>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-          <b:includable id='posts' var='posts'>
-  <ul class='posts hierarchy'>
-    <b:loop values='data:posts' var='post'>
-      <li>
-        <a expr:href='data:post.url'><data:post.title/></a>
-      </li>
-    </b:loop>
-  </ul>
-</b:includable>
-        </b:widget>
-        <b:widget id='Label1' locked='false' title='Labels' type='Label' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-            <b:widget-setting name='display'>LIST</b:widget-setting>
-            <b:widget-setting name='selectedLabelsList'/>
-            <b:widget-setting name='showType'>ALL</b:widget-setting>
-            <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
-          </b:widget-settings>
-          <b:includable id='main' var='this'>
-          <details class='collapsible extendable'>
-            <b:attr cond='data:view.isLabelSearch' name='open' value='open'/>
-            <b:with value='true' var='renderAsDetails'>
-            <b:with value='data:messages.labels' var='defaultTitle'>
-              <b:include name='super.main'/>
-            </b:with>
-            </b:with>
-          </details>
-        </b:includable>
-          <b:includable id='cloud'>
-          <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.cloud&quot;                             }' name='extendableItems'/>
-        </b:includable>
-          <b:includable id='content'>
-  <div class='widget-content'>
-    <b:class expr:name='data:this.display + &quot;-label-widget-content&quot;'/>
-    <b:include cond='data:this.display == &quot;list&quot;' name='list'/>
-    <b:include cond='data:this.display == &quot;cloud&quot;' name='cloud'/>
-  </div>
-</b:includable>
-          <b:includable id='list'>
-          <b:include data='{                               buttonClass: &quot;pill-button&quot;,                               items: data:this.labels,                               itemSet: &quot;labels&quot;,                               itemsMarkup: &quot;super.list&quot;                             }' name='extendableItems'/>
-        </b:includable>
-        </b:widget>
-        <b:widget id='ReportAbuse1' locked='true' title='' type='ReportAbuse' visible='true'>
-          <b:includable id='main'>
-  <b:include name='reportAbuse'/>
-</b:includable>
-        </b:widget>
-      </b:section>
-    </aside>
+    <!-- Navigation & UI Interactive Scripts -->
+    <script type='text/javascript'>
+      //<![CDATA[
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.classList.toggle('active');
+        }
+      }
+
+      function closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.classList.remove('active');
+        }
+      }
+
+      function toggleMobileDropdown(element) {
+        if (element && element.parentElement) {
+          const dropdown = element.parentElement;
+          dropdown.classList.toggle('active');
+        }
+        if (window.event) {
+          window.event.preventDefault();
+        }
+      }
+
+      function updateHeaderHeight() {
+        const header = document.querySelector('header');
+        if (header) {
+          document.documentElement.style.setProperty('--header-height', header.getBoundingClientRect().height + 'px');
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateHeaderHeight);
+      } else {
+        updateHeaderHeight();
+      }
+      window.addEventListener('resize', updateHeaderHeight);
+      window.addEventListener('load', updateHeaderHeight);
+
+      // Close mobile menu when items are clicked
+      document.addEventListener('DOMContentLoaded', function () {
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-nav a');
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', function () {
+            if (!this.classList.contains('dropdown-toggle')) {
+              closeMobileMenu();
+            }
+          });
+        });
+
+        const dropdownItems = document.querySelectorAll('.dropdown-menu a');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', function () {
+            closeMobileMenu();
+          });
+        });
+      });
+      //]]>
+    </script>
 
     <b:template-script async='true' name='indie' version='1.0.0'/>
   </body>
