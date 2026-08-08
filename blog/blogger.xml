@@ -3072,10 +3072,25 @@ margin-left:40px
         background: transparent !important;
       }
 
-      /* Styling post cards */
-      article.post,
-      .post-outer,
-      .widget.Blog {
+      /* Section Title link styling */
+      .section-title a {
+        text-decoration: none !important;
+        color: inherit !important;
+        display: inline-flex !important;
+        align-items: center !important;
+      }
+
+      .section-title a h3 {
+        cursor: pointer !important;
+        transition: color 0.3s ease, transform 0.2s ease !important;
+      }
+
+      .section-title a:hover h3 {
+        color: #0066b2 !important;
+      }
+
+      /* Styling post cards - ONLY apply to .post-outer to avoid nested cards */
+      .post-outer {
         background: #ffffff !important;
         border-radius: 12px !important;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
@@ -3086,6 +3101,18 @@ margin-left:40px
         transition: transform 0.3s ease, box-shadow 0.3s ease !important;
       }
 
+      /* Reset nested elements to prevent outer/inner tile nested styling */
+      article.post,
+      .widget.Blog,
+      .post-outer-container,
+      .blog-posts {
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+      }
+
       .post-outer:hover {
         transform: translateY(-4px) !important;
         box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12) !important;
@@ -3093,12 +3120,16 @@ margin-left:40px
 
       /* Responsive padding rules to avoid space crunch on smartphone and tablet */
       @media (max-width: 768px) {
-        article.post,
-        .post-outer,
-        .widget.Blog {
-          padding: 24px 16px !important;
-          margin-bottom: 24px !important;
+        .post-outer {
+          padding: 20px 16px !important; /* Single tile with full screen breathing room */
+          margin-bottom: 20px !important;
           border-radius: 8px !important;
+        }
+
+        /* Adjust wrapper margins and padding on phone screens to maximize screen space */
+        .centered-content-wrapper {
+          padding: 0 8px !important;
+          margin: 16px auto !important;
         }
 
         /* Prevent deep nesting indentation squishing on comments on phone screens */
@@ -3315,6 +3346,7 @@ margin-left:40px
           <div class="dropdown">
             <a href="#" class="dropdown-toggle">More</a>
             <div class="dropdown-menu">
+              <a href="https://insights.sahyadrico.com/">Sahyadri Insights (Blog)</a>
               <a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a>
               <a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a>
               <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
@@ -3341,6 +3373,7 @@ margin-left:40px
           <a href="https://sahyadrico.com/#about">About</a>
           <a href="https://sahyadrico.com/#awards">Awards</a>
           <a href="https://sahyadrico.com/#testimonials">Testimonials</a>
+          <a href="https://insights.sahyadrico.com/">Sahyadri Insights (Blog)</a>
           <a href="https://sahyadrico.com/well-and-dwell-interiors.html">Well &amp; Dwell Interiors</a>
           <a href="https://sahyadrico.com/sahyadri-properties.html">Sahyadri Properties</a>
           <a href="https://sahyadrico.com/recent-activity.html">Recent Activity</a>
@@ -3348,6 +3381,7 @@ margin-left:40px
           <div class="dropdown">
             <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
             <div class="dropdown-menu">
+              <a href="https://insights.sahyadrico.com/">Sahyadri Insights (Blog)</a>
               <a href="https://sahyadrico.com/ultra-modern-company.html">Ultra Modern Company</a>
               <a href="https://sahyadrico.com/experience-projects-360.html">Experience Projects in 360°</a>
               <a href="https://sahyadrico.com/transformations.html">Transformations</a>
@@ -3580,7 +3614,9 @@ margin-left:40px
               <main class='centered-bottom' id='main' role='main' tabindex='-1'>
                 <!-- Blog Title -->
                 <div class='section-title' style='margin-bottom: 32px;'>
-                  <h3>Sahyadri Insights</h3>
+                  <a expr:href='data:blog.homepageUrl' href='https://insights.sahyadrico.com/' title='Sahyadri Insights - Home'>
+                    <h3>Sahyadri Insights</h3>
+                  </a>
                 </div>
                 <b:if cond='data:view.isMultipleItems'>
                   <h2 class='main-heading'><data:messages.posts/></h2>
