@@ -5,7 +5,6 @@ cred.env
 
 # Firebase
 .firebase/
-firebase.json
 firebase_script.js
 hosting.*.cache
 
