@@ -1,9 +1,7 @@
 name: Checkout from Git (Versioning) and Deploy to Firebase (Hosting)
 
 on:
-  push:
-    branches:
-      - main # Your main branch which will be used for deployment
+  workflow_dispatch: # This enables the manual "Run workflow" button in GitHub
 
 jobs:
   deploy:
