@@ -1,0 +1,23 @@
+name: Checkout from Git (Versioning) and Deploy to Firebase (Hosting)
+
+on:
+  push:
+    branches:
+      - main # Your main branch which will be used for deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Pull code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Deploy using official Service Account action
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
+          projectId: sahyadri-61c65
+          channelId: live
