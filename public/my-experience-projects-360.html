@@ -1,19 +1,32 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Experience your personal 360° project views with Sahyadri Consultants. Explore your projects with interactive virtual tours." />
+  <meta name="description"
+    content="Experience your personal 360° project views with Sahyadri Consultants. Explore your projects with interactive virtual tours." />
   <title>My 360° Projects | Sahyadri Consultants</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
+  <!-- 1. Permanent Privacy Guard / Google Consent Mode v2 (Blocks tracking cookies forever) -->
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() { dataLayer.push(arguments); }
 
+    // Set default to denied. Since we have no banner, it stays denied forever.
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- 2. Active Google Analytics GA4 Script -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
+  <script>
+    gtag('js', new Date());
     gtag('config', 'G-WSNTJ1NCYN');
   </script>
 
@@ -28,25 +41,29 @@
       left: 0;
     }
   </style>
-     <!-- Essential for WhatsApp Link Preview -->
-    <meta property="og:title" content="My 360° Projects | Sahyadri Consultants" />
-    <meta property="og:description" content="Experience your personal 360° project views with interactive virtual tours." />
-    <meta property="og:image" content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
-    <meta property="og:url" content="https://sahyadri-61c65.web.app/my-experience-projects-360.html" />
-    <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="image_slider/BeerSlider.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
-    <style>
-        /* 2. Important: The photo sphere 360 viewer needs a height to be visible! */
-        #viewer {
-            width: 100%;
-            height: 500px;
-            background-color: #f0f0f0; /* Light gray while loading */
-        }
-    </style>
-    <!-- Photo Sphere Viewer Stylesheet -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css">
+  <!-- Essential for WhatsApp Link Preview -->
+  <meta property="og:title" content="My 360° Projects | Sahyadri Consultants" />
+  <meta property="og:description"
+    content="Experience your personal 360° project views with interactive virtual tours." />
+  <meta property="og:image"
+    content="https://sahyadri-61c65.web.app/resources/images/link_home_image_for_whatsapp.webp" />
+  <meta property="og:url" content="https://sahyadri-61c65.web.app/my-experience-projects-360.html" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="image_slider/BeerSlider.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core/index.min.css" />
+  <style>
+    /* 2. Important: The photo sphere 360 viewer needs a height to be visible! */
+    #viewer {
+      width: 100%;
+      height: 500px;
+      background-color: #f0f0f0;
+      /* Light gray while loading */
+    }
+  </style>
+  <!-- Photo Sphere Viewer Stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.css">
 </head>
+
 <body>
   <header class="container">
     <div class="topbar">
@@ -73,7 +90,7 @@
             <a href="recent-activity.html">Recent Activity</a>
           </div>
         </div>
-      <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
+        <a href="#" onclick="logout()" class="logout-link-header">Logout</a>
       </nav>
       <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
         <span></span>
@@ -108,20 +125,23 @@
 
   <section class="hero" aria-label="My 360° Projects Experience Hero">
     <img src="resources/images/homesuperimage_top.webp" alt="360° Project Experience Hero" />
-    
+
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="box">
         <h2>My Personal 360° Project Experience</h2>
-        <p>Explore your personal project collection in immersive 360° views. Experience your projects from every angle with interactive virtual tours.</p>
+        <p>Explore your personal project collection in immersive 360° views. Experience your projects from every angle
+          with interactive virtual tours.</p>
         <!-- <button class="btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'});">View My Projects</button> -->
       </div>
     </div>
   </section>
 
   <section id="projects" class="container">
-    <div class="section-title"><h3>My 360° View</h3></div>
-    
+    <div class="section-title">
+      <h3>My 360° View</h3>
+    </div>
+
     <!-- <div class="about-content-grid">
         <div>
           <p>Welcome to your personal 360° project experience. Here you can explore your specific projects with immersive virtual tours that bring your vision to life. Each 360° view allows you to experience your projects as if you were there, providing a comprehensive understanding of space and design details.</p>
@@ -134,20 +154,22 @@
 
     <!-- 360° Viewer Section -->
     <div id="project-loader" style="text-align: center; padding: 20px;">
-        <div class="loading-spinner" style="margin: 0 auto 10px;"></div>
-        <p>Loading your 360° projects...</p>
+      <div class="loading-spinner" style="margin: 0 auto 10px;"></div>
+      <p>Loading your 360° projects...</p>
     </div>
     <div id="project-viewer" style="display: none;">
-        <h3 id="project-title" style="text-align: center; margin-bottom: 20px; color: var(--primary);"></h3>
-        <iframe id="tour-embeded" name="" src="" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes" allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy"></iframe>
-        <script>
-          var pano_iframe_name = "tour-embeded";
-          window.addEventListener("devicemotion", function(e){ var iframe = document.getElementById(pano_iframe_name); if (iframe) iframe.contentWindow.postMessage({ type:"devicemotion", deviceMotionEvent:{ acceleration:{ x:e.acceleration.x, y:e.acceleration.y, z:e.acceleration.z }, accelerationIncludingGravity:{ x:e.accelerationIncludingGravity.x, y:e.accelerationIncludingGravity.y, z:e.accelerationIncludingGravity.z }, rotationRate:{ alpha:e.rotationRate.alpha, beta:e.rotationRate.beta, gamma:e.rotationRate.gamma }, interval:e.interval, timeStamp:e.timeStamp } }, "*"); });
-        </script>
+      <h3 id="project-title" style="text-align: center; margin-bottom: 20px; color: var(--primary);"></h3>
+      <iframe id="tour-embeded" name="" src="" frameBorder="0" width="100%" height="400px" scrolling="no" allowvr="yes"
+        allow="vr; xr; accelerometer; gyroscope; autoplay;" allowFullScreen="true" webkitallowfullscreen="true"
+        mozallowfullscreen="true" loading="lazy"></iframe>
+      <script>
+        var pano_iframe_name = "tour-embeded";
+        window.addEventListener("devicemotion", function (e) { var iframe = document.getElementById(pano_iframe_name); if (iframe) iframe.contentWindow.postMessage({ type: "devicemotion", deviceMotionEvent: { acceleration: { x: e.acceleration.x, y: e.acceleration.y, z: e.acceleration.z }, accelerationIncludingGravity: { x: e.accelerationIncludingGravity.x, y: e.accelerationIncludingGravity.y, z: e.accelerationIncludingGravity.z }, rotationRate: { alpha: e.rotationRate.alpha, beta: e.rotationRate.beta, gamma: e.rotationRate.gamma }, interval: e.interval, timeStamp: e.timeStamp } }, "*"); });
+      </script>
     </div>
   </section>
 
-  <footer id="contact">
+  <!-- <footer id="contact">
     <div class="container footer-grid">
       <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/whatsapp_logo.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
       <div><h5>Quick Links</h5><p><a href="#projects">Projects</a></p><p><a href="#about">About</a></p><p><a href="#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p></div>
@@ -156,155 +178,214 @@
     </div>
     <div class="container" style="text-align: center; padding: 20px 0; border-top: 1px solid #eee; margin-top: 40px;">
       <p style="margin: 0; color: #666; font-size: 0.9rem;">© 2026 Sahyadri Consultants (Kannur). All rights reserved. | <a href="#contact" style="color: inherit;">Privacy Policy</a> | <a href="#contact" style="color: inherit;">Terms of Service</a></p>
-      <p style="margin: 8px 0 0 0; color: #666; font-size: 0.8rem;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</p>
+      <p style="margin: 8px 0 0 0; color: #666; font-size: 0.8rem;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name. We build 100% tracker-free experiences because your privacy matters to us.</p>
     </div>
-  </footer>
+  </footer> -->
 
   <!-- Photo Sphere Viewer JavaScript -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/core@5/index.min.js"></script>
    -->
   <script>
-      // Fetch user's 360° projects from Google Sheets
-      async function loadUser360Projects() {
-          try {
-              console.log('🔍 Starting loadUser360Projects function');
-              
-              // Get username from localStorage
-              const username = localStorage.getItem('username');
-              console.log('👤 Username from localStorage:', username);
-              
-              if (!username) {
-                  console.log('❌ No username found in localStorage');
-                  showError('Please login to view your 360° projects.');
-                  return;
-              }
+    // Fetch user's 360° projects from Google Sheets
+    async function loadUser360Projects() {
+      try {
+        console.log('🔍 Starting loadUser360Projects function');
 
-              console.log('📡 Fetching data from Google Sheets...');
-              const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=845513265&single=true&output=csv');
-              console.log('📡 Response status:', response.status);
-              
-              const csvText = await response.text();
-              console.log('📄 Raw CSV text length:', csvText.length);
-              
-              // Simple CSV parsing - split by lines and get first data row
-              const lines = csvText.trim().split('\n');
-              console.log('📊 Total lines in CSV:', lines.length);
-              console.log('📊 Header line:', lines[0]);
-              
-              // Skip header and find user's row
-              for (let i = 1; i < lines.length; i++) {
-                  const line = lines[i].trim();
-                  console.log(`🔍 Processing line ${i}:`, line);
-                  
-                  if (line) {
-                      const [rowUsername, show360, projectName, projectUrl] = line.split(',');
-                      console.log(`📋 Parsed values - Username: "${rowUsername}", Show360: "${show360}", Project: "${projectName}", URL: "${projectUrl}"`);
-                      
-                      // Check if this row matches current user and show_360 is true
-                      console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
-                      console.log(`🔍 CSV Username length: ${rowUsername.length}, chars: [${Array.from(rowUsername).map(c => c.charCodeAt(0)).join(',')}]`);
-                      console.log(`🔍 Stored Username length: ${username.length}, chars: [${Array.from(username).map(c => c.charCodeAt(0)).join(',')}]`);
-                      console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
-                      console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
-                      console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
-                      
-                      // Debug: Test exact string comparison
-                      const directCompare = (rowUsername.trim() === username.trim());
-                      console.log(`🔍 Direct string comparison: ${directCompare}`);
-                      
-                      // More robust matching - check if stored username is contained in CSV username
-                      const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
-                      console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
-                      
-                      const show360Match = (show360 === 'yes' || show360 === 'true');
-                      console.log(`🔍 Show360 check: "${show360}" matches: ${show360Match}`);
-                      console.log(`🔍 ProjectName: "${projectName}", ProjectUrl: "${projectUrl}"`);
-                      console.log(`🔍 Final condition - Username: ${isUsernameMatch}, Show360: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
-                      
-                      if (isUsernameMatch && show360Match && projectName && projectUrl) {
-                          console.log('✅ Found matching project for user:', projectName);
-                          // Load user's 360° project
-                          loadProject(projectName, projectUrl);
-                          return; // Exit after finding user's project
-                      } else {
-                          console.log(`❌ No match - User: "${username.trim()}" vs "${rowUsername.trim()}", Contains: ${isUsernameMatch}, Show360: "${show360}", Show360Match: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
-                      }
-                  }
-              }
-              
-              // If no project found for user
-              console.log('❌ No matching project found for user');
-              showError('No 360° projects found for your account.');
-          } catch (error) {
-              console.error('❌ Error loading 360° projects:', error);
-              showError('Failed to load your 360° projects. Please try again later.');
+        // Get username from localStorage
+        const username = localStorage.getItem('username');
+        console.log('👤 Username from localStorage:', username);
+
+        if (!username) {
+          console.log('❌ No username found in localStorage');
+          showError('Please login to view your 360° projects.');
+          return;
+        }
+
+        console.log('📡 Fetching data from Google Sheets...');
+        const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=845513265&single=true&output=csv');
+        console.log('📡 Response status:', response.status);
+
+        const csvText = await response.text();
+        console.log('📄 Raw CSV text length:', csvText.length);
+
+        // Simple CSV parsing - split by lines and get first data row
+        const lines = csvText.trim().split('\n');
+        console.log('📊 Total lines in CSV:', lines.length);
+        console.log('📊 Header line:', lines[0]);
+
+        // Skip header and find user's row
+        for (let i = 1; i < lines.length; i++) {
+          const line = lines[i].trim();
+          console.log(`🔍 Processing line ${i}:`, line);
+
+          if (line) {
+            const [rowUsername, show360, projectName, projectUrl] = line.split(',');
+            console.log(`📋 Parsed values - Username: "${rowUsername}", Show360: "${show360}", Project: "${projectName}", URL: "${projectUrl}"`);
+
+            // Check if this row matches current user and show_360 is true
+            console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
+            console.log(`🔍 CSV Username length: ${rowUsername.length}, chars: [${Array.from(rowUsername).map(c => c.charCodeAt(0)).join(',')}]`);
+            console.log(`🔍 Stored Username length: ${username.length}, chars: [${Array.from(username).map(c => c.charCodeAt(0)).join(',')}]`);
+            console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
+            console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
+            console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
+
+            // Debug: Test exact string comparison
+            const directCompare = (rowUsername.trim() === username.trim());
+            console.log(`🔍 Direct string comparison: ${directCompare}`);
+
+            // More robust matching - check if stored username is contained in CSV username
+            const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
+            console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
+
+            const show360Match = (show360 === 'yes' || show360 === 'true');
+            console.log(`🔍 Show360 check: "${show360}" matches: ${show360Match}`);
+            console.log(`🔍 ProjectName: "${projectName}", ProjectUrl: "${projectUrl}"`);
+            console.log(`🔍 Final condition - Username: ${isUsernameMatch}, Show360: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
+
+            if (isUsernameMatch && show360Match && projectName && projectUrl) {
+              console.log('✅ Found matching project for user:', projectName);
+              // Load user's 360° project
+              loadProject(projectName, projectUrl);
+              return; // Exit after finding user's project
+            } else {
+              console.log(`❌ No match - User: "${username.trim()}" vs "${rowUsername.trim()}", Contains: ${isUsernameMatch}, Show360: "${show360}", Show360Match: ${show360Match}, Project: ${!!projectName}, URL: ${!!projectUrl}`);
+            }
           }
-      }
+        }
 
-      function loadProject(projectName, projectUrl) {
-          console.log('🎬 loadProject called with:', projectName, projectUrl);
-          const loader = document.getElementById('project-loader');
-          const viewer = document.getElementById('project-viewer');
-          const titleElement = document.getElementById('project-title');
-          const iframe = document.getElementById('tour-embeded');
-          
-          console.log('🔍 Elements found - Loader:', !!loader, 'Viewer:', !!viewer, 'Title:', !!titleElement, 'Iframe:', !!iframe);
-          
-          // Hide loader and show viewer
-          loader.style.display = 'none';
-          viewer.style.display = 'block';
-          
-          console.log('🔍 Display styles updated - Loader display:', loader.style.display, 'Viewer display:', viewer.style.display);
-          
-          // Set project details
-          titleElement.textContent = projectName;
-          iframe.name = projectName;
-          iframe.src = projectUrl;
-          
-          console.log('✅ Project loaded - Title:', titleElement.textContent, 'Iframe src:', iframe.src);
+        // If no project found for user
+        console.log('❌ No matching project found for user');
+        showError('No 360° projects found for your account.');
+      } catch (error) {
+        console.error('❌ Error loading 360° projects:', error);
+        showError('Failed to load your 360° projects. Please try again later.');
       }
+    }
 
-      function showError(message) {
-          const loader = document.getElementById('project-loader');
-          loader.innerHTML = `<p style="color: #dc3545; text-align: center;">${message}</p>`;
-      }
+    function loadProject(projectName, projectUrl) {
+      console.log('🎬 loadProject called with:', projectName, projectUrl);
+      const loader = document.getElementById('project-loader');
+      const viewer = document.getElementById('project-viewer');
+      const titleElement = document.getElementById('project-title');
+      const iframe = document.getElementById('tour-embeded');
 
-      function logout() {
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('username');
-          window.location.href = 'login.html';
-      }
+      console.log('🔍 Elements found - Loader:', !!loader, 'Viewer:', !!viewer, 'Title:', !!titleElement, 'Iframe:', !!iframe);
 
-      // Initialize on page load
-      document.addEventListener('DOMContentLoaded', function() {
-          loadUser360Projects();
-          
-          // Set dynamic My Page links with username
-          const username = localStorage.getItem('username');
-          const mypageLinks = ['mypage-link-desktop', 'mypage-link-mobile'];
-          mypageLinks.forEach(linkId => {
-              const link = document.getElementById(linkId);
-              if (link && username) {
-                  link.href = `user-dashboard.html?user=${username}`;
-              }
-          });
+      // Hide loader and show viewer
+      loader.style.display = 'none';
+      viewer.style.display = 'block';
+
+      console.log('🔍 Display styles updated - Loader display:', loader.style.display, 'Viewer display:', viewer.style.display);
+
+      // Set project details
+      titleElement.textContent = projectName;
+      iframe.name = projectName;
+      iframe.src = projectUrl;
+
+      console.log('✅ Project loaded - Title:', titleElement.textContent, 'Iframe src:', iframe.src);
+    }
+
+    function showError(message) {
+      const loader = document.getElementById('project-loader');
+      loader.innerHTML = `<p style="color: #dc3545; text-align: center;">${message}</p>`;
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('username');
+      window.location.href = 'login.html';
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      loadUser360Projects();
+
+      // Set dynamic My Page links with username
+      const username = localStorage.getItem('username');
+      const mypageLinks = ['mypage-link-desktop', 'mypage-link-mobile'];
+      mypageLinks.forEach(linkId => {
+        const link = document.getElementById(linkId);
+        if (link && username) {
+          link.href = `user-dashboard.html?user=${username}`;
+        }
       });
+    });
   </script>
   <footer id="contact" style="margin-top: 60px;">
     <div class="container footer-grid">
-      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
-      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p><p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p><p><a href="sahyadri-properties.html">Sahyadri Properties</a></p><p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Sahya, our AI Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p></div>
-      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
-      <div><h5>Working Hours</h5><p>Mon - Sat: 9:30 AM - 5:30 PM</p><p>Sun: Closed</p></div>
+      <div>
+        <h5>Sahyadri Consultants</h5>
+        <p>Pallikunnu KP Road, Kannur, Kerala</p>
+        <p>Email: sahyadriconsultantsindia@gmail.com</p>
+        <p>Phone: +91 9074497780</p>
+        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a
+            href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="index.html#projects">Projects</a></p>
+        <p><a href="index.html#about">About</a></p>
+        <p><a href="index.html#testimonials">Testimonials</a></p>
+        <p><a href="awards.html">Awards</a></p>
+        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
+        <p><a href="transformations.html">Transformations</a></p>
+        <p><a href="recent-activity.html">Recent Activity</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="login.html">Talk to Sahya, our AI Assistant</a></p>
+        <p><a href="industry-insights.html">Industry Insights</a></p>
+      </div>
+      <div>
+        <h5>Our Values</h5>
+        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+      </div>
+      <div>
+        <h5>Working Hours</h5>
+        <p>Mon - Sat: 9:30 AM - 5:30 PM</p>
+        <p>Sun: Closed</p>
+      </div>
     </div>
-    <div class="footer-bottom"> 
+    <div class="footer-bottom">
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
+        engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide.
+        Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and
+        are entirely independent of any other organizations sharing the Sahyadri name. We build 100% tracker-free
+        experiences because your privacy matters to us.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
   <script src="script.js"></script>
   <script type="module" src="firebase_script.js"></script>
 </body>
+
 </html>

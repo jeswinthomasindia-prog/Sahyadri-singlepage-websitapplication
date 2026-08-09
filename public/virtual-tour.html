@@ -7,13 +7,24 @@
   <title>Virtual Tour | Sahyadri Consultants</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
+  <!-- 1. Permanent Privacy Guard / Google Consent Mode v2 (Blocks tracking cookies forever) -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
+    // Set default to denied. Since we have no banner, it stays denied forever.
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+  </script>
+
+  <!-- 2. Active Google Analytics GA4 Script -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
+  <script>
+    gtag('js', new Date());
     gtag('config', 'G-WSNTJ1NCYN');
   </script>
 
@@ -158,7 +169,7 @@
     </div>
     <div class="container footer-bottom"> 
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name. We build 100% tracker-free experiences because your privacy matters to us.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
