@@ -53,24 +53,35 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 6. Force visibility for scroll-reveal animations & fix 100vh layout stretches
+    // 6. Force slider recalculation & selective reveal styling
+    await page.evaluate(() => {
+      // Trigger resize event so Swiper/Slick recalculates dimensions
+      window.dispatchEvent(new Event('resize'));
+
+      // If Swiper instance exists, force update
+      const swipers = document.querySelectorAll('.swiper-container, .swiper');
+      swipers.forEach((s: any) => {
+        if (s.swiper) s.swiper.update();
+      });
+    });
+
     await page.addStyleTag({
       content: `
-        /* Unfreeze scroll-reveal animations (AOS / GSAP) */
-        *, *::before, *::after {
+        /* Unfreeze scroll reveals (AOS/GSAP/WOW) WITHOUT touching slider transforms */
+        [data-aos], .aos-init, .wow {
           animation: none !important;
           transition: none !important;
           opacity: 1 !important;
           visibility: visible !important;
           transform: none !important;
         }
-        
-        /* Force hero and full-screen sections to lock to standard desktop height instead of expanding dynamically */
-        .hero, section, header {
+
+        /* Prevent 100vh hero sections from expanding infinitely in fullPage screenshot */
+        .hero, header {
           max-height: 1080px !important;
         }
 
-        /* Ensure HTML and Body allow proper document flow */
+        /* Allow natural document flow */
         html, body {
           overflow: visible !important;
           height: auto !important;
@@ -78,7 +89,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       `,
     });
 
-    // Wait for all image decoding
+    // Wait for all image decoding to complete
     await page.evaluate(async () => {
       const images = Array.from(document.querySelectorAll('img'));
       await Promise.all(
