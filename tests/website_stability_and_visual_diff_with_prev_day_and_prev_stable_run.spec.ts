@@ -17,7 +17,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
 
-    // 3. Force lazy images to eager load without breaking layout sources
+    // 3. Force lazy images to eager load without breaking sources
     await page.evaluate(() => {
       document.querySelectorAll('img').forEach((img) => {
         img.setAttribute('loading', 'eager');
@@ -28,11 +28,11 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 4. Smooth natural scroll down to trigger all IntersectionObservers cleanly
+    // 4. Smooth natural scroll down to trigger observers
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
-        const distance = 250;
+        const distance = 300;
         const timer = setInterval(() => {
           const scrollHeight = document.body.scrollHeight;
           window.scrollBy(0, distance);
@@ -41,23 +41,23 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
             clearInterval(timer);
             resolve();
           }
-        }, 100);
+        }, 80);
       });
     });
 
-    // 5. Target video elements on-demand & force browser frame rendering
+    // 5. Target video elements on-demand & cleanly render frame 0
     const videoLocators = page.locator('video');
     const videoCount = await videoLocators.count();
 
     for (let i = 0; i < videoCount; i++) {
       const video = videoLocators.nth(i);
 
-      // Scroll slightly past video to trigger observer, then align back
+      // Scroll video into view so lazy loading triggers
       await video.scrollIntoViewIfNeeded();
-      await page.waitForTimeout(300);
+      await page.waitForTimeout(400);
 
       await video.evaluate(async (v: HTMLVideoElement) => {
-        // 1. Resolve custom data attributes on video & source tags
+        // Resolve lazy attributes on child source tags
         v.querySelectorAll('source').forEach((source) => {
           const sSrc = source.getAttribute('data-src') || source.getAttribute('data-lazy-src');
           if (sSrc && !source.src) source.src = sSrc;
@@ -68,17 +68,11 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
 
         if (!v.src && !v.currentSrc && !v.querySelector('source[src]')) return;
 
-        v.removeAttribute('autoplay');
         v.muted = true;
         v.playsInline = true;
 
-        // Force media load if not started
-        if (v.readyState === 0) {
-          v.load();
-        }
-
-        // Wait until video data is loaded
         if (v.readyState < 2) {
+          v.load();
           await new Promise((resolve) => {
             const onDataReady = () => {
               v.removeEventListener('loadeddata', onDataReady);
@@ -93,61 +87,38 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
           });
         }
 
-        // Play briefly to force frame rendering pipeline onto canvas, then pause on frame 0
-        try {
-          const playPromise = v.play();
-          if (playPromise !== undefined) {
-            await playPromise;
-          }
-        } catch (e) {
-          // Autoplay policy fallback
-        }
-
+        // Pause cleanly at frame 0
         v.pause();
         v.currentTime = 0;
-
-        if (v.currentTime !== 0) {
-          await new Promise((resolve) => {
-            v.addEventListener('seeked', resolve, { once: true });
-            setTimeout(resolve, 500);
-          });
-        }
       });
     }
 
-    // Scroll back to top to align top layout elements
+    // 6. Neutralize AOS scroll-animation attributes safely WITHOUT breaking CSS layout transforms
+    await page.evaluate(() => {
+      document.querySelectorAll('[data-aos], .aos-init, .wow').forEach((el) => {
+        el.removeAttribute('data-aos');
+        el.classList.remove('aos-init', 'aos-animate', 'wow');
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.visibility = 'visible';
+      });
+    });
+
+    // Reset scroll back to top
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(500);
 
-    // 6. Refresh sliders & layout engines without breaking CSS calculations
+    // 7. Refresh sliders and trigger resize re-calculations
     await page.evaluate(() => {
-      // Swiper support
       const swipers = document.querySelectorAll('.swiper-container, .swiper');
       swipers.forEach((s: any) => {
         if (s && s.swiper && typeof s.swiper.update === 'function') {
           s.swiper.update();
         }
       });
-
-      // Dispatch resize event to recalculate responsive container widths
       window.dispatchEvent(new Event('resize'));
     });
 
-    // 7. Target targeted CSS overrides ONLY for hiding scroll animations (avoids breaking layout height/flex)
-    await page.addStyleTag({
-      content: `
-        /* Disable CSS animations/transitions while preserving element layout & opacity */
-        [data-aos], .aos-init, .wow {
-          animation: none !important;
-          transition: none !important;
-          opacity: 1 !important;
-          transform: none !important;
-          visibility: visible !important;
-        }
-      `,
-    });
-
-    // Ensure all images are fully loaded and rendered
+    // Ensure image loads and decodes finish
     await page.evaluate(async () => {
       const images = Array.from(document.querySelectorAll('img'));
       await Promise.all(
@@ -161,7 +132,6 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       );
     });
 
-    // Settling delay for layout rendering
     await page.waitForTimeout(1500);
 
     // Snapshot Management & File Paths Setup
