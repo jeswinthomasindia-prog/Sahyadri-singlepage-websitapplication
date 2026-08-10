@@ -54,7 +54,8 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       // Scroll video into view so lazy loading triggers naturally
       await video.scrollIntoViewIfNeeded();
 
-      await page.evaluate(async (v) => {
+      // Evaluate directly on the locator element to avoid Playwright serialization errors
+      await video.evaluate(async (v: HTMLVideoElement) => {
         // 1. Resolve data-src on child <source> elements if present
         v.querySelectorAll('source').forEach((source) => {
           const sourceDataSrc = source.getAttribute('data-src');
@@ -104,7 +105,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
             setTimeout(resolve, 1000);
           });
         }
-      }, video);
+      });
     }
 
     // Scroll back to top after triggering visual elements
