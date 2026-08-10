@@ -35,27 +35,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 5. Inject CSS overrides BEFORE scrolling to prevent layout collapses
-    await page.addStyleTag({
-      content: `
-        /* Unfreeze scroll reveals (AOS/GSAP/WOW) without breaking slider transforms */
-        [data-aos], .aos-init, .wow {
-          animation: none !important;
-          transition: none !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-        }
-
-        /* Ensure document containers maintain full natural height */
-        html, body, main, #app, #root {
-          overflow: visible !important;
-          height: auto !important;
-          min-height: 100% !important;
-        }
-      `,
-    });
-
-    // 6. Gradual Auto-Scroll down and back up to trigger lazy components
+    // 5. Gradual Auto-Scroll down and back up to trigger lazy components
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
@@ -73,15 +53,34 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 7. Force recalculation for sliders and layout engines after scrolling
+    // 6. Safe slider update (prevents JS errors)
     await page.evaluate(() => {
-      window.dispatchEvent(new Event('resize'));
-      window.dispatchEvent(new Event('scroll'));
-
       const swipers = document.querySelectorAll('.swiper-container, .swiper');
       swipers.forEach((s: any) => {
-        if (s.swiper) s.swiper.update();
+        if (s && s.swiper && typeof s.swiper.update === 'function') {
+          s.swiper.update();
+        }
       });
+    });
+
+    // 7. Inject CSS overrides AFTER scrolling to permanently reveal all sections
+    await page.addStyleTag({
+      content: `
+        /* Force reveal all hidden scroll animations (AOS/GSAP/WOW) */
+        [data-aos], .aos-init, .wow, section, div {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        /* Ensure document containers maintain full natural height */
+        html, body, main, #app, #root {
+          overflow: visible !important;
+          height: auto !important;
+          min-height: 100% !important;
+        }
+      `,
     });
 
     // Wait for image network requests/decodes to resolve
