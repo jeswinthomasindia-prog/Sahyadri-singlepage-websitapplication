@@ -17,12 +17,44 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
 
-    // 3. Pause hero videos on Frame 0
-    await page.evaluate(() => {
-      document.querySelectorAll('video').forEach((v) => {
-        v.pause();
-        v.currentTime = 0;
-      });
+    // 3. Force load lazy videos (e.g., preload="none") & freeze on Frame 0
+    await page.evaluate(async () => {
+      const videos = Array.from(document.querySelectorAll('video'));
+
+      await Promise.all(
+        videos.map((v) => {
+          // Force lazy-loaded video elements to start fetching
+          if (v.getAttribute('preload') === 'none') {
+            v.setAttribute('preload', 'auto');
+            v.load();
+          }
+
+          // Force load poster image as a fallback
+          const poster = v.getAttribute('poster');
+          if (poster) {
+            const img = new Image();
+            img.src = poster;
+          }
+
+          // Pause video at frame 0 once metadata is ready
+          return new Promise<void>((resolve) => {
+            if (v.readyState >= 1) { // HAVE_METADATA or higher
+              v.pause();
+              v.currentTime = 0;
+              resolve();
+            } else {
+              v.addEventListener('loadedmetadata', () => {
+                v.pause();
+                v.currentTime = 0;
+                resolve();
+              }, { once: true });
+
+              // Fallback timeout in case video network request stalls
+              setTimeout(resolve, 2500);
+            }
+          });
+        })
+      );
     });
 
     // 4. Force lazy images to eager load
