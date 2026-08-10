@@ -17,7 +17,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
 
-    // 3. Pause all hero videos on Frame 0 (renders the video cover without frame shifts)
+    // 3. Pause hero videos on Frame 0
     await page.evaluate(() => {
       document.querySelectorAll('video').forEach((v) => {
         v.pause();
@@ -35,7 +35,27 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 5. Gradual Auto-Scroll to trigger scroll observers & dynamic components
+    // 5. Inject CSS overrides BEFORE scrolling to prevent layout collapses
+    await page.addStyleTag({
+      content: `
+        /* Unfreeze scroll reveals (AOS/GSAP/WOW) without breaking slider transforms */
+        [data-aos], .aos-init, .wow {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        /* Ensure document containers maintain full natural height */
+        html, body, main, #app, #root {
+          overflow: visible !important;
+          height: auto !important;
+          min-height: 100% !important;
+        }
+      `,
+    });
+
+    // 6. Gradual Auto-Scroll down and back up to trigger lazy components
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
@@ -49,47 +69,22 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
             window.scrollTo(0, 0); // Scroll back to top
             resolve();
           }
-        }, 120);
+        }, 100);
       });
     });
 
-    // 6. Force slider recalculation & selective reveal styling
+    // 7. Force recalculation for sliders and layout engines after scrolling
     await page.evaluate(() => {
-      // Trigger resize event so Swiper/Slick recalculates dimensions
       window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new Event('scroll'));
 
-      // If Swiper instance exists, force update
       const swipers = document.querySelectorAll('.swiper-container, .swiper');
       swipers.forEach((s: any) => {
         if (s.swiper) s.swiper.update();
       });
     });
 
-    await page.addStyleTag({
-      content: `
-        /* Unfreeze scroll reveals (AOS/GSAP/WOW) WITHOUT touching slider transforms */
-        [data-aos], .aos-init, .wow {
-          animation: none !important;
-          transition: none !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          transform: none !important;
-        }
-
-        /* Prevent 100vh hero sections from expanding infinitely in fullPage screenshot */
-        .hero, header {
-          max-height: 1080px !important;
-        }
-
-        /* Allow natural document flow */
-        html, body {
-          overflow: visible !important;
-          height: auto !important;
-        }
-      `,
-    });
-
-    // Wait for all image decoding to complete
+    // Wait for image network requests/decodes to resolve
     await page.evaluate(async () => {
       const images = Array.from(document.querySelectorAll('img'));
       await Promise.all(
@@ -132,7 +127,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Save today's capture to disk
     fs.writeFileSync(todayRunPath, currentBuffer);
 
-    // 7. Visual Checks
+    // 8. Visual Checks
     await expect(page).toHaveScreenshot('stable-baseline.png', {
       fullPage: true,
       maxDiffPixelRatio: 0.03, // 3% pixel tolerance
