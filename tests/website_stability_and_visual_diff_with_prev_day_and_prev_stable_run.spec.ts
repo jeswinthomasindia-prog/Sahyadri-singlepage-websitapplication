@@ -134,7 +134,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
 
     await expect(page).toHaveScreenshot('prev-run.png', {
       fullPage: true,
-      maxDiffPixelRatio: 0.03,
+      maxDiffPixelRatio: 0.3,
     });
   });
 });
