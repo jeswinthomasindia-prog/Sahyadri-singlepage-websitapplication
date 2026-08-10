@@ -63,3 +63,25 @@ jobs:
           name: visual-diff-report
           path: test-results/
           retention-days: 7
+
+      # 6. Send Email Notification on Failure
+      - name: Send Email Notification on Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "❌ Visual Diff Test Failed: ${{ github.repository }}"
+          to: jeswinthomas.india@gmail.com
+          from: GitHub Actions <no-reply@github.com>
+          body: |
+            The Daily Visual Diff / Stability check failed for repository ${{ github.repository }}.
+
+            Workflow: ${{ github.workflow }}
+            Run ID: ${{ github.run_id }}
+            Branch: ${{ github.ref_name }}
+
+            View run details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
