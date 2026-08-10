@@ -3,14 +3,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 test.describe('Sahyadri Consultants - Health (whether website is up or not) & Visual Checks', () => {
-
   test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }) => {
-    // 1. HTTP Uptime Check
-    const response = await page.goto('https://sahyadrico.com/', { waitUntil: 'domcontentloaded' });
+    // 1. HTTP Uptime Check & Full Network Idle Load
+    const response = await page.goto('https://sahyadrico.com/', {
+      waitUntil: 'networkidle', // Wait until network activity settles
+      timeout: 60000,
+    });
     expect(response?.status()).toBe(200);
 
     // Ensure all web fonts are fully rendered
     await page.evaluate(() => document.fonts.ready);
+
+    // Ensure main page container is loaded and visible
+    await page.waitForSelector('body', { state: 'visible' });
 
     // 2. Smooth Auto-Scroll to trigger lazy-loaded assets & project cards
     await page.evaluate(async () => {
@@ -30,7 +35,8 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    await page.waitForTimeout(1000);
+    // Pause to allow dynamic images and components to fully hydrate/render
+    await page.waitForTimeout(3000);
 
     // Freeze CSS animations & hide video frame playback to avoid false diffs
     await page.addStyleTag({
@@ -79,5 +85,4 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       maxDiffPixelRatio: 0.03,
     });
   });
-
 });
