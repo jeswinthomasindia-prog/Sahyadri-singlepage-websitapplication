@@ -60,3 +60,4 @@ yarn.lock
 #Snapshot files(avoid commiting todays yesterdays file to save space,we will only save last baseline file)
 prev-run.png
 today-run.png
+stable-baseline - Copy.png
