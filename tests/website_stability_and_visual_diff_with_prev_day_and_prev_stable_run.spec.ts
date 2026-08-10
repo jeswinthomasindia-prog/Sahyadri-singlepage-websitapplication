@@ -4,20 +4,30 @@ import * as path from 'path';
 
 test.describe('Sahyadri Consultants - Health (whether website is up or not) & Visual Checks', () => {
   test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }) => {
-    // 1. HTTP Uptime Check & Full Network Idle Load
+    // 1. Set standard desktop viewport
+    await page.setViewportSize({ width: 1920, height: 1080 });
+
+    // 2. HTTP Uptime Check & Full Network Idle Load
     const response = await page.goto('https://sahyadrico.com/', {
       waitUntil: 'networkidle',
       timeout: 60000,
     });
     expect(response?.status()).toBe(200);
 
-    // Ensure all web fonts are fully rendered
+    // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
 
-    // Force all images to eager load & decode immediately
-    await page.evaluate(async () => {
-      const images = Array.from(document.querySelectorAll('img'));
-      images.forEach((img) => {
+    // 3. Pause all hero videos on Frame 0 (renders the video cover without frame shifts)
+    await page.evaluate(() => {
+      document.querySelectorAll('video').forEach((v) => {
+        v.pause();
+        v.currentTime = 0;
+      });
+    });
+
+    // 4. Force lazy images to eager load
+    await page.evaluate(() => {
+      document.querySelectorAll('img').forEach((img) => {
         img.setAttribute('loading', 'eager');
         if (img.getAttribute('data-src')) {
           img.src = img.getAttribute('data-src')!;
@@ -25,11 +35,11 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 2. Slow, Gradual Auto-Scroll to trigger scroll-based animations and lazy loaders
+    // 5. Gradual Auto-Scroll to trigger scroll observers & dynamic components
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
-        const distance = 150; // Smaller step size
+        const distance = 200;
         const timer = setInterval(() => {
           const scrollHeight = document.body.scrollHeight;
           window.scrollBy(0, distance);
@@ -39,15 +49,40 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
             window.scrollTo(0, 0); // Scroll back to top
             resolve();
           }
-        }, 150); // Slightly longer pause between scroll steps
+        }, 120);
       });
     });
 
-    // Wait for all <img> tags to completely finish loading
+    // 6. Force visibility for scroll-reveal animations & fix 100vh layout stretches
+    await page.addStyleTag({
+      content: `
+        /* Unfreeze scroll-reveal animations (AOS / GSAP) */
+        *, *::before, *::after {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          transform: none !important;
+        }
+        
+        /* Force hero and full-screen sections to lock to standard desktop height instead of expanding dynamically */
+        .hero, section, header {
+          max-height: 1080px !important;
+        }
+
+        /* Ensure HTML and Body allow proper document flow */
+        html, body {
+          overflow: visible !important;
+          height: auto !important;
+        }
+      `,
+    });
+
+    // Wait for all image decoding
     await page.evaluate(async () => {
-      const selectors = Array.from(document.querySelectorAll('img'));
+      const images = Array.from(document.querySelectorAll('img'));
       await Promise.all(
-        selectors.map((img) => {
+        images.map((img) => {
           if (img.complete) return Promise.resolve();
           return new Promise((resolve) => {
             img.addEventListener('load', resolve);
@@ -57,16 +92,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       );
     });
 
-    // Extra timeout for framework hydration and rendering
-    await page.waitForTimeout(4000);
-
-    // Freeze CSS animations & hide video frame playback to avoid false diffs
-    await page.addStyleTag({
-      content: `
-        * { animation: none !important; transition: none !important; }
-        video { opacity: 0 !important; visibility: hidden !important; }
-      `,
-    });
+    await page.waitForTimeout(3000);
 
     // File Directories & Paths Setup
     const snapshotsDir = path.join(process.cwd(), 'snapshots');
@@ -78,7 +104,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       fs.mkdirSync(snapshotsDir, { recursive: true });
     }
 
-    // Capture current live page screenshot
+    // Capture full page screenshot
     const currentBuffer = await page.screenshot({ fullPage: true });
 
     // Initial Run Fallback Logic
@@ -95,13 +121,12 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Save today's capture to disk
     fs.writeFileSync(todayRunPath, currentBuffer);
 
-    // 3. Visual Check A: Against Stable Baseline
+    // 7. Visual Checks
     await expect(page).toHaveScreenshot('stable-baseline.png', {
       fullPage: true,
       maxDiffPixelRatio: 0.03, // 3% pixel tolerance
     });
 
-    // 4. Visual Check B: Against Previous Run Snapshot
     await expect(page).toHaveScreenshot('prev-run.png', {
       fullPage: true,
       maxDiffPixelRatio: 0.03,
