@@ -5,7 +5,7 @@ import * as path from 'path';
 test.describe('Sahyadri Consultants - Health (whether website is up or not) & Visual Checks', () => {
   test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }) => {
     // 1. Set standard desktop viewport
-    await page.setViewportSize({ width: 1920, height: 1080 });
+    await page.setViewportSize({ width: 1280, height: 720 });
 
     // 2. HTTP Uptime Check & Full Network Idle Load
     const response = await page.goto('https://sahyadrico.com/', {
