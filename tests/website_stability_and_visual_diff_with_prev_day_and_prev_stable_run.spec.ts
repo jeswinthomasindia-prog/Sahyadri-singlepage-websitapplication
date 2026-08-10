@@ -6,7 +6,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
   test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }) => {
     // 1. HTTP Uptime Check & Full Network Idle Load
     const response = await page.goto('https://sahyadrico.com/', {
-      waitUntil: 'networkidle', // Wait until network activity settles
+      waitUntil: 'networkidle',
       timeout: 60000,
     });
     expect(response?.status()).toBe(200);
@@ -14,14 +14,22 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Ensure all web fonts are fully rendered
     await page.evaluate(() => document.fonts.ready);
 
-    // Ensure main page container is loaded and visible
-    await page.waitForSelector('body', { state: 'visible' });
+    // Force all images to eager load & decode immediately
+    await page.evaluate(async () => {
+      const images = Array.from(document.querySelectorAll('img'));
+      images.forEach((img) => {
+        img.setAttribute('loading', 'eager');
+        if (img.getAttribute('data-src')) {
+          img.src = img.getAttribute('data-src')!;
+        }
+      });
+    });
 
-    // 2. Smooth Auto-Scroll to trigger lazy-loaded assets & project cards
+    // 2. Slow, Gradual Auto-Scroll to trigger scroll-based animations and lazy loaders
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
-        const distance = 300;
+        const distance = 150; // Smaller step size
         const timer = setInterval(() => {
           const scrollHeight = document.body.scrollHeight;
           window.scrollBy(0, distance);
@@ -31,12 +39,26 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
             window.scrollTo(0, 0); // Scroll back to top
             resolve();
           }
-        }, 100);
+        }, 150); // Slightly longer pause between scroll steps
       });
     });
 
-    // Pause to allow dynamic images and components to fully hydrate/render
-    await page.waitForTimeout(3000);
+    // Wait for all <img> tags to completely finish loading
+    await page.evaluate(async () => {
+      const selectors = Array.from(document.querySelectorAll('img'));
+      await Promise.all(
+        selectors.map((img) => {
+          if (img.complete) return Promise.resolve();
+          return new Promise((resolve) => {
+            img.addEventListener('load', resolve);
+            img.addEventListener('error', resolve);
+          });
+        })
+      );
+    });
+
+    // Extra timeout for framework hydration and rendering
+    await page.waitForTimeout(4000);
 
     // Freeze CSS animations & hide video frame playback to avoid false diffs
     await page.addStyleTag({
