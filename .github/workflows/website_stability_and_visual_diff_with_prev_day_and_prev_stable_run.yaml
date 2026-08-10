@@ -1,0 +1,66 @@
+name: Website Stability and Visual Diff (Previous Day & Stable Baseline)
+
+on:
+  schedule:
+    # Runs daily at 1:00 AM IST (19:30 UTC)
+    - cron: '30 19 * * *'
+  workflow_dispatch:
+
+jobs:
+  nightly-check:
+    name: Uptime & Visual Inspection
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm ci || npm install @playwright/test
+          npx playwright install --with-deps chromium
+
+      # 1. Restore Yesterday's Output from Cache
+      - name: Restore Previous Run Snapshot
+        uses: actions/cache/restore@v4
+        with:
+          path: snapshots/today-run.png
+          key: sahyadri-daily-snapshot-${{ github.run_id }}
+          restore-keys: |
+            sahyadri-daily-snapshot-
+
+      # 2. Prepare Yesterday Snapshot for Test
+      - name: Prepare Yesterday Snapshot for Test
+        run: |
+          mkdir -p snapshots
+          if [ -f "snapshots/today-run.png" ]; then
+            cp snapshots/today-run.png snapshots/prev-run.png
+            echo "Successfully restored yesterday's snapshot as prev-run.png"
+          fi
+
+      # 3. Execute Uptime & Visual Tests
+      - name: Run Playwright Visual Tests
+        run: npx playwright test
+
+      # 4. Save Today's New Snapshot to Cache for Tomorrow
+      - name: Save Today Snapshot for Tomorrow
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: snapshots/today-run.png
+          key: sahyadri-daily-snapshot-${{ github.run_id }}
+
+      # 5. Upload Failure Diffs if Test Fails
+      - name: Upload Test Report on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diff-report
+          path: test-results/
+          retention-days: 7
