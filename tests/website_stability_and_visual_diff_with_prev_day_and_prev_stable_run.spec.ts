@@ -17,7 +17,15 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
 
-    // 3. Force lazy images to eager load
+    // 3. Pause hero videos on Frame 0
+    await page.evaluate(() => {
+      document.querySelectorAll('video').forEach((v) => {
+        v.pause();
+        v.currentTime = 0;
+      });
+    });
+
+    // 4. Force lazy images to eager load
     await page.evaluate(() => {
       document.querySelectorAll('img').forEach((img) => {
         img.setAttribute('loading', 'eager');
@@ -27,89 +35,23 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // 4. Scroll through page to trigger standard section lazy observers
+    // 5. Gradual Auto-Scroll down and back up to trigger lazy components
     await page.evaluate(async () => {
       await new Promise<void>((resolve) => {
         let totalHeight = 0;
-        const distance = 400;
+        const distance = 200;
         const timer = setInterval(() => {
           const scrollHeight = document.body.scrollHeight;
           window.scrollBy(0, distance);
           totalHeight += distance;
           if (totalHeight >= scrollHeight) {
             clearInterval(timer);
+            window.scrollTo(0, 0); // Scroll back to top
             resolve();
           }
-        }, 50);
+        }, 100);
       });
     });
-
-    // 5. Target video elements on-demand when scrolled into view (saves bandwidth & fixes white screens)
-    const videoLocators = page.locator('video');
-    const videoCount = await videoLocators.count();
-
-    for (let i = 0; i < videoCount; i++) {
-      const video = videoLocators.nth(i);
-
-      // Scroll video into view so lazy loading triggers naturally
-      await video.scrollIntoViewIfNeeded();
-
-      // Evaluate directly on the locator element to avoid Playwright serialization errors
-      await video.evaluate(async (v: HTMLVideoElement) => {
-        // 1. Resolve data-src on child <source> elements if present
-        v.querySelectorAll('source').forEach((source) => {
-          const sourceDataSrc = source.getAttribute('data-src');
-          if (sourceDataSrc && !source.src) {
-            source.src = sourceDataSrc;
-          }
-        });
-
-        // 2. Resolve custom lazy-loading attributes on the <video> element
-        const dataSrc = v.getAttribute('data-src');
-        if (dataSrc && !v.src) {
-          v.src = dataSrc;
-        }
-
-        // Skip video tags without any source attached
-        if (!v.src && !v.currentSrc && !v.querySelector('source[src]')) return;
-
-        // Strip autoplay to prevent videos from continuing during snapshot
-        v.removeAttribute('autoplay');
-
-        // Force fetch media if loading hasn't initiated yet
-        if (v.readyState === 0) {
-          v.load();
-        }
-
-        // Wait until first frame data is loaded
-        if (v.readyState < 2) { // HAVE_CURRENT_DATA or higher
-          await new Promise((resolve) => {
-            const onDataReady = () => {
-              v.removeEventListener('loadeddata', onDataReady);
-              v.removeEventListener('error', onDataReady);
-              resolve(true);
-            };
-            v.addEventListener('loadeddata', onDataReady);
-            v.addEventListener('error', onDataReady);
-            setTimeout(resolve, 3000); // Safety fallback timeout
-          });
-        }
-
-        v.pause();
-
-        // Wait for frame seek completion to prevent white/blank frames
-        if (v.currentTime !== 0) {
-          await new Promise((resolve) => {
-            v.addEventListener('seeked', resolve, { once: true });
-            v.currentTime = 0;
-            setTimeout(resolve, 1000);
-          });
-        }
-      });
-    }
-
-    // Scroll back to top after triggering visual elements
-    await page.evaluate(() => window.scrollTo(0, 0));
 
     // 6. Safe slider update (prevents JS errors)
     await page.evaluate(() => {
@@ -121,7 +63,27 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       });
     });
 
-    // Ensure all image elements complete decoding
+    // 7. Inject CSS overrides AFTER scrolling to permanently reveal all sections
+    await page.addStyleTag({
+      content: `
+        /* Force reveal all hidden scroll animations (AOS/GSAP/WOW) */
+        [data-aos], .aos-init, .wow, section, div {
+          animation: none !important;
+          transition: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+
+        /* Ensure document containers maintain full natural height */
+        html, body, main, #app, #root {
+          overflow: visible !important;
+          height: auto !important;
+          min-height: 100% !important;
+        }
+      `,
+    });
+
+    // Wait for image network requests/decodes to resolve
     await page.evaluate(async () => {
       const images = Array.from(document.querySelectorAll('img'));
       await Promise.all(
@@ -135,7 +97,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       );
     });
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(3000);
 
     // File Directories & Paths Setup
     const snapshotsDir = path.join(process.cwd(), 'snapshots');
@@ -155,6 +117,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       console.log('Initial run: Initializing Stable Baseline snapshot.');
       fs.writeFileSync(stableBaselinePath, currentBuffer);
     }
+
     if (!fs.existsSync(prevRunPath)) {
       console.log('Initial run: Initializing Previous Run snapshot.');
       fs.writeFileSync(prevRunPath, currentBuffer);
