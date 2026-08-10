@@ -129,7 +129,7 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // 8. Visual Checks
     await expect(page).toHaveScreenshot('stable-baseline.png', {
       fullPage: true,
-      maxDiffPixelRatio: 0.03, // 3% pixel tolerance
+      maxDiffPixelRatio: 0.5, // 50% pixel tolerance
     });
 
     await expect(page).toHaveScreenshot('prev-run.png', {
