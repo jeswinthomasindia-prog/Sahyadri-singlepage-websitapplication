@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 test.describe('Sahyadri Consultants - Health (whether website is up or not) & Visual Checks', () => {
-  test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }) => {
+  test('Homepage - Uptime, Previous Run & Stable Baseline Visual Check', async ({ page }, testInfo) => {
     // 1. Set standard desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
 
@@ -99,17 +99,22 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
 
     await page.waitForTimeout(3000);
 
-    // File Directories & Paths Setup
+    // Setup Output Directories
     const snapshotsDir = path.join(process.cwd(), 'snapshots');
-    const stableBaselinePath = path.join(snapshotsDir, 'stable-baseline.png');
-    const prevRunPath = path.join(snapshotsDir, 'prev-run.png');
-    const todayRunPath = path.join(snapshotsDir, 'today-run.png');
+    const testResultsDir = path.join(process.cwd(), 'test-results');
 
     if (!fs.existsSync(snapshotsDir)) {
       fs.mkdirSync(snapshotsDir, { recursive: true });
     }
+    if (!fs.existsSync(testResultsDir)) {
+      fs.mkdirSync(testResultsDir, { recursive: true });
+    }
 
-    // Capture full page screenshot
+    const stableBaselinePath = path.join(snapshotsDir, 'stable-baseline.png');
+    const prevRunPath = path.join(snapshotsDir, 'prev-run.png');
+    const todayRunPath = path.join(snapshotsDir, 'today-run.png');
+
+    // Capture current full-page screenshot
     const currentBuffer = await page.screenshot({ fullPage: true });
 
     // Initial Run Fallback Logic
@@ -123,10 +128,19 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
       fs.writeFileSync(prevRunPath, currentBuffer);
     }
 
-    // Save today's capture to disk
+    // Save today's capture to snapshots folder
     fs.writeFileSync(todayRunPath, currentBuffer);
 
-    // 8. Visual Checks
+    // ALWAYS save a copy to test-results/ so it is uploaded as a build artifact
+    fs.writeFileSync(path.join(testResultsDir, 'current-run-actual.png'), currentBuffer);
+    
+    // Attach current run image directly to test results report
+    await testInfo.attach('current-run-actual', {
+      body: currentBuffer,
+      contentType: 'image/png',
+    });
+
+    // 8. Visual Checks (Passes when diff < 50%, Fails when diff >= 50%)
     await expect(page).toHaveScreenshot('stable-baseline.png', {
       fullPage: true,
       maxDiffPixelRatio: 0.5, // 50% pixel tolerance
