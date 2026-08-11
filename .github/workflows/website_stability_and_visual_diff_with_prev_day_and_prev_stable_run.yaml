@@ -64,6 +64,10 @@ jobs:
           name: visual-snapshots
           path: snapshots/
           retention-days: 7
+      
+      - name: Upload Test Report & Diffs
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: visual-diff-report
           path: test-results/
