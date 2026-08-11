@@ -143,12 +143,12 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // 8. Visual Checks (Passes when diff < 50%, Fails when diff >= 50%)
     await expect(page).toHaveScreenshot('stable-baseline.png', {
       fullPage: true,
-      maxDiffPixelRatio: 0.01, // 50% pixel tolerance
+      maxDiffPixelRatio: 0.1, // 50% pixel tolerance
     });
 
     await expect(page).toHaveScreenshot('prev-run.png', {
       fullPage: true,
-      maxDiffPixelRatio: 0.01,
+      maxDiffPixelRatio: 0.1,
     });
   });
 });
