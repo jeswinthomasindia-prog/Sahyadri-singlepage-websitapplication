@@ -9,7 +9,7 @@ on:
 jobs:
   nightly-check:
     name: Uptime & Visual Inspection
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Updated to Node 22 to prevent deprecation warnings
+          node-version: 22
 
       - name: Install Dependencies
         run: |
@@ -30,18 +30,19 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: snapshots/today-run.png
-          key: sahyadri-daily-snapshot-${{ github.run_id }}
+          key: sahyadri-daily-snapshot-${{ github.sha }}
           restore-keys: |
             sahyadri-daily-snapshot-
 
-      # 2. Prepare Yesterday Snapshot for Test
+      # 2. Prepare Yesterday Snapshot for Test (Windows PowerShell Native)
       - name: Prepare Yesterday Snapshot for Test
+        shell: powershell
         run: |
-          mkdir -p snapshots
-          if [ -f "snapshots/today-run.png" ]; then
-            cp snapshots/today-run.png snapshots/prev-run.png
-            echo "Successfully restored yesterday's snapshot as prev-run.png"
-          fi
+          New-Item -ItemType Directory -Force -Path snapshots
+          if (Test-Path "snapshots/today-run.png") {
+            Copy-Item "snapshots/today-run.png" "snapshots/prev-run.png" -Force
+            Write-Host "Successfully restored yesterday's snapshot as prev-run.png"
+          }
 
       # 3. Execute Uptime & Visual Tests
       - name: Run Playwright Visual Tests
