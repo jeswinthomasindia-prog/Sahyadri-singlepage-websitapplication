@@ -58,7 +58,7 @@ jobs:
 
       # 5. Upload Failure Diffs if Test Fails
       - name: Upload Test Report on Failure
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: visual-diff-report
