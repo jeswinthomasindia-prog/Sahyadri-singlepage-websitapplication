@@ -56,10 +56,14 @@ jobs:
           path: snapshots/today-run.png
           key: sahyadri-daily-snapshot-${{ github.run_id }}
 
-      # 5. Upload Failure Diffs if Test Fails
-      - name: Upload Test Report on Failure
+      # 5. Upload Snapshots on Every Run
+      - name: Upload Snapshots Artifact
         if: always()
         uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: snapshots/
+          retention-days: 7
         with:
           name: visual-diff-report
           path: test-results/
