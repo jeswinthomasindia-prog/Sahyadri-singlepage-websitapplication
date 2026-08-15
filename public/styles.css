@@ -3885,3 +3885,181 @@ footer a:hover {
     transform: none;
   }
 }
+
+/* ==========================================================================
+/* ==========================================================================
+   Cookie & Privacy Consent Preferences Modal (GDPR / ePrivacy)
+   ========================================================================== */
+
+/* Button styles for Modal */
+.sc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.sc-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Allow button: Brand blue theme */
+.sc-btn-allow {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(0, 57, 101, 0.2);
+}
+
+.sc-btn-allow:hover {
+  background: #002b4d;
+  border-color: #002b4d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 57, 101, 0.3);
+}
+
+/* Neutral button: light gray */
+.sc-btn-neutral {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.sc-btn-neutral:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+/* Backdrop */
+.sc-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: rgba(0, 24, 45, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sc-modal-backdrop.sc-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Card layout */
+.sc-modal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sc-modal-backdrop.sc-visible .sc-modal-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Body container */
+.sc-modal-body {
+  padding: 32px;
+}
+
+/* Title inside modal body */
+.sc-modal-body h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.35rem;
+  color: var(--primary);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* Text style */
+.sc-modal-text {
+  margin: 0 0 28px 0;
+  font-size: 0.96rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Modal actions wrapper */
+.sc-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Footer Cookie Preferences Link / Trigger */
+.footer-cookie-settings-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.footer-cookie-settings-btn:hover {
+  color: var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 560px) {
+  .sc-modal-backdrop {
+    padding: 16px;
+  }
+
+  .sc-modal-card {
+    border-radius: 12px;
+  }
+
+  .sc-modal-body {
+    padding: 24px;
+  }
+
+  .sc-modal-body h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+
+  .sc-modal-text {
+    font-size: 0.88rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .sc-modal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sc-modal-actions .sc-btn {
+    width: 100%;
+    min-height: 42px;
+  }
+}

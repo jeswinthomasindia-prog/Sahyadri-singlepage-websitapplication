@@ -9,26 +9,35 @@
   <title>About Us | Sahyadri Consultants</title>
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
 
-  <!-- 1. Permanent Privacy Guard / Google Consent Mode v2 (Blocks tracking cookies forever) -->
+    <!-- 1. GDPR / ePrivacy / Google Consent Mode v2 Initialization -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
 
-    // Set default to denied. Since we have no banner, it stays denied forever.
+    // Set default consent state before GA4 loads (GDPR / Consent Mode v2)
     gtag('consent', 'default', {
       'analytics_storage': 'denied',
       'ad_storage': 'denied',
       'ad_user_data': 'denied',
-      'ad_personalization': 'denied'
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
     });
   </script>
 
-  <!-- 2. Active Google Analytics GA4 Script -->
+  <!-- 2. Active Google Analytics GA4 Script (Privacy-First with IP Anonymization) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
   <script>
     gtag('js', new Date());
-    gtag('config', 'G-WSNTJ1NCYN');
+    gtag('config', 'G-WSNTJ1NCYN', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false,
+      'restricted_data_processing': true
+    });
   </script>
+
+  <!-- 3. GDPR Privacy & Consent Manager -->
+  <script src="privacy-consent.js"></script>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -186,6 +195,7 @@
         <p><a href="login.html">Login</a></p>
         <p><a href="login.html">Talk to Sahya, our AI Assistant</a></p>
         <p><a href="industry-insights.html">Industry Insights</a></p>
+        <p><button type="button" class="footer-cookie-settings-btn" data-action="open-cookie-preferences">Browsing & Privacy Preferences</button></p>
       </div>
       <div>
         <h5>Our Values</h5>
@@ -202,7 +212,7 @@
       <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
         engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide.
         Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and
-        are entirely independent of any other organizations sharing the Sahyadri name. We build 100% tracker-free experiences because your privacy matters to us.</span>
+        are entirely independent of any other organizations sharing the Sahyadri name. We adhere to strict global privacy standards (GDPR, ePrivacy, CCPA) with Google Consent Mode v2 and IP anonymization.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
@@ -213,6 +223,7 @@
     class="whatsapp-float" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
   </a>
+  <script src="analytics-tracker.js"></script>
 </body>
 
 </html>
