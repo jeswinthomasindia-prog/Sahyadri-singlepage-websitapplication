@@ -716,9 +716,9 @@
             <!-- <label for="modelSelect" class="model-label">Model:</label> -->
             <div class="model-select-border">
               <select id="modelSelect" class="model-select">
-                <option value="llama-3.1-8b-instant">Sahya Classic</option>
-                <option value="llama-3.3-70b-versatile">Sahya Pro</option>
-                <option value="qwen/qwen3-32b">Sahya Air</option>
+                <option value="openai/gpt-oss-20b">Sahya Classic</option>
+                <option value="openai/gpt-oss-120b">Sahya Pro</option>
+                <option value="qwen/qwen3.8-27b">Sahya Air</option>
               </select>
             </div>
           </div>
@@ -887,8 +887,8 @@
       }
     }
 
-    let DEFAULT_MODEL_NAME = "llama-3.1-8b-instant";
-    const FALLBACK_MODELS = ["qwen/qwen3-32b", "llama-3.3-70b-versatile"];
+    let DEFAULT_MODEL_NAME = "openai/gpt-oss-20b";
+    const FALLBACK_MODELS = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b"];
     const API_VERSION_CANDIDATES = ["v1"];
 
     // Initialize API keys
