@@ -566,6 +566,16 @@ async function handleLogin(event) {
     // // // console.log('🔑 Password provided:', passwordValue ? '***' : '[empty]');
     
     if (allowedUsers[usernameValue] && allowedUsers[usernameValue] === passwordValue) {
+      // Discreet location authentication check for user 'sahya'
+      if (usernameValue.toLowerCase() === 'sahya') {
+        const isLocationAllowed = await checkAllowedLocation();
+        if (!isLocationAllowed) {
+          showStatus('Invalid username or password.', 'error');
+          hideLoadingSpinner();
+          return;
+        }
+      }
+
       // // // console.log('✅ Login successful for user:', usernameValue);
       // // // console.log('🎯 Expected password:', allowedUsers[usernameValue]);
       // // // console.log('🎯 Provided password matches:', passwordValue === allowedUsers[usernameValue] ? 'YES' : 'NO');
@@ -604,6 +614,65 @@ async function handleLogin(event) {
     showStatus('Login failed. Please try again.', 'error');
     hideLoadingSpinner();
   }
+}
+
+async function checkAllowedLocation() {
+  const fetchWithTimeout = async (url, timeoutMs = 3500) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(timer);
+      return response;
+    } catch (err) {
+      clearTimeout(timer);
+      throw err;
+    }
+  };
+
+  const isAllowed = (data) => {
+    if (!data) return false;
+    const countryCode = String(data.country_code || data.countryCode || '').toUpperCase().trim();
+    const country = String(data.country || data.country_name || data.countryName || '').toLowerCase().trim();
+    const region = String(data.region || data.region_name || data.regionName || '').toLowerCase().trim();
+    const regionCode = String(data.region_code || data.regionCode || '').toUpperCase().trim();
+
+    const isIndia = countryCode === 'IN' || country.includes('india');
+    if (!isIndia) return false;
+
+    const isKerala = region.includes('kerala') || regionCode === 'KL';
+    const isTamilNadu = region.includes('tamil nadu') || region.includes('tamilnadu') || regionCode === 'TN';
+    return isKerala || isTamilNadu;
+  };
+
+  // Provider 1: ipwho.is
+  try {
+    const res = await fetchWithTimeout('https://ipwho.is/');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success !== false) return isAllowed(data);
+    }
+  } catch (e) {}
+
+  // Provider 2: get.geojs.io
+  try {
+    const res = await fetchWithTimeout('https://get.geojs.io/v1/ip/geo.json');
+    if (res.ok) {
+      const data = await res.json();
+      if (data) return isAllowed(data);
+    }
+  } catch (e) {}
+
+  // Provider 3: freeipapi.com
+  try {
+    const res = await fetchWithTimeout('https://freeipapi.com/api/json');
+    if (res.ok) {
+      const data = await res.json();
+      if (data) return isAllowed(data);
+    }
+  } catch (e) {}
+
+  return false;
 }
 
 function showLoadingSpinner() {
@@ -647,7 +716,13 @@ function initializeLogin() {
     // User is already logged in, redirect to dashboard or overview
     console.log(`User ${username} is already logged in, redirecting...`);
     if (username.toLowerCase() === 'sahya') {
-      window.location.href = 'overview.html';
+      checkAllowedLocation().then(isAllowed => {
+        if (isAllowed) {
+          window.location.href = 'overview.html';
+        } else {
+          logout();
+        }
+      });
     } else {
       window.location.href = `user-dashboard.html?user=${username}`;
     }

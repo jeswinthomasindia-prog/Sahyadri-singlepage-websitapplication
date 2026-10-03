@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +11,11 @@
   <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
 
   <!-- Auth Guard: Restrict access to logged-in user 'sahya' only -->
+  <style id="authHideStyle">
+    body {
+      display: none !important;
+    }
+  </style>
   <script>
     (function () {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -22,13 +28,17 @@
   </script>
   <noscript>
     <meta http-equiv="refresh" content="0;url=login.html" />
-    <style>body { display: none !important; }</style>
+    <style>
+      body {
+        display: none !important;
+      }
+    </style>
   </noscript>
 
   <!-- 1. GDPR / ePrivacy / Google Consent Mode v2 Initialization -->
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
 
     // Set default consent state before GA4 loads (GDPR / Consent Mode v2)
     gtag('consent', 'default', {
@@ -366,6 +376,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header copied from login.html -->
   <header class="container">
@@ -445,10 +456,12 @@
         <div class="card-top-header">
           <div>
             <h2 class="card-main-title">⚡ Website Stability & Visual Diff Tracker</h2>
-            <p class="card-sub-title">Tracking <code>website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml</code></p>
+            <p class="card-sub-title">Tracking
+              <code>website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml</code></p>
           </div>
           <div class="header-action-links">
-            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml" target="_blank" rel="noopener noreferrer" class="action-pill-btn">
+            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml"
+              target="_blank" rel="noopener noreferrer" class="action-pill-btn">
               Workflow ↗
             </a>
           </div>
@@ -469,7 +482,8 @@
             <p class="card-sub-title">Tracking <code>pr-check.yaml</code></p>
           </div>
           <div class="header-action-links">
-            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/pr-check.yaml" target="_blank" rel="noopener noreferrer" class="action-pill-btn">
+            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/pr-check.yaml"
+              target="_blank" rel="noopener noreferrer" class="action-pill-btn">
               Workflow ↗
             </a>
           </div>
@@ -487,16 +501,74 @@
   <!-- Footer copied from login.html -->
   <footer id="contact">
     <div class="container footer-grid">
-      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
-      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p><p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
-        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Sahya, our AI Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p>
-        <p><button type="button" class="footer-cookie-settings-btn" data-action="open-cookie-preferences">Browsing & Privacy Preferences</button></p></div>
-      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
-      <div><h5>Working Hours</h5><p>Mon - Sat:9:30 AM - 5:30 PM</p><p>Sun: Closed</p></div>
+      <div>
+        <h5>Sahyadri Consultants</h5>
+        <p>Pallikunnu KP Road, Kannur, Kerala</p>
+        <p>Email: sahyadriconsultantsindia@gmail.com</p>
+        <p>Phone: +91 9074497780</p>
+        <div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a
+            href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/youtube_logo.svg" alt="YouTube"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/Instagram_logo.svg" alt="Instagram"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/threads_logo.svg" alt="Threads"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="resources/images/facebook_logo.svg" alt="Facebook"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a
+            href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services."
+            target="_blank" rel="noopener noreferrer"
+            style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;"
+            onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"
+              style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p><a href="index.html">Home</a></p>
+        <p><a href="index.html#projects">Projects</a></p>
+        <p><a href="index.html#about">About</a></p>
+        <p><a href="index.html#testimonials">Testimonials</a></p>
+        <p><a href="awards.html">Awards</a></p>
+        <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p>
+        <p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p>
+        <p><a href="transformations.html">Transformations</a></p>
+        <p><a href="recent-activity.html">Recent Activity</a></p>
+        <p><a href="login.html">Login</a></p>
+        <p><a href="login.html">Talk to Sahya, our AI Assistant</a></p>
+        <p><a href="industry-insights.html">Industry Insights</a></p>
+        <p><button type="button" class="footer-cookie-settings-btn" data-action="open-cookie-preferences">Browsing &
+            Privacy Preferences</button></p>
+      </div>
+      <div>
+        <h5>Our Values</h5>
+        <p>Integrity, Quality, Customer Focus, Sustainability.</p>
+      </div>
+      <div>
+        <h5>Working Hours</h5>
+        <p>Mon - Sat:9:30 AM - 5:30 PM</p>
+        <p>Sun: Closed</p>
+      </div>
     </div>
-    <div class="container footer-bottom"> 
+    <div class="container footer-bottom">
       <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
-      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name. We adhere to strict global privacy standards (GDPR, ePrivacy, CCPA) with Google Consent Mode v2 and IP anonymization.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural,
+        engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide.
+        Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and
+        are entirely independent of any other organizations sharing the Sahyadri name. We adhere to strict global
+        privacy standards (GDPR, ePrivacy, CCPA) with Google Consent Mode v2 and IP anonymization.</span>
       <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
     </div>
   </footer>
@@ -681,19 +753,93 @@
       localStorage.removeItem('nextSteps');
       localStorage.removeItem('percentageCompleted');
       localStorage.removeItem('chatSummary');
-      console.log('User logged out, localStorage cleared');
-      window.location.href = 'login.html';
+      sessionStorage.clear();
+      window.location.replace('login.html');
     }
 
     function checkAuth() {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       const username = (localStorage.getItem('username') || '').trim().toLowerCase();
       if (isLoggedIn !== 'true' || username !== 'sahya') {
-        document.documentElement.style.display = 'none';
-        window.location.replace('login.html');
+        logout();
         return false;
       }
       return true;
+    }
+
+    async function checkAllowedLocation() {
+      const fetchWithTimeout = async (url, timeoutMs = 3500) => {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeoutMs);
+        try {
+          const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+          clearTimeout(timer);
+          return response;
+        } catch (err) {
+          clearTimeout(timer);
+          throw err;
+        }
+      };
+
+      const isAllowed = (data) => {
+        if (!data) return false;
+        const countryCode = String(data.country_code || data.countryCode || '').toUpperCase().trim();
+        const country = String(data.country || data.country_name || data.countryName || '').toLowerCase().trim();
+        const region = String(data.region || data.region_name || data.regionName || '').toLowerCase().trim();
+        const regionCode = String(data.region_code || data.regionCode || '').toUpperCase().trim();
+
+        const isIndia = countryCode === 'IN' || country.includes('india');
+        if (!isIndia) return false;
+
+        const isKerala = region.includes('kerala') || regionCode === 'KL';
+        const isTamilNadu = region.includes('tamil nadu') || region.includes('tamilnadu') || regionCode === 'TN';
+        return isKerala || isTamilNadu;
+      };
+
+      try {
+        const res = await fetchWithTimeout('https://ipwho.is/');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success !== false) return isAllowed(data);
+        }
+      } catch (e) {}
+
+      try {
+        const res = await fetchWithTimeout('https://get.geojs.io/v1/ip/geo.json');
+        if (res.ok) {
+          const data = await res.json();
+          if (data) return isAllowed(data);
+        }
+      } catch (e) {}
+
+      try {
+        const res = await fetchWithTimeout('https://freeipapi.com/api/json');
+        if (res.ok) {
+          const data = await res.json();
+          if (data) return isAllowed(data);
+        }
+      } catch (e) {}
+
+      return false;
+    }
+
+    async function initOverviewPage() {
+      if (!checkAuth()) {
+        return;
+      }
+
+      const isAllowed = await checkAllowedLocation();
+      if (!isAllowed) {
+        logout();
+        return;
+      }
+
+      const hideStyle = document.getElementById('authHideStyle');
+      if (hideStyle) {
+        hideStyle.remove();
+      }
+
+      loadAllWorkflows();
     }
 
     document.getElementById('refreshAllBtn').addEventListener('click', () => {
@@ -702,9 +848,8 @@
       }
     });
 
-    if (checkAuth()) {
-      loadAllWorkflows();
-    }
+    initOverviewPage();
   </script>
 </body>
+
 </html>
