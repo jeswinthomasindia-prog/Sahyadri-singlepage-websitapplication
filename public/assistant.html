@@ -1161,13 +1161,6 @@ Feel free to reach out to us through any of these channels. We're here to help w
       if (history.length === lastSavedHistoryLength && hasLastSummary) {
         return lastSummary.trim();
       }
-
-      await apiKeysLoaded;
-      const apiKey = GROQ_API_KEY.trim();
-      if (!apiKey || apiKey === "YOUR_GROQ_API_KEY_HERE") {
-        throw new Error("GROQ API key not configured.");
-      }
-
       // Filter out initial greeting text to prevent duplication of previous summary in history
       const filteredHistory = history.filter(item => {
         if (!item || !item.text) return false;
