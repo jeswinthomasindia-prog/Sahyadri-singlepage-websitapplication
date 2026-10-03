@@ -377,8 +377,9 @@ async function showStatusTile(username) {
     workDoneEl.textContent = cachedWorkDone || 'Work details not available';
     nextStepsEl.textContent = cachedNextSteps || 'Next steps not available';
     if (percentageCompletedEl && cachedPercentage) {
-      percentageCompletedEl.textContent = cachedPercentage.includes('%') || cachedPercentage === 'N/A' ? cachedPercentage : cachedPercentage + '%';
-      updateProgressBar(cachedPercentage);
+      const pctStr = String(cachedPercentage).trim();
+      percentageCompletedEl.textContent = pctStr.includes('%') || pctStr === 'N/A' ? pctStr : pctStr + '%';
+      updateProgressBar(pctStr);
     }
     if (chatSummaryEl && cachedChatSummary) {
       chatSummaryEl.textContent = cachedChatSummary.replaceAll(';', ',');
@@ -403,7 +404,8 @@ async function showStatusTile(username) {
   workDoneEl.textContent = statusData.workDone;
   nextStepsEl.textContent = statusData.nextSteps;
   if (percentageCompletedEl) {
-    const pct = statusData.percentageCompleted || 'N/A';
+    const rawPct = statusData.percentageCompleted;
+    const pct = String(rawPct !== undefined && rawPct !== null && rawPct !== '' ? rawPct : 'N/A').trim();
     percentageCompletedEl.textContent = pct.includes('%') || pct === 'N/A' ? pct : pct + '%';
     updateProgressBar(pct);
   }
