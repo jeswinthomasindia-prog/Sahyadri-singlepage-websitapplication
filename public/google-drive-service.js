@@ -205,14 +205,14 @@ class GoogleDriveService {
           minute: '2-digit',
           second: '2-digit',
           hour12: true
-        }));
+        }).replaceAll(',', ''));
 
     console.log(`Recording driveLastUsed timestamp for user ${username}: ${formattedTime}`);
 
     if (typeof window.updateSheetUserStatus === 'function') {
       await window.updateSheetUserStatus(username, { driveLastUsed: formattedTime });
     } else {
-      let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL;
+      let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
       if (!webAppUrl) {
         try {
           const resp = await fetch('./cred.env');
@@ -244,7 +244,8 @@ class GoogleDriveService {
             body: JSON.stringify({
               username: username,
               driveLastUsed: formattedTime
-            })
+            }),
+            keepalive: true
           });
         } catch (err) {
           console.error('Error posting driveLastUsed to Google Apps Script:', err);

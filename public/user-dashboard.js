@@ -48,7 +48,7 @@ function initializeDashboard() {
           minute: '2-digit',
           second: '2-digit',
           hour12: true
-        });
+        }).replaceAll(',', '');
 
     if (typeof window.updateSheetUserStatus === 'function') {
       window.updateSheetUserStatus(currentUser, { lastLogin: loginTime });
@@ -57,11 +57,15 @@ function initializeDashboard() {
     statusPromise = showStatusTile(currentUser);
   }
 
-  // Attach listener to artifactList for Drive button clicks to record driveLastUsed
-  if (artifactList) {
-    artifactList.addEventListener('click', (e) => {
-      const link = e.target.closest('a');
-      if (link && currentUser) {
+  // Attach click listener to record driveLastUsed whenever any Drive button or artifact link is clicked
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (link && currentUser) {
+      const isDriveLink = link.classList.contains('folder-link') ||
+                          link.classList.contains('artifact-link') ||
+                          (link.href && link.href.includes('drive.google.com')) ||
+                          (link.closest && link.closest('#artifactList'));
+      if (isDriveLink) {
         const timestamp = typeof window.getHumanReadableTimestamp === 'function'
           ? window.getHumanReadableTimestamp()
           : new Date().toLocaleString('en-US', {
@@ -72,7 +76,7 @@ function initializeDashboard() {
               minute: '2-digit',
               second: '2-digit',
               hour12: true
-            });
+            }).replaceAll(',', '');
 
         if (window.googleDriveService && typeof window.googleDriveService.recordDriveClick === 'function') {
           window.googleDriveService.recordDriveClick(currentUser, timestamp);
@@ -80,8 +84,8 @@ function initializeDashboard() {
           window.updateSheetUserStatus(currentUser, { driveLastUsed: timestamp });
         }
       }
-    });
-  }
+    }
+  });
 
   // Load artifacts for the current user
   let artifactsPromise = Promise.resolve();

@@ -1,6 +1,8 @@
 // Load API keys from cred.env file
 let allowedUsers = {};
 let GOOGLE_SHEETS_API_KEY;
+let GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+window.GOOGLE_APPS_SCRIPT_URL = GOOGLE_APPS_SCRIPT_URL;
 
 async function loadApiKeys() {
   try {
@@ -478,7 +480,7 @@ function getHumanReadableTimestamp() {
     minute: '2-digit',
     second: '2-digit',
     hour12: true
-  });
+  }).replaceAll(',', '');
 }
 window.getHumanReadableTimestamp = getHumanReadableTimestamp;
 
@@ -486,7 +488,7 @@ async function updateSheetUserStatus(username, updateData) {
   try {
     if (!username) return;
 
-    let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '');
+    let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec");
     if (!webAppUrl) {
       try {
         const resp = await fetch('./cred.env');
@@ -525,7 +527,8 @@ async function updateSheetUserStatus(username, updateData) {
       headers: {
         'Content-Type': 'text/plain'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      keepalive: true
     });
   } catch (error) {
     console.error('Error updating Google Sheet user status:', error);
@@ -572,7 +575,7 @@ async function handleLogin(event) {
       
       // Store login timestamp in Google Sheets under lastLogin field
       const loginTimestamp = getHumanReadableTimestamp();
-      updateSheetUserStatus(usernameValue, { lastLogin: loginTimestamp });
+      await updateSheetUserStatus(usernameValue, { lastLogin: loginTimestamp });
 
       // Store login state
       localStorage.setItem('isLoggedIn', 'true');
