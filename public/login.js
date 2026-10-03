@@ -587,9 +587,13 @@ async function handleLogin(event) {
       localStorage.removeItem('percentageCompleted');
       localStorage.removeItem('chatSummary');
       
-      // Redirect to user dashboard (keep spinner active during transition)
+      // Redirect to overview.html for user 'sahya', otherwise user dashboard (keep spinner active during transition)
       setTimeout(() => {
-        window.location.href = `user-dashboard.html?user=${usernameValue}`;
+        if (usernameValue.toLowerCase() === 'sahya') {
+          window.location.href = 'overview.html';
+        } else {
+          window.location.href = `user-dashboard.html?user=${usernameValue}`;
+        }
       }, 1500);
     } else {
       showStatus('Invalid username or password.', 'error');
@@ -640,9 +644,13 @@ function initializeLogin() {
   const username = localStorage.getItem('username');
   
   if (isLoggedIn === 'true' && username) {
-    // User is already logged in, redirect to dashboard
-    console.log(`User ${username} is already logged in, redirecting to dashboard...`);
-    window.location.href = `user-dashboard.html?user=${username}`;
+    // User is already logged in, redirect to dashboard or overview
+    console.log(`User ${username} is already logged in, redirecting...`);
+    if (username.toLowerCase() === 'sahya') {
+      window.location.href = 'overview.html';
+    } else {
+      window.location.href = `user-dashboard.html?user=${username}`;
+    }
     return;
   }
 
