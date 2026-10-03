@@ -142,7 +142,10 @@ async function handleLogin(event) {
     );
 
     if (isAuthenticated) {
-      const canonicalUsername = (authResult.data && authResult.data.username) || authResult.username || usernameValue;
+      const canonicalUsername = (authResult.data && authResult.data.username) || 
+                                (authResult.message && authResult.message.username) || 
+                                authResult.username || 
+                                usernameValue;
 
       // // // console.log('✅ Login successful for user:', usernameValue);
       // // // console.log('🎯 Expected password:', allowedUsers[usernameValue]);

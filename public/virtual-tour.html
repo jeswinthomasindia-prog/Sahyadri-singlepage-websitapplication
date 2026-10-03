@@ -185,7 +185,9 @@
   </footer>
 
   <script>
-      // Fetch user's walkthrough from Google Sheets
+      const GOOGLE_APPS_SCRIPT_URL = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+
+      // Fetch user's walkthrough via Google Apps Script proxy
       async function loadUserWalkthrough() {
           try {
               console.log('🔍 Starting loadUserWalkthrough function');
@@ -200,58 +202,35 @@
                   return;
               }
 
-              console.log('📡 Fetching data from Google Sheets...');
-              const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=2018183995&single=true&output=csv');
-              console.log('📡 Response status:', response.status);
-              
-              const csvText = await response.text();
-              console.log('📄 Raw CSV text length:', csvText.length);
-              
-              // Simple CSV parsing - split by lines and get first data row
-              const lines = csvText.trim().split('\n');
-              console.log('📊 Total lines in CSV:', lines.length);
-              console.log('📊 Header line:', lines[0]);
-              
-              // Skip header and find user's row
-              for (let i = 1; i < lines.length; i++) {
-                  const line = lines[i].trim();
-                  console.log(`🔍 Processing line ${i}:`, line);
-                  
-                  if (line) {
-                      const [rowUsername, showWalkthrough, walkthroughUrl, url] = line.split(',');
-                      console.log(`📋 Parsed values - Username: "${rowUsername}", ShowWalkthrough: "${showWalkthrough}", WalkthroughURL: "${walkthroughUrl}", URL: "${url}"`);
-                      
-                      // Check if this row matches current user
-                      console.log(`🔍 Comparing - CSV Username: "${rowUsername}" vs Stored: "${username}"`);
-                      console.log(`🔍 CSV Username length: ${rowUsername.length}, chars: [${Array.from(rowUsername).map(c => c.charCodeAt(0)).join(',')}]`);
-                      console.log(`🔍 Stored Username length: ${username.length}, chars: [${Array.from(username).map(c => c.charCodeAt(0)).join(',')}]`);
-                      console.log(`🔍 After trim - CSV: "${rowUsername.trim()}" vs Stored: "${username.trim()}"`);
-                      console.log(`🔍 Case insensitive - CSV: "${rowUsername.trim().toLowerCase()}" vs Stored: "${username.trim().toLowerCase()}"`);
-                      console.log(`🔍 Comparison result: ${rowUsername.trim().toLowerCase() === username.trim().toLowerCase()}`);
-                      
-                      // More robust matching - check if stored username is contained in CSV username
-                      const isUsernameMatch = username.trim() && rowUsername.trim().includes(username.trim()) && username.trim().includes(rowUsername.trim());
-                      console.log(`🔍 Contains check - Stored in CSV: ${isUsernameMatch}, CSV contains Stored: ${rowUsername.trim().includes(username.trim())}`);
-                      
-                      const showWalkthroughMatch = (showWalkthrough === 'yes' || showWalkthrough === 'true');
-                      console.log(`🔍 ShowWalkthrough check: "${showWalkthrough}" matches: ${showWalkthroughMatch}`);
-                      console.log(`🔍 WalkthroughURL: "${walkthroughUrl}"`);
-                      console.log(`🔍 Final condition - Username: ${isUsernameMatch}, ShowWalkthrough: ${showWalkthroughMatch}, WalkthroughURL: ${!!walkthroughUrl}`);
-                      
-                      if (isUsernameMatch && showWalkthroughMatch && walkthroughUrl) {
-                          console.log('✅ Found matching walkthrough for user');
-                          // Load user's walkthrough
-                          loadWalkthrough(walkthroughUrl);
-                          return; // Exit after finding user's walkthrough
-                      } else if (isUsernameMatch && !showWalkthroughMatch) {
-                          console.log('❌ User found but show_walkthrough is no');
-                          showError('No walkthrough available for your account at this time.');
-                          return;
-                      }
-                  }
+              console.log('📡 Fetching walkthrough data via Apps Script backend...');
+              const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'text/plain'
+                  },
+                  body: JSON.stringify({
+                      action: 'getUserWalkthrough',
+                      username: username
+                  })
+              });
+
+              if (!response.ok) {
+                  throw new Error(`Server HTTP error: ${response.status}`);
               }
-              
-              // If no walkthrough found for user
+
+              const res = await response.json();
+              const data = (res.data || (typeof res.message === 'object' ? res.message : null)) || res;
+
+              if (res.status === 'success' && data && data.showWalkthrough && data.walkthroughUrl) {
+                  console.log('✅ Found matching walkthrough for user');
+                  loadWalkthrough(data.walkthroughUrl);
+                  return;
+              } else if (res.status === 'success' && data && !data.showWalkthrough) {
+                  console.log('❌ User found but showWalkthrough is false');
+                  showError('No walkthrough available for your account at this time.');
+                  return;
+              }
+
               console.log('❌ No matching walkthrough found for user');
               showError('No walkthrough available for your account at this time.');
           } catch (error) {
