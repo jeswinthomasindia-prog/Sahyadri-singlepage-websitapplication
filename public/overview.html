@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Overview | Sahyadri Consultants</title>
+  <link rel="icon" type="image/webp" href="sahyadri_logo.webp" />
+
+  <!-- 1. GDPR / ePrivacy / Google Consent Mode v2 Initialization -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Set default consent state before GA4 loads (GDPR / Consent Mode v2)
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'wait_for_update': 500
+    });
+  </script>
+
+  <!-- 2. Active Google Analytics GA4 Script (Privacy-First with IP Anonymization) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSNTJ1NCYN"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'G-WSNTJ1NCYN', {
+      'anonymize_ip': true,
+      'allow_google_signals': false,
+      'allow_ad_personalization_signals': false,
+      'restricted_data_processing': true
+    });
+  </script>
+
+  <!-- 3. GDPR Privacy & Consent Manager -->
+  <script src="privacy-consent.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .workflow-overview-section {
+      padding: 40px 20px 60px;
+      max-width: 860px;
+      margin: 0 auto;
+      min-height: calc(100vh - 350px);
+    }
+
+    .overview-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .page-title {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #003965;
+      margin: 0 0 4px 0;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .refresh-all-btn {
+      background: #003965;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 57, 101, 0.18);
+    }
+
+    .refresh-all-btn:hover {
+      background: #002b4d;
+      transform: translateY(-1px);
+    }
+
+    .workflow-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+    }
+
+    .workflow-single-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-top-header {
+      background: linear-gradient(135deg, #002b4d 0%, #004b82 100%);
+      color: #ffffff;
+      padding: 22px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .card-main-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      color: #ffffff;
+    }
+
+    .card-sub-title {
+      margin: 0;
+      color: #cce3f5;
+      font-size: 0.85rem;
+    }
+
+    .header-action-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-pill-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .action-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .runs-container {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Interactive Latest Run Item Link */
+    .run-row-item {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 12px;
+      border: 2px solid #003965;
+      padding: 18px 20px;
+      background: #f8fafc;
+      transition: all 0.2s ease;
+    }
+
+    .run-row-item:hover {
+      border-color: #004b82;
+      box-shadow: 0 8px 22px rgba(0, 57, 101, 0.12);
+      transform: translateY(-2px);
+      background: #f1f6fb;
+    }
+
+    .run-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .run-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .run-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #003965;
+      color: #ffffff;
+    }
+
+    .run-number {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .status-pill {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: capitalize;
+    }
+
+    .status-pill.success {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .status-pill.failure {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .status-pill.in_progress {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .commit-message-row {
+      font-size: 0.94rem;
+      color: #1e293b;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .run-row-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      padding-top: 8px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .run-timestamp {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .drilldown-hint {
+      color: #004b82;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .run-row-item:hover .drilldown-hint {
+      text-decoration: underline;
+    }
+
+    /* Compact Previous Badges Section */
+    .prev-runs-compact-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+    }
+
+    .prev-runs-heading {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .prev-badges-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .prev-run-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .prev-run-badge.success {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
+
+    .prev-run-badge.failure {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #fecaca;
+    }
+
+    .prev-run-badge.in_progress {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    .prev-run-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header copied from login.html -->
+  <header class="container">
+    <div class="topbar">
+      <a href="index.html" class="brand" aria-label="Sahyadri Consultants home">
+        <img src="sahyadri_logo.webp" alt="Sahyadri logo" />
+        <h1>Sahyadri Consultants</h1>
+      </a>
+      <nav class="nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="sahyadri-properties.html">Sahyadri Properties</a>
+            <a href="ultra-modern-company.html">Ultra Modern Company</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="recent-activity.html">Recent Activity</a>
+            <a href="industry-insights.html">Industry Insights</a>
+          </div>
+        </div>
+      </nav>
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-menu-nav">
+        <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#awards">Awards</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-toggle" onclick="toggleMobileDropdown(this)">More</a>
+          <div class="dropdown-menu">
+            <a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a>
+            <a href="sahyadri-properties.html">Sahyadri Properties</a>
+            <a href="experience-projects-360.html">Experience Projects in 360°</a>
+            <a href="transformations.html">Transformations</a>
+            <a href="industry-insights.html">Industry Insights</a>
+            <a href="recent-activity.html">Recent Activity</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="workflow-overview-section">
+    <!-- Top Action Bar -->
+    <div class="overview-top-bar">
+      <div>
+        <h2 class="page-title">⚡ GitHub Actions Overview</h2>
+        <p class="page-subtitle">Live status tracking for repository workflows</p>
+      </div>
+      <button id="refreshAllBtn" class="refresh-all-btn" type="button">
+        🔄 Refresh All
+      </button>
+    </div>
+
+    <div class="workflow-cards-stack">
+      <!-- Workflow 1: Website Stability & Visual Diff -->
+      <div class="workflow-single-card">
+        <div class="card-top-header">
+          <div>
+            <h2 class="card-main-title">⚡ Website Stability & Visual Diff Tracker</h2>
+            <p class="card-sub-title">Tracking <code>website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml</code></p>
+          </div>
+          <div class="header-action-links">
+            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml" target="_blank" rel="noopener noreferrer" class="action-pill-btn">
+              Workflow ↗
+            </a>
+          </div>
+        </div>
+
+        <div id="stabilityRunsContainer" class="runs-container">
+          <div class="empty-state">
+            <p>🔄 Loading stability runs from GitHub...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workflow 2: PR Check -->
+      <div class="workflow-single-card">
+        <div class="card-top-header">
+          <div>
+            <h2 class="card-main-title">🔍 PR Check Tracker</h2>
+            <p class="card-sub-title">Tracking <code>pr-check.yaml</code></p>
+          </div>
+          <div class="header-action-links">
+            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/pr-check.yaml" target="_blank" rel="noopener noreferrer" class="action-pill-btn">
+              Workflow ↗
+            </a>
+          </div>
+        </div>
+
+        <div id="prCheckRunsContainer" class="runs-container">
+          <div class="empty-state">
+            <p>🔄 Loading PR check runs from GitHub...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer copied from login.html -->
+  <footer id="contact">
+    <div class="container footer-grid">
+      <div><h5>Sahyadri Consultants</h5><p>Pallikunnu KP Road, Kannur, Kerala</p><p>Email: sahyadriconsultantsindia@gmail.com</p><p>Phone: +91 9074497780</p><div class="social-links" style="margin-top: 12px; display: flex; gap: 12px;"><a href="https://www.youtube.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/youtube_logo.svg" alt="YouTube" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.instagram.com/sahyadriconsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/Instagram_logo.svg" alt="Instagram" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.threads.com/@sahyadriconsultants" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/threads_logo.svg" alt="Threads" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://www.facebook.com/SahyadriConsultants/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="resources/images/facebook_logo.svg" alt="Facebook" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a><a href="https://wa.me/919074497780?text=Hi%20Sahyadri%20Consultants%2C%20I%27m%20planning%20a%20new%20project%20and%20would%20like%20to%20know%20about%20your%20design%20and%20construction%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 100%; height: 100%; object-fit: contain; display: block;"></a></div></div>
+      <div><h5>Quick Links</h5><p><a href="index.html">Home</a></p><p><a href="index.html#projects">Projects</a></p><p><a href="index.html#about">About</a></p><p><a href="index.html#testimonials">Testimonials</a></p><p><a href="awards.html">Awards</a></p>      <p><a href="well-and-dwell-interiors.html">Well & Dwell Interiors</a></p><p><a href="sahyadri-properties.html">Sahyadri Properties</a></p>
+        <p><a href="experience-projects-360.html">Experience Projects in 360°</a></p><p><a href="transformations.html">Transformations</a></p><p><a href="recent-activity.html">Recent Activity</a></p><p><a href="login.html">Login</a></p><p><a href="login.html">Talk to Sahya, our AI Assistant</a></p><p><a href="industry-insights.html">Industry Insights</a></p>
+        <p><button type="button" class="footer-cookie-settings-btn" data-action="open-cookie-preferences">Browsing & Privacy Preferences</button></p></div>
+      <div><h5>Our Values</h5><p>Integrity, Quality, Customer Focus, Sustainability.</p></div>
+      <div><h5>Working Hours</h5><p>Mon - Sat:9:30 AM - 5:30 PM</p><p>Sun: Closed</p></div>
+    </div>
+    <div class="container footer-bottom"> 
+      <span>© 2026 Sahyadri Consultants (Kannur). All Rights Reserved.</span>
+      <span style="display: block; margin-top: 8px; font-size: 0.85rem; color: #666;">An independent architectural, engineering and interior design consultancy headquartered in Kannur, Kerala, serving clients nationwide. Operating as a sister firm to Sahyadri Properties (Kannur), we focus exclusively on our regional entities and are entirely independent of any other organizations sharing the Sahyadri name. We adhere to strict global privacy standards (GDPR, ePrivacy, CCPA) with Google Consent Mode v2 and IP anonymization.</span>
+      <span style="display: block; margin-top: 8px;">Built for PC & Smartphone (responsive).</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="analytics-tracker.js"></script>
+  <script>
+    const WORKFLOW_CONFIGS = [
+      {
+        containerId: 'stabilityRunsContainer',
+        apiUrl: 'https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml/runs',
+        workflowWebUrl: 'https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/website_stability_and_visual_diff_with_prev_day_and_prev_stable_run.yaml'
+      },
+      {
+        containerId: 'prCheckRunsContainer',
+        apiUrl: 'https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/pr-check.yaml/runs',
+        workflowWebUrl: 'https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/actions/workflows/pr-check.yaml'
+      }
+    ];
+
+    async function fetchAndRenderWorkflow(config) {
+      const container = document.getElementById(config.containerId);
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="empty-state">
+          <p>🔄 Loading latest workflow runs from GitHub...</p>
+        </div>
+      `;
+
+      try {
+        const response = await fetch(config.apiUrl, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if (!response.ok) {
+          throw new Error(`GitHub API returned status ${response.status}`);
+        }
+
+        const data = await response.json();
+        const runs = data.workflow_runs || [];
+
+        if (runs.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <p>No workflow runs found for this file.</p>
+            </div>
+          `;
+          return;
+        }
+
+        // Latest run (index 0) and previous runs (index 1 and 2)
+        const latest = runs[0];
+        const prevRuns = runs.slice(1, 3);
+
+        const latestStatus = latest.status;
+        const latestConclusion = latest.conclusion || latestStatus;
+        let latestClass = 'in_progress';
+        let latestIcon = '⏳';
+
+        if (latestConclusion === 'success') {
+          latestClass = 'success';
+          latestIcon = '✅';
+        } else if (latestConclusion === 'failure') {
+          latestClass = 'failure';
+          latestIcon = '❌';
+        } else if (latestConclusion === 'cancelled' || latestConclusion === 'skipped') {
+          latestClass = 'failure';
+          latestIcon = '⚠️';
+        }
+
+        const latestCommit = latest.head_commit?.message || latest.display_title || 'No commit message';
+        const latestDate = new Date(latest.created_at).toLocaleString('en-US', {
+          month: 'short',
+          day: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+
+        let html = `
+          <a href="${latest.html_url}" target="_blank" rel="noopener noreferrer" class="run-row-item">
+            <div class="run-row-top">
+              <div class="run-identity">
+                <span class="run-badge">Latest</span>
+                <span class="run-number">Build #${latest.run_number}</span>
+              </div>
+              <span class="status-pill ${latestClass}">
+                ${latestIcon} ${latestConclusion}
+              </span>
+            </div>
+
+            <div class="commit-message-row">
+              ${escapeHTML(latestCommit)}
+            </div>
+
+            <div class="run-row-bottom">
+              <span class="run-timestamp">🕒 ${latestDate}</span>
+              <span class="drilldown-hint">View in GitHub Actions ↗</span>
+            </div>
+          </a>
+        `;
+
+        if (prevRuns.length > 0) {
+          html += `
+            <div class="prev-runs-compact-section">
+              <span class="prev-runs-heading">Previous:</span>
+              <div class="prev-badges-container">
+          `;
+
+          prevRuns.forEach(run => {
+            const status = run.status;
+            const conclusion = run.conclusion || status;
+            let statusClass = 'in_progress';
+            let statusIcon = '⏳';
+
+            if (conclusion === 'success') {
+              statusClass = 'success';
+              statusIcon = '✅';
+            } else if (conclusion === 'failure') {
+              statusClass = 'failure';
+              statusIcon = '❌';
+            } else if (conclusion === 'cancelled' || conclusion === 'skipped') {
+              statusClass = 'failure';
+              statusIcon = '⚠️';
+            }
+
+            const commitMsg = run.head_commit?.message || run.display_title || '';
+
+            html += `
+              <a href="${run.html_url}" target="_blank" rel="noopener noreferrer" class="prev-run-badge ${statusClass}" title="${escapeHTML(commitMsg)}">
+                <span>Prev #${run.run_number}</span>
+                <span>${statusIcon}</span>
+                <span style="font-size: 0.72rem; opacity: 0.8;">↗</span>
+              </a>
+            `;
+          });
+
+          html += `
+              </div>
+            </div>
+          `;
+        }
+
+        container.innerHTML = html;
+
+      } catch (err) {
+        console.error('Error fetching workflow runs:', err);
+        container.innerHTML = `
+          <div class="empty-state">
+            <p style="color: #dc2626;">❌ Failed to load GitHub workflow runs: ${escapeHTML(err.message)}</p>
+            <p style="font-size: 0.85rem; margin-top: 8px;">
+              <a href="${config.workflowWebUrl}" target="_blank" style="color: #004b82; font-weight: 600;">
+                Open Workflow on GitHub directly ↗
+              </a>
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    function loadAllWorkflows() {
+      WORKFLOW_CONFIGS.forEach(config => fetchAndRenderWorkflow(config));
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    document.getElementById('refreshAllBtn').addEventListener('click', loadAllWorkflows);
+    loadAllWorkflows();
+  </script>
+</body>
+</html>
