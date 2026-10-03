@@ -1172,6 +1172,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
 
     function clearChat() {
       history.length = 0;
+      lastSavedHistoryLength = 0;
       chatLog.innerHTML = "";
       addMessage("system", "Chat history cleared.");
       unsavedMessageCount = 0;
@@ -1185,9 +1186,25 @@ Feel free to reach out to us through any of these channels. We're here to help w
       }
     }
 
+    let lastSavedHistoryLength = 0;
+
     async function getChatSummaryFromAI() {
       if (history.length === 0) {
         throw new Error("Chat history is empty.");
+      }
+
+      const lastSummaryRaw = localStorage.getItem('chatSummary');
+      // Replace semicolon back to commas when reading chatSummary for AI prompt context
+      const lastSummary = lastSummaryRaw ? lastSummaryRaw.replaceAll(';', ',') : '';
+      const hasLastSummary = lastSummary && lastSummary.trim() !== "" && lastSummary.trim() !== "No summary available" && lastSummary.trim() !== "N/A";
+
+      // If user clicks save again without adding new user messages, return existing saved summary
+      const userMessages = history.filter(item => item && item.role === "user");
+      if (userMessages.length === 0 && hasLastSummary) {
+        return lastSummary.trim();
+      }
+      if (history.length === lastSavedHistoryLength && hasLastSummary) {
+        return lastSummary.trim();
       }
 
       await apiKeysLoaded;
@@ -1196,12 +1213,16 @@ Feel free to reach out to us through any of these channels. We're here to help w
         throw new Error("GROQ API key not configured.");
       }
 
-      const lastSummaryRaw = localStorage.getItem('chatSummary');
-      // Replace semicolon back to commas when reading chatSummary for AI prompt context
-      const lastSummary = lastSummaryRaw ? lastSummaryRaw.replaceAll(';', ',') : '';
-      const hasLastSummary = lastSummary && lastSummary.trim() !== "" && lastSummary.trim() !== "No summary available" && lastSummary.trim() !== "N/A";
+      // Filter out initial greeting text to prevent duplication of previous summary in history
+      const filteredHistory = history.filter(item => {
+        if (!item || !item.text) return false;
+        if (item.role === "assistant" && item.text.includes("We had discussed about following:")) {
+          return false;
+        }
+        return true;
+      });
 
-      let systemContent = "You are a helpful assistant. Summarize the conversation history between the user and the assistant in 2 to 3 lines. Keep it extremely concise, clear, and direct.";
+      let systemContent = "You are a helpful assistant. Summarize the user requirements and conversation history between the user and the assistant in 2 to 3 lines. Keep it extremely concise, clear, and direct.";
       if (hasLastSummary) {
         systemContent += `\n\nPreviously discussed summary context: "${lastSummary.trim()}". You MUST combine this previous summary context with the new conversation history below to generate a single, cumulative, updated summary of 2 to 3 lines.`;
       }
@@ -1216,7 +1237,7 @@ Feel free to reach out to us through any of these channels. We're here to help w
           role: "system",
           content: systemContent
         },
-        ...history.map(item => ({
+        ...filteredHistory.map(item => ({
           role: item.role === "assistant" ? "assistant" : "user",
           content: item.text
         })),
@@ -1226,34 +1247,52 @@ Feel free to reach out to us through any of these channels. We're here to help w
         }
       ];
 
-      const modelName = currentModel || DEFAULT_MODEL_NAME;
-      const endpoint = `https://api.groq.com/openai/v1/chat/completions`;
+      const modelCandidates = [currentModel, ...FALLBACK_MODELS];
+      let lastError = null;
 
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${apiKey}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: modelName,
-          messages: summaryMessages,
-          temperature: 0.3,
-          max_tokens: 150
-        })
-      });
+      for (const modelName of modelCandidates) {
+        try {
+          const endpoint = `https://api.groq.com/openai/v1/chat/completions`;
 
-      if (!response.ok) {
-        throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${apiKey}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              model: modelName,
+              messages: summaryMessages,
+              temperature: 0.3,
+              max_tokens: 500
+            })
+          });
+
+          if (!response.ok) {
+            lastError = new Error(`Groq API error (${response.status}): ${response.statusText}`);
+            continue;
+          }
+
+          const data = await response.json();
+          const summary = data?.choices?.[0]?.message?.content;
+          if (summary && summary.trim()) {
+            return summary.trim();
+          }
+
+          const reasoning = data?.choices?.[0]?.message?.reasoning;
+          if (reasoning && reasoning.trim()) {
+            return reasoning.trim();
+          }
+        } catch (err) {
+          lastError = err;
+        }
       }
 
-      const data = await response.json();
-      const summary = data?.choices?.[0]?.message?.content;
-      if (!summary) {
-        throw new Error("Empty summary received from AI.");
+      if (hasLastSummary) {
+        return lastSummary.trim();
       }
 
-      return summary.trim();
+      throw lastError || new Error("Empty summary received from AI.");
     }
 
     async function writeSummaryToGoogleSheet(summaryText) {
@@ -1328,16 +1367,20 @@ Feel free to reach out to us through any of these channels. We're here to help w
           await writeSummaryToGoogleSheet(summary);
           // Also save the updated summary to localStorage for instant local access (with commas converted to semicolons)
           localStorage.setItem('chatSummary', summary.replaceAll(',', ';'));
-          // Reset unsaved counter
+          // Reset unsaved counter and record saved history length
           unsavedMessageCount = 0;
+          lastSavedHistoryLength = history.length;
           progressBubble.textContent = `✅ All caught up! Your progress is safe and ready for next time!`;
         } catch (sheetError) {
           console.error("Failed to save to Google Sheets:", sheetError);
-          progressBubble.textContent = `⚠️ Unfortunately your progress could nt be saved. Please try again later`;
+          localStorage.setItem('chatSummary', summary.replaceAll(',', ';'));
+          unsavedMessageCount = 0;
+          lastSavedHistoryLength = history.length;
+          progressBubble.textContent = `⚠️ Saved locally, but Google Sheets update failed. Please try again later.`;
         }
       } catch (error) {
         console.error("Failed to generate chat summary:", error);
-        progressBubble.textContent = `❌ Error: Unfortunately your progress could nt be saved. Please try again later`;
+        progressBubble.textContent = `❌ Error: ${error.message || 'Unfortunately your progress could not be saved. Please try again later.'}`;
       } finally {
         saveChatBtn.disabled = originalDisabled;
         saveChatBtn.textContent = originalText;
