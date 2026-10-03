@@ -761,8 +761,7 @@
       try {
         console.log('� Starting YouTube API key initialization...');
         YOUTUBE_API_KEY = await loadYouTubeApiKey();
-        console.log('✅ YouTube API key loaded successfully, length:', YOUTUBE_API_KEY.length);
-        console.log('🔑 Final YouTube API key value:', YOUTUBE_API_KEY.substring(0, 10) + '...');
+        console.log('✅ YouTube API key loaded successfully');
       } catch (error) {
         console.error('❌ Failed to initialize YouTube API key:', error);
         YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY_HERE";
@@ -923,7 +922,6 @@
         // Direct fetch from @sahyadriconsultants using YouTube API key
         try {
           const apiKey = YOUTUBE_API_KEY;
-          console.log('🔑 YouTube API key:', apiKey ? apiKey.substring(0, 10) + '...' : 'undefined');
           
           if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
             throw new Error("YouTube API key not configured in backend.");

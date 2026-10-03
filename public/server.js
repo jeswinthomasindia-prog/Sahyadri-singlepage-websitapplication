@@ -37,7 +37,16 @@ const server = http.createServer((req, res) => {
     pathname = '/assistant.html';
   }
 
-  const filePath = path.join(__dirname, pathname);
+  // Prevent path traversal
+  const safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
+  const filePath = path.join(__dirname, safePath);
+
+  if (!filePath.startsWith(__dirname)) {
+    res.writeHead(403, { 'Content-Type': 'text/html' });
+    res.end('<h1>403 Forbidden</h1><p>Access Denied.</p>');
+    return;
+  }
+
   const ext = path.extname(filePath).toLowerCase();
   const mimeType = mimeTypes[ext] || 'application/octet-stream';
 

@@ -24,79 +24,51 @@ let GOOGLE_DRIVE_CONFIG = {
   }
 };
 
-// Load Google Drive folder configuration from Google Sheets
-async function loadGoogleDriveConfig() {
+// Load Google Drive folder configuration for single user via Apps Script backend
+async function loadGoogleDriveConfig(username) {
   try {
-    // console.log('🔍 Loading Google Drive configuration from Google Sheets...');
-    
-    // Load user folders from Google Sheets
-    const configUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=1355520136&single=true&output=csv';
-    
-    const response = await fetch(configUrl, {
-      mode: 'cors',
+    const webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+
+    // Resolve username from parameter, URL, or localStorage
+    let user = username;
+    if (!user && typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      user = urlParams.get('user') || localStorage.getItem('username') || 'guest';
+    }
+    user = (user || 'guest').toString().toLowerCase();
+
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
       headers: {
-        'Accept': 'text/csv',
-        'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+        'Content-Type': 'text/plain'
       },
-      redirect: 'follow'
+      body: JSON.stringify({
+        action: 'getUserDriveConfig',
+        username: user
+      })
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
-    const csvText = await response.text();
-    // console.log('✅ Successfully loaded Google Drive configuration');
-    // console.log('📄 Raw CSV content:', csvText);
-    
-    // Parse CSV data
-    const lines = csvText.split('\n');
-    const userFolders = {};
-    let baseDriveUrl = "";
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-      
-      // Skip header row
-      if (i === 0) continue;
-      
-      // Handle CSV separators
-      const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-      const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-      
-      if (values.length >= 4) {
-        const username = values[0];
-        const folderId = values[1];
-        const folderName = values[2];
-        const driveUrl = values[3];
-        
-        if (username) {
-          userFolders[username] = {
-            folderId: folderId || '',
-            folderName: folderName || username
-          };
-          
-          // Set base drive URL from first row
-          if (!baseDriveUrl && driveUrl) {
-            baseDriveUrl = driveUrl;
-          }
-          
-          // console.log(`👤 Loaded folder config for user: ${username}`);
-        }
+
+    const res = await response.json();
+    const data = (res.data || (typeof res.message === 'object' ? res.message : null)) || res;
+
+    if (res.status === 'success' && data) {
+      const canonicalUser = (data.username || user).toString().toLowerCase();
+      GOOGLE_DRIVE_CONFIG.USER_FOLDERS[canonicalUser] = {
+        folderId: data.folderId || '',
+        folderName: data.folderName || canonicalUser
+      };
+      if (data.driveUrl || data.baseDriveUrl) {
+        GOOGLE_DRIVE_CONFIG.BASE_DRIVE_URL = data.driveUrl || data.baseDriveUrl;
       }
     }
-    
-    // Update configuration
-    GOOGLE_DRIVE_CONFIG.USER_FOLDERS = userFolders;
-    GOOGLE_DRIVE_CONFIG.BASE_DRIVE_URL = baseDriveUrl;
-    
-    // console.log('✅ Google Drive configuration loaded successfully:', Object.keys(userFolders));
+
     return GOOGLE_DRIVE_CONFIG;
-    
   } catch (error) {
-    console.error('❌ Error loading Google Drive configuration:', error);
-    // Return empty configuration if Google Sheets fails
+    console.error('❌ Error loading Google Drive configuration via Apps Script:', error);
     return GOOGLE_DRIVE_CONFIG;
   }
 }
@@ -118,8 +90,11 @@ function getFileTypeInfo(fileName) {
 
 // Helper function to get user folder info
 function getUserFolderInfo(username) {
-  return GOOGLE_DRIVE_CONFIG.USER_FOLDERS[username] || 
-         GOOGLE_DRIVE_CONFIG.USER_FOLDERS.guest;
+  const user = (username || '').toString().toLowerCase();
+  return GOOGLE_DRIVE_CONFIG.USER_FOLDERS[user] || 
+         GOOGLE_DRIVE_CONFIG.USER_FOLDERS[username] || 
+         GOOGLE_DRIVE_CONFIG.USER_FOLDERS.guest ||
+         { folderId: '', folderName: username || 'User' };
 }
 
 // Export for use in other modules and global scope for browsers

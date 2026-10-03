@@ -298,79 +298,43 @@ function showErrorMessage(message) {
 // Load user status data from Google Sheets
 let userStatusData = {};
 
-async function loadUserStatusData() {
+async function loadUserStatusData(username) {
   try {
-    // console.log('🔍 Loading user status data from Google Sheets...');
-
-    // Load user status from User Status sheet - use correct CSV export format
-    const statusUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?gid=811257958&single=true&output=csv';
-
-    const response = await fetch(statusUrl, {
-      mode: 'cors',
+    const webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
       headers: {
-        'Accept': 'text/csv',
-        'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
+        'Content-Type': 'text/plain'
       },
-      redirect: 'follow'
+      body: JSON.stringify({
+        action: 'getUserStatus',
+        username: username || 'guest'
+      })
     });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const csvText = await response.text();
-    // console.log('✅ Successfully loaded user status data');
-    // console.log('📄 Raw CSV content:', csvText);
-    // console.log('🔍 CSV content length:', csvText.length);
-    // console.log('🔍 First 200 characters:', csvText.substring(0, 200));
-    // console.log('🔍 Response URL was:', statusUrl);
-
-    // Parse CSV data
-    const lines = csvText.split('\n');
-    const users = {};
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-
-      // Skip header row
-      if (i === 0) continue;
-
-      // Handle CSV separators
-      const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-      const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-
-      if (values.length >= 4) {
-        const username = values[0];
-        const currentStatus = values[1];
-        const workDone = values[2];
-        const nextSteps = values[3];
-        const percentageCompleted = values[4] || 'N/A';
-        const chatSummary = values[5] || 'No summary available';
-        const lastLogin = values[6] || 'N/A';
-        const driveLastUsed = values[7] || 'N/A';
-
-        if (username) {
-          users[username] = {
-            currentStatus: currentStatus || 'Status not available',
-            workDone: workDone || 'Work details not available',
-            nextSteps: nextSteps || 'Next steps not available',
-            percentageCompleted: percentageCompleted || 'N/A',
-            chatSummary: chatSummary || 'No summary available',
-            lastLogin: lastLogin || 'N/A',
-            driveLastUsed: driveLastUsed || 'N/A'
-          };
-          // console.log(`👤 Loaded status for user: ${username}`);
+    const res = await response.json();
+    const data = (res.data || (typeof res.message === 'object' ? res.message : null)) || res;
+    if (res.status === 'success' && data) {
+      const canonicalUser = (data.username || username || 'guest').toString().toLowerCase();
+      return {
+        [canonicalUser]: {
+          currentStatus: data.currentStatus || 'Status not available',
+          workDone: data.workDone || 'Work details not available',
+          nextSteps: data.nextSteps || 'Next steps not available',
+          percentageCompleted: data.percentageCompleted || 'N/A',
+          chatSummary: data.chatSummary || 'No summary available',
+          lastLogin: data.lastLogin || 'N/A',
+          driveLastUsed: data.driveLastUsed || 'N/A'
         }
-      }
+      };
     }
-
-    // console.log('✅ User status data loaded successfully:', Object.keys(users));
-    return users;
-
+    return {};
   } catch (error) {
-    console.error('❌ Error loading user status data:', error);
-    // Return empty object if Google Sheets fails - no hardcoded fallback
+    console.error('❌ Error loading user status data via Apps Script:', error);
     return {};
   }
 }
@@ -424,7 +388,7 @@ async function showStatusTile(username) {
 
   // Load user status data from Google Sheets
   // console.log('🔍 Loading status data for user:', username);
-  userStatusData = await loadUserStatusData();
+  userStatusData = await loadUserStatusData(username);
 
   const userData = userStatusData[username];
   if (!userData) {

@@ -1,390 +1,30 @@
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
 window.GOOGLE_APPS_SCRIPT_URL = GOOGLE_APPS_SCRIPT_URL;
-let allowedUsers = {};
-
-async function loadUserCredentials() {
+// Secure login authentication via Google Apps Script proxy
+async function verifyUserCredentials(username, encodedPassword) {
   try {
-    // // // console.log('🔍 STEP 1: Starting user credentials loading from Google Sheets...');
-    
-    // Simplified approach - use direct CSV download
-    // // // console.log('🌐 STEP 4: Preparing CSV download approach...');
-    const approaches = [
-      // Direct CSV download from published Google Sheet with cache-busting
-      (() => {
-        const timestamp = Date.now();
-        return `https://docs.google.com/spreadsheets/d/e/2PACX-1vT0GGn67oEwJQPpBqVJFmyp2165ATdAwcoEH0ou3p0B-NRZ0Y22LrVmXumlA9mW5Jw6hM1PA_OS5sMl/pub?output=csv&_t=${timestamp}`;
-      })()
-    ];
-    // // // console.log('🌐 STEP 5: API approaches prepared:', approaches.length);
-    
-    let csvText = '';
-    let response = null;
-    
-    for (const url of approaches) {
-      try {
-        // // // console.log(`🔄 STEP 6: Trying approach ${approaches.indexOf(url) + 1}: ${url}`);
-        // // // console.log('📡 STEP 7: Preparing fetch request...');
-        
-        // Add cache-busting timestamp to URL
-        const cacheBustingUrl = url.includes('?') ? 
-          `${url}&_t=${Date.now()}` : 
-          `${url}?_t=${Date.now()}`;
-        
-        // // // console.log('🔄 STEP 7.1: Cache-busting URL:', cacheBustingUrl);
-        
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Accept': 'text/csv',
-            'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache'
-          },
-          redirect: 'follow'
-        });
-        
-        // // // console.log('📡 STEP 8: API Request URL:', cacheBustingUrl);
-        // // // console.log('📡 STEP 9: Request headers:', {
-        //   'Accept': 'text/csv',
-        // //   'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)',
-        // //   'Cache-Control': 'no-cache, no-store, must-revalidate',
-        // //   'Pragma': 'no-cache',
-        //   'Expires': '0'
-        // });
-        // // // console.log('🔄 STEP 9.1: Cache settings: cache=no-store');
-        // // // console.log('📊 STEP 10: Response status:', response.status);
-        // // // console.log('📊 STEP 11: Response headers:', Object.fromEntries(response.headers.entries()));
-        // // // console.log('📊 STEP 12: Full response object:', response);
-        
-        if (response.ok) {
-          // // // console.log('✅ STEP 13: Response OK - processing CSV data');
-          // // // console.log('📊 STEP 14: Full response details:', response);
-          
-          // Extract CSV data for processing
-          csvText = await response.text();
-          // // console.log('✅ Successfully loaded user data from Google Sheets');
-          // // console.log('📄 Raw CSV content preview:', csvText.substring(0, 200) + (csvText.length > 200 ? '...' : ''));
-          // // console.log('📊 Response type:', typeof csvText);
-          // // console.log('📏 Content length:', csvText.length);
-          // // console.log('� First 100 chars:', csvText.substring(0, 100));
-          
-          // Check if this is CSV data (from r.jina.ai) or JSON data (from Google Sheets API)
-          if (csvText.includes(',')) {
-            // // console.log('📋 Detected CSV format - parsing as CSV');
-            
-            // Parse CSV data - simple approach
-            const lines = csvText.split('\n');
-            const users = {};
-            
-            // // console.log(`🔢 Total lines to process: ${lines.length}`);
-            // // console.log('📄 Full CSV content:', csvText);
-            
-            for (let i = 0; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (!line) continue;
-              
-              // Skip header row and empty lines
-              if (i === 0 || !line) continue;
-              
-              // Handle different CSV separators (comma, tab, or semicolon)
-              const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-              const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-              
-              // // console.log(`🔍 Processing line ${i}: "${line}" with separator: "${separator}"`);
-              // // console.log(`📊 Parsed values: [${values.join(', ')}]`);
-              
-              if (values.length >= 2) {
-                const username = values[0];
-                const password = values[1];
-                if (username && password) {
-                  users[username] = password;
-                  // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                }
-              }
-            }
-            
-            // // console.log('✅ Loaded user credentials:', Object.keys(users));
-            // // console.log(`🔢 Total users found: ${Object.keys(users).length}`);
-            return users;
-            
-          } else {
-            // // console.log('📋 Detected JSON format - parsing as JSON');
-            
-            // Try to parse as JSON (Google Sheets API returns JSON)
-            try {
-              const jsonData = JSON.parse(csvText);
-              // // console.log('📋 Parsed as JSON:', jsonData);
-              
-              if (jsonData.values && jsonData.values) {
-                const users = {};
-                for (let i = 0; i < jsonData.values.length; i++) {
-                  const row = jsonData.values[i];
-                  if (row && row.length >= 2) {
-                    const username = row[0];
-                    const password = row[1];
-                    if (username && password) {
-                      users[username] = password;
-                      // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                    }
-                  }
-                }
-                // // console.log('✅ Loaded user credentials:', Object.keys(users));
-                return users;
-              } else {
-                // // console.log('❌ Invalid JSON structure - falling back to CSV parsing');
-                throw new Error('Invalid Google Sheets API response format');
-              }
-            } catch (parseError) {
-              // // console.log('❌ JSON parsing failed, trying CSV fallback:', parseError);
-              // Continue with CSV parsing as fallback
-            }
-          }
-          
-          break;
-        } else {
-          csvText = await response.text();
-          // // console.log('✅ Successfully loaded user data from Google Sheets');
-          // // console.log('📄 Raw CSV content preview:', csvText.substring(0, 200) + (csvText.length > 200 ? '...' : ''));
-          // // console.log('📊 Response type:', typeof csvText);
-          // // console.log('📏 Content length:', csvText.length);
-          // // console.log('🔍 First 100 chars:', csvText.substring(0, 100));
-          
-          // Check if this is CSV data (from r.jina.ai) or JSON data (from Google Sheets API)
-          if (csvText.includes(',')) {
-            // // console.log('📋 Detected CSV format - parsing as CSV');
-            
-            // Parse CSV data - simple approach
-            const lines = csvText.split('\n');
-            const users = {};
-            
-            // // console.log(`🔢 Total lines to process: ${lines.length}`);
-            // // console.log('📄 Full CSV content:', csvText);
-            
-            for (let i = 0; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (!line) continue;
-              
-              // Skip header row and empty lines
-              if (i === 0 || !line) continue;
-              
-              // Handle different CSV separators (comma, tab, or semicolon)
-              const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-              const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-              
-              // // console.log(`🔍 Processing line ${i}: "${line}" with separator: "${separator}"`);
-              // // console.log(`📊 Parsed values: [${values.join(', ')}]`);
-              
-              if (values.length >= 2) {
-                const username = values[0];
-                const password = values[1];
-                if (username && password) {
-                  users[username] = password;
-                  // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                }
-              }
-            }
-            
-            // // console.log('✅ Loaded user credentials:', Object.keys(users));
-            // // console.log(`🔢 Total users found: ${Object.keys(users).length}`);
-            return users;
-            
-          } else {
-            // // console.log('📋 Detected JSON format - parsing as JSON');
-            
-            // Try to parse as JSON (Google Sheets API returns JSON)
-            try {
-              const jsonData = JSON.parse(csvText);
-              // // console.log('📋 Parsed as JSON:', jsonData);
-              
-              if (jsonData.values && jsonData.values) {
-                const users = {};
-                for (let i = 0; i < jsonData.values.length; i++) {
-                  const row = jsonData.values[i];
-                  if (row && row.length >= 2) {
-                    const username = row[0];
-                    const password = row[1];
-                    if (username && password) {
-                      users[username] = password;
-                      // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                    }
-                  }
-                }
-                // // console.log('✅ Loaded user credentials:', Object.keys(users));
-                return users;
-              } else {
-                // // console.log('❌ Invalid JSON structure - falling back to CSV parsing');
-                throw new Error('Invalid Google Sheets API response format');
-              }
-            } catch (parseError) {
-              // // console.log('❌ JSON parsing failed, trying CSV fallback:', parseError);
-              // Continue with CSV parsing as fallback
-            }
-          }
-          
-          break;
-        }
-        
-        // // // console.log('📡 API Request URL:', url);
-        // // // console.log('📡 Request headers:', {
-        //   'Accept': 'text/csv',
-        //   'User-Agent': 'Mozilla/5.0 (compatible; Sahyadri-Auth/1.0)'
-        // });
-        // // // console.log('📊 Response status:', response.status);
-        // // // console.log('📊 Response headers:', Object.fromEntries(response.headers.entries()));
-        
-        if (!response.ok) {
-          // // // console.log('❌ Response not OK:', response.statusText);
-          // // // console.log('📊 Full response:', response);
-          // // // console.log('📊 Response URL:', response.url);
-          
-          // Try to extract more error details
-          const errorText = await response.text();
-          // // // console.log('📄 Error response text:', errorText);
-          
-          if (response.status === 403) {
-            throw new Error('Google Sheets API access forbidden. Please check: 1) API key is valid, 2) Sheet is shared publicly, 3) Sheet name "User Login" exists');
-          } else if (response.status === 429) {
-            throw new Error('Google Sheets API quota exceeded. Please try again later.');
-          } else {
-            throw new Error(`Google Sheets API error! status: ${response.status}, text: ${response.statusText}`);
-          }
-        }
-        
-        if (!response.ok) {
-          csvText = await response.text();
-          // // console.log('✅ Successfully loaded user data from Google Sheets');
-          // // console.log('📄 Raw CSV content preview:', csvText.substring(0, 200) + (csvText.length > 200 ? '...' : ''));
-          // // console.log('📊 Response type:', typeof csvText);
-          // // console.log('📏 Content length:', csvText.length);
-          // // console.log('🔍 First 100 chars:', csvText.substring(0, 100));
-          
-          // Check if this is CSV data (from r.jina.ai) or JSON data (from Google Sheets API)
-          if (csvText.includes(',')) {
-            // // console.log('📋 Detected CSV format - parsing as CSV');
-            
-            // Parse CSV data - simple approach
-            const lines = csvText.split('\n');
-            const users = {};
-            
-            // // console.log(`🔢 Total lines to process: ${lines.length}`);
-            // // console.log('📄 Full CSV content:', csvText);
-            
-            for (let i = 0; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (!line) continue;
-              
-              // Skip header row and empty lines
-              if (i === 0 || !line) continue;
-              
-              // Handle different CSV separators (comma, tab, or semicolon)
-              const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-              const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-              
-              // // console.log(`🔍 Processing line ${i}: "${line}" with separator: "${separator}"`);
-              // // console.log(`📊 Parsed values: [${values.join(', ')}]`);
-              
-              if (values.length >= 2) {
-                const username = values[0];
-                const password = values[1];
-                if (username && password) {
-                  users[username] = password;
-                  // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                }
-              }
-            }
-            
-            // // console.log('✅ Loaded user credentials:', Object.keys(users));
-            // // console.log(`🔢 Total users found: ${Object.keys(users).length}`);
-            return users;
-            
-          } else {
-            // // console.log('📋 Detected JSON format - parsing as JSON');
-            
-            // Try to parse as JSON (Google Sheets API returns JSON)
-            try {
-              const jsonData = JSON.parse(csvText);
-              // // console.log('📋 Parsed as JSON:', jsonData);
-              
-              if (jsonData.values && jsonData.values) {
-                const users = {};
-                for (let i = 0; i < jsonData.values.length; i++) {
-                  const row = jsonData.values[i];
-                  if (row && row.length >= 2) {
-                    const username = row[0];
-                    const password = row[1];
-                    if (username && password) {
-                      users[username] = password;
-                      // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-                    }
-                  }
-                }
-                // // console.log('✅ Loaded user credentials:', Object.keys(users));
-                return users;
-              } else {
-                // // console.log('❌ Invalid JSON structure - falling back to CSV parsing');
-                throw new Error('Invalid Google Sheets API response format');
-              }
-            } catch (parseError) {
-              // // console.log('❌ JSON parsing failed, trying CSV fallback:', parseError);
-              // Continue with CSV parsing as fallback
-            }
-          }
-          
-          break;
-        }
-      } catch (approachError) {
-        // // // console.log(`❌ Approach failed: ${approachError.message}`);
-        continue;
-      }
+    const webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL;
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      body: JSON.stringify({
+        action: 'verifyLogin',
+        username: username,
+        password: encodedPassword
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server returned HTTP ${response.status}`);
     }
-    
-    if (!response || !csvText) {
-      console.error('❌ All approaches failed to load Google Sheets data');
-      console.error('🔍 Sheet URL being accessed:', approaches[0]);
-      console.error('🔍 Response status:', response ? response.status : 'No response');
-      throw new Error('All approaches failed to load Google Sheets data');
-    }
-    
-    // Parse Google Sheets data (each cell contains username/password pair)
-    const lines = csvText.split('\n');
-    
-    // Parse user data
-    const users = {};
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-      
-      // Skip header row and empty lines
-      if (i === 0 || !line) continue;
-      
-      // Handle different CSV separators (comma, tab, or semicolon)
-      const separator = line.includes(',') ? ',' : line.includes('\t') ? '\t' : line.includes(';') ? ';' : ',';
-      const values = line.split(separator).map(v => v.trim().replace(/^"|"$/g, ''));
-      
-      // // console.log(`🔍 Processing line ${i}: "${line}" with separator: "${separator}"`);
-      // // console.log(`📊 Parsed values: [${values.join(', ')}]`);
-      
-      if (values.length >= 2) {
-        const username = values[0];
-        const password = values[1];
-        if (username && password) {
-          users[username] = password;
-          // // console.log(`👤 Added user: ${username} with password: ${password.replace(/./g, '***')}`);
-        }
-      }
-    }
-    
-    // // console.log('✅ Loaded user credentials:', Object.keys(users));
-    // // // console.log('📊 Total users loaded:', Object.keys(users).length);
-    // // // console.log('📋 User list:', Object.keys(users));
-    return users;
-    
+
+    const result = await response.json();
+    return result;
   } catch (error) {
-    console.error('❌ Error loading user credentials:', error);
-    // Fallback to guest credentials if Google Sheets fails
-    return {
-      guest: 'guestpass'
-    };
+    console.error('Login verification error:', error);
+    return { status: 'error', message: error.message };
   }
 }
 
@@ -482,40 +122,42 @@ async function handleLogin(event) {
   try {
     // Show loading spinner
     showLoadingSpinner();
-    passwordValue=btoa(passwordValue).replaceAll("=","!@");
-    // Load user credentials from Google Sheets
-    allowedUsers = await loadUserCredentials();
-    // // // console.log('🔍 Validating credentials against Google Sheets data...');
-    
-    // // // console.log('📋 Available users in system:', Object.keys(allowedUsers));
-    // // // console.log('🔍 Attempting login with:', usernameValue);
-    // // // console.log('🔑 Password provided:', passwordValue ? '***' : '[empty]');
-    
-    if (allowedUsers[usernameValue] && allowedUsers[usernameValue] === passwordValue) {
-      // Discreet location authentication check for user 'sahya'
-      if (usernameValue.toLowerCase() === 'sahya') {
-        const isLocationAllowed = await checkAllowedLocation();
-        if (!isLocationAllowed) {
-          showStatus('Invalid username or password.', 'error');
-          hideLoadingSpinner();
-          return;
-        }
+    const encodedPassword = btoa(passwordValue).replaceAll("=", "!@");
+
+    // Discreet location authentication check for user 'sahya'
+    if (usernameValue.toLowerCase() === 'sahya') {
+      const isLocationAllowed = await checkAllowedLocation();
+      if (!isLocationAllowed) {
+        showStatus('Invalid username or password.', 'error');
+        hideLoadingSpinner();
+        return;
       }
+    }
+
+    const authResult = await verifyUserCredentials(usernameValue, encodedPassword);
+    const isAuthenticated = authResult && (
+      authResult.status === 'success' ||
+      (authResult.data && authResult.data.authenticated) ||
+      authResult.authenticated === true
+    );
+
+    if (isAuthenticated) {
+      const canonicalUsername = (authResult.data && authResult.data.username) || authResult.username || usernameValue;
 
       // // // console.log('✅ Login successful for user:', usernameValue);
       // // // console.log('🎯 Expected password:', allowedUsers[usernameValue]);
       // // // console.log('🎯 Provided password matches:', passwordValue === allowedUsers[usernameValue] ? 'YES' : 'NO');
       
-      const capitalizedUsername = usernameValue.charAt(0).toUpperCase() + usernameValue.slice(1);
+      const capitalizedUsername = canonicalUsername.charAt(0).toUpperCase() + canonicalUsername.slice(1);
       showStatus(`Welcome back, ${capitalizedUsername}!`, 'success');
       
       // Store login timestamp in Google Sheets under lastLogin field
       const loginTimestamp = getHumanReadableTimestamp();
-      await updateSheetUserStatus(usernameValue, { lastLogin: loginTimestamp });
+      await updateSheetUserStatus(canonicalUsername, { lastLogin: loginTimestamp });
 
       // Store login state
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('username', usernameValue);
+      localStorage.setItem('username', canonicalUsername);
       // Clean any leftover status cache from previous login
       localStorage.removeItem('currentStatus');
       localStorage.removeItem('workDone');
@@ -525,10 +167,10 @@ async function handleLogin(event) {
       
       // Redirect to overview.html for user 'sahya', otherwise user dashboard (keep spinner active during transition)
       setTimeout(() => {
-        if (usernameValue.toLowerCase() === 'sahya') {
+        if (canonicalUsername.toLowerCase() === 'sahya') {
           window.location.href = 'overview.html';
         } else {
-          window.location.href = `user-dashboard.html?user=${usernameValue}`;
+          window.location.href = `user-dashboard.html?user=${encodeURIComponent(canonicalUsername)}`;
         }
       }, 1500);
     } else {
