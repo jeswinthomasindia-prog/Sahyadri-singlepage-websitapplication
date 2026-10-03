@@ -360,7 +360,7 @@
       </a>
       <nav class="nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
-        <a href="login.html" class="login-btn">Login</a>
+        <a href="#" onclick="logout(); return false;" class="logout-link-header">Logout</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
@@ -389,7 +389,7 @@
     <div class="mobile-menu" id="mobileMenu">
       <nav class="mobile-menu-nav">
         <a href="login.html" class="assistant-nav-link">Talk to Sahya, our AI Assistant</a>
-        <a href="login.html" class="login-btn">Login</a>
+        <a href="#" onclick="logout(); return false;" class="logout-link-header">Logout</a>
         <a href="index.html">Home</a>
         <a href="index.html#projects">Projects</a>
         <a href="index.html#about">About</a>
@@ -655,6 +655,18 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+    }
+
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('username');
+      localStorage.removeItem('currentStatus');
+      localStorage.removeItem('workDone');
+      localStorage.removeItem('nextSteps');
+      localStorage.removeItem('percentageCompleted');
+      localStorage.removeItem('chatSummary');
+      console.log('User logged out, localStorage cleared');
+      window.location.href = 'login.html';
     }
 
     document.getElementById('refreshAllBtn').addEventListener('click', loadAllWorkflows);
