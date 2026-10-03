@@ -8,7 +8,6 @@ Sitemap: https://sahyadrico.com/sitemap.xml
 Disallow: /login.html
 Disallow: /user-dashboard.html
 Disallow: /overview.html
-Disallow: /cred.env
 
 # Allow search engines to crawl all important pages
 #Allow: /index.html

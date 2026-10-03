@@ -733,45 +733,25 @@
   </audio>
 
   <script>
-    // Load API keys from cred.env file
+    // Load YouTube API key from Google Apps Script backend
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+
     async function loadYouTubeApiKey() {
       try {
-        console.log('🔍 Attempting to load YouTube API key from cred.env...');
-        
-        // Try to fetch cred.env file (works on Firebase)
-        const response = await fetch('./cred.env');
-        console.log('📁 Response status:', response.status);
-        console.log('📁 Response headers:', response.headers);
-        
+        console.log('🔍 Attempting to load YouTube API key from Apps Script backend...');
+        const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=getConfig`);
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`Apps Script HTTP error: ${response.status}`);
         }
-        
-        const envText = await response.text();
-        console.log('📄 Raw env file content:', envText);
-        
-        const lines = envText.split('\n');
-        console.log('📝 Parsed lines:', lines);
-        
-        for (const line of lines) {
-          console.log('🔍 Checking line:', line);
-          if (line.startsWith('YOUTUBE_API_KEY=')) {
-            const apiKey = line.split('=')[1].trim();
-            console.log('✅ Found YouTube API key:', apiKey.substring(0, 10) + '...');
-            return apiKey;
-          }
+        const config = await response.json();
+        if (config && config.youtubeApiKey) {
+          console.log('✅ YouTube API key loaded successfully from Apps Script backend');
+          return config.youtubeApiKey;
         }
-        throw new Error('YOUTUBE_API_KEY not found in cred.env file');
-        
+        throw new Error('youtubeApiKey not found in Apps Script config');
       } catch (error) {
         console.error('❌ Error loading YouTube API key:', error);
-        
-        // If it's a CORS error (local testing), provide helpful guidance
-        if (error.message.includes('CORS') || error.message.includes('NetworkError')) {
-          throw new Error("Cannot load cred.env file due to browser security restrictions. Please test on Firebase Hosting (https://your-app.firebaseapp.com) where this will work properly.");
-        }
-        
-        throw new Error('Failed to load YouTube API key from cred.env file: ' + error.message);
+        throw new Error('Failed to load YouTube API key: ' + error.message);
       }
     }
 
@@ -853,7 +833,7 @@
         try {
           const apiKey = YOUTUBE_API_KEY;
           if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
-            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+            throw new Error("YouTube API key not configured in backend.");
           }
           
           const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${handle}&type=channel&key=${apiKey}`);
@@ -940,13 +920,13 @@
         // Wait for YouTube API key to be loaded
         await youtubeApiKeyLoaded;
         
-        // Direct fetch from @sahyadriconsultants using API key from cred.env
+        // Direct fetch from @sahyadriconsultants using YouTube API key
         try {
           const apiKey = YOUTUBE_API_KEY;
           console.log('🔑 YouTube API key:', apiKey ? apiKey.substring(0, 10) + '...' : 'undefined');
           
           if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
-            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+            throw new Error("YouTube API key not configured in backend.");
           }
           
           console.log('🎥 Starting direct fetch from @sahyadriconsultants...');
@@ -1020,10 +1000,10 @@
         await youtubeApiKeyLoaded;
         
         try {
-          // Use YouTube API key from cred.env to get uploads playlist
+          // Use YouTube API key to get uploads playlist
           const apiKey = YOUTUBE_API_KEY;
           if (!apiKey || apiKey === "YOUR_YOUTUBE_API_KEY_HERE") {
-            throw new Error("YouTube API key not configured. Please ensure cred.env contains a valid YOUTUBE_API_KEY.");
+            throw new Error("YouTube API key not configured in backend.");
           }
           
           console.log(' Fetching channel details for @sahyadriconsultants...');

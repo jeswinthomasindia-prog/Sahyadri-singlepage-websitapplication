@@ -1,62 +1,10 @@
-// Load API keys from cred.env file
-let allowedUsers = {};
-let GOOGLE_SHEETS_API_KEY;
-let GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
 window.GOOGLE_APPS_SCRIPT_URL = GOOGLE_APPS_SCRIPT_URL;
-
-async function loadApiKeys() {
-  try {
-    // // // console.log('🔍 Loading API keys from cred.env...');
-    
-    const response = await fetch('./cred.env');
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const envText = await response.text();
-    // // // console.log('📄 Successfully loaded cred.env content');
-    
-    // Parse the environment file
-    const lines = envText.split('\n');
-    
-    for (const line of lines) {
-      const trimmedLine = line.trim();
-      if (trimmedLine && !trimmedLine.startsWith('#')) {
-        const [key, ...valueParts] = trimmedLine.split('=');
-        if (key && valueParts.length > 0) {
-          const value = valueParts.join('=').trim();
-          if (key === 'GOOGLE_SHEETS_API_KEY') {
-            GOOGLE_SHEETS_API_KEY = value;
-            // // // console.log('✅ Found Google Sheets API key:', value.substring(0, 10) + '...');
-          } else if (key === 'GOOGLE_APPS_SCRIPT_URL') {
-            GOOGLE_APPS_SCRIPT_URL = value;
-            window.GOOGLE_APPS_SCRIPT_URL = value;
-          }
-        }
-      }
-    }
-    
-    if (!GOOGLE_SHEETS_API_KEY) {
-      throw new Error('GOOGLE_SHEETS_API_KEY not found in cred.env file');
-    }
-    
-    // // // console.log('✅ API keys loaded successfully');
-    return true;
-  } catch (error) {
-    console.error('❌ Error loading API keys:', error);
-    throw new Error('Failed to load API keys from cred.env file');
-  }
-}
+let allowedUsers = {};
 
 async function loadUserCredentials() {
   try {
     // // // console.log('🔍 STEP 1: Starting user credentials loading from Google Sheets...');
-    
-    // First load API keys from cred.env
-    // // // console.log('🔑 STEP 2: Loading API keys from cred.env...');
-    await loadApiKeys();
-    // // // console.log('🔑 STEP 3: API keys loaded successfully');
     
     // Simplified approach - use direct CSV download
     // // // console.log('🌐 STEP 4: Preparing CSV download approach...');
@@ -488,29 +436,7 @@ async function updateSheetUserStatus(username, updateData) {
   try {
     if (!username) return;
 
-    let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec");
-    if (!webAppUrl) {
-      try {
-        const resp = await fetch('./cred.env');
-        if (resp.ok) {
-          const text = await resp.text();
-          const lines = text.split('\n');
-          for (const line of lines) {
-            const trimmed = line.trim();
-            if (trimmed && !trimmed.startsWith('#')) {
-              const [k, ...v] = trimmed.split('=');
-              if (k.trim() === 'GOOGLE_APPS_SCRIPT_URL') {
-                webAppUrl = v.join('=').trim();
-                window.GOOGLE_APPS_SCRIPT_URL = webAppUrl;
-                break;
-              }
-            }
-          }
-        }
-      } catch (e) {
-        console.error('Failed to fetch cred.env in updateSheetUserStatus:', e);
-      }
-    }
+    let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
 
     if (!webAppUrl || webAppUrl.includes('YOUR_GOOGLE_APPS_SCRIPT')) {
       console.warn('Google Apps Script Web App URL not configured.');

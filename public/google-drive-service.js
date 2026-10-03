@@ -212,29 +212,7 @@ class GoogleDriveService {
     if (typeof window.updateSheetUserStatus === 'function') {
       await window.updateSheetUserStatus(username, { driveLastUsed: formattedTime });
     } else {
-      let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
-      if (!webAppUrl) {
-        try {
-          const resp = await fetch('./cred.env');
-          if (resp.ok) {
-            const text = await resp.text();
-            const lines = text.split('\n');
-            for (const line of lines) {
-              const trimmed = line.trim();
-              if (trimmed && !trimmed.startsWith('#')) {
-                const [k, ...v] = trimmed.split('=');
-                if (k.trim() === 'GOOGLE_APPS_SCRIPT_URL') {
-                  webAppUrl = v.join('=').trim();
-                  window.GOOGLE_APPS_SCRIPT_URL = webAppUrl;
-                  break;
-                }
-              }
-            }
-          }
-        } catch (e) {
-          console.error('Failed to load cred.env for Apps Script URL:', e);
-        }
-      }
+      const webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
 
       if (webAppUrl) {
         try {

@@ -1,5 +1,4 @@
 // Simple HTTP server for local development
-// This allows reading cred.env file without CORS issues
 
 const http = require('http');
 const fs = require('fs');
@@ -19,7 +18,6 @@ const mimeTypes = {
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.env': 'text/plain',
   '.webm': 'video/webm',
   '.mp4': 'video/mp4',
   '.webp': 'image/webp'
@@ -65,7 +63,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`🚀 Local server running at http://localhost:${PORT}`);
   console.log(`📁 Serving files from: ${__dirname}`);
-  console.log(`🔑 API keys will be loaded from cred.env file`);
   console.log(`\n🌐 Open your browser and navigate to: http://localhost:${PORT}/assistant.html`);
   console.log(`\n💡 To stop the server, press Ctrl+C`);
 });

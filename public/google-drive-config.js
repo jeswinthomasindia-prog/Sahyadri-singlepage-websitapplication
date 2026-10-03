@@ -101,52 +101,13 @@ async function loadGoogleDriveConfig() {
   }
 }
 
-// Load API keys from cred.env file
-async function loadGoogleApiKeys() {
-  try {
-    const response = await fetch('./cred.env');
-    const envText = await response.text();
-    const lines = envText.split('\n');
-    
-    const config = {};
-    for (const line of lines) {
-      if (line.startsWith('GOOGLE_API_KEY=')) {
-        config.API_KEY = line.split('=')[1].trim();
-      } else if (line.startsWith('GOOGLE_CLIENT_ID=')) {
-        config.CLIENT_ID = line.split('=')[1].trim();
-      }
-    }
-    
-    if (!config.API_KEY || !config.CLIENT_ID) {
-      throw new Error('Google API keys not found in cred.env file');
-    }
-    
-    return config;
-  } catch (error) {
-    console.error('Error loading Google API keys:', error);
-    throw new Error('Failed to load Google API keys from cred.env file');
-  }
-}
-
 // Google Drive API configuration
-  let GOOGLE_API_CONFIG = {
-    // These will be loaded from cred.env file
-    API_KEY: "YOUR_GOOGLE_API_KEY_HERE",
-    CLIENT_ID: "YOUR_GOOGLE_CLIENT_ID_HERE",
-    DISCOVERY_DOC: "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-    SCOPES: "https://www.googleapis.com/auth/drive.readonly"
-  };
-
-  // Initialize Google API keys
-  (async () => {
-    try {
-      const keys = await loadGoogleApiKeys();
-      GOOGLE_API_CONFIG.API_KEY = keys.API_KEY;
-      GOOGLE_API_CONFIG.CLIENT_ID = keys.CLIENT_ID;
-    } catch (error) {
-      console.error('Failed to initialize Google API keys:', error);
-    }
-  })();
+const GOOGLE_API_CONFIG = {
+  API_KEY: "YOUR_GOOGLE_API_KEY_HERE",
+  CLIENT_ID: "YOUR_GOOGLE_CLIENT_ID_HERE",
+  DISCOVERY_DOC: "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+  SCOPES: "https://www.googleapis.com/auth/drive.readonly"
+};
 
 // Helper function to get file type info
 function getFileTypeInfo(fileName) {
