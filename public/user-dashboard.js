@@ -37,7 +37,50 @@ function initializeDashboard() {
   // Show status tile for the current user
   let statusPromise = Promise.resolve();
   if (currentUser) {
+    // Record login timestamp to Google Sheets under lastLogin field
+    const loginTime = typeof window.getHumanReadableTimestamp === 'function' 
+      ? window.getHumanReadableTimestamp() 
+      : new Date().toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
+
+    if (typeof window.updateSheetUserStatus === 'function') {
+      window.updateSheetUserStatus(currentUser, { lastLogin: loginTime });
+    }
+
     statusPromise = showStatusTile(currentUser);
+  }
+
+  // Attach listener to artifactList for Drive button clicks to record driveLastUsed
+  if (artifactList) {
+    artifactList.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (link && currentUser) {
+        const timestamp = typeof window.getHumanReadableTimestamp === 'function'
+          ? window.getHumanReadableTimestamp()
+          : new Date().toLocaleString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              hour12: true
+            });
+
+        if (window.googleDriveService && typeof window.googleDriveService.recordDriveClick === 'function') {
+          window.googleDriveService.recordDriveClick(currentUser, timestamp);
+        } else if (typeof window.updateSheetUserStatus === 'function') {
+          window.updateSheetUserStatus(currentUser, { driveLastUsed: timestamp });
+        }
+      }
+    });
   }
 
   // Load artifacts for the current user
@@ -300,6 +343,8 @@ async function loadUserStatusData() {
         const nextSteps = values[3];
         const percentageCompleted = values[4] || 'N/A';
         const chatSummary = values[5] || 'No summary available';
+        const lastLogin = values[6] || 'N/A';
+        const driveLastUsed = values[7] || 'N/A';
 
         if (username) {
           users[username] = {
@@ -307,7 +352,9 @@ async function loadUserStatusData() {
             workDone: workDone || 'Work details not available',
             nextSteps: nextSteps || 'Next steps not available',
             percentageCompleted: percentageCompleted || 'N/A',
-            chatSummary: chatSummary || 'No summary available'
+            chatSummary: chatSummary || 'No summary available',
+            lastLogin: lastLogin || 'N/A',
+            driveLastUsed: driveLastUsed || 'N/A'
           };
           // console.log(`👤 Loaded status for user: ${username}`);
         }

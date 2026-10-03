@@ -27,6 +27,9 @@ async function loadApiKeys() {
           if (key === 'GOOGLE_SHEETS_API_KEY') {
             GOOGLE_SHEETS_API_KEY = value;
             // // // console.log('✅ Found Google Sheets API key:', value.substring(0, 10) + '...');
+          } else if (key === 'GOOGLE_APPS_SCRIPT_URL') {
+            GOOGLE_APPS_SCRIPT_URL = value;
+            window.GOOGLE_APPS_SCRIPT_URL = value;
           }
         }
       }
@@ -465,6 +468,71 @@ function showStatus(message, type = 'info') {
   }, 3200);
 }
 
+function getHumanReadableTimestamp() {
+  const now = new Date();
+  return now.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+}
+window.getHumanReadableTimestamp = getHumanReadableTimestamp;
+
+async function updateSheetUserStatus(username, updateData) {
+  try {
+    if (!username) return;
+
+    let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL || (typeof GOOGLE_APPS_SCRIPT_URL !== 'undefined' ? GOOGLE_APPS_SCRIPT_URL : '');
+    if (!webAppUrl) {
+      try {
+        const resp = await fetch('./cred.env');
+        if (resp.ok) {
+          const text = await resp.text();
+          const lines = text.split('\n');
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (trimmed && !trimmed.startsWith('#')) {
+              const [k, ...v] = trimmed.split('=');
+              if (k.trim() === 'GOOGLE_APPS_SCRIPT_URL') {
+                webAppUrl = v.join('=').trim();
+                window.GOOGLE_APPS_SCRIPT_URL = webAppUrl;
+                break;
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch cred.env in updateSheetUserStatus:', e);
+      }
+    }
+
+    if (!webAppUrl || webAppUrl.includes('YOUR_GOOGLE_APPS_SCRIPT')) {
+      console.warn('Google Apps Script Web App URL not configured.');
+      return;
+    }
+
+    const payload = {
+      username: username,
+      ...updateData
+    };
+
+    await fetch(webAppUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      body: JSON.stringify(payload)
+    });
+  } catch (error) {
+    console.error('Error updating Google Sheet user status:', error);
+  }
+}
+window.updateSheetUserStatus = updateSheetUserStatus;
+
 async function handleLogin(event) {
   event.preventDefault();
   
@@ -502,6 +570,10 @@ async function handleLogin(event) {
       const capitalizedUsername = usernameValue.charAt(0).toUpperCase() + usernameValue.slice(1);
       showStatus(`Welcome back, ${capitalizedUsername}!`, 'success');
       
+      // Store login timestamp in Google Sheets under lastLogin field
+      const loginTimestamp = getHumanReadableTimestamp();
+      updateSheetUserStatus(usernameValue, { lastLogin: loginTimestamp });
+
       // Store login state
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('username', usernameValue);

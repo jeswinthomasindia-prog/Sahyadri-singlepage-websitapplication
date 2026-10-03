@@ -190,6 +190,68 @@ class GoogleDriveService {
       day: 'numeric'
     });
   }
+
+  // Record drive button click timestamp to Google Sheets (driveLastUsed field)
+  async recordDriveClick(username, timestamp) {
+    if (!username) return;
+
+    const formattedTime = timestamp || (typeof window.getHumanReadableTimestamp === 'function' 
+      ? window.getHumanReadableTimestamp() 
+      : new Date().toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        }));
+
+    console.log(`Recording driveLastUsed timestamp for user ${username}: ${formattedTime}`);
+
+    if (typeof window.updateSheetUserStatus === 'function') {
+      await window.updateSheetUserStatus(username, { driveLastUsed: formattedTime });
+    } else {
+      let webAppUrl = window.GOOGLE_APPS_SCRIPT_URL;
+      if (!webAppUrl) {
+        try {
+          const resp = await fetch('./cred.env');
+          if (resp.ok) {
+            const text = await resp.text();
+            const lines = text.split('\n');
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (trimmed && !trimmed.startsWith('#')) {
+                const [k, ...v] = trimmed.split('=');
+                if (k.trim() === 'GOOGLE_APPS_SCRIPT_URL') {
+                  webAppUrl = v.join('=').trim();
+                  window.GOOGLE_APPS_SCRIPT_URL = webAppUrl;
+                  break;
+                }
+              }
+            }
+          }
+        } catch (e) {
+          console.error('Failed to load cred.env for Apps Script URL:', e);
+        }
+      }
+
+      if (webAppUrl) {
+        try {
+          await fetch(webAppUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({
+              username: username,
+              driveLastUsed: formattedTime
+            })
+          });
+        } catch (err) {
+          console.error('Error posting driveLastUsed to Google Apps Script:', err);
+        }
+      }
+    }
+  }
 }
 
 // Create global instance
