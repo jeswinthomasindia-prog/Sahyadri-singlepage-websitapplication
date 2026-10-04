@@ -1,7 +1,13 @@
 name: Simple PR Syntax Check for html,css,js and json
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   check-syntax-of-html-css-js-json:
