@@ -187,8 +187,31 @@ async function captureBaseline() {
       });
     });
 
-    // 7. Update Swiper sliders safely
+    // 7. Freeze and reset all carousels to first slide (prevents slide shifts and height changes)
+    console.log('🎠 Freezing and resetting all carousels to slide 0...');
     await page.evaluate(() => {
+      // Clear any running interval timers
+      const highestId = window.setInterval(() => {}, 9999);
+      for (let i = 0; i <= highestId; i++) {
+        window.clearInterval(i);
+      }
+
+      // Reset all carousel tracks to first slide (slide 0)
+      ['projectTrack', 'testiTrack', 'awardsTrack'].forEach((id) => {
+        const track = document.getElementById(id);
+        if (track) {
+          track.style.transform = 'translateX(0px)';
+          track.style.transition = 'none';
+        }
+      });
+
+      // Reset BeerSlider handle to center
+      const beerSlider = document.querySelector('.beer-slider');
+      if (beerSlider) {
+        const handle = beerSlider.querySelector('.beer-handle');
+        if (handle) handle.style.left = '50%';
+      }
+
       const swipers = document.querySelectorAll('.swiper-container, .swiper');
       swipers.forEach((s) => {
         if (s && s.swiper && typeof s.swiper.update === 'function') {

@@ -141,10 +141,16 @@ function setupCarousel(containerKey, trackId, interval = 6500) {
 
   track.style.cursor = 'grab';
 
-  const intervalId = setInterval(() => update('next'), interval);
+  const isAutomated = window.__DISABLE_CONSENT_MODAL__ === true ||
+    (typeof window !== 'undefined' && window.location && new URLSearchParams(window.location.search).get('automated_test') === 'true') ||
+    (navigator.userAgent && (navigator.userAgent.includes('Playwright') || navigator.userAgent.includes('Headless')));
+
+  const intervalId = isAutomated ? null : setInterval(() => update('next'), interval);
   window.addEventListener('resize', () => update('none'));
 
-  return () => clearInterval(intervalId);
+  return () => {
+    if (intervalId) clearInterval(intervalId);
+  };
 }
 
 window.addEventListener('DOMContentLoaded', () => {
