@@ -125,6 +125,209 @@
       transform: translateY(-1px);
     }
 
+    /* --- Executive Summary Metric Tiles --- */
+    .summary-tiles-section {
+      margin-bottom: 24px;
+    }
+
+    .summary-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .summary-tiles-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .summary-tiles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .summary-tile-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .summary-tile-card:hover {
+      transform: translateY(-3px);
+      border-color: #004b82;
+      box-shadow: 0 10px 25px rgba(0, 75, 130, 0.12);
+    }
+
+    .summary-tile-card:active {
+      transform: translateY(-1px);
+    }
+
+    .summary-tile-card:focus-visible {
+      outline: 2px solid #004b82;
+      outline-offset: 2px;
+    }
+
+    .tile-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .tile-header-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .tile-drilldown-hint {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #64748b;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .summary-tile-card:hover .tile-drilldown-hint {
+      opacity: 1;
+      transform: translateX(2px);
+      color: #004b82;
+    }
+
+    .tile-value-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      min-height: 42px;
+    }
+
+    .tile-status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: all 0.2s ease;
+    }
+
+    .tile-status-tag.stable {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .tile-status-tag.passed {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .tile-status-tag.failed {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .tile-status-tag.in-progress {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    .tile-status-tag.loading {
+      background: #f8fafc;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .tile-dual-value {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .tile-primary-num {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .tile-slash {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #94a3b8;
+    }
+
+    .tile-secondary-num {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #64748b;
+      line-height: 1;
+    }
+
+    .tile-footer-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tile-subtext {
+      font-size: 0.78rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .tile-subtext-extra {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Drilldown Target Highlight Animation */
+    @keyframes cardTargetPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 75, 130, 0.45);
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(0, 75, 130, 0.25);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 75, 130, 0);
+      }
+    }
+
+    .card-highlight {
+      animation: cardTargetPulse 1.6s ease-out;
+      border-color: #004b82 !important;
+    }
+
     .workflow-cards-stack {
       display: flex;
       flex-direction: column;
@@ -930,9 +1133,100 @@
       </button>
     </div>
 
+    <!-- Executive Summary Stat Tiles Section -->
+    <section class="summary-tiles-section" aria-label="Executive Summary Metrics">
+      <div class="summary-tiles-grid" id="summaryTilesGrid">
+        
+        <!-- Tile 1: Website Stability -->
+        <div class="summary-tile-card" id="tileStability" role="button" tabindex="0"
+          onclick="scrollToSection('stabilityCard')"
+          onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); scrollToSection('stabilityCard'); }"
+          title="Click to jump to Website Stability details">
+          <div class="tile-header-row">
+            <span class="tile-header-title">⚡ Website Stability</span>
+            <span class="tile-drilldown-hint">View ↘</span>
+          </div>
+          <div class="tile-value-wrap">
+            <span class="tile-status-tag loading" id="tileStabilityTag">
+              <span>🔄</span> Loading...
+            </span>
+          </div>
+          <div class="tile-footer-info">
+            <span class="tile-subtext" id="tileStabilityDesc">Evaluating current &amp; prev 2 runs...</span>
+            <span class="tile-subtext-extra">Click to jump to details</span>
+          </div>
+        </div>
+
+        <!-- Tile 2: Change Quality -->
+        <div class="summary-tile-card" id="tileChangeQuality" role="button" tabindex="0"
+          onclick="scrollToSection('prCheckCard')"
+          onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); scrollToSection('prCheckCard'); }"
+          title="Click to jump to Change Quality details">
+          <div class="tile-header-row">
+            <span class="tile-header-title">🔍 Change Quality</span>
+            <span class="tile-drilldown-hint">View ↘</span>
+          </div>
+          <div class="tile-value-wrap">
+            <span class="tile-status-tag loading" id="tileChangeQualityTag">
+              <span>🔄</span> Loading...
+            </span>
+          </div>
+          <div class="tile-footer-info">
+            <span class="tile-subtext" id="tileChangeQualityDesc">Evaluating current &amp; prev 2 runs...</span>
+            <span class="tile-subtext-extra">Click to jump to details</span>
+          </div>
+        </div>
+
+        <!-- Tile 3: Change Speed -->
+        <div class="summary-tile-card" id="tileChangeSpeed" role="button" tabindex="0"
+          onclick="scrollToSection('devStatusCard')"
+          onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); scrollToSection('devStatusCard'); }"
+          title="Click to jump to Change Speed table">
+          <div class="tile-header-row">
+            <span class="tile-header-title">🛠️ Change Speed</span>
+            <span class="tile-drilldown-hint">View ↘</span>
+          </div>
+          <div class="tile-value-wrap">
+            <div class="tile-dual-value">
+              <span class="tile-primary-num" id="tileCommitsMonthVal">28</span>
+              <span class="tile-slash">/</span>
+              <span class="tile-secondary-num" id="tileCommitsTotalVal">308</span>
+            </div>
+          </div>
+          <div class="tile-footer-info">
+            <span class="tile-subtext">Commits this month / Total commits</span>
+            <span class="tile-subtext-extra" id="tileCommitsExtra">Click to jump to commits table</span>
+          </div>
+        </div>
+
+        <!-- Tile 4: User Status -->
+        <div class="summary-tile-card" id="tileUserStatus" role="button" tabindex="0"
+          onclick="scrollToSection('userStatusCard')"
+          onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); scrollToSection('userStatusCard'); }"
+          title="Click to jump to User Status table">
+          <div class="tile-header-row">
+            <span class="tile-header-title">👥 User Status</span>
+            <span class="tile-drilldown-hint">View ↘</span>
+          </div>
+          <div class="tile-value-wrap">
+            <div class="tile-dual-value">
+              <span class="tile-primary-num" id="tileUserMonthVal">0</span>
+              <span class="tile-slash">/</span>
+              <span class="tile-secondary-num" id="tileUserTotalVal">9</span>
+            </div>
+          </div>
+          <div class="tile-footer-info">
+            <span class="tile-subtext">Last login this month / Total users</span>
+            <span class="tile-subtext-extra" id="tileUserStatusExtra">Click to jump to user table</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <div class="workflow-cards-stack">
       <!-- Workflow 1: Website Stability & Visual Diff -->
-      <div class="workflow-single-card">
+      <div class="workflow-single-card" id="stabilityCard">
         <div class="card-top-header">
           <div>
             <h2 class="card-main-title">⚡ Website Stability & Visual Diff Tracker</h2>
@@ -954,11 +1248,11 @@
         </div>
       </div>
 
-      <!-- Workflow 2: PR Check -->
-      <div class="workflow-single-card">
+      <!-- Workflow 2: Change Quality -->
+      <div class="workflow-single-card" id="prCheckCard">
         <div class="card-top-header">
           <div>
-            <h2 class="card-main-title">🔍 PR Check Tracker</h2>
+            <h2 class="card-main-title">🔍 Change Quality Tracker</h2>
             <p class="card-sub-title">Tracking <code>pr-check.yaml</code></p>
           </div>
           <div class="header-action-links">
@@ -971,16 +1265,16 @@
 
         <div id="prCheckRunsContainer" class="runs-container">
           <div class="empty-state">
-            <p>🔄 Loading PR check runs from GitHub...</p>
+            <p>🔄 Loading change quality runs from GitHub...</p>
           </div>
         </div>
       </div>
 
-      <!-- Section 3: Development Status -->
+      <!-- Section 3: Change Speed -->
       <div class="workflow-single-card" id="devStatusCard">
         <div class="card-top-header">
           <div>
-            <h2 class="card-main-title">🛠️ Development Status</h2>
+            <h2 class="card-main-title">🛠️ Change Speed</h2>
             <p class="card-sub-title">Live repository changes, timestamps, authors, and classification</p>
           </div>
           <div class="header-action-links">
@@ -1171,6 +1465,174 @@
   <script src="script.js"></script>
   <script src="analytics-tracker.js"></script>
   <script>
+    /* ==========================================================================
+       EXECUTIVE SUMMARY TILES LOGIC & DRILLDOWN
+       ========================================================================== */
+    function scrollToSection(targetId) {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.classList.remove('card-highlight');
+      // Force DOM reflow to ensure re-triggering of animation
+      void target.offsetWidth;
+      target.classList.add('card-highlight');
+      setTimeout(() => {
+        target.classList.remove('card-highlight');
+      }, 1800);
+    }
+
+    /**
+     * Compute workflow tile status:
+     * - "Stable" if current and previous 2 runs (3 latest completed runs) passed ('success')
+     * - Else show latest status: "Passed" or "Failed" (or "In Progress")
+     */
+    function computeWorkflowTileStatus(runs) {
+      if (!Array.isArray(runs) || runs.length === 0) {
+        return {
+          statusText: 'No Runs',
+          className: 'loading',
+          icon: '⚪',
+          desc: 'No workflow runs found'
+        };
+      }
+
+      const completedRuns = runs.filter(r => r.status === 'completed');
+      const candidateRuns = completedRuns.length >= 1 ? completedRuns : runs;
+      const latest3 = candidateRuns.slice(0, 3);
+
+      // Check if current run and prev 2 runs (all 3 runs) passed successfully
+      const isStable = latest3.length >= 3 && latest3.every(r => r.conclusion === 'success');
+
+      if (isStable) {
+        return {
+          statusText: 'Stable',
+          className: 'stable',
+          icon: '🛡️',
+          desc: 'Latest 3 runs all passed (Stable)'
+        };
+      }
+
+      // If fewer than 3 runs exist, but all available runs passed
+      if (latest3.length < 3 && latest3.length > 0 && latest3.every(r => r.conclusion === 'success')) {
+        return {
+          statusText: 'Stable',
+          className: 'stable',
+          icon: '🛡️',
+          desc: `All ${latest3.length} available runs passed (Stable)`
+        };
+      }
+
+      // Else show latest status: Passed or Failed
+      const latest = candidateRuns[0] || runs[0];
+      const conclusion = latest.conclusion || latest.status;
+
+      if (conclusion === 'success') {
+        return {
+          statusText: 'Passed',
+          className: 'passed',
+          icon: '✅',
+          desc: 'Latest run passed (prior runs had failure)'
+        };
+      } else if (conclusion === 'failure' || conclusion === 'cancelled' || conclusion === 'timed_out') {
+        return {
+          statusText: 'Failed',
+          className: 'failed',
+          icon: '❌',
+          desc: 'Latest workflow run failed'
+        };
+      } else {
+        return {
+          statusText: 'In Progress',
+          className: 'in-progress',
+          icon: '⏳',
+          desc: 'Latest run in progress'
+        };
+      }
+    }
+
+    function updateWebsiteStabilityTile(runs) {
+      const tagEl = document.getElementById('tileStabilityTag');
+      const descEl = document.getElementById('tileStabilityDesc');
+      if (!tagEl) return;
+      const res = computeWorkflowTileStatus(runs);
+      tagEl.className = `tile-status-tag ${res.className}`;
+      tagEl.innerHTML = `<span>${res.icon}</span> ${res.statusText}`;
+      if (descEl) descEl.textContent = res.desc;
+    }
+
+    function updateChangeQualityTile(runs) {
+      const tagEl = document.getElementById('tileChangeQualityTag') || document.getElementById('tilePrCheckTag');
+      const descEl = document.getElementById('tileChangeQualityDesc') || document.getElementById('tilePrCheckDesc');
+      if (!tagEl) return;
+      const res = computeWorkflowTileStatus(runs);
+      tagEl.className = `tile-status-tag ${res.className}`;
+      tagEl.innerHTML = `<span>${res.icon}</span> ${res.statusText}`;
+      if (descEl) descEl.textContent = res.desc;
+    }
+    const updatePrQualityTile = updateChangeQualityTile;
+
+    async function fetchChangeSpeedStats() {
+      const monthEl = document.getElementById('tileCommitsMonthVal');
+      const totalEl = document.getElementById('tileCommitsTotalVal');
+
+      // Populate current repository total
+      if (totalEl && overallDevStats.total) {
+        totalEl.textContent = overallDevStats.total;
+      }
+
+      try {
+        const now = new Date();
+        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        const res = await fetch(`https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits?sha=main&since=${firstDayOfMonth}&per_page=100`, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (res.ok) {
+          const commits = await res.json();
+          if (Array.isArray(commits)) {
+            if (monthEl) monthEl.textContent = commits.length;
+          }
+        }
+      } catch (err) {
+        console.warn('Error fetching month commits for Change Speed tile:', err);
+      }
+
+      if (totalEl && overallDevStats.total) {
+        totalEl.textContent = overallDevStats.total;
+      }
+    }
+
+    function updateUserStatusTile() {
+      const monthEl = document.getElementById('tileUserMonthVal') || document.getElementById('tileUserTodayVal');
+      const totalEl = document.getElementById('tileUserTotalVal');
+      const extraEl = document.getElementById('tileUserStatusExtra');
+      if (!monthEl || !totalEl) return;
+
+      const totalUsers = allUserStatusData.length;
+      totalEl.textContent = totalUsers;
+
+      const now = new Date();
+      const curYear = now.getFullYear();
+      const curMonth = now.getMonth();
+      let monthCount = 0;
+
+      allUserStatusData.forEach(user => {
+        const rawLogin = getRowValueByHeader(user, 'Last Login') || user.lastLogin;
+        if (rawLogin && rawLogin !== 'N/A' && rawLogin !== 'null' && rawLogin !== 'undefined') {
+          const d = new Date(rawLogin);
+          if (!isNaN(d.getTime())) {
+            if (d.getFullYear() === curYear && d.getMonth() === curMonth) {
+              monthCount++;
+            }
+          }
+        }
+      });
+
+      monthEl.textContent = monthCount;
+      if (extraEl) {
+        extraEl.textContent = monthCount === 1 ? '1 user logged in this month' : `${monthCount} users logged in this month`;
+      }
+    }
+
     const WORKFLOW_CONFIGS = [
       {
         containerId: 'stabilityRunsContainer',
@@ -1205,6 +1667,13 @@
 
         const data = await response.json();
         const runs = data.workflow_runs || [];
+
+        // Update corresponding executive summary tile
+        if (config.containerId === 'stabilityRunsContainer') {
+          updateWebsiteStabilityTile(runs);
+        } else if (config.containerId === 'prCheckRunsContainer') {
+          updateChangeQualityTile(runs);
+        }
 
         if (runs.length === 0) {
           container.innerHTML = `
@@ -1313,6 +1782,14 @@
 
       } catch (err) {
         console.error('Error fetching workflow runs:', err);
+
+        // Update tile on failure
+        if (config.containerId === 'stabilityRunsContainer') {
+          updateWebsiteStabilityTile([]);
+        } else if (config.containerId === 'prCheckRunsContainer') {
+          updateChangeQualityTile([]);
+        }
+
         container.innerHTML = `
           <div class="empty-state">
             <p style="color: #dc2626;">❌ Failed to load GitHub workflow runs: ${escapeHTML(err.message)}</p>
@@ -1329,6 +1806,7 @@
     function loadAllWorkflows() {
       WORKFLOW_CONFIGS.forEach(config => fetchAndRenderWorkflow(config));
       fetchAndRenderDevCommits(currentCommitsPage, true);
+      fetchChangeSpeedStats();
     }
 
     /* --- Development Status & Commits Tracker with Full Pagination --- */
@@ -1356,10 +1834,12 @@
       const countAllEl = document.getElementById('countAll');
       const countFeatEl = document.getElementById('countFeat');
       const countFixEl = document.getElementById('countFix');
+      const tileTotalEl = document.getElementById('tileCommitsTotalVal');
 
       if (countAllEl) countAllEl.textContent = overallDevStats.total;
       if (countFeatEl) countFeatEl.textContent = overallDevStats.feats;
       if (countFixEl) countFixEl.textContent = overallDevStats.fixes;
+      if (tileTotalEl) tileTotalEl.textContent = overallDevStats.total;
     }
 
     async function fetchOverallStatsFromGitHub() {
@@ -2059,6 +2539,7 @@
     }
 
     function renderUserStatusTable() {
+      updateUserStatusTile();
       renderUserStatusThead();
       const tbody = document.getElementById('userStatusTbody');
       if (!tbody) return;
