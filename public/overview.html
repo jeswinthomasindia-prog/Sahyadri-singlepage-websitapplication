@@ -702,6 +702,394 @@
       font-size: 0.85rem;
       user-select: none;
     }
+
+    /* User Status Admin Table Styles */
+    .user-status-card {
+      margin-top: 30px;
+    }
+
+    .user-status-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .user-status-search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-width: 260px;
+    }
+
+    .user-status-search-input {
+      width: 100%;
+      padding: 8px 14px 8px 36px;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #0f172a;
+      background: #ffffff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .user-status-search-input:focus {
+      border-color: #004b82;
+      box-shadow: 0 0 0 3px rgba(0, 75, 130, 0.12);
+    }
+
+    .user-status-search-icon {
+      position: absolute;
+      left: 12px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    .user-status-badges-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .user-metric-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .user-status-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 0 0 16px 16px;
+    }
+
+    .user-status-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    .user-status-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.6px;
+      padding: 14px 18px;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .user-status-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+      vertical-align: top;
+      background: #ffffff;
+      transition: background 0.15s ease;
+    }
+
+    .user-status-table tbody tr:hover td {
+      background: #f8fafc;
+    }
+
+    .user-avatar-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .user-avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #004b82, #0284c7);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 75, 130, 0.25);
+      flex-shrink: 0;
+    }
+
+    .user-link {
+      color: #004b82;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      transition: color 0.15s;
+    }
+
+    .user-link:hover {
+      text-decoration: underline;
+      color: #0369a1;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: normal;
+      line-height: 1.3;
+    }
+
+    .status-badge.design {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .status-badge.inspection {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-badge.planning {
+      background: #f3e8ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+
+    .status-badge.neutral {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .progress-cell-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 110px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0284c7, #22c55e);
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .summary-text-clamped {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #475569;
+      max-width: 260px;
+    }
+
+    .btn-view-summary {
+      display: inline-block;
+      margin-top: 4px;
+      background: none;
+      border: none;
+      color: #004b82;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .btn-view-summary:hover {
+      color: #0284c7;
+    }
+
+    .time-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      color: #475569;
+      background: #f8fafc;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Modal for Full Chat Summary */
+    .summary-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .summary-modal-overlay.active {
+      display: flex;
+    }
+
+    .summary-modal-card {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .summary-modal-header {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .summary-modal-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #64748b;
+      padding: 4px;
+      line-height: 1;
+      border-radius: 6px;
+    }
+
+    .summary-modal-close:hover {
+      color: #0f172a;
+      background: #e2e8f0;
+    }
+
+    .summary-modal-body {
+      padding: 20px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #334155;
+      max-height: 440px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fields-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field-detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+
+    .field-detail-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .field-detail-val {
+      font-size: 0.9rem;
+      color: #0f172a;
+      line-height: 1.5;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .btn-row-details {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #f1f5f9;
+      color: #004b82;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    .btn-row-details:hover {
+      background: #004b82;
+      color: #ffffff;
+      border-color: #004b82;
+    }
   </style>
 </head>
 
@@ -886,8 +1274,77 @@
           </div>
         </div>
       </div>
+
+      <!-- Section 4: User Status (Google Sheet: 02. User Status) -->
+      <div class="workflow-single-card user-status-card" id="userStatusCard">
+        <div class="card-top-header">
+          <div>
+            <h2 class="card-main-title">👥 User Status</h2>
+            <p class="card-sub-title">Admin overview of client project statuses, progress milestones, and activity</p>
+          </div>
+          <div class="header-action-links">
+            <button type="button" class="action-pill-btn" id="refreshUserStatusBtn" style="cursor: pointer; background: #ffffff; border: 1px solid #cbd5e1; font-weight: 600; color: #003965; display: inline-flex; align-items: center; gap: 6px;">
+              <span>↻</span> Refresh
+            </button>
+            <a href="https://docs.google.com/spreadsheets/d/13XwwgW_JdvqH_Ac3Z5tR7geabBYAu-vu_1fWNVZOH_g/edit?pli=1&gid=811257958#gid=811257958"
+              target="_blank" rel="noopener noreferrer" class="action-pill-btn" title="Open Google Sheet directly">
+              Google Sheet (02. User Status) ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="user-status-toolbar">
+          <div class="user-status-search-box">
+            <span class="user-status-search-icon">🔍</span>
+            <input type="text" id="userSearchInput" class="user-status-search-input" placeholder="Search by username, phase or work..." />
+          </div>
+          <div class="user-status-badges-group">
+            <span class="user-metric-badge" id="badgeTotalUsers">Total Users: --</span>
+            <span class="user-metric-badge" id="badgeTotalColumns" style="background: #f1f5f9; color: #475569;">Columns: --</span>
+            <span class="user-metric-badge" id="badgeActiveProjects" style="background: #e0f2fe; color: #0369a1;">Active: --</span>
+            <span class="user-metric-badge" id="badgeCompletedProjects" style="background: #dcfce7; color: #15803d;">Completed: --</span>
+          </div>
+        </div>
+
+        <div class="user-status-table-wrapper">
+          <table class="user-status-table" id="userStatusTable">
+            <thead id="userStatusThead">
+              <tr>
+                <th>Username</th>
+                <th>Current Status</th>
+                <th>Progress</th>
+                <th>Work Done</th>
+                <th>Next Steps</th>
+                <th>Chat Summary</th>
+                <th>Last Login</th>
+                <th>Drive Last Used</th>
+              </tr>
+            </thead>
+            <tbody id="userStatusTbody">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 40px 20px; color: #64748b;">
+                  🔄 Loading user statuses from Google Sheet...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </main>
+
+  <!-- Modal for Full Chat Summary -->
+  <div class="summary-modal-overlay" id="summaryModalOverlay" onclick="closeSummaryModal(event)">
+    <div class="summary-modal-card" onclick="event.stopPropagation()">
+      <div class="summary-modal-header">
+        <div class="summary-modal-title" id="summaryModalTitle">
+          💬 Chat Summary
+        </div>
+        <button type="button" class="summary-modal-close" onclick="closeSummaryModal()" aria-label="Close">&times;</button>
+      </div>
+      <div class="summary-modal-body" id="summaryModalBody"></div>
+    </div>
+  </div>
 
   <!-- Footer copied from login.html -->
   <footer id="contact">
@@ -1689,6 +2146,420 @@
       return false;
     }
 
+    /* ==========================================================================
+       SECTION 4: USER STATUS ADMIN TABLE (GOOGLE SHEETS: 02. USER STATUS)
+       ========================================================================== */
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLYwqBxuLKCNP5k9uYJArvyo2ML_Xyqscf-fG-CTMFhK3JpNf5KfQxbxEU-mPa2uBd/exec";
+    let allUserStatusData = [];
+    let userStatusHeaders = [
+      'Username',
+      'Current Status',
+      'Percentage Completed',
+      'Work Done',
+      'Next Steps',
+      'Chat Summary',
+      'Last Login',
+      'Drive Last Used'
+    ];
+
+    function capitalizeUsername(name) {
+      if (!name) return 'Guest';
+      const s = String(name).trim();
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function formatDateTime(val) {
+      if (!val || val === 'N/A' || val === 'null' || val === 'undefined') return 'N/A';
+      const d = new Date(val);
+      if (isNaN(d.getTime())) return escapeHTML(String(val));
+      return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) +
+        ', ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+
+    function getStatusBadgeClass(status) {
+      const s = (status || '').toLowerCase();
+      if (s.includes('design')) return 'design';
+      if (s.includes('inspection') || s.includes('completed')) return 'inspection';
+      if (s.includes('planning') || s.includes('consultation')) return 'planning';
+      return 'neutral';
+    }
+
+    function formatPercentage(val) {
+      if (val === undefined || val === null || val === '' || val === 'N/A') {
+        return { num: 0, text: 'N/A' };
+      }
+      let n = parseFloat(val);
+      if (isNaN(n)) return { num: 0, text: escapeHTML(String(val)) };
+      if (n <= 1 && n > 0) n = Math.round(n * 100);
+      return { num: Math.min(100, Math.max(0, Math.round(n))), text: `${Math.round(n)}%` };
+    }
+
+    function normalizeHeaderKey(key) {
+      return String(key || '').toLowerCase().replace(/[\s\-_]/g, '');
+    }
+
+    function getRowValueByHeader(user, header) {
+      if (user[header] !== undefined && user[header] !== null) {
+        return user[header];
+      }
+      const norm = normalizeHeaderKey(header);
+      for (const k in user) {
+        if (normalizeHeaderKey(k) === norm) {
+          return user[k];
+        }
+      }
+      return '';
+    }
+
+    function updateUserMetrics(users) {
+      const total = users.length;
+      let active = 0;
+      let completed = 0;
+
+      users.forEach(u => {
+        const s = String(getRowValueByHeader(u, 'Current Status') || '').toLowerCase();
+        const p = formatPercentage(getRowValueByHeader(u, 'Percentage Completed')).num;
+        if (p >= 100 || s.includes('completed') || s.includes('inspection')) {
+          completed++;
+        } else if (p > 0 || s.includes('phase') || s.includes('progress') || s.includes('design')) {
+          active++;
+        }
+      });
+
+      const totalBadge = document.getElementById('badgeTotalUsers');
+      const colBadge = document.getElementById('badgeTotalColumns');
+      const activeBadge = document.getElementById('badgeActiveProjects');
+      const completedBadge = document.getElementById('badgeCompletedProjects');
+
+      if (totalBadge) totalBadge.textContent = `Total Users: ${total}`;
+      if (colBadge) colBadge.textContent = `Fields: ${userStatusHeaders.length}`;
+      if (activeBadge) activeBadge.textContent = `Active: ${active}`;
+      if (completedBadge) completedBadge.textContent = `Completed: ${completed}`;
+    }
+
+    function renderUserStatusThead() {
+      const thead = document.getElementById('userStatusThead');
+      if (!thead) return;
+
+      thead.innerHTML = `
+        <tr>
+          ${userStatusHeaders.map(h => `<th>${escapeHTML(h)}</th>`).join('')}
+          <th style="text-align: center;">All Fields</th>
+        </tr>
+      `;
+    }
+
+    function renderUserStatusTable(users) {
+      renderUserStatusThead();
+      const tbody = document.getElementById('userStatusTbody');
+      if (!tbody) return;
+
+      const colSpan = userStatusHeaders.length + 1;
+
+      if (!users || users.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="${colSpan}" style="text-align: center; padding: 40px 20px; color: #64748b;">
+              ℹ️ No user statuses match your query.
+            </td>
+          </tr>`;
+        return;
+      }
+
+      tbody.innerHTML = users.map((user, userIdx) => {
+        const rawUser = String(getRowValueByHeader(user, 'Username') || user.username || 'guest').trim();
+        const capUser = capitalizeUsername(rawUser);
+
+        const cellsHtml = userStatusHeaders.map((header, colIdx) => {
+          const norm = normalizeHeaderKey(header);
+          const cellVal = getRowValueByHeader(user, header);
+          const valStr = String(cellVal !== undefined && cellVal !== null ? cellVal : '').trim();
+
+          // Col type: Username
+          if (norm === 'username' || colIdx === 0) {
+            const initial = capUser.charAt(0).toUpperCase();
+            return `
+              <td>
+                <div class="user-avatar-cell">
+                  <div class="user-avatar-circle">${initial}</div>
+                  <div>
+                    <a href="user-dashboard.html?user=${encodeURIComponent(rawUser)}" 
+                       class="user-link" 
+                       title="Open dashboard for ${capUser}">
+                      ${capUser} ↗
+                    </a>
+                  </div>
+                </div>
+              </td>
+            `;
+          }
+
+          // Col type: Progress / Percentage
+          if (norm.includes('percentage') || norm.includes('progress') || norm === '%') {
+            const prog = formatPercentage(valStr);
+            return `
+              <td>
+                <div class="progress-cell-wrap">
+                  <div class="progress-bar-track">
+                    <div class="progress-bar-fill" style="width: ${prog.num}%"></div>
+                  </div>
+                  <span class="progress-text">${prog.text}</span>
+                </div>
+              </td>
+            `;
+          }
+
+          // Col type: Status
+          if (norm.includes('status')) {
+            const statusClass = getStatusBadgeClass(valStr);
+            return `
+              <td>
+                <span class="status-badge ${statusClass}">
+                  ${escapeHTML(valStr || 'Status not available')}
+                </span>
+              </td>
+            `;
+          }
+
+          // Col type: Date / Timestamps
+          if (norm.includes('date') || norm.includes('time') || norm.includes('login') || norm.includes('lastused') || norm.includes('timestamp')) {
+            const formattedTime = formatDateTime(valStr);
+            return `
+              <td>
+                <span class="time-badge">
+                  🕒 ${formattedTime}
+                </span>
+              </td>
+            `;
+          }
+
+          // Col type: Long text (Chat summary or work description)
+          if (norm.includes('summary') || valStr.length > 70) {
+            const escapedText = escapeHTML(valStr);
+            const escapedForFunc = escapedText.replace(/'/g, "\\'");
+            return `
+              <td>
+                <div class="summary-text-clamped" title="${escapedText}">
+                  ${escapedText}
+                </div>
+                ${valStr && valStr !== 'No summary available' ? `
+                  <button type="button" class="btn-view-summary" onclick="openTextModal('${escapeHTML(header)} &mdash; ${capUser}', '${escapedForFunc}')">
+                    View Full
+                  </button>
+                ` : ''}
+              </td>
+            `;
+          }
+
+          // Default column: standard cell
+          return `
+            <td style="max-width: 260px; font-size: 0.85rem; line-height: 1.45;">
+              ${escapeHTML(valStr || '—')}
+            </td>
+          `;
+        }).join('');
+
+        return `
+          <tr>
+            ${cellsHtml}
+            <td style="text-align: center; vertical-align: middle;">
+              <button type="button" class="btn-row-details" onclick="openUserAllFieldsModal(${userIdx})" title="View all fields for ${capUser}">
+                📋 All Fields
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.openTextModal = function(titleText, bodyText) {
+      const title = document.getElementById('summaryModalTitle');
+      const body = document.getElementById('summaryModalBody');
+      const overlay = document.getElementById('summaryModalOverlay');
+      if (title) title.innerHTML = `💬 ${titleText}`;
+      if (body) body.innerHTML = `<div style="white-space: pre-wrap; font-size: 0.92rem; line-height: 1.6; color: #334155;">${escapeHTML(bodyText)}</div>`;
+      if (overlay) overlay.classList.add('active');
+    };
+
+    window.openUserAllFieldsModal = function(userIndex) {
+      const user = allUserStatusData[userIndex];
+      if (!user) return;
+
+      const rawUser = String(getRowValueByHeader(user, 'Username') || user.username || 'guest').trim();
+      const capUser = capitalizeUsername(rawUser);
+
+      const title = document.getElementById('summaryModalTitle');
+      const body = document.getElementById('summaryModalBody');
+      const overlay = document.getElementById('summaryModalOverlay');
+
+      if (title) title.innerHTML = `📋 All Sheet Fields &mdash; ${capUser}`;
+
+      if (body) {
+        // Build key-value list for ALL headers/columns in that sheet
+        const fieldsHtml = userStatusHeaders.map(h => {
+          const val = getRowValueByHeader(user, h);
+          const norm = normalizeHeaderKey(h);
+          let displayVal = escapeHTML(String(val !== undefined && val !== null ? val : '—'));
+          
+          if (norm.includes('login') || norm.includes('lastused') || norm.includes('date')) {
+            displayVal = formatDateTime(val);
+          } else if (norm === 'username') {
+            displayVal = capitalizeUsername(val);
+          }
+
+          return `
+            <div class="field-detail-row">
+              <div class="field-detail-label">${escapeHTML(h)}</div>
+              <div class="field-detail-val">${displayVal || '—'}</div>
+            </div>
+          `;
+        }).join('');
+
+        body.innerHTML = `
+          <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 0.85rem; color: #64748b;">All Google Sheet columns from <code>02. User Status</code></span>
+            <a href="user-dashboard.html?user=${encodeURIComponent(rawUser)}" class="action-pill-btn" style="padding: 4px 10px; font-size: 0.78rem;">Open Dashboard ↗</a>
+          </div>
+          <div class="fields-detail-list">
+            ${fieldsHtml}
+          </div>
+        `;
+      }
+
+      if (overlay) overlay.classList.add('active');
+    };
+
+    window.closeSummaryModal = function(event) {
+      if (event && event.target && event.target.id !== 'summaryModalOverlay' && !event.target.classList.contains('summary-modal-close')) {
+        return;
+      }
+      const overlay = document.getElementById('summaryModalOverlay');
+      if (overlay) overlay.classList.remove('active');
+    };
+
+    async function fetchAllUserStatus() {
+      const tbody = document.getElementById('userStatusTbody');
+      const currentAdminUser = (localStorage.getItem('username') || '').trim().toLowerCase();
+
+      // Guard: Only authorized admin is allowed to invoke getAllUserStatus
+      if (currentAdminUser !== 'sahya') {
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length + 1}" style="text-align: center; padding: 40px 20px; color: #dc2626; font-weight: 600;">🔒 Access restricted: Admin authentication required.</td></tr>`;
+        }
+        return;
+      }
+
+      if (tbody) {
+        tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length + 1}" style="text-align: center; padding: 40px 20px; color: #64748b;">🔄 Loading user statuses from Google Sheet...</td></tr>`;
+      }
+
+      try {
+        // 1. First attempt: call getAllUserStatus with admin credentials (username: 'sahya')
+        const res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({
+            action: 'getAllUserStatus',
+            username: currentAdminUser
+          })
+        });
+
+        const json = await res.json();
+        if (json && json.status === 'success' && json.data) {
+          // If custom headers returned from sheet, adopt all of them dynamically
+          if (Array.isArray(json.data.headers) && json.data.headers.length > 0) {
+            userStatusHeaders = json.data.headers;
+          }
+          const usersList = json.data.rows || json.data.users || [];
+          if (Array.isArray(usersList) && usersList.length > 0) {
+            allUserStatusData = usersList;
+            renderUserStatusTable(allUserStatusData);
+            updateUserMetrics(allUserStatusData);
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn('getAllUserStatus not available on deployed script, utilizing parallel query fallback:', e);
+      }
+
+      // 2. Resilient parallel query across active user accounts
+      const userAccounts = ['jeswin', 'thomas', 'rose', 'jacob', 'sahya', 'guest'];
+      const results = [];
+
+      await Promise.all(userAccounts.map(async (u) => {
+        try {
+          const resp = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify({ action: 'getUserStatus', username: u })
+          });
+          const data = await resp.json();
+          if (data && data.status === 'success') {
+            const rowData = data.data || data;
+            results.push({
+              username: rowData.username || u,
+              currentStatus: rowData.currentStatus || 'Status not available',
+              workDone: rowData.workDone || 'Work details not available',
+              nextSteps: rowData.nextSteps || 'Next steps not available',
+              percentageCompleted: rowData.percentageCompleted !== undefined ? rowData.percentageCompleted : 'N/A',
+              chatSummary: rowData.chatSummary || 'No summary available',
+              lastLogin: rowData.lastLogin || 'N/A',
+              driveLastUsed: rowData.driveLastUsed || 'N/A'
+            });
+          }
+        } catch (err) {
+          console.error(`Error loading status for ${u}:`, err);
+        }
+      }));
+
+      // Deduplicate by canonical username
+      const seen = new Set();
+      const unique = [];
+      for (const r of results) {
+        const key = (r.username || '').toLowerCase();
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(r);
+        }
+      }
+
+      allUserStatusData = unique;
+      renderUserStatusTable(allUserStatusData);
+      updateUserMetrics(allUserStatusData);
+    }
+
+    function initUserStatusSearch() {
+      const searchInput = document.getElementById('userSearchInput');
+      if (!searchInput) return;
+
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        if (!q) {
+          renderUserStatusTable(allUserStatusData);
+          return;
+        }
+
+        const filtered = allUserStatusData.filter(u => {
+          // Check across all properties and fields in the row
+          for (const key in u) {
+            if (key.startsWith('_')) continue;
+            const val = String(u[key] || '').toLowerCase();
+            if (val.includes(q)) return true;
+          }
+          return false;
+        });
+
+        renderUserStatusTable(filtered);
+      });
+
+      const refreshBtn = document.getElementById('refreshUserStatusBtn');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+          fetchAllUserStatus();
+        });
+      }
+    }
+
     async function initOverviewPage() {
       if (!checkAuth()) {
         return;
@@ -1708,14 +2579,17 @@
       updateOverallCountsUI();
       initCommitFilterEvents();
       initPaginationEvents();
+      initUserStatusSearch();
       fetchOverallStatsFromGitHub();
       loadAllWorkflows();
+      fetchAllUserStatus();
     }
 
     document.getElementById('refreshAllBtn').addEventListener('click', () => {
       if (checkAuth()) {
         fetchOverallStatsFromGitHub();
         loadAllWorkflows();
+        fetchAllUserStatus();
       }
     });
 
