@@ -509,52 +509,73 @@
       box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
     }
 
-    .commit-sha-badge {
+    .commit-sno-badge {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.78rem;
-      font-weight: 600;
-      background: #e2e8f0;
-      color: #334155;
-      padding: 3px 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 7px;
       border-radius: 6px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #bae6fd;
+      display: inline-flex;
+      align-items: center;
     }
 
     .commit-author-box {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       background: #ffffff;
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 999px;
       border: 1px solid #e2e8f0;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #334155;
       font-weight: 600;
     }
 
     .commit-author-avatar {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid #cbd5e1;
       display: inline-block;
     }
 
+    .dev-commit-item {
+      padding: 10px 18px 11px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dev-commit-main-desc {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.4;
+      word-break: break-word;
+      white-space: pre-line;
+      margin: 0;
+      padding: 0;
+    }
+
     .dev-commit-badges-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-top: 3px;
+      margin-bottom: 0;
       flex-wrap: wrap;
     }
 
     .dev-badges-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -565,25 +586,16 @@
     }
 
     .commit-timestamp-badge {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       color: #475569;
       background: #f1f5f9;
-      padding: 4px 10px;
+      padding: 2px 8px;
       border-radius: 999px;
       border: 1px solid #e2e8f0;
       font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-    }
-
-    .dev-commit-main-desc {
-      font-size: 0.96rem;
-      font-weight: 500;
-      color: #0f172a;
-      line-height: 1.55;
-      word-break: break-word;
-      white-space: pre-line;
+      gap: 4px;
     }
 
     /* Development Pagination Bar Styles */
@@ -712,7 +724,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 24px;
+      padding: 14px 20px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
       flex-wrap: wrap;
@@ -724,6 +736,8 @@
       display: flex;
       align-items: center;
       min-width: 260px;
+      max-width: 380px;
+      flex: 1;
     }
 
     .user-status-search-input {
@@ -751,30 +765,10 @@
       pointer-events: none;
     }
 
-    .user-status-badges-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .user-metric-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: #e2e8f0;
-      color: #334155;
-    }
-
     .user-status-table-wrapper {
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      margin-top: 12px;
     }
 
     .user-status-table {
@@ -782,30 +776,83 @@
       border-collapse: collapse;
       font-size: 0.88rem;
       text-align: left;
-      border: 1px solid #e2e8f0;
     }
 
     .user-status-table th {
-      background: #f8fafc;
-      color: #334155;
-      font-weight: 600;
-      font-size: 0.82rem;
-      padding: 10px 14px;
-      border: 1px solid #e2e8f0;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #003965;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 2px solid #cbd5e1;
+      border-right: 1px solid #e2e8f0;
       white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
+    .user-status-table th:last-child {
+      border-right: none;
     }
 
     .user-status-table td {
-      padding: 10px 14px;
-      border: 1px solid #e2e8f0;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #f1f5f9;
       color: #334155;
       vertical-align: top;
       background: #ffffff;
       line-height: 1.5;
     }
 
+    .user-status-table td:last-child {
+      border-right: none;
+    }
+
     .user-status-table tbody tr:hover td {
       background: #f8fafc;
+    }
+
+    .cell-expandable-wrap {
+      display: inline;
+      word-break: break-word;
+    }
+
+    .cell-expand-dots {
+      display: inline-block;
+      cursor: pointer;
+      color: #004b82;
+      font-weight: 700;
+      padding: 1px 6px;
+      margin-left: 4px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      transition: all 0.15s ease;
+      vertical-align: baseline;
+    }
+
+    .cell-expand-dots:hover {
+      background: #003965;
+      color: #ffffff;
+      border-color: #003965;
+    }
+
+    .user-status-pagination-bar {
+      padding: 14px 20px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #ffffff;
     }
   </style>
 </head>
@@ -974,7 +1021,8 @@
             <div class="dev-per-page-select-wrap">
               <label for="commitsPerPageSelect">Per page:</label>
               <select id="commitsPerPageSelect" class="dev-per-page-select">
-                <option value="10" selected>10</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
@@ -1000,28 +1048,46 @@
           </div>
         </div>
 
+        <!-- Search Bar below User Status & above Table -->
+        <div class="user-status-toolbar">
+          <div class="user-status-search-box">
+            <span class="user-status-search-icon">🔍</span>
+            <input type="text" id="userSearchInput" class="user-status-search-input" placeholder="Search by username..." aria-label="Search username" />
+          </div>
+          <div class="user-status-search-count" id="userStatusSearchCount" style="font-size: 0.85rem; color: #64748b; font-weight: 500;"></div>
+        </div>
+
         <div class="user-status-table-wrapper">
           <table class="user-status-table" id="userStatusTable">
             <thead id="userStatusThead">
               <tr>
+                <th style="width: 50px; text-align: center;">SNo.</th>
                 <th>Username</th>
+                <th>Percentage Completed</th>
+                <th>Last Login</th>
+                <th>Drive Last Used</th>
                 <th>Current Status</th>
                 <th>Work Done</th>
                 <th>Next Steps</th>
-                <th>Percentage Completed</th>
                 <th>Chat Summary</th>
-                <th>Last Login</th>
-                <th>Drive Last Used</th>
               </tr>
             </thead>
             <tbody id="userStatusTbody">
               <tr>
-                <td colspan="8" style="text-align: center; padding: 20px; color: #64748b;">
+                <td colspan="9" style="text-align: center; padding: 24px; color: #64748b;">
                   Loading user statuses...
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Pagination Bar (5 users per page) -->
+        <div class="user-status-pagination-bar" id="userStatusPaginationBar">
+          <div class="dev-pagination-info" id="userStatusPaginationInfo">
+            Showing 0 users
+          </div>
+          <div class="dev-pagination-controls" id="userStatusPaginationControls"></div>
         </div>
       </div>
     </div>
@@ -1275,7 +1341,7 @@
     let allLoadedCommits = [];
     let activeCommitFilter = 'all';
     let currentCommitsPage = 1;
-    let commitsPerPage = 10;
+    let commitsPerPage = 5;
     let totalCommitsPages = 1;
     let commitsPageCache = {};
 
@@ -1457,7 +1523,8 @@
       }
 
       let html = '';
-      filtered.forEach(item => {
+      filtered.forEach((item, index) => {
+        const sNo = (currentCommitsPage - 1) * commitsPerPage + index + 1;
         const c = item.raw;
         const cls = item.classification;
         const shortSha = (c.sha || '').substring(0, 7);
@@ -1487,14 +1554,16 @@
         }
 
         html += `
-          <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="run-row-item dev-commit-item" title="Commit #${shortSha}">
+          <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="run-row-item dev-commit-item" title="View commit on GitHub">
+            <div class="dev-commit-main-desc">${escapeHTML(rawMessage)}</div>
+
             <div class="dev-commit-badges-row">
               <div class="dev-badges-left">
+                <span class="commit-sno-badge">SNo. ${sNo}</span>
                 <span class="status-pill classification-pill ${cls.className}">
                   <span class="pill-dot ${cls.type === 'fix' ? 'fix-dot' : 'feat-dot'}"></span>
                   ${cls.icon} ${cls.label}
                 </span>
-                <span class="commit-sha-badge">#${shortSha}</span>
                 <div class="commit-author-box">
                   ${authorAvatar ? `<img src="${authorAvatar}" class="commit-author-avatar" alt="${escapeHTML(authorLogin)}" onerror="this.style.display='none'"/>` : ''}
                   <span>👤 ${escapeHTML(authorLogin)}</span>
@@ -1503,10 +1572,6 @@
               <div class="dev-badges-right">
                 <span class="commit-timestamp-badge">📅 ${datePart} &bull; 🕒 ${timePart}</span>
               </div>
-            </div>
-
-            <div class="dev-commit-main-desc">
-              ${escapeHTML(rawMessage)}
             </div>
           </a>
         `;
@@ -1716,7 +1781,7 @@
 
       if (perPageSelect) {
         perPageSelect.addEventListener('change', (e) => {
-          commitsPerPage = parseInt(e.target.value, 10) || 10;
+          commitsPerPage = parseInt(e.target.value, 10) || 5;
           commitsPageCache = {};
           currentCommitsPage = 1;
           fetchAndRenderDevCommits(1);
@@ -1884,65 +1949,242 @@
       return '';
     }
 
+    const USER_STATUS_PAGE_SIZE = 5;
+    let userStatusCurrentPage = 1;
+    let userStatusSearchFilter = '';
+
+    function organizeUserStatusHeaders(rawHeaders) {
+      // Desired priority: Username -> Percentage Completed -> Last Login -> Drive Last Used -> followed by remaining headers
+      const priority = [
+        { match: k => k === 'username', fallback: 'Username' },
+        { match: k => k.includes('percentage') || k.includes('progress') || k === '%', fallback: 'Percentage Completed' },
+        { match: k => k.includes('login'), fallback: 'Last Login' },
+        { match: k => k.includes('drive') && k.includes('used'), fallback: 'Drive Last Used' }
+      ];
+
+      const ordered = [];
+      const usedNorms = new Set();
+
+      priority.forEach(p => {
+        const found = rawHeaders.find(h => p.match(normalizeHeaderKey(h)));
+        if (found) {
+          ordered.push(found);
+          usedNorms.add(normalizeHeaderKey(found));
+        } else {
+          ordered.push(p.fallback);
+          usedNorms.add(normalizeHeaderKey(p.fallback));
+        }
+      });
+
+      rawHeaders.forEach(h => {
+        const n = normalizeHeaderKey(h);
+        if (!usedNorms.has(n)) {
+          ordered.push(h);
+          usedNorms.add(n);
+        }
+      });
+
+      return ordered;
+    }
+
+    function formatCellText(valStr) {
+      if (!valStr || valStr === '—') return '—';
+      const maxLen = 50;
+      if (valStr.length <= maxLen) {
+        return escapeHTML(valStr);
+      }
+      const shortSnippet = valStr.slice(0, maxLen);
+      return `
+        <span class="cell-expandable-wrap">
+          <span class="cell-truncated-text">${escapeHTML(shortSnippet)}</span>
+          <span class="cell-full-text" style="display: none;">${escapeHTML(valStr)}</span>
+          <button type="button" class="cell-expand-dots" onclick="toggleCellExpand(this)" title="Click to expand" aria-expanded="false">...</button>
+        </span>
+      `;
+    }
+
+    window.toggleCellExpand = function(btn) {
+      const wrap = btn.closest('.cell-expandable-wrap');
+      if (!wrap) return;
+      const shortSpan = wrap.querySelector('.cell-truncated-text');
+      const fullSpan = wrap.querySelector('.cell-full-text');
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        shortSpan.style.display = 'inline';
+        fullSpan.style.display = 'none';
+        btn.textContent = '...';
+        btn.setAttribute('title', 'Click to expand');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        shortSpan.style.display = 'none';
+        fullSpan.style.display = 'inline';
+        btn.textContent = ' (less)';
+        btn.setAttribute('title', 'Click to collapse');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    };
+
+    function formatHeaderTitle(header) {
+      if (!header) return '';
+      const cleaned = String(header)
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/[_\-]+/g, ' ')
+        .trim();
+      return cleaned
+        .split(/\s+/)
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
     function renderUserStatusThead() {
       const thead = document.getElementById('userStatusThead');
       if (!thead) return;
 
+      const orderedCols = organizeUserStatusHeaders(userStatusHeaders);
       thead.innerHTML = `
         <tr>
-          ${userStatusHeaders.map(h => `<th>${escapeHTML(h)}</th>`).join('')}
+          <th style="width: 50px; text-align: center;">SNo.</th>
+          ${orderedCols.map(h => `<th>${escapeHTML(formatHeaderTitle(h))}</th>`).join('')}
         </tr>
       `;
     }
 
-    function renderUserStatusTable(users) {
+    function getFilteredUserStatusList() {
+      if (!userStatusSearchFilter) return allUserStatusData;
+      return allUserStatusData.filter(u => {
+        const username = String(getRowValueByHeader(u, 'Username') || u.username || '').toLowerCase();
+        return username.includes(userStatusSearchFilter);
+      });
+    }
+
+    function renderUserStatusTable() {
       renderUserStatusThead();
       const tbody = document.getElementById('userStatusTbody');
       if (!tbody) return;
 
-      const colSpan = userStatusHeaders.length || 8;
+      const orderedCols = organizeUserStatusHeaders(userStatusHeaders);
+      const totalColSpan = orderedCols.length + 1; // +1 for SNo.
 
-      if (!users || users.length === 0) {
+      const filtered = getFilteredUserStatusList();
+      const totalCount = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(totalCount / USER_STATUS_PAGE_SIZE));
+
+      if (userStatusCurrentPage > totalPages) userStatusCurrentPage = totalPages;
+      if (userStatusCurrentPage < 1) userStatusCurrentPage = 1;
+
+      const countEl = document.getElementById('userStatusSearchCount');
+      if (countEl) {
+        if (userStatusSearchFilter) {
+          countEl.textContent = `Found ${totalCount} of ${allUserStatusData.length} users`;
+        } else {
+          countEl.textContent = `Total Users: ${allUserStatusData.length}`;
+        }
+      }
+
+      if (totalCount === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="${colSpan}" style="text-align: center; padding: 20px; color: #64748b;">
-              No user statuses found.
+            <td colspan="${totalColSpan}" style="text-align: center; padding: 24px; color: #64748b;">
+              No users found matching "${escapeHTML(userStatusSearchFilter)}".
             </td>
           </tr>`;
+        renderUserStatusPagination(0, 0, 0, 1);
         return;
       }
 
-      tbody.innerHTML = users.map((user) => {
+      const startIdx = (userStatusCurrentPage - 1) * USER_STATUS_PAGE_SIZE;
+      const endIdx = Math.min(startIdx + USER_STATUS_PAGE_SIZE, totalCount);
+      const pageItems = filtered.slice(startIdx, endIdx);
+
+      tbody.innerHTML = pageItems.map((user, i) => {
+        const sNo = startIdx + i + 1;
         const rawUser = String(getRowValueByHeader(user, 'Username') || user.username || 'guest').trim();
         const capUser = capitalizeUsername(rawUser);
 
-        const cellsHtml = userStatusHeaders.map((header, colIdx) => {
+        const cellsHtml = orderedCols.map((header) => {
           const norm = normalizeHeaderKey(header);
           const cellVal = getRowValueByHeader(user, header);
           const valStr = String(cellVal !== undefined && cellVal !== null ? cellVal : '').trim();
 
           // Col: Username
-          if (norm === 'username' || colIdx === 0) {
-            return `<td>${escapeHTML(capUser)}</td>`;
+          if (norm === 'username') {
+            return `<td><strong>${escapeHTML(capUser)}</strong></td>`;
           }
 
           // Col: Progress / Percentage
           if (norm.includes('percentage') || norm.includes('progress') || norm === '%') {
             const prog = formatPercentage(valStr);
-            return `<td>${escapeHTML(prog.text)}</td>`;
+            return `<td style="font-weight: 600; color: #0284c7;">${escapeHTML(prog.text)}</td>`;
           }
 
           // Col: Dates / Timestamps
           if (norm.includes('date') || norm.includes('time') || norm.includes('login') || norm.includes('lastused') || norm.includes('timestamp')) {
-            return `<td>${escapeHTML(formatDateTime(valStr))}</td>`;
+            return `<td style="white-space: nowrap; color: #475569;">${escapeHTML(formatDateTime(valStr))}</td>`;
           }
 
-          // Default: normal plain text cell
-          return `<td>${escapeHTML(valStr || '—')}</td>`;
+          // Default: long cell with expand dots
+          return `<td>${formatCellText(valStr || '—')}</td>`;
         }).join('');
 
-        return `<tr>${cellsHtml}</tr>`;
+        return `
+          <tr>
+            <td style="text-align: center; font-weight: 600; color: #64748b; width: 50px;">${sNo}</td>
+            ${cellsHtml}
+          </tr>
+        `;
       }).join('');
+
+      renderUserStatusPagination(startIdx + 1, endIdx, totalCount, totalPages);
+    }
+
+    function renderUserStatusPagination(startNum, endNum, totalCount, totalPages) {
+      const infoEl = document.getElementById('userStatusPaginationInfo');
+      const controlsEl = document.getElementById('userStatusPaginationControls');
+      if (!infoEl || !controlsEl) return;
+
+      if (totalCount === 0) {
+        infoEl.textContent = 'Showing 0 users';
+        controlsEl.innerHTML = '';
+        return;
+      }
+
+      infoEl.textContent = `Showing ${startNum} to ${endNum} of ${totalCount} users`;
+
+      let btnsHtml = '';
+
+      const isFirstDisabled = userStatusCurrentPage <= 1 ? 'disabled' : '';
+      btnsHtml += `<button type="button" class="page-nav-btn" onclick="changeUserStatusPage(1)" title="First Page" ${isFirstDisabled}>« First</button>`;
+      btnsHtml += `<button type="button" class="page-nav-btn" onclick="changeUserStatusPage(${userStatusCurrentPage - 1})" title="Previous Page" ${isFirstDisabled}>‹ Prev</button>`;
+
+      btnsHtml += '<div class="page-numbers-container">';
+      for (let p = 1; p <= totalPages; p++) {
+        const activeClass = p === userStatusCurrentPage ? 'active' : '';
+        btnsHtml += `<button type="button" class="page-num-btn ${activeClass}" onclick="changeUserStatusPage(${p})">${p}</button>`;
+      }
+      btnsHtml += '</div>';
+
+      const isLastDisabled = userStatusCurrentPage >= totalPages ? 'disabled' : '';
+      btnsHtml += `<button type="button" class="page-nav-btn" onclick="changeUserStatusPage(${userStatusCurrentPage + 1})" title="Next Page" ${isLastDisabled}>Next ›</button>`;
+      btnsHtml += `<button type="button" class="page-nav-btn" onclick="changeUserStatusPage(${totalPages})" title="Last Page" ${isLastDisabled}>Last »</button>`;
+
+      controlsEl.innerHTML = btnsHtml;
+    }
+
+    window.changeUserStatusPage = function(newPage) {
+      userStatusCurrentPage = newPage;
+      renderUserStatusTable();
+    };
+
+    function initUserStatusSearch() {
+      const searchInput = document.getElementById('userSearchInput');
+      if (!searchInput) return;
+
+      searchInput.addEventListener('input', (e) => {
+        userStatusSearchFilter = (e.target.value || '').trim().toLowerCase();
+        userStatusCurrentPage = 1;
+        renderUserStatusTable();
+      });
     }
 
     async function fetchAllUserStatus() {
@@ -1952,13 +2194,13 @@
       // Guard: Only authorized admin is allowed to invoke getAllUserStatus
       if (currentAdminUser !== 'sahya') {
         if (tbody) {
-          tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length}" style="text-align: center; padding: 20px; color: #dc2626; font-weight: 600;">🔒 Access restricted: Admin authentication required.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length + 1}" style="text-align: center; padding: 20px; color: #dc2626; font-weight: 600;">🔒 Access restricted: Admin authentication required.</td></tr>`;
         }
         return;
       }
 
       if (tbody) {
-        tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length}" style="text-align: center; padding: 20px; color: #64748b;">Loading user statuses...</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="${userStatusHeaders.length + 1}" style="text-align: center; padding: 24px; color: #64748b;">Loading user statuses...</td></tr>`;
       }
 
       try {
@@ -1981,7 +2223,7 @@
           const usersList = json.data.rows || json.data.users || [];
           if (Array.isArray(usersList) && usersList.length > 0) {
             allUserStatusData = usersList;
-            renderUserStatusTable(allUserStatusData);
+            renderUserStatusTable();
             return;
           }
         }
@@ -2031,7 +2273,7 @@
       }
 
       allUserStatusData = unique;
-      renderUserStatusTable(allUserStatusData);
+      renderUserStatusTable();
     }
 
     async function initOverviewPage() {
@@ -2053,6 +2295,7 @@
       updateOverallCountsUI();
       initCommitFilterEvents();
       initPaginationEvents();
+      initUserStatusSearch();
       fetchOverallStatsFromGitHub();
       loadAllWorkflows();
       fetchAllUserStatus();
