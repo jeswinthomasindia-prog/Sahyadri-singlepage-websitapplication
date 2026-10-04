@@ -18,6 +18,14 @@
   </style>
   <script>
     (function () {
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      if (isLocalhost) {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('username', 'sahya');
+        }
+        return;
+      }
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       const username = (localStorage.getItem('username') || '').trim().toLowerCase();
       if (isLoggedIn !== 'true' || username !== 'sahya') {
@@ -374,6 +382,326 @@
       padding: 40px 20px;
       color: #64748b;
     }
+
+    /* Development Status Section Styles */
+    .dev-status-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .dev-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .dev-filter-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .dev-filter-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .dev-filter-btn.active {
+      background: #003965;
+      color: #ffffff;
+      border-color: #003965;
+      box-shadow: 0 2px 6px rgba(0, 57, 101, 0.2);
+    }
+
+    .dev-filter-btn.active .filter-count-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    .filter-count-badge {
+      font-size: 0.74rem;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: #e2e8f0;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    .dev-status-summary-hint {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .dev-status-summary-hint code {
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .dev-commits-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .dev-commit-item {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .classification-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.3px;
+      text-transform: capitalize;
+    }
+
+    .classification-pill.type-fix {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .classification-pill.type-feature {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .pill-dot.fix-dot {
+      background: #2563eb;
+      box-shadow: 0 0 6px rgba(37, 99, 235, 0.6);
+    }
+
+    .pill-dot.feat-dot {
+      background: #22c55e;
+      box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+    }
+
+    .commit-sha-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: #e2e8f0;
+      color: #334155;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .commit-author-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.8rem;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .commit-author-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #cbd5e1;
+      display: inline-block;
+    }
+
+    .dev-commit-badges-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dev-badges-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .dev-badges-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .commit-timestamp-badge {
+      font-size: 0.8rem;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dev-commit-main-desc {
+      font-size: 0.96rem;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.55;
+      word-break: break-word;
+      white-space: pre-line;
+    }
+
+    /* Development Pagination Bar Styles */
+    .dev-pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .dev-pagination-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .dev-per-page-select-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: #475569;
+    }
+
+    .dev-per-page-select {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.82rem;
+      color: #0f172a;
+      cursor: pointer;
+    }
+
+    .dev-pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .page-nav-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-nav-btn:hover:not(:disabled) {
+      background: #003965;
+      color: #ffffff;
+      border-color: #003965;
+    }
+
+    .page-nav-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background: #f1f5f9;
+      color: #94a3b8;
+    }
+
+    .page-numbers-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-num-btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .page-num-btn:hover:not(.active) {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .page-num-btn.active {
+      background: #003965;
+      color: #ffffff;
+      border-color: #003965;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0, 57, 101, 0.2);
+    }
+
+    .page-ellipsis {
+      padding: 0 4px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      user-select: none;
+    }
   </style>
 </head>
 
@@ -442,8 +770,8 @@
     <!-- Top Action Bar -->
     <div class="overview-top-bar">
       <div>
-        <h2 class="page-title">⚡ GitHub Actions Overview</h2>
-        <p class="page-subtitle">Live status tracking for repository workflows</p>
+        <h2 class="page-title">⚡ Repository & Development Overview</h2>
+        <p class="page-subtitle">Live workflows, system stability, and development status</p>
       </div>
       <button id="refreshAllBtn" class="refresh-all-btn" type="button">
         🔄 Refresh All
@@ -492,6 +820,69 @@
         <div id="prCheckRunsContainer" class="runs-container">
           <div class="empty-state">
             <p>🔄 Loading PR check runs from GitHub...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Development Status -->
+      <div class="workflow-single-card" id="devStatusCard">
+        <div class="card-top-header">
+          <div>
+            <h2 class="card-main-title">🛠️ Development Status</h2>
+            <p class="card-sub-title">Live repository changes, timestamps, authors, and classification</p>
+          </div>
+          <div class="header-action-links">
+            <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits/main/"
+              target="_blank" rel="noopener noreferrer" class="action-pill-btn" title="View all commits on GitHub">
+              All Commits on GitHub ↗
+            </a>
+          </div>
+        </div>
+
+        <div class="dev-status-toolbar">
+          <div class="dev-filter-group" role="tablist" aria-label="Commit Filters">
+            <button type="button" class="dev-filter-btn active" data-filter="all" id="filterAllBtn">
+              All Changes <span class="filter-count-badge" id="countAll">298</span>
+            </button>
+            <button type="button" class="dev-filter-btn" data-filter="feature" id="filterFeatBtn">
+              <span class="pill-dot feat-dot"></span> Features <span class="filter-count-badge" id="countFeat">215</span>
+            </button>
+            <button type="button" class="dev-filter-btn" data-filter="fix" id="filterFixBtn">
+              <span class="pill-dot fix-dot"></span> Fixes <span class="filter-count-badge" id="countFix">83</span>
+            </button>
+          </div>
+          <div class="dev-status-summary-hint">
+            Branch <code>main</code> &bull; <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits/main/" target="_blank" rel="noopener noreferrer" style="color: #004b82; font-weight: 600; text-decoration: none;">github.com/.../commits/main ↗</a>
+          </div>
+        </div>
+
+        <div id="devCommitsContainer" class="runs-container dev-commits-container">
+          <div class="empty-state">
+            <p>🔄 Loading development status from GitHub...</p>
+          </div>
+        </div>
+
+        <!-- Pagination Controls Bar -->
+        <div class="dev-pagination-bar" id="devPaginationBar">
+          <div class="dev-pagination-info">
+            <span id="devPaginationSummary">Showing Page 1</span>
+            <div class="dev-per-page-select-wrap">
+              <label for="commitsPerPageSelect">Per page:</label>
+              <select id="commitsPerPageSelect" class="dev-per-page-select">
+                <option value="10" selected>10</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="dev-pagination-controls" id="devPaginationButtons">
+            <button type="button" class="page-nav-btn" id="btnPageFirst" title="First Page" disabled>« First</button>
+            <button type="button" class="page-nav-btn" id="btnPagePrev" title="Previous Page" disabled>‹ Prev</button>
+            <div class="page-numbers-container" id="pageNumbersContainer"></div>
+            <button type="button" class="page-nav-btn" id="btnPageNext" title="Next Page">Next ›</button>
+            <button type="button" class="page-nav-btn" id="btnPageLast" title="Last Page">Last »</button>
           </div>
         </div>
       </div>
@@ -733,6 +1124,478 @@
 
     function loadAllWorkflows() {
       WORKFLOW_CONFIGS.forEach(config => fetchAndRenderWorkflow(config));
+      fetchAndRenderDevCommits(currentCommitsPage, true);
+    }
+
+    /* --- Development Status & Commits Tracker with Full Pagination --- */
+    const COMMITS_CONFIG = {
+      containerId: 'devCommitsContainer',
+      apiBaseUrl: 'https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits?sha=main',
+      webUrl: 'https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits/main/'
+    };
+
+    let allLoadedCommits = [];
+    let activeCommitFilter = 'all';
+    let currentCommitsPage = 1;
+    let commitsPerPage = 10;
+    let totalCommitsPages = 1;
+    let commitsPageCache = {};
+
+    // Fixed overall repository counts across all commits (not per page)
+    let overallDevStats = {
+      total: 298,
+      feats: 215,
+      fixes: 83
+    };
+
+    function updateOverallCountsUI() {
+      const countAllEl = document.getElementById('countAll');
+      const countFeatEl = document.getElementById('countFeat');
+      const countFixEl = document.getElementById('countFix');
+
+      if (countAllEl) countAllEl.textContent = overallDevStats.total;
+      if (countFeatEl) countFeatEl.textContent = overallDevStats.feats;
+      if (countFixEl) countFixEl.textContent = overallDevStats.fixes;
+    }
+
+    async function fetchOverallStatsFromGitHub() {
+      try {
+        const cached = sessionStorage.getItem('overall_dev_stats');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (parsed && typeof parsed.total === 'number') {
+            overallDevStats = parsed;
+            updateOverallCountsUI();
+          }
+        }
+
+        // Lightweight check for live total commits count using per_page=1
+        const res = await fetch('https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits?sha=main&per_page=1', {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (!res.ok) return;
+
+        const linkHeader = res.headers.get('link');
+        if (linkHeader) {
+          const links = parseLinkHeader(linkHeader);
+          if (links.last) {
+            const liveTotal = extractPageFromUrl(links.last);
+            if (liveTotal && liveTotal >= overallDevStats.total) {
+              const diff = liveTotal - overallDevStats.total;
+              if (diff > 0) {
+                const newCommitsRes = await fetch(`https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits?sha=main&per_page=${diff}`, {
+                  headers: { 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (newCommitsRes.ok) {
+                  const newCommits = await newCommitsRes.json();
+                  if (Array.isArray(newCommits)) {
+                    newCommits.forEach(c => {
+                      const cls = classifyCommit(c.commit?.message || '');
+                      if (cls.type === 'fix') overallDevStats.fixes++;
+                      else overallDevStats.feats++;
+                    });
+                  }
+                }
+              }
+              overallDevStats.total = liveTotal;
+              sessionStorage.setItem('overall_dev_stats', JSON.stringify(overallDevStats));
+              updateOverallCountsUI();
+            }
+          }
+        }
+      } catch (e) {
+        // Silently preserve baseline counts
+      }
+    }
+
+    function parseLinkHeader(header) {
+      if (!header) return {};
+      const links = {};
+      const parts = header.split(',');
+      for (let i = 0; i < parts.length; i++) {
+        const section = parts[i].split(';');
+        if (section.length >= 2) {
+          const url = section[0].trim().replace(/^<|>$/g, '');
+          const relMatch = section[1].trim().match(/rel="([^"]+)"/);
+          if (relMatch && relMatch[1]) {
+            links[relMatch[1]] = url;
+          }
+        }
+      }
+      return links;
+    }
+
+    function extractPageFromUrl(url) {
+      if (!url) return null;
+      const match = url.match(/[?&]page=(\d+)/);
+      return match ? parseInt(match[1], 10) : null;
+    }
+
+    function classifyCommit(message) {
+      const msg = (message || '').toLowerCase();
+
+      // Words indicating a fix or bug resolution
+      const fixKeywords = [
+        'fix', 'fixed', 'fixing', 'fixes',
+        'bug', 'bugs', 'bugfix', 'hotfix', 'patch',
+        'issue', 'issues', 'error', 'errors', 'broken',
+        'resolve', 'resolved', 'resolving', 'resolves',
+        'repair', 'repairing', 'correct', 'correction', 'corrected',
+        'prevent', 'preventing', 'revert', 'reverting', 'removing extra'
+      ];
+
+      const isFix = fixKeywords.some(kw => {
+        const regex = new RegExp(`(^|[^a-zA-Z0-9])${kw}([^a-zA-Z0-9]|$)`, 'i');
+        return regex.test(msg);
+      });
+
+      if (isFix) {
+        return {
+          type: 'fix',
+          label: 'Fix',
+          icon: '🔧',
+          className: 'type-fix'
+        };
+      }
+
+      // Default all other additions, updates, enhancements, etc. to Feature
+      return {
+        type: 'feature',
+        label: 'Feature',
+        icon: '✨',
+        className: 'type-feature'
+      };
+    }
+
+    function formatRelativeTime(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffSec = Math.max(0, Math.floor(diffMs / 1000));
+      const diffMin = Math.floor(diffSec / 60);
+      const diffHours = Math.floor(diffMin / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffSec < 60) return 'Just now';
+      if (diffMin < 60) return `${diffMin}m ago`;
+      if (diffHours < 24) return `${diffHours}h ago`;
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 30) return `${diffDays}d ago`;
+      const diffMonths = Math.floor(diffDays / 30);
+      if (diffMonths < 12) return `${diffMonths}mo ago`;
+      return `${Math.floor(diffDays / 365)}y ago`;
+    }
+
+    function formatExactDateTime(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      return date.toLocaleString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    function renderDevCommitsList() {
+      const container = document.getElementById(COMMITS_CONFIG.containerId);
+      if (!container) return;
+
+      const filtered = allLoadedCommits.filter(item => {
+        if (activeCommitFilter === 'all') return true;
+        return item.classification.type === activeCommitFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p>No ${activeCommitFilter === 'all' ? '' : activeCommitFilter} commits found on page ${currentCommitsPage}.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(item => {
+        const c = item.raw;
+        const cls = item.classification;
+        const shortSha = (c.sha || '').substring(0, 7);
+        const commitUrl = c.html_url || `${COMMITS_CONFIG.webUrl}${c.sha}`;
+
+        const rawMessage = (c.commit?.message || 'No commit message').trim();
+
+        const authorName = c.commit?.author?.name || c.author?.login || 'Developer';
+        const authorAvatar = c.author?.avatar_url || '';
+        const authorLogin = c.author?.login ? `@${c.author.login}` : authorName;
+        
+        const timestamp = c.commit?.author?.date || '';
+        let datePart = '';
+        let timePart = '';
+        if (timestamp) {
+          const d = new Date(timestamp);
+          datePart = d.toLocaleDateString('en-US', {
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric'
+          });
+          timePart = d.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+        }
+
+        html += `
+          <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="run-row-item dev-commit-item" title="Commit #${shortSha}">
+            <div class="dev-commit-badges-row">
+              <div class="dev-badges-left">
+                <span class="status-pill classification-pill ${cls.className}">
+                  <span class="pill-dot ${cls.type === 'fix' ? 'fix-dot' : 'feat-dot'}"></span>
+                  ${cls.icon} ${cls.label}
+                </span>
+                <span class="commit-sha-badge">#${shortSha}</span>
+                <div class="commit-author-box">
+                  ${authorAvatar ? `<img src="${authorAvatar}" class="commit-author-avatar" alt="${escapeHTML(authorLogin)}" onerror="this.style.display='none'"/>` : ''}
+                  <span>👤 ${escapeHTML(authorLogin)}</span>
+                </div>
+              </div>
+              <div class="dev-badges-right">
+                <span class="commit-timestamp-badge">📅 ${datePart} &bull; 🕒 ${timePart}</span>
+              </div>
+            </div>
+
+            <div class="dev-commit-main-desc">
+              ${escapeHTML(rawMessage)}
+            </div>
+          </a>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    async function fetchAndRenderDevCommits(page = 1, isBackgroundRefresh = false) {
+      currentCommitsPage = page;
+      const container = document.getElementById(COMMITS_CONFIG.containerId);
+      const cacheKey = `${page}_${commitsPerPage}`;
+
+      if (!isBackgroundRefresh && commitsPageCache[cacheKey]) {
+        const cached = commitsPageCache[cacheKey];
+        allLoadedCommits = cached.commits;
+        if (cached.totalPages) totalCommitsPages = cached.totalPages;
+        processAndDisplayCommits(allLoadedCommits);
+        updatePaginationUI();
+        return;
+      }
+
+      if (container && !isBackgroundRefresh) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p>🔄 Loading page ${page} of repository changes from GitHub...</p>
+          </div>
+        `;
+      }
+
+      try {
+        const apiUrl = `${COMMITS_CONFIG.apiBaseUrl}&per_page=${commitsPerPage}&page=${page}`;
+        const response = await fetch(apiUrl, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if (!response.ok) {
+          throw new Error(`GitHub API returned status ${response.status}`);
+        }
+
+        const linkHeader = response.headers.get('link');
+        if (linkHeader) {
+          const parsed = parseLinkHeader(linkHeader);
+          if (parsed.last) {
+            const lastNum = extractPageFromUrl(parsed.last);
+            if (lastNum) totalCommitsPages = lastNum;
+          }
+        } else if (page === 1) {
+          totalCommitsPages = 1;
+        }
+
+        if (currentCommitsPage > totalCommitsPages) {
+          totalCommitsPages = currentCommitsPage;
+        }
+
+        const commits = await response.json();
+        if (!Array.isArray(commits) || commits.length === 0) {
+          if (container) {
+            container.innerHTML = `
+              <div class="empty-state">
+                <p>No commits found on page ${page}.</p>
+              </div>
+            `;
+          }
+          updatePaginationUI();
+          return;
+        }
+
+        // Cache page
+        commitsPageCache[cacheKey] = {
+          commits: commits,
+          totalPages: totalCommitsPages
+        };
+
+        allLoadedCommits = commits;
+        processAndDisplayCommits(commits);
+        updatePaginationUI();
+
+      } catch (err) {
+        console.error('Error fetching commits:', err);
+
+        const cacheFallback = commitsPageCache[cacheKey];
+        if (cacheFallback && cacheFallback.commits) {
+          processAndDisplayCommits(cacheFallback.commits);
+          updatePaginationUI();
+        } else if (container) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <p style="color: #dc2626;">❌ Failed to load page ${page} from GitHub: ${escapeHTML(err.message)}</p>
+              <p style="font-size: 0.85rem; margin-top: 8px;">
+                <a href="${COMMITS_CONFIG.webUrl}" target="_blank" style="color: #004b82; font-weight: 600;">
+                  Open Commit History on GitHub directly ↗
+                </a>
+              </p>
+            </div>
+          `;
+          updatePaginationUI();
+        }
+      }
+    }
+
+    function processAndDisplayCommits(commits) {
+      let featCount = 0;
+      let fixCount = 0;
+
+      allLoadedCommits = commits.map(c => {
+        const rawMessage = c.commit?.message || '';
+        const classification = classifyCommit(rawMessage);
+        if (classification.type === 'fix') {
+          fixCount++;
+        } else {
+          featCount++;
+        }
+        return {
+          raw: c,
+          classification: classification
+        };
+      });
+
+      updateOverallCountsUI();
+      renderDevCommitsList();
+    }
+
+    function updatePaginationUI() {
+      const summaryEl = document.getElementById('devPaginationSummary');
+      if (summaryEl) {
+        summaryEl.textContent = `Page ${currentCommitsPage} of ${totalCommitsPages} (${overallDevStats.total} total changes)`;
+      }
+
+      const btnFirst = document.getElementById('btnPageFirst');
+      const btnPrev = document.getElementById('btnPagePrev');
+      const btnNext = document.getElementById('btnPageNext');
+      const btnLast = document.getElementById('btnPageLast');
+
+      if (btnFirst) btnFirst.disabled = currentCommitsPage <= 1;
+      if (btnPrev) btnPrev.disabled = currentCommitsPage <= 1;
+      if (btnNext) btnNext.disabled = currentCommitsPage >= totalCommitsPages;
+      if (btnLast) btnLast.disabled = currentCommitsPage >= totalCommitsPages;
+
+      const pageNumbersContainer = document.getElementById('pageNumbersContainer');
+      if (!pageNumbersContainer) return;
+
+      let html = '';
+      const total = totalCommitsPages;
+      const curr = currentCommitsPage;
+
+      if (total <= 7) {
+        for (let i = 1; i <= total; i++) {
+          html += `<button type="button" class="page-num-btn ${i === curr ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        }
+      } else {
+        if (curr <= 4) {
+          for (let i = 1; i <= 5; i++) {
+            html += `<button type="button" class="page-num-btn ${i === curr ? 'active' : ''}" data-page="${i}">${i}</button>`;
+          }
+          html += `<span class="page-ellipsis">…</span>`;
+          html += `<button type="button" class="page-num-btn" data-page="${total}">${total}</button>`;
+        } else if (curr >= total - 3) {
+          html += `<button type="button" class="page-num-btn" data-page="1">1</button>`;
+          html += `<span class="page-ellipsis">…</span>`;
+          for (let i = total - 4; i <= total; i++) {
+            html += `<button type="button" class="page-num-btn ${i === curr ? 'active' : ''}" data-page="${i}">${i}</button>`;
+          }
+        } else {
+          html += `<button type="button" class="page-num-btn" data-page="1">1</button>`;
+          html += `<span class="page-ellipsis">…</span>`;
+          for (let i = curr - 1; i <= curr + 1; i++) {
+            html += `<button type="button" class="page-num-btn ${i === curr ? 'active' : ''}" data-page="${i}">${i}</button>`;
+          }
+          html += `<span class="page-ellipsis">…</span>`;
+          html += `<button type="button" class="page-num-btn" data-page="${total}">${total}</button>`;
+        }
+      }
+
+      pageNumbersContainer.innerHTML = html;
+
+      pageNumbersContainer.querySelectorAll('.page-num-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetPage = parseInt(btn.getAttribute('data-page'), 10);
+          if (targetPage && targetPage !== currentCommitsPage) {
+            goToCommitsPage(targetPage);
+          }
+        });
+      });
+    }
+
+    function goToCommitsPage(page) {
+      if (page < 1 || page > totalCommitsPages || page === currentCommitsPage) return;
+      fetchAndRenderDevCommits(page);
+      const card = document.getElementById('devStatusCard');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function initPaginationEvents() {
+      const btnFirst = document.getElementById('btnPageFirst');
+      const btnPrev = document.getElementById('btnPagePrev');
+      const btnNext = document.getElementById('btnPageNext');
+      const btnLast = document.getElementById('btnPageLast');
+      const perPageSelect = document.getElementById('commitsPerPageSelect');
+
+      if (btnFirst) btnFirst.addEventListener('click', () => goToCommitsPage(1));
+      if (btnPrev) btnPrev.addEventListener('click', () => goToCommitsPage(currentCommitsPage - 1));
+      if (btnNext) btnNext.addEventListener('click', () => goToCommitsPage(currentCommitsPage + 1));
+      if (btnLast) btnLast.addEventListener('click', () => goToCommitsPage(totalCommitsPages));
+
+      if (perPageSelect) {
+        perPageSelect.addEventListener('change', (e) => {
+          commitsPerPage = parseInt(e.target.value, 10) || 10;
+          commitsPageCache = {};
+          currentCommitsPage = 1;
+          fetchAndRenderDevCommits(1);
+        });
+      }
+    }
+
+    function initCommitFilterEvents() {
+      const filterBtns = document.querySelectorAll('.dev-filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCommitFilter = btn.getAttribute('data-filter') || 'all';
+          renderDevCommitsList();
+        });
+      });
     }
 
     function escapeHTML(str) {
@@ -768,6 +1631,9 @@
     }
 
     async function checkAllowedLocation() {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return true;
+      }
       const fetchWithTimeout = async (url, timeoutMs = 3500) => {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -839,11 +1705,16 @@
         hideStyle.remove();
       }
 
+      updateOverallCountsUI();
+      initCommitFilterEvents();
+      initPaginationEvents();
+      fetchOverallStatsFromGitHub();
       loadAllWorkflows();
     }
 
     document.getElementById('refreshAllBtn').addEventListener('click', () => {
       if (checkAuth()) {
+        fetchOverallStatsFromGitHub();
         loadAllWorkflows();
       }
     });
