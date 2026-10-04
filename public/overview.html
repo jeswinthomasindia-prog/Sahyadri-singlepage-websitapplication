@@ -396,6 +396,33 @@
       transform: translateY(-1px);
     }
 
+    .action-icon-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      line-height: 1;
+    }
+
+    .action-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .action-icon-btn:active {
+      transform: translateY(0);
+    }
+
     .runs-container {
       padding: 24px;
       display: flex;
@@ -1278,6 +1305,13 @@
             <p class="card-sub-title">Live repository changes, timestamps, authors, and classification</p>
           </div>
           <div class="header-action-links">
+            <button type="button" id="downloadCommitsBtn" class="action-icon-btn" title="Download all changes table as CSV" aria-label="Download all changes table as CSV">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </button>
             <a href="https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits/main/"
               target="_blank" rel="noopener noreferrer" class="action-pill-btn" title="View all commits on GitHub">
               All Commits on GitHub ↗
@@ -2281,6 +2315,138 @@
       });
     }
 
+    /* --- Download Full Change Speed Table as CSV --- */
+    async function downloadAllCommitsCSV(btnElement) {
+      const origContent = btnElement ? btnElement.innerHTML : '';
+      if (btnElement) {
+        btnElement.innerHTML = '⏳';
+        btnElement.setAttribute('disabled', 'true');
+        btnElement.style.pointerEvents = 'none';
+      }
+
+      try {
+        let allCommits = [];
+        let page = 1;
+        const perPage = 100;
+        let hasMore = true;
+
+        // 1. Fetch live from GitHub API across all pages
+        while (hasMore && page <= 15) {
+          try {
+            const res = await fetch(`https://api.github.com/repos/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commits?sha=main&per_page=${perPage}&page=${page}`, {
+              headers: { 'Accept': 'application/vnd.github.v3+json' }
+            });
+
+            if (!res.ok) {
+              break;
+            }
+
+            const pageData = await res.json();
+            if (!Array.isArray(pageData) || pageData.length === 0) {
+              break;
+            }
+
+            allCommits = allCommits.concat(pageData);
+            if (pageData.length < perPage) {
+              break;
+            }
+            page++;
+          } catch (err) {
+            console.warn(`Error fetching commits page ${page} from GitHub:`, err);
+            break;
+          }
+        }
+
+        if (allCommits.length === 0) {
+          alert('Unable to load commits from GitHub API at this moment. Please try again shortly.');
+          return;
+        }
+
+        // Generate CSV rows
+        const totalCount = allCommits.length;
+        const headers = ['SNo.', 'Classification', 'Description', 'Author', 'Date', 'Time', 'Commit Hash', 'GitHub URL'];
+
+        const escapeCSV = (val) => {
+          if (val === undefined || val === null) return '""';
+          const s = String(val).replace(/"/g, '""');
+          return `"${s}"`;
+        };
+
+        const rows = allCommits.map((item, index) => {
+          const sNo = totalCount - index;
+          const rawMsg = item.commit?.message || item.message || '';
+          const firstLine = rawMsg.split('\n')[0].trim();
+          const cls = classifyCommit(rawMsg);
+          const authorLogin = item.author?.login || item.commit?.author?.name || item.authorName || 'Unknown';
+
+          const dateVal = item.commit?.author?.date || item.commit?.committer?.date;
+          let dateStr = '—';
+          let timeStr = '—';
+          if (dateVal) {
+            const d = new Date(dateVal);
+            if (!isNaN(d.getTime())) {
+              dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+              timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            }
+          }
+
+          const sha = item.sha || '';
+          const htmlUrl = item.html_url || `https://github.com/jeswinthomasindia-prog/Sahyadri-singlepage-websitapplication/commit/${sha}`;
+
+          return [
+            sNo,
+            escapeCSV(cls.label),
+            escapeCSV(firstLine),
+            escapeCSV(authorLogin),
+            escapeCSV(dateStr),
+            escapeCSV(timeStr),
+            escapeCSV(sha),
+            escapeCSV(htmlUrl)
+          ].join(',');
+        });
+
+        const csvString = [headers.join(','), ...rows].join('\r\n');
+
+        // Trigger file download
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+        const downloadUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        const dateStamp = new Date().toISOString().slice(0, 10);
+        a.download = `sahyadri_change_speed_commits_${dateStamp}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(downloadUrl);
+
+        if (btnElement) {
+          btnElement.innerHTML = '✓';
+          setTimeout(() => {
+            btnElement.innerHTML = origContent;
+            btnElement.removeAttribute('disabled');
+            btnElement.style.pointerEvents = 'auto';
+          }, 1500);
+        }
+      } catch (err) {
+        console.error('Download commits failed:', err);
+        if (btnElement) {
+          btnElement.innerHTML = origContent;
+          btnElement.removeAttribute('disabled');
+          btnElement.style.pointerEvents = 'auto';
+        }
+      }
+    }
+
+    function initCommitsDownloadEvents() {
+      const btnHeader = document.getElementById('downloadCommitsBtn');
+      if (btnHeader) {
+        btnHeader.addEventListener('click', (e) => {
+          e.preventDefault();
+          downloadAllCommitsCSV(btnHeader);
+        });
+      }
+    }
+
     function escapeHTML(str) {
       if (!str) return '';
       return String(str)
@@ -2776,6 +2942,7 @@
       updateOverallCountsUI();
       initCommitFilterEvents();
       initPaginationEvents();
+      initCommitsDownloadEvents();
       initUserStatusSearch();
       fetchOverallStatsFromGitHub();
       loadAllWorkflows();
