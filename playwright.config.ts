@@ -12,7 +12,7 @@ export default defineConfig({
   use: {
     browserName: 'chromium',
     headless: true,
-    viewport: { width: 1280, height: 800 },
+    viewport: { width: 1920, height: 1080 },
     // Custom Desktop User-Agent to prevent 403 Forbidden bot blocks
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
     extraHTTPHeaders: {

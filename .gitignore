@@ -61,3 +61,5 @@ yarn.lock
 prev-run.png
 today-run.png
 stable-baseline - Copy.png
+test-results/
+playwright-report/

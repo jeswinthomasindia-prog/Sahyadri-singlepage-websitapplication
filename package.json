@@ -1,0 +1,11 @@
+{
+  "name": "sahyadri-singlepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sahyadri Consultants single page website and automated visual stability suite",
+  "scripts": {
+    "test": "playwright test",
+    "baseline": "node scripts/capture-stable-baseline.js",
+    "baseline:local": "node scripts/capture-stable-baseline.js http://localhost:8000/?automated_test=true&disable_consent=1"
+  }
+}
