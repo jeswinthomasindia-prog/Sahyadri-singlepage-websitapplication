@@ -47,6 +47,8 @@ jobs:
       # 3. Execute Uptime & Visual Tests
       - name: Run Playwright Visual Tests
         run: npx playwright test
+        env:
+          AUTOMATED_VISUAL_CHECK: 'true'
 
       # 4. Save Today's New Snapshot to Cache for Tomorrow
       - name: Save Today Snapshot for Tomorrow

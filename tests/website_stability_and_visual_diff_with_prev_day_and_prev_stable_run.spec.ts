@@ -7,12 +7,40 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     // 1. Set standard desktop viewport
     await page.setViewportSize({ width: 1920, height: 1080 });
 
-    // 2. HTTP Uptime Check & Full Network Idle Load
-    const response = await page.goto('https://sahyadrico.com/', {
+    // Set custom automated test headers
+    await page.setExtraHTTPHeaders({
+      'X-Automated-Inspection': 'true',
+      'X-Sahyadri-Visual-Check': 'true',
+    });
+
+    // Pre-populate consent in localStorage and set flag to avoid consent modal during visual stability check
+    await page.addInitScript(() => {
+      (window as any).__DISABLE_CONSENT_MODAL__ = true;
+      try {
+        localStorage.setItem(
+          'sahyadri_cookie_consent_v2',
+          JSON.stringify({
+            consent: { necessary: true, analytics: false, marketing: false },
+            expiry: Date.now() + 365 * 24 * 60 * 60 * 1000,
+            updatedAt: new Date().toISOString(),
+          })
+        );
+      } catch (e) {}
+    });
+
+    // 2. HTTP Uptime Check & Full Network Idle Load (with automated inspection flag)
+    const response = await page.goto('https://sahyadrico.com/?automated_test=true&disable_consent=1', {
       waitUntil: 'networkidle',
       timeout: 60000,
     });
     expect(response?.status()).toBe(200);
+
+    // Remove any consent modal element from DOM and restore body scroll
+    await page.evaluate(() => {
+      const modal = document.getElementById('sahyadri-consent-modal');
+      if (modal) modal.remove();
+      document.body.style.overflow = '';
+    });
 
     // Ensure web fonts are completely loaded
     await page.evaluate(() => document.fonts.ready);
@@ -80,6 +108,16 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
           height: auto !important;
           min-height: 100% !important;
         }
+
+        /* Permanently suppress privacy consent modal & backdrop during visual inspection */
+        #sahyadri-consent-modal,
+        .sc-modal-backdrop,
+        .sc-modal-card {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
       `,
     });
 
@@ -113,6 +151,13 @@ test.describe('Sahyadri Consultants - Health (whether website is up or not) & Vi
     const stableBaselinePath = path.join(snapshotsDir, 'stable-baseline.png');
     const prevRunPath = path.join(snapshotsDir, 'prev-run.png');
     const todayRunPath = path.join(snapshotsDir, 'today-run.png');
+
+    // Ensure any consent modal is removed and scroll is normal right before capture
+    await page.evaluate(() => {
+      const modal = document.getElementById('sahyadri-consent-modal');
+      if (modal) modal.remove();
+      document.body.style.overflow = '';
+    });
 
     // Capture current full-page screenshot
     const currentBuffer = await page.screenshot({ fullPage: true });
