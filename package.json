@@ -5,6 +5,8 @@
   "description": "Sahyadri Consultants single page website and automated visual stability suite",
   "scripts": {
     "test": "playwright test",
+    "build": "node scripts/build.js",
+    "predeploy": "node scripts/build.js",
     "baseline": "node scripts/capture-stable-baseline.js",
     "baseline:local": "node scripts/capture-stable-baseline.js http://localhost:8000/?automated_test=true&disable_consent=1"
   }
