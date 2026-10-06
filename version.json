@@ -1,6 +1,6 @@
 {
-  "version": "1.0.15",
-  "build": 15,
+  "version": "1.0.16",
+  "build": 16,
   "releaseDate": "2026-10-06",
   "title": "New Update Available",
   "description": "Made the Update pop up styling in sync with Sahyadri theme",
