@@ -37,82 +37,110 @@
         position: fixed;
         inset: 0;
         z-index: 999999;
-        background: rgba(10, 15, 29, 0.78);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: rgba(0, 32, 64, 0.28);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 1.25rem;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+        transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
       }
       .svc-modal-backdrop.svc-show {
         opacity: 1;
         visibility: visible;
       }
       .svc-card {
-        background: linear-gradient(135deg, rgba(26, 32, 48, 0.95), rgba(15, 20, 32, 0.98));
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 35px rgba(37, 99, 235, 0.2);
+        background: #ffffff;
+        border: 1px solid rgba(0, 57, 101, 0.14);
+        box-shadow: 0 20px 40px -10px rgba(0, 57, 101, 0.18), 0 4px 16px -2px rgba(0, 0, 0, 0.06);
         border-radius: 18px;
         max-width: 480px;
         width: 100%;
-        color: #f8fafc;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        color: #1a1a1a;
+        font-family: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
         overflow: hidden;
-        transform: scale(0.92) translateY(12px);
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: scale(0.95) translateY(8px);
+        transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .svc-modal-backdrop.svc-show .svc-card {
         transform: scale(1) translateY(0);
       }
+      .svc-top-bar {
+        height: 4px;
+        background: linear-gradient(90deg, #003965 0%, #005a9e 60%, #ff8b00 100%);
+        width: 100%;
+      }
       .svc-header {
-        padding: 1.5rem 1.5rem 1rem 1.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 1.35rem 1.5rem 1rem 1.5rem;
+        border-bottom: 1px solid #edf2f7;
         display: flex;
         align-items: flex-start;
         gap: 1rem;
+        background: #ffffff;
       }
       .svc-icon-wrapper {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
         border-radius: 12px;
-        background: linear-gradient(135deg, #2563eb, #3b82f6);
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0, 57, 101, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ffffff;
+        overflow: hidden;
+        padding: 2px;
+      }
+      .svc-brand-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        display: block;
+      }
+      .svc-header-text {
+        flex: 1;
+        min-width: 0;
+      }
+      .svc-brand-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #ff8b00;
+        margin-bottom: 0.2rem;
       }
       .svc-header-text h3 {
-        margin: 0 0 0.35rem 0;
+        margin: 0 0 0.4rem 0;
         font-size: 1.25rem;
         font-weight: 700;
-        color: #ffffff;
+        color: #003965;
         letter-spacing: -0.01em;
+        line-height: 1.3;
       }
       .svc-badges {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 0.45rem;
         align-items: center;
       }
       .svc-badge {
         font-size: 0.75rem;
         font-weight: 600;
-        padding: 0.2rem 0.6rem;
+        padding: 0.2rem 0.65rem;
         border-radius: 9999px;
-        background: rgba(59, 130, 246, 0.2);
-        color: #60a5fa;
-        border: 1px solid rgba(59, 130, 246, 0.4);
+        background: rgba(0, 57, 101, 0.08);
+        color: #003965;
+        border: 1px solid rgba(0, 57, 101, 0.2);
       }
       .svc-badge.svc-mandatory {
-        background: rgba(239, 68, 68, 0.18);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.4);
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
         animation: svc-pulse 2s infinite;
       }
       @keyframes svc-pulse {
@@ -120,15 +148,16 @@
         50% { opacity: 0.65; }
       }
       .svc-body {
-        padding: 1.25rem 1.5rem;
+        padding: 1.15rem 1.5rem;
+        background: #ffffff;
       }
       .svc-description {
         margin: 0;
         font-size: 0.925rem;
         line-height: 1.55;
-        color: #cbd5e1;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: #475569;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         padding: 0.85rem 1rem;
         border-radius: 10px;
         max-height: 160px;
@@ -137,13 +166,13 @@
       .svc-mandatory-alert {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.65rem;
         margin-top: 0.85rem;
-        padding: 0.75rem 0.9rem;
-        background: rgba(239, 68, 68, 0.12);
-        border: 1px solid rgba(239, 68, 68, 0.3);
+        padding: 0.75rem 0.95rem;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
         border-radius: 10px;
-        color: #fca5a5;
+        color: #c2410c;
         font-size: 0.84rem;
         font-weight: 500;
       }
@@ -151,13 +180,16 @@
         min-width: 18px;
         width: 18px;
         height: 18px;
+        color: #ea580c;
       }
       .svc-actions {
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
+        padding: 1rem 1.5rem 1.35rem 1.5rem;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         gap: 0.75rem;
+        background: #fbfcfe;
+        border-top: 1px solid #edf2f7;
       }
       .svc-btn {
         padding: 0.65rem 1.25rem;
@@ -165,48 +197,53 @@
         font-size: 0.9rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         border: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         outline: none;
+        font-family: inherit;
       }
       .svc-btn:focus-visible {
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        box-shadow: 0 0 0 3px rgba(0, 57, 101, 0.25);
       }
       .svc-btn-dismiss {
-        background: transparent;
-        color: #94a3b8;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: #ffffff;
+        color: #64748b;
+        border: 1px solid #cbd5e1;
       }
       .svc-btn-dismiss:hover:not(:disabled) {
-        background: rgba(255, 255, 255, 0.07);
-        color: #f1f5f9;
+        background: #f1f5f9;
+        color: #1e293b;
+        border-color: #94a3b8;
       }
       .svc-btn-dismiss:disabled {
-        opacity: 0.35;
+        opacity: 0.45;
         cursor: not-allowed;
-        background: rgba(255, 255, 255, 0.02);
-        border-color: rgba(255, 255, 255, 0.05);
-        color: #64748b;
+        background: #f8fafc;
+        border-color: #e2e8f0;
+        color: #94a3b8;
         pointer-events: none;
       }
       .svc-btn-update {
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        background: linear-gradient(135deg, #003965 0%, #004d88 100%);
         color: #ffffff;
-        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        box-shadow: 0 4px 14px rgba(0, 57, 101, 0.25);
       }
       .svc-btn-update:hover {
-        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        background: linear-gradient(135deg, #002d50 0%, #003e6e 100%);
         transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+        box-shadow: 0 6px 18px rgba(0, 57, 101, 0.35);
+      }
+      .svc-btn-update:active {
+        transform: translateY(0);
       }
       .svc-spinner {
         display: inline-block;
         width: 14px;
         height: 14px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.35);
         border-radius: 50%;
         border-top-color: #ffffff;
         animation: svc-spin 0.8s linear infinite;
@@ -274,19 +311,20 @@
 
     modal.innerHTML = `
       <div class="svc-card">
+        <div class="svc-top-bar"></div>
         <div class="svc-header">
           <div class="svc-icon-wrapper">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
+            <img 
+              src="sahyadri_logo.webp" 
+              alt="Sahyadri Consultants" 
+              class="svc-brand-logo" 
+              onerror="if(!this.dataset.retry){this.dataset.retry=1;this.src='/sahyadri_logo.webp';}"
+            />
           </div>
           <div class="svc-header-text">
             <h3 id="svc-modal-title">${escapeHtml(titleText)}</h3>
             <div class="svc-badges">
               <span class="svc-badge">${escapeHtml(versionText)}</span>
-              ${isMandatory ? '<span class="svc-badge svc-mandatory">⚠️ Mandatory Update</span>' : ''}
             </div>
           </div>
         </div>

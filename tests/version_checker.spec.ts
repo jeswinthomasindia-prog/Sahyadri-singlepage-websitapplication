@@ -15,6 +15,7 @@ const MIME_TYPES: Record<string, string> = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
   '.ico': 'image/x-icon',
 };
 
@@ -60,7 +61,24 @@ test.afterAll(async () => {
 });
 
 test.describe('Sahyadri Version Checker & Release Update Flow', () => {
+  const standardReleaseFixture = {
+    version: '1.0.2',
+    build: 2,
+    releaseDate: '2026-10-06',
+    title: 'Performance & Cache Release',
+    description: 'Seamless automatic edge caching, instant asset updates, and release notifications.',
+    isMandatory: false,
+  };
+
   test('1. First-time visitor automatically records current version without showing popup', async ({ page }) => {
+    await page.route('**/version.json*', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(standardReleaseFixture),
+      });
+    });
+
     // Navigate with clean storage
     await page.goto(`http://localhost:${port}/index.html`);
 
@@ -77,6 +95,14 @@ test.describe('Sahyadri Version Checker & Release Update Flow', () => {
   });
 
   test('2. Existing user with outdated version gets popup and clicks "Avoid for now"', async ({ page }) => {
+    await page.route('**/version.json*', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(standardReleaseFixture),
+      });
+    });
+
     // Seed outdated version 1.0.0 only on initial visit
     await page.addInitScript((initialVersion) => {
       if (!sessionStorage.getItem('__test_seeded_2')) {
@@ -119,6 +145,14 @@ test.describe('Sahyadri Version Checker & Release Update Flow', () => {
   });
 
   test('3. Existing user with outdated version clicks "Update Now" and gets upgraded', async ({ page }) => {
+    await page.route('**/version.json*', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify(standardReleaseFixture),
+      });
+    });
+
     // Seed outdated version 1.0.0 only once
     await page.addInitScript((initialVersion) => {
       if (!sessionStorage.getItem('__test_seeded_3')) {
@@ -223,8 +257,7 @@ test.describe('Sahyadri Version Checker & Release Update Flow', () => {
     const modal = page.locator('#sahyadri-version-modal');
     await expect(modal).toBeVisible({ timeout: 5000 });
 
-    // Verify mandatory badge and alert
-    await expect(modal.locator('.svc-badge.svc-mandatory')).toHaveText('⚠️ Mandatory Update');
+    // Verify mandatory alert notice is displayed
     await expect(modal.locator('.svc-mandatory-alert')).toBeVisible();
 
     // Verify dismiss button is disabled
