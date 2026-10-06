@@ -1,8 +1,8 @@
 {
-  "version": "1.0.8",
-  "build": 8,
+  "version": "1.0.9",
+  "build": 9,
   "releaseDate": "2026-10-06",
   "title": "Cache Fix",
-  "description": "Fixing issue in pushing new version to users 8th",
-  "isMandatory": true
+  "description": "Fixing issue in pushing new version to users 9th",
+  "isMandatory": false
 }
