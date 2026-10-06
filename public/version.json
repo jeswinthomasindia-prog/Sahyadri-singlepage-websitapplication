@@ -1,0 +1,8 @@
+{
+  "version": "1.0.2",
+  "build": 2,
+  "releaseDate": "2026-10-06",
+  "title": "Performance & Cache Release",
+  "description": "Seamless automatic edge caching, instant asset updates, and release notifications.",
+  "isMandatory": false
+}
