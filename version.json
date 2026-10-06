@@ -1,8 +1,8 @@
 {
-  "version": "1.0.11",
-  "build": 10,
+  "version": "1.0.12",
+  "build": 12,
   "releaseDate": "2026-10-06",
-  "title": "Cache Fix",
-  "description": "Fixing issue in pushing new version to users 11th",
+  "title": "Sahyadri's New Update Available",
+  "description": "Fixing issue in pushing new version to users 12th",
   "isMandatory": true
 }
